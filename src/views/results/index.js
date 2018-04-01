@@ -9,9 +9,6 @@ import FilterBox from '../../components/FilterBox';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
 import queryString from 'query-string';
-import {
-    formatFilters,
-} from '../../utilities'
 import './index.css';
 
 //NOTE: Maybe the searching spinner should happen on the search page and this page only rendered
@@ -31,6 +28,7 @@ class Results extends React.PureComponent {
         // potentially the new search bar if we go down that road.
         const unparsedQueryString = this.props.location.search;
         this.props.newSearch(unparsedQueryString);
+        
         //After the search concludes we want to update the state of the page filters based on the 
         // parsed query string. Controlling that flow is an as yet unanswered implementation question.
         // For now we can draw the filters initially based on whatever is in the currentFacets box and
@@ -49,12 +47,14 @@ class Results extends React.PureComponent {
     // }
 
     // This is going to be a highly idiosyncratic process of normalizing the data
+    // TODO: Add in click handler to submit new filter change event
     renderSelectedFilters = () => {
         const selected = Object.values(this.props.facets).reduce((acc, facet) => {
-            const filters = facet.items.reduce((acc, filter) => {
+            const filters = Object.entries(facet.items).reduce((acc, [key, filter]) => {
                 if(filter.selected) {
                     const filterContext = {
                         ...filter,
+                        key,
                         title: facet.title,
                         param: facet.param,
                     }
@@ -78,20 +78,22 @@ class Results extends React.PureComponent {
     // TODO: When the returned query populates the local state flags for filters, refactor this to render
     // based on those filter flags, not the raw results
     renderToolTypes = () => {
-        const toolTypesFacet = this.props.facets['toolTypes'];
-        const toolTypes = this.props.facets['toolTypes'].items;
-        const isToolTypeSelected = toolTypes.some(el => el.selected);
-        return !isToolTypeSelected
-            ?   <FilterBox 
-                    className="tool-types"
-                    facet={ this.props.facets['toolTypes'] }
-                />
-            : this.props.facets['st'] && this.props.facets['st'].items
-            ?   <FilterBox
-                    className="subtool-types"
-                    facet={ this.props.facets['st'] }
-                />
-            : null
+        if(this.props.facets['toolTypes.type']) {
+            const toolTypesTypeFilters = this.props.facets['toolTypes.type'].items;
+            const isToolTypeSelected = Object.entries(toolTypesTypeFilters).some(([key, obj]) => obj.selected);
+            return !isToolTypeSelected
+                ?   <FilterBox 
+                        className="tool-types"
+                        facet={ this.props.facets['toolTypes.type'] }
+                    />
+                : this.props.facets['toolTypes.subtype'] && this.props.facets['toolTypes.subtype'].items
+                ?   <FilterBox
+                        className="subtool-types"
+                        facet={ this.props.facets['toolTypes.subtype'] }
+                    />
+                : null //TODO: Redundant, rework
+        }
+        return null;
     }
 
     render() {
@@ -125,10 +127,10 @@ class Results extends React.PureComponent {
                                 */}
                                 { this.renderToolTypes() }
                                 <FilterBox 
-                                    facet={ this.props.facets['ra'] }
+                                    facet={ this.props.facets['researchAreas'] }
                                 />
                                 <FilterBox 
-                                    facet={ this.props.facets['rt'] }
+                                    facet={ this.props.facets['researchTypes'] }
                                 />
                             </div>
                             <div className="results-container">

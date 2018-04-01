@@ -5,7 +5,7 @@ import './BrowseBox.css';
 
 class BrowseBox extends React.PureComponent {
     static propTypes = {
-        facetFilters: PropTypes.array.isRequired,
+        facetFilters: PropTypes.object.isRequired,
         className: PropTypes.string,
         searchFunction: PropTypes.func.isRequired,
         filterType: PropTypes.string.isRequired,
@@ -19,15 +19,15 @@ class BrowseBox extends React.PureComponent {
         return(
             <div className={`browse-tiles__container ${this.props.className ? `browse-tiles__container--${ this.props.className }` : '' }`}>
                 {
-                    this.props.facetFilters.map((filter, idx) => {
+                    Object.entries(this.props.facetFilters).map(([key, { label }], idx) => {
                         return (
                             <BrowseTile
                                 key={ idx }
-                                label={ filter.label }
+                                label={ label }
                                 onClick={ 
                                     this.props.searchFunction({
                                         filterType: this.props.filterType,
-                                        filter: filter.key
+                                        filter: key
                                     })
                                 }
                             />

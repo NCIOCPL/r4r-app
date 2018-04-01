@@ -61,8 +61,8 @@ class Home extends React.PureComponent {
                 {
                     this.props.referenceFacets &&
                     <BrowseBox
-                        facetFilters={ this.props.referenceFacets.facets['toolType.type'].items }
-                        filterType={ 'toolType.type' }
+                        facetFilters={ this.props.referenceFacets['toolTypes.type'].items }
+                        filterType={ 'toolTypes.type' }
                         className='tool-types'
                         searchFunction={ this.newFilterSearch }
                     />
@@ -72,7 +72,7 @@ class Home extends React.PureComponent {
                 {
                     this.props.referenceFacets &&
                     <BrowseBox
-                        facetFilters={ this.props.referenceFacets.facets['researchAreas'].items }
+                        facetFilters={ this.props.referenceFacets['researchAreas'].items }
                         filterType={ 'researchAreas'}
                         className='research-areas'
                         searchFunction={ this.newFilterSearch }

@@ -1,6 +1,8 @@
+// All API parsing and formatting will be centralized so that future changes to the API only
+// need to be handled here. The app will always expect a certain structure.
+
 export const formatFilters = (filterType, resource = {}) => {
-    console.log(resource)
-    return resource[filterType].items.map(filter => {
+    return resource[filterType].map(filter => {
         // Have to handle special case of type/subtypes for tooltypes
         // This isn't elegant, but hopefully readable
         if(filter.type) {
@@ -17,6 +19,34 @@ export const formatFilters = (filterType, resource = {}) => {
             label: filter.label,
         }
     })
+}
+
+export const formatRawResourcesFacets = rawFacets => {
+    const formattedFacets = rawFacets.reduce((acc, facetType) => {
+        const facetTypeFilters = facetType.items.reduce((acc, filter) => {
+            const {
+                key,
+                label,
+                count,
+                selected,
+            } = filter;
+
+            acc[key] = {
+                label,
+                count,
+                selected
+            };
+            return acc;
+        }, {})
+
+        acc[facetType.param] = {
+            title: facetType.title,
+            items: facetTypeFilters,
+        };
+        return acc;
+    }, {});
+
+    return formattedFacets;
 }
 
 export const composeQueryText = rawText => {
