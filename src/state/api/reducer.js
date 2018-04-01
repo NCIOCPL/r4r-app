@@ -5,6 +5,7 @@ import {
     FETCHING_STATUS,
     CACHE_RESOURCE,
     LOAD_RESOURCE,
+    UPDATE_FILTER,
 } from './actions'
 
 const initialState = {
@@ -27,6 +28,27 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case UPDATE_FILTER:
+        const {
+            filterType,
+            filter
+        } = action.payload
+            return {
+                ...state,
+                currentFacets: {
+                    ...state.currentFacets,
+                    [filterType]: {
+                        ...state.currentFacets[filterType],
+                        items: {
+                            ...state.currentFacets[filterType].items,
+                            [filter]: {
+                                ...state.currentFacets[filterType].items[filter],
+                                selected: !state.currentFacets[filterType].items[filter].selected,
+                            }
+                        }
+                    }
+                }
+            }
         case CACHE_RESOURCE:
             return {
                 ...state,

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { 
     newSearch,
-    captureFilterState, 
+    captureFilterState,
+    updateFilter,
 } from '../../state/api/actions';
 import FilterBox from '../../components/FilterBox';
 import ResultTile from '../../components/ResultTile';
@@ -18,45 +19,28 @@ import './index.css';
 // TOOL SUBTYPE CREATES A LOT OF IDIOSYNCRATIC ISSUES FOR AN EXTENSIBLE APPROACH. SHOULD BE A FLAT HIERARCHY!
 
 class Results extends React.PureComponent {
-    componentDidMount() {
-        // Check to see if a cached query string exists and commensurate results.
-        // Populate from those if possible.
-        // Otherwise:
-        // We will want to execute a search based on the query params when the component mounts
-        // Most of the page will be dynamically rendered based on the results object in the store
-        // This includes the state of the filters, the state of the pager, the filters tiles, and
-        // potentially the new search bar if we go down that road.
-        const unparsedQueryString = this.props.location.search;
-        this.props.newSearch(unparsedQueryString);
-        
-        //After the search concludes we want to update the state of the page filters based on the 
-        // parsed query string. Controlling that flow is an as yet unanswered implementation question.
-        // For now we can draw the filters initially based on whatever is in the currentFacets box and
-        // then redraw when it changes 
-        const params = this.parseAndSetQueryStringParamsAsFilters(unparsedQueryString);
 
-    }
     
     parseAndSetQueryStringParamsAsFilters = unparsedQueryString => {
         const params = queryString.parse(unparsedQueryString);
         return params;
     }
 
-    // getDerivedStateFromProps(nextProps, nextState) {
-    //     console.log(nextProps)
-    // }
+    toggleFilter = (filterType) => (filterKey) => () => {
+        this.props.updateFilter(filterType, filterKey);
+    }
 
     // This is going to be a highly idiosyncratic process of normalizing the data
     // TODO: Add in click handler to submit new filter change event
     renderSelectedFilters = () => {
-        const selected = Object.values(this.props.facets).reduce((acc, facet) => {
+        const selected = Object.entries(this.props.facets).reduce((acc, [param, facet]) => {
             const filters = Object.entries(facet.items).reduce((acc, [key, filter]) => {
                 if(filter.selected) {
                     const filterContext = {
                         ...filter,
                         key,
                         title: facet.title,
-                        param: facet.param,
+                        param,
                     }
                     return [...acc, filterContext]
                 }
@@ -69,6 +53,7 @@ class Results extends React.PureComponent {
             <div 
                 key={ idx }
                 className="selected-filters__filter"
+                onClick={ this.toggleFilter(filter.param)(filter.key) }
             >
                 <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
             </div>
@@ -77,6 +62,8 @@ class Results extends React.PureComponent {
 
     // TODO: When the returned query populates the local state flags for filters, refactor this to render
     // based on those filter flags, not the raw results
+
+    //TODO: Pass the facet type and facets separately and handle the logic of rendering there
     renderToolTypes = () => {
         if(this.props.facets['toolTypes.type']) {
             const toolTypesTypeFilters = this.props.facets['toolTypes.type'].items;
@@ -85,15 +72,39 @@ class Results extends React.PureComponent {
                 ?   <FilterBox 
                         className="tool-types"
                         facet={ this.props.facets['toolTypes.type'] }
+                        onChange={ this.toggleFilter('toolTypes.type') }
                     />
                 : this.props.facets['toolTypes.subtype'] && this.props.facets['toolTypes.subtype'].items
                 ?   <FilterBox
                         className="subtool-types"
                         facet={ this.props.facets['toolTypes.subtype'] }
+                        onChange={ this.toggleFilter('toolTypes.subtype') }
                     />
                 : null //TODO: Redundant, rework
         }
         return null;
+    }
+
+    componentDidMount() {
+        // Check to see if a cached query string exists and commensurate results.
+        // Populate from those if possible.
+        // Otherwise:
+        // We will want to execute a search based on the query params when the component mounts
+        // Most of the page will be dynamically rendered based on the results object in the store
+        // This includes the state of the filters, the state of the pager, the filters tiles, and
+        // potentially the new search bar if we go down that road.
+        const unparsedQueryString = this.props.location.search;
+        this.props.newSearch(unparsedQueryString);
+
+        //After the search concludes we want to update the state of the page filters based on the 
+        // parsed query string. Controlling that flow is an as yet unanswered implementation question.
+        // For now we can draw the filters initially based on whatever is in the currentFacets box and
+        // then redraw when it changes 
+        const params = this.parseAndSetQueryStringParamsAsFilters(unparsedQueryString);
+    }
+
+    getDerivedStateFromProps(nextProps, nextState) {
+        console.log(nextProps)
     }
 
     render() {
@@ -128,9 +139,11 @@ class Results extends React.PureComponent {
                                 { this.renderToolTypes() }
                                 <FilterBox 
                                     facet={ this.props.facets['researchAreas'] }
+                                    onChange={ this.toggleFilter('researchAreas') }
                                 />
                                 <FilterBox 
                                     facet={ this.props.facets['researchTypes'] }
+                                    onChange={ this.toggleFilter('researchTypes') }
                                 />
                             </div>
                             <div className="results-container">
@@ -167,6 +180,7 @@ const mapStateToProps = ({ api }) => ({
 const mapDispatchToProps = {
     newSearch,
     captureFilterState,
+    updateFilter,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Results));

@@ -4,8 +4,9 @@ import {
     formatRawResourcesFacets,
 } from '../../utilities';
 
-export const CACHE_RESOURCE = "CACHE RESOURCE";
+export const UPDATE_FILTER = "UPDATE FILTER";
 export const LOAD_RESOURCE = "LOAD RESOURCE";
+export const CACHE_RESOURCE = "CACHE RESOURCE";
 export const FETCHING_STATUS = "FETCHING STATUS";
 export const LOAD_NEW_FACET_RESULTS = "LOAD NEW FACET RESULTS";
 export const LOAD_NEW_SEARCH_RESULTS = "LOAD NEW SEARCH RESULTS";
@@ -39,6 +40,14 @@ const cacheNewSearchResults = results => ({
 const loadNewFacetResults = results => ({
     type: LOAD_NEW_FACET_RESULTS,
     payload: results,
+})
+
+export const updateFilter = (filterType, filter) => ({
+    type: UPDATE_FILTER,
+    payload: {
+        filterType,
+        filter,
+    }
 })
 
 // When the home page loads, we want to fetch all available facets to use for dynamically
@@ -151,366 +160,23 @@ export const fetchResource = resourceId => (dispatch, getState) => {
     }, 2000)
 }
 
+export const updateFilterAsync = () => (dispatch, getState) => {
+    //1) Update filter
+
+    // For now this is in the componentwillreceivenewprops
+    //2) Get New State
+    //3) Parse state into queryString
+    //4) Fire off newSearch
+
+}
+
 export const captureFilterState = () => (dispatch, getState) => {
     const store = getState();
     const filterStates = store.api.currentFacets;
     console.log(filterStates)
 }
 
-// const dummyResults = {
-//     results: [
-//         {
-//             id: '123',
-//             title: 'Chernobyl Tissue Bank',
-//             website: 'https://en.wikipedia.org/wiki/Chernobyl',
-//             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-//             pocs: [
-//                 {
-//                     name: {
-//                         prefix: 'Dr.',
-//                         firstName: 'James',
-//                         middleName: 'Randy',
-//                         lastName: 'Knowlton',
-//                         suffix: 'Ph.D.',
-//                     },
-//                     title: 'Program Director',
-//                     phone: '240-276-6210',
-//                     email: 'Jk339o@nih.gov',
-//                 },
-//             ],
-//             resourceAccess: {
-//                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-//                 notes: 'Registrants will have to provide grantee institution name.',
-//             },
-//             // Make component for these things.
-//             // The click event should be passed though, so that on the resource page it can trigger a new search
-//             // with just the filter, and on other pages it triggers a full-filter and text search.
-//             toolTypes: [
-    
-//             ],
-//             researchAreas: [
-    
-//             ],
-//             researchTypes: [
-    
-//             ]
-//         },
-//         {
-//             id: '123',
-//             title: 'Chernobyl Tissue Bank',
-//             website: 'https://en.wikipedia.org/wiki/Chernobyl',
-//             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-//             pocs: [
-//                 {
-//                     name: {
-//                         prefix: 'Dr.',
-//                         firstName: 'James',
-//                         middleName: 'Randy',
-//                         lastName: 'Knowlton',
-//                         suffix: 'Ph.D.',
-//                     },
-//                     title: 'Program Director',
-//                     phone: '240-276-6210',
-//                     email: 'Jk339o@nih.gov',
-//                 },
-//             ],
-//             resourceAccess: {
-//                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-//                 notes: 'Registrants will have to provide grantee institution name.',
-//             },
-//             // Make component for these things.
-//             // The click event should be passed though, so that on the resource page it can trigger a new search
-//             // with just the filter, and on other pages it triggers a full-filter and text search.
-//             toolTypes: [
-    
-//             ],
-//             researchAreas: [
-    
-//             ],
-//             researchTypes: [
-    
-//             ]
-//         },
-//         {
-//             id: '123',
-//             title: 'Chernobyl Tissue Bank',
-//             website: 'https://en.wikipedia.org/wiki/Chernobyl',
-//             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-//             pocs: [
-//                 {
-//                     name: {
-//                         prefix: 'Dr.',
-//                         firstName: 'James',
-//                         middleName: 'Randy',
-//                         lastName: 'Knowlton',
-//                         suffix: 'Ph.D.',
-//                     },
-//                     title: 'Program Director',
-//                     phone: '240-276-6210',
-//                     email: 'Jk339o@nih.gov',
-//                 },
-//             ],
-//             resourceAccess: {
-//                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-//                 notes: 'Registrants will have to provide grantee institution name.',
-//             },
-//             // Make component for these things.
-//             // The click event should be passed though, so that on the resource page it can trigger a new search
-//             // with just the filter, and on other pages it triggers a full-filter and text search.
-//             toolTypes: [
-    
-//             ],
-//             researchAreas: [
-    
-//             ],
-//             researchTypes: [
-    
-//             ]
-//         },
-//         {
-//             id: '123',
-//             title: 'Chernobyl Tissue Bank',
-//             website: 'https://en.wikipedia.org/wiki/Chernobyl',
-//             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-//             pocs: [
-//                 {
-//                     name: {
-//                         prefix: 'Dr.',
-//                         firstName: 'James',
-//                         middleName: 'Randy',
-//                         lastName: 'Knowlton',
-//                         suffix: 'Ph.D.',
-//                     },
-//                     title: 'Program Director',
-//                     phone: '240-276-6210',
-//                     email: 'Jk339o@nih.gov',
-//                 },
-//             ],
-//             resourceAccess: {
-//                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-//                 notes: 'Registrants will have to provide grantee institution name.',
-//             },
-//             // Make component for these things.
-//             // The click event should be passed though, so that on the resource page it can trigger a new search
-//             // with just the filter, and on other pages it triggers a full-filter and text search.
-//             toolTypes: [
-    
-//             ],
-//             researchAreas: [
-    
-//             ],
-//             researchTypes: [
-    
-//             ]
-//         },
-//     ],
-//     //The tooltype itself should have a flag for selected so we can more easily jump to subtool type.
-//     facets: {
-//         'toolTypes': {
-//             title: 'Tool Type',
-//             param: 'toolType.type',
-//             items:	[
-//                 {
-//                     key: 'sdsdff5asdf',
-//                     label: 'Reagents',
-//                     count: '12',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'sdf234asdf',
-//                     label: 'Biospecimen',
-//                     count: '4',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'sdfa2sdfasdf',
-//                     label: 'Assays',
-//                     count:'2',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'weqwd',
-//                     label: 'Cell lines',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: '3neui7u',
-//                     label: 'Protocols',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'uytbr45',
-//                     label: 'Animal models',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'n79nmds',
-//                     label: 'Plant Samples',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'm99unn',
-//                     label: 'Vectors',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//             ]                
-//         },
-//         'st': {
-//             title: 'Subtool Type',
-//             param: 'st',
-//             items:	[
-//                 {
-//                     key: 'sdsdff5asdf',
-//                     label: 'Reagents',
-//                     count: '12',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'sdf234asdf',
-//                     label: 'Biospecimen',
-//                     count: '4',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'sdfa2sdfasdf',
-//                     label: 'Assays',
-//                     count:'2',
-//                     selected: true,
-//                 },
-//                 {
-//                     key: 'weqwd',
-//                     label: 'Cell lines',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: '3neui7u',
-//                     label: 'Protocols',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'uytbr45',
-//                     label: 'Animal models',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'n79nmds',
-//                     label: 'Plant Samples',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'm99unn',
-//                     label: 'Vectors',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//             ]                
-//         },
-//         'ra': {
-//             title: 'Research Area',
-//             param: 'ra',
-//             items:	[
-//                 {
-//                     key: '1234',
-//                     label: 'Cancer Treatment',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: '32423',
-//                     label: 'Cancer Biology',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: '4',
-//                     label: 'Cancer Omics',
-//                     count: '1',
-//                     selected: true,
-//                 },
-//                 {
-//                     key: '23423',
-//                     label: 'Screening & Detection',
-//                     count: '12',
-//                     selected: true,
-//                 },
-//                 {
-//                     key: '656u5',
-//                     label: 'Cancer Health Disparities',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: '5ge5',
-//                     label: 'Cancer & Public Health',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: '5bferd',
-//                     label: 'Cancer Statistics',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'okjyu7',
-//                     label: 'Cancer Diagnosis',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: '4crc',
-//                     label: 'Cancer Screening & Detection',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'lkjhg',
-//                     label: 'Causes of Cancer',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'cderfd',
-//                     label: 'Cancer Survivorship',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//                 {
-//                     key: 'dftre',
-//                     label: 'Cancer Prevention',
-//                     count: '1',
-//                     selected: false,
-//                 },
-//             ]  
-//         },
-//         'rt': {
-//             title: 'Research Type',
-//             param: 'rt',
-//             items:	[
-//                 {
-//                     key: '',
-//                     label: 'Bananas R Us',
-//                     count: '1',
-//                     selected: true,
-//                 },
-//             ]  
-//         }
-//     }
-// }
-    //We might want to reshape this into a hashmap for easier access by the render methods
-    // eg:
-    // facets.reduce((map, facet) => { map[facet.param] = facet; return map}, {})
-    // Then we won't have to search the array everytime we want to know what facets are available
-    // or grab a particular facet AS ABOVE ^
+
 const dummyResults = {
     results: [
         {
@@ -678,6 +344,24 @@ const dummyResults = {
             ]
         },
         {
+            "title": "Subtool Types",
+            "param": "toolTypes.subtype",
+            "items": [
+                {
+                    "key": "datasets_databases",
+                    "label": "Datasets & Databases",
+                    "count": '10',  //TODO: Convert to number
+                    "selected": false //TODO: Convert to bool
+                },
+                {
+                    "key": "lab_tools",
+                    "label": "Lab Tools",
+                    "count": '27',
+                    "selected": false
+                },			
+            ]
+        },
+        {
             "title": "Research Areas",
             "param": "researchAreas",
             "items": [
@@ -685,7 +369,7 @@ const dummyResults = {
                     "key": "cancer_prevention",
                     "label": "Cancer Prevention",
                     "count": '32',
-                    "selected": false
+                    "selected": true
                 },
                 {
                     "key": "cancer_genomics",
@@ -693,56 +377,41 @@ const dummyResults = {
                     "count": '2',
                     "selected": false
                 },
+                {
+                    'key': 'cancer_treatment',
+                    'label': 'Cancer Treatment',
+                    'count': '1',
+                    'selected': false,
+                },
+                {
+                    'key': 'cancer_biology',
+                    'label': 'Cancer Biology',
+                    'count': '1',
+                    'selected': false,
+                },
+                {
+                    'key': 'cancer_omics',
+                    'label': 'Cancer Omics',
+                    'count': '1',
+                    'selected': true,
+                },
+                
             ]
+        },
+        {
+            'title': 'Research Types',
+            'param': 'researchTypes',
+            'items':	[
+                {
+                    'key': 'bananas',
+                    'label': 'Bananas R Us',
+                    'count': '1',
+                    'selected': true,
+                },
+            ]  
         }
 	]
 }
-
-// This represents a post-processed hash of the facets
-// const dummyFacetResults = {
-// 	"meta": {
-// 		"totalResults": 168
-// 	},
-// 	"results": [],
-// 	"facets": {
-//         "toolType.type": {
-//             "title": "Tool Types",
-//             "param": "toolType.type",
-//             "items": [
-//                 {
-//                     "key": "datasets_databases",
-//                     "label": "Datasets & Databases",
-//                     "count": 10,
-//                     "selected": false
-//                 },
-//                 {
-//                     "key": "lab_tools",
-//                     "label": "Lab Tools",
-//                     "count": 27,
-//                     "selected": false
-//                 },			
-//             ]
-//         },
-//         "researchAreas": {
-//             "title": "Research Areas",
-//             "param": "researchAreas",
-//             "items": [
-//                 {
-//                     "key": "cancer_prevention",
-//                     "label": "Cancer Prevention",
-//                     "count": 32,
-//                     "selected": false
-//                 },
-//                 {
-//                     "key": "cancer_genomics",
-//                     "label": "Cancer Genomics",
-//                     "count": 2,
-//                     "selected": false
-//                 },
-//             ]
-//         },
-//     }
-// }
 
 // Pre-processed
 const dummyFacetResults = {

@@ -30,7 +30,7 @@ class FilterBox extends React.PureComponent {
                                 label={ label }
                                 checked={ selected }
                                 count={ count }
-                                onChange={ this.onChange }
+                                onChange={ this.props.onChange(key) }
                                 className={ 'facet__filter'}
                             />
                         ))
