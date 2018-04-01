@@ -1,0 +1,31 @@
+.r4r-home {
+    width: 1000px;
+    padding-left: 10px;
+}
+
+.r4r__link--about {
+    display: block;
+    height: 45px;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #444;
+    border-radius: 10px;
+
+}
+
+.r4r-home .r4r__link--about {
+    margin: 20px 0;
+    margin-left: auto;
+}
+
+.r4r-home .search {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.r4r__view-all {
+    cursor: pointer;
+    color: #169bd5;
+}

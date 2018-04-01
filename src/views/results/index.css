@@ -1,0 +1,122 @@
+.results__count-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.results__count-container h2:first-child::after {
+    content: '|';
+    margin: 0 10px;
+}
+
+.results__selected-filters {
+    margin: 20px 0;
+    display: flex;
+}
+
+.selected-filters__header {
+    width: 150px;
+}
+
+.selected-filters__filters-container {
+    flex: 1;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+}
+
+.selected-filters__filter {
+    color: white;
+    background: #169bd5;
+    padding: 7px;
+    margin: 5px 10px;
+    border-radius: 8px;
+}
+
+.selected-filters__filter p {
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.selected-filters__filter p span {
+    font-weight: normal;
+}
+
+.dummy-flex-search-container {
+    display: flex;
+}
+
+.results__facets {
+    width: 320px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.facet__box {
+    width: 95%;
+    display: flex;
+    flex-flow: column nowrap;
+    box-shadow: 0 0 1px rgba(0,0,0,0.1);
+}
+
+.facet__title {
+    background: rgba(0,0,0,0.1);
+    padding: 10px;
+}
+
+.facet__box .facet__filter {
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.facet__filter {
+    cursor: pointer;
+}
+
+.facet__filter .filter__checkbox {
+    margin-right: 10px;
+}
+
+/* Tooltypes aren't really a checkbox, we disguise that with styling */
+
+.facet__box.facet__box--tool-types .filter__checkbox{
+    display: none;
+}
+
+.facet__box.facet__box--tool-types .filter__label {
+    color: #169bd5;
+}
+
+.facet__box.facet__box--tool-types .filter__label:hover {
+    text-decoration: underline;
+}
+
+/* TODO: This is working, figure out why */
+.facet__box.facet__box--tool-types .filter__label:active {
+    color: #0e5f82;
+}
+
+/* TODO: rename the results!! better naming scheme needed */
+
+.results-container {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.results-container .result-tile {
+    margin: 10px 40px;
+}
+
+.result-tile {
+    padding: 10px;
+    background: #fafafa;
+    box-shadow: 0 0 1px rgba(0,0,0,0.2), 0 15px 15px -15px rgba(0,0,0,0.4);
+}
+
+.result-tile p {
+    line-height: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

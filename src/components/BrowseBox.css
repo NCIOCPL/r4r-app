@@ -1,0 +1,7 @@
+.browse-tiles__container {
+    display: flex;
+}
+
+.browse-tiles__container .browse__tile {
+    margin: 20px;
+}

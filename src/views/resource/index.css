@@ -1,0 +1,11 @@
+.similar-resource__container {
+    display: flex;
+}
+
+.similar-resource__tile {
+    color: white;
+    background: #169bd5;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 7px;
+}
