@@ -109,14 +109,12 @@ class Results extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        // Watch only for changes to the filters
         if(prevProps.facets && this.props.facets !== prevProps.facets) {
             console.log('Filters have been updated')
-            // Generate newQueryString based on filterState
-
-            
-            const paramsObject= transformFacetFiltersIntoParamsObject(this.props.facets);
+            // Generate new search based on current filters state
+            const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
             this.props.newSearch(paramsObject);
-            // Execute newSearch based on queryString
         }
     }
 

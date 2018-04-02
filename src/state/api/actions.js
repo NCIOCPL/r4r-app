@@ -7,7 +7,7 @@ import {
 
 export const UPDATE_FILTER = "UPDATE FILTER";
 export const LOAD_RESOURCE = "LOAD RESOURCE";
-export const CACHE_RESOURCE = "CACHE RESOURCE";
+export const CACHE_RESOURCES = "CACHE RESOURCES";
 export const FETCHING_STATUS = "FETCHING STATUS";
 export const LOAD_NEW_FACET_RESULTS = "LOAD NEW FACET RESULTS";
 export const LOAD_NEW_SEARCH_RESULTS = "LOAD NEW SEARCH RESULTS";
@@ -20,10 +20,17 @@ const setFetchingStatus = status => ({
     payload: status,
 })
 
-const cacheResource = resource => ({
-    type: CACHE_RESOURCE,
-    payload: resource,
-})
+const cacheResources = resources => {
+    const processedResources = resources.reduce((acc, resource) => {
+        acc[resource.id] = resource;
+        return acc
+    }, {});
+    
+    return {
+        type: CACHE_RESOURCES,
+        payload: processedResources,
+    }
+}
 
 const loadResource = resource => ({
     type: LOAD_RESOURCE,
@@ -143,6 +150,7 @@ export const newSearch = searchParams => (dispatch, getState) => {
         }
 
         dispatch(cacheNewSearchResults(resultsToCache));
+        dispatch(cacheResources(dummyResults.results));
         dispatch(setCurrentSearchQueryString(newQueryString))
         dispatch(loadNewSearchResults(processedResults));
         dispatch(setFetchingStatus(false));
@@ -172,7 +180,7 @@ export const fetchResource = resourceId => (dispatch, getState) => {
     setTimeout(() => {
         //TODO: 1) Fetch resource
         console.log('Resource not cached, fetching from db')
-        dispatch(cacheResource(dummyResourceResult));
+        dispatch(cacheResources([dummyResourceResult]));
         dispatch(loadResource(dummyResourceResult));
     }, 2000)
 }
@@ -216,7 +224,7 @@ const dummyResults = {
             ]
         },
         {
-            id: '123',
+            id: '456',
             title: 'Chernobyl Tissue Bank',
             website: 'https://en.wikipedia.org/wiki/Chernobyl',
             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
@@ -252,7 +260,7 @@ const dummyResults = {
             ]
         },
         {
-            id: '123',
+            id: '789',
             title: 'Chernobyl Tissue Bank',
             website: 'https://en.wikipedia.org/wiki/Chernobyl',
             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
@@ -288,7 +296,7 @@ const dummyResults = {
             ]
         },
         {
-            id: '123',
+            id: '07734',
             title: 'Chernobyl Tissue Bank',
             website: 'https://en.wikipedia.org/wiki/Chernobyl',
             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',

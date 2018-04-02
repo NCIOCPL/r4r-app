@@ -5,7 +5,7 @@ import {
     CACHE_NEW_SEARCH_RESULTS,
     LOAD_NEW_FACET_RESULTS,
     FETCHING_STATUS,
-    CACHE_RESOURCE,
+    CACHE_RESOURCES,
     LOAD_RESOURCE,
     UPDATE_FILTER,
 } from './actions'
@@ -52,23 +52,23 @@ const reducer = (state = initialState, action) => {
                     }
                 }
             }
-        case CACHE_RESOURCE:
+        case CACHE_RESOURCES:
             return {
                 ...state,
                 cachedResources: {
                     ...state.cachedResources,
-                    [action.payload.id]: action.payload
+                    ...action.payload,
                 }
             }
         case LOAD_RESOURCE:
             return {
                 ...state,
-                currentResource: action.payload
+                currentResource: action.payload,
             }
         case FETCHING_STATUS:
             return {
                 ...state,
-                isFetching: action.payload
+                isFetching: action.payload,
             }
         case LOAD_NEW_FACET_RESULTS:
             return {
