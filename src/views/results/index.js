@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { 
     newSearch,
-    captureFilterState,
     updateFilter,
 } from '../../state/api/actions';
+import {
+    transformFacetFiltersIntoParamsObject,
+} from '../../utilities';
 import FilterBox from '../../components/FilterBox';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
 import queryString from 'query-string';
+// import deepEqual from 'deep-equal'; // TODO: Remove dependency if remains unused
 import './index.css';
 
 //NOTE: Maybe the searching spinner should happen on the search page and this page only rendered
@@ -21,16 +24,17 @@ import './index.css';
 class Results extends React.PureComponent {
 
     
-    parseAndSetQueryStringParamsAsFilters = unparsedQueryString => {
-        const params = queryString.parse(unparsedQueryString);
-        return params;
-    }
+    // parseAndSetQueryStringParamsAsFilters = unparsedQueryString => {
+    //     const params = queryString.parse(unparsedQueryString);
+    //     return params;
+    // }
 
     toggleFilter = (filterType) => (filterKey) => () => {
         this.props.updateFilter(filterType, filterKey);
     }
 
     // This is going to be a highly idiosyncratic process of normalizing the data
+    // Move this to a component for clarity
     // TODO: Add in click handler to submit new filter change event
     renderSelectedFilters = () => {
         const selected = Object.entries(this.props.facets).reduce((acc, [param, facet]) => {
@@ -94,17 +98,26 @@ class Results extends React.PureComponent {
         // This includes the state of the filters, the state of the pager, the filters tiles, and
         // potentially the new search bar if we go down that road.
         const unparsedQueryString = this.props.location.search;
-        this.props.newSearch(unparsedQueryString);
+        const parsedQueryParams = queryString.parse(unparsedQueryString);
+        this.props.newSearch(parsedQueryParams);
 
         //After the search concludes we want to update the state of the page filters based on the 
         // parsed query string. Controlling that flow is an as yet unanswered implementation question.
         // For now we can draw the filters initially based on whatever is in the currentFacets box and
         // then redraw when it changes 
-        const params = this.parseAndSetQueryStringParamsAsFilters(unparsedQueryString);
+        // const params = this.parseAndSetQueryStringParamsAsFilters(unparsedQueryString);
     }
 
-    getDerivedStateFromProps(nextProps, nextState) {
-        console.log(nextProps)
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.facets && this.props.facets !== prevProps.facets) {
+            console.log('Filters have been updated')
+            // Generate newQueryString based on filterState
+
+            
+            const paramsObject= transformFacetFiltersIntoParamsObject(this.props.facets);
+            this.props.newSearch(paramsObject);
+            // Execute newSearch based on queryString
+        }
     }
 
     render() {
@@ -179,7 +192,6 @@ const mapStateToProps = ({ api }) => ({
 
 const mapDispatchToProps = {
     newSearch,
-    captureFilterState,
     updateFilter,
 }
 

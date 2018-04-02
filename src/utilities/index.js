@@ -1,3 +1,5 @@
+import queryString from 'query-string';
+
 // All API parsing and formatting will be centralized so that future changes to the API only
 // need to be handled here. The app will always expect a certain structure.
 
@@ -57,25 +59,59 @@ export const composeQueryText = rawText => {
     return null;
 }
 
-export const composeQueryParams = params => {
-    if(params) {
-        const paramStrings = Object.entries(params).map(([param, value]) =>{
-            return `${ param }=${ encodeURIComponent(value) }`
-        })
-        console.log(paramStrings)
-        const composedParamStrings = paramStrings.join('&');
-        return composedParamStrings;
-    }
-    return null;
-}
+// TODO: Deprecating in favor of query-string library
+// export const composeQueryParams = params => {
+//     if(params) {
+//         const paramStrings = Object.entries(params).map(([param, value]) =>{
+//             return `${ param }=${ encodeURIComponent(value) }`
+//         })
+//         const composedParamStrings = paramStrings.join('&');
+//         return composedParamStrings;
+//     }
+//     return null;
+// }
 
 //TODO: Possibly add operator overloading to handle simple strings
 export const composeQueryString = params => {
     if(!params) {
         return;
     }
+    // TODO: DEPRECATED
+    // const queryParams = composeQueryParams(params);
+    
+    const queryParams = queryString.stringify(params);
+    const composedQueryString = `${ '?' }${ queryParams }`;
+    return composedQueryString;
+}
 
-    const queryParams = composeQueryParams(params);
-    const queryString = `${ '?' }${ queryParams }`;
-    return queryString;
+export const transformFacetFiltersIntoQueryString = facets => {
+    const queryStringParams = Object.entries(facets).reduce((acc, [facetParam, { items }]) => {
+        const filters = Object.entries(items).reduce((acc, [filterKey, { selected }]) => {
+            if(selected) {
+                acc = [ ...acc, `${facetParam}=${filterKey}`]
+            }
+            return acc;
+        }, [])
+        return [...acc, ...filters]
+    }, [])
+    return queryStringParams.join('&');
+}
+
+export const transformFacetFiltersIntoParamsObject = facets => {
+    const queryStringParams = Object.entries(facets).reduce((acc, [facetParam, { items }]) => {
+        const filters = Object.entries(items).reduce((acc, [filterKey, { selected }]) => {
+            if(selected) {
+                acc = [ ...acc, filterKey]
+            }
+            return acc;
+        }, [])
+        if(filters.length > 1) {
+            acc[facetParam] = filters;
+        }
+        if(filters.length === 1) {
+            acc[facetParam] = filters[0];
+        }
+        return acc;
+    }, {})
+    return queryStringParams;
 }

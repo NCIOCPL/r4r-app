@@ -18,21 +18,27 @@ import './index.css';
 
 class Home extends React.PureComponent {
 
+    // TODO: Move this parsing into the action creator so it also has access to the unencoded text
     newTextSearch = () => {
-        const queryString = composeQueryString({ q: this.props.searchBarValue });
-        this.props.newSearch(queryString);
+        this.props.newSearch({
+            q: this.props.searchBarValue,
+        });
     }
 
     // If I want to make this reusable for resource page it's going to have to be able to accomodate
     // type/subtype combinations potentially TODO: verify this
     newFilterSearch = ({filterType, filter}) => () => {
-        const queryString = composeQueryString({ [filterType]: filter });
-        this.props.newSearch(queryString);
+        this.props.newSearch({ 
+            [filterType]: filter,
+        });
     }
 
     viewAllOnClick = () => {
         // TODO: This exact string needs to be figured out
-        this.props.newSearch('?from=0&size=20');
+        this.props.newSearch({
+            'from': '0',
+            'size': '20',
+        });
     }
 
     componentDidMount() {

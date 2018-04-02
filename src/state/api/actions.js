@@ -2,6 +2,7 @@ import history from '../../history';
 import { updateSearchBar } from '../searchForm/actions';
 import {
     formatRawResourcesFacets,
+    composeQueryString,
 } from '../../utilities';
 
 export const UPDATE_FILTER = "UPDATE FILTER";
@@ -10,7 +11,9 @@ export const CACHE_RESOURCE = "CACHE RESOURCE";
 export const FETCHING_STATUS = "FETCHING STATUS";
 export const LOAD_NEW_FACET_RESULTS = "LOAD NEW FACET RESULTS";
 export const LOAD_NEW_SEARCH_RESULTS = "LOAD NEW SEARCH RESULTS";
+export const SET_CURRENT_SEARCH_TEXT = "SET CURRENT SEARCH TEXT";
 export const CACHE_NEW_SEARCH_RESULTS = "CACHE NEW SEARCH RESULTS";
+export const SET_CURRENT_SEARCH_QUERY_STRING = "SET CURRENT SEARCH QUERY STRING";
 
 const setFetchingStatus = status => ({
     type: FETCHING_STATUS,
@@ -42,12 +45,22 @@ const loadNewFacetResults = results => ({
     payload: results,
 })
 
+const setCurrentSearchText = searchText => ({
+    type: SET_CURRENT_SEARCH_TEXT,
+    payload: searchText,
+})
+
+const setCurrentSearchQueryString = queryString => ({
+    type: SET_CURRENT_SEARCH_QUERY_STRING,
+    payload: queryString,
+})
+
 export const updateFilter = (filterType, filter) => ({
     type: UPDATE_FILTER,
     payload: {
         filterType,
         filter,
-    }
+    },
 })
 
 // When the home page loads, we want to fetch all available facets to use for dynamically
@@ -61,7 +74,7 @@ export const loadFacets = () => (dispatch, getState) => {
     // will be after a successfull fetch so we shouldn't need to do any additional validation.
     const isCached = store.api.referenceFacets;
     if(isCached){
-        console.log('Facets are cached already. Exiting.')
+        console.log('Facets are cached already.')
         return;
     }
     console.log('Fetching facets')
@@ -79,12 +92,15 @@ export const loadFacets = () => (dispatch, getState) => {
 // Need to rewrite this to allow for cases where the call is being made as part of a prefetch
 // cycle and even though the results are new we don't want to navigate.
 
-// TODO: Fix issue with double fire and double redirect. TODO: did I already fix it? Comments get 
-// stale quick!
-export const newSearch = newQueryString => (dispatch, getState) => {
+// TODO: Fix issue with double fire and double redirect. Currently it is triple firing because of the dummy data overwriting changes, when it has a dynamic return
+// we need to see if the issue persists.
+export const newSearch = searchParams => (dispatch, getState) => {
     const store = getState();
     const currentSearchQueryString = store.api.currentSearchQueryString;
     const searchCache = store.api.cachedSearches;
+    const searchText = searchParams.q || '';
+    dispatch(setCurrentSearchText(searchText));
+    const newQueryString = composeQueryString(searchParams);
     const isCached = searchCache.hasOwnProperty(newQueryString);
     const isAlreadyOnSearchPage = history.location.pathname.toLowerCase() === '/search';
     const isAlreadyAtCorrectURL = history.location.search === newQueryString;
@@ -97,10 +113,9 @@ export const newSearch = newQueryString => (dispatch, getState) => {
     }
     if(isCached) {
         console.log('Current search is already cached, loading from cache')
-        // Set currentresults to cache
-        // 1) set results to currentResults
         const cachedResults = searchCache[newQueryString];
         dispatch(loadNewSearchResults(cachedResults));
+        dispatch(setCurrentSearchQueryString(newQueryString))
         if(isAlreadyAtCorrectURL){
             return;
         }
@@ -116,6 +131,7 @@ export const newSearch = newQueryString => (dispatch, getState) => {
     dispatch(setFetchingStatus(true));
     setTimeout(() => {
         // TODO: FETCH DATA
+        console.log('Fetching from API')
         const rawFacets = dummyResults.facets;
         const formattedFacets = formatRawResourcesFacets(rawFacets)
         const processedResults = {
@@ -127,6 +143,7 @@ export const newSearch = newQueryString => (dispatch, getState) => {
         }
 
         dispatch(cacheNewSearchResults(resultsToCache));
+        dispatch(setCurrentSearchQueryString(newQueryString))
         dispatch(loadNewSearchResults(processedResults));
         dispatch(setFetchingStatus(false));
         dispatch(updateSearchBar(''));
@@ -159,23 +176,6 @@ export const fetchResource = resourceId => (dispatch, getState) => {
         dispatch(loadResource(dummyResourceResult));
     }, 2000)
 }
-
-export const updateFilterAsync = () => (dispatch, getState) => {
-    //1) Update filter
-
-    // For now this is in the componentwillreceivenewprops
-    //2) Get New State
-    //3) Parse state into queryString
-    //4) Fire off newSearch
-
-}
-
-export const captureFilterState = () => (dispatch, getState) => {
-    const store = getState();
-    const filterStates = store.api.currentFacets;
-    console.log(filterStates)
-}
-
 
 const dummyResults = {
     results: [

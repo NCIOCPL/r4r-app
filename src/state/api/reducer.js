@@ -1,4 +1,6 @@
 import {
+    SET_CURRENT_SEARCH_TEXT,
+    SET_CURRENT_SEARCH_QUERY_STRING,
     LOAD_NEW_SEARCH_RESULTS,
     CACHE_NEW_SEARCH_RESULTS,
     LOAD_NEW_FACET_RESULTS,
@@ -18,6 +20,7 @@ const initialState = {
     searchParams: '',
     referenceFacets: null,
     currentSearchQueryString: '',
+    currentSearchText: '',
     currentResults: null, 
     currentFilters: null,
     currentFacets: null, // Deprecate this after filterstate is implemented correctly
@@ -89,6 +92,16 @@ const reducer = (state = initialState, action) => {
                     ...state.cachedSearches,
                     ...action.payload,
                 }
+            }
+        case SET_CURRENT_SEARCH_TEXT:
+            return {
+                ...state,
+                currentSearchText: action.payload,
+            }
+        case SET_CURRENT_SEARCH_QUERY_STRING:
+            return {
+                ...state,
+                currentSearchQueryString: action.payload,
             }
         default:
             return state;

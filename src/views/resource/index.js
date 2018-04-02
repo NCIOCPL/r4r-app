@@ -22,13 +22,13 @@ import './index.css';
 class Resource extends React.PureComponent {
 
     newTextSearch = () => {
-        const queryString = composeQueryString({ q: this.props.searchBarValue });
-        this.props.newSearch(queryString);
+        this.props.newSearch({
+            q: this.props.searchBarValue
+        });
     }
 
     newFilterSearch = ({filterType, filter}) => () => {
-        const queryString = composeQueryString({ [filterType]: filter });
-        this.props.newSearch(queryString);
+        this.props.newSearch({ [filterType]: filter });
     }
 
     renderSimilarResources = () => {
