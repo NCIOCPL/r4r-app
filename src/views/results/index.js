@@ -6,11 +6,15 @@ import {
     updateFilter,
 } from '../../state/api/actions';
 import {
+    updateSearchBar,
+} from '../../state/searchForm/actions'
+import {
     transformFacetFiltersIntoParamsObject,
 } from '../../utilities';
 import FilterBox from '../../components/FilterBox';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
+import SearchBar from '../../components/SearchBar';
 import queryString from 'query-string';
 // import deepEqual from 'deep-equal'; // TODO: Remove dependency if remains unused
 import './index.css';
@@ -23,11 +27,12 @@ import './index.css';
 
 class Results extends React.PureComponent {
 
-    
-    // parseAndSetQueryStringParamsAsFilters = unparsedQueryString => {
-    //     const params = queryString.parse(unparsedQueryString);
-    //     return params;
-    // }
+
+    newTextSearch = () => {
+        this.props.newSearch({
+            q: this.props.searchBarValue
+        });
+    }
 
     toggleFilter = (filterType) => (filterKey) => () => {
         this.props.updateFilter(filterType, filterKey);
@@ -114,6 +119,8 @@ class Results extends React.PureComponent {
             console.log('Filters have been updated')
             // Generate new search based on current filters state
             const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
+            // Need to account for searchText (as well as any other options (from, size...))
+            paramsObject.q = this.props.currentSearchText;
             this.props.newSearch(paramsObject);
         }
     }
@@ -129,6 +136,12 @@ class Results extends React.PureComponent {
                                 <h2>We found {this.props.results.length} results that match your search</h2>
                                 <h2><Link to="/">Start Over</Link></h2>
                             </div>
+                            <SearchBar 
+                                value={ this.props.searchBarValue }
+                                onChange={ this.props.searchBarOnChange }
+                                onSubmit={ this.newTextSearch }
+                                page='results'                            
+                            />
                         </div>
                         <div className="results__selected-filters">
                             <h4 className="selected-filters__header">Your selections:</h4>
@@ -183,14 +196,17 @@ class Results extends React.PureComponent {
     }
 }
 
-const mapStateToProps = ({ api }) => ({
+const mapStateToProps = ({ api, searchForm }) => ({
     results: api.currentResults,
     facets: api.currentFacets,
+    currentSearchText: api.currentSearchText,
+    searchBarValue: searchForm.searchBarValues.results,
 })
 
 const mapDispatchToProps = {
     newSearch,
     updateFilter,
+    searchBarOnChange: updateSearchBar,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Results));

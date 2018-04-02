@@ -59,6 +59,7 @@ class Home extends React.PureComponent {
                         value={ this.props.searchBarValue }
                         onChange={ this.props.searchBarOnChange }
                         onSubmit={ this.newTextSearch }
+                        page='home'
                     />
                 </div>
                 <h2>Find resources by tool type or research area</h2>
@@ -102,7 +103,7 @@ const mapStateToProps = ({
     searchForm,
     api,
 }) => ({
-    searchBarValue: searchForm.q,
+    searchBarValue: searchForm.searchBarValues.home,
     referenceFacets: api.referenceFacets,
 })
 

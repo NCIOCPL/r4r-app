@@ -108,6 +108,7 @@ class Resource extends React.PureComponent {
                     value={ this.props.searchBarValue }
                     onChange={ this.props.searchBarOnChange }
                     onSubmit={ this.newTextSearch }
+                    page='resource'
                 />
             </div>
         )
@@ -123,7 +124,7 @@ class Resource extends React.PureComponent {
 
 const mapStateToProps = ({ api, searchForm }) => ({
     resource: api.currentResource,
-    searchBarValue: searchForm.q,
+    searchBarValue: searchForm.searchBarValues.resource,
 })
 
 const mapDispatchToProps = {

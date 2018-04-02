@@ -9,13 +9,11 @@ import {
 // that won't take too much refactoring.
 
 const initialState = {
-    q: '',
-    // toolTypes: {
-    //     type: null,
-    //     subtypes: [],
-    // },
-    // researchAreas: [],
-    // researchTypes: [],
+    searchBarValues: {
+        home: '',
+        results: '',
+        resource: '',
+    }
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,7 +21,10 @@ const reducer = (state = initialState, action) => {
         case UPDATE_SEARCH_BAR:
             return {
                 ...state,
-                q: action.payload
+                searchBarValues: {
+                    ...state.searchBarValues,
+                    [action.payload.page]: action.payload.value,
+                }
             };
         default:
             return state;

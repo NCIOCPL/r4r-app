@@ -154,12 +154,23 @@ export const newSearch = searchParams => (dispatch, getState) => {
         dispatch(setCurrentSearchQueryString(newQueryString))
         dispatch(loadNewSearchResults(processedResults));
         dispatch(setFetchingStatus(false));
-        dispatch(updateSearchBar(''));
+        dispatch(updateSearchBar({
+            page: 'results',
+            value: searchText,
+        }));
+        dispatch(updateSearchBar({
+            page: 'resource',
+            value: '',
+        }));
+        dispatch(updateSearchBar({
+            page: 'home',
+            value: '',
+        }));
         if(!isAlreadyAtCorrectURL) {
             console.log('navigating to search page')
             history.push(`/search${ newQueryString }`)
         }
-    }, 1000);
+    }, 0);
 }
 
 export const fetchResource = resourceId => (dispatch, getState) => {
@@ -249,14 +260,36 @@ const dummyResults = {
             // Make component for these things.
             // The click event should be passed though, so that on the resource page it can trigger a new search
             // with just the filter, and on other pages it triggers a full-filter and text search.
-            toolTypes: [
-    
+            "toolTypes": [
+                {
+                    "type": {
+                      "key": "datasets_databases",
+                      "label": "Datasets & Databases"
+                    },
+                    "subtype": {
+                      "key": "genomic_datasets",
+                      "label": "genomic datasets"
+                    }
+                },
+                {
+                    "type": {
+                      "key": "analysis_tools",
+                      "label": "Analysis Tools"
+                    }
+                }
             ],
-            researchAreas: [
-    
+            'researchAreas': [
+                {
+                    'key': 'cancer_treatment',
+                    'label': 'Cancer Treatment'
+                },
+                {
+                    'key': 'cancer_biology',
+                    'label': 'Cancer Biology'
+                },            
             ],
-            researchTypes: [
-    
+            'researchTypes': [
+        
             ]
         },
         {
@@ -285,14 +318,36 @@ const dummyResults = {
             // Make component for these things.
             // The click event should be passed though, so that on the resource page it can trigger a new search
             // with just the filter, and on other pages it triggers a full-filter and text search.
-            toolTypes: [
-    
+            "toolTypes": [
+                {
+                    "type": {
+                      "key": "datasets_databases",
+                      "label": "Datasets & Databases"
+                    },
+                    "subtype": {
+                      "key": "genomic_datasets",
+                      "label": "genomic datasets"
+                    }
+                },
+                {
+                    "type": {
+                      "key": "analysis_tools",
+                      "label": "Analysis Tools"
+                    }
+                }
             ],
-            researchAreas: [
-    
+            'researchAreas': [
+                {
+                    'key': 'cancer_treatment',
+                    'label': 'Cancer Treatment'
+                },
+                {
+                    'key': 'cancer_biology',
+                    'label': 'Cancer Biology'
+                },            
             ],
-            researchTypes: [
-    
+            'researchTypes': [
+        
             ]
         },
         {
@@ -321,14 +376,36 @@ const dummyResults = {
             // Make component for these things.
             // The click event should be passed though, so that on the resource page it can trigger a new search
             // with just the filter, and on other pages it triggers a full-filter and text search.
-            toolTypes: [
-    
+            "toolTypes": [
+                {
+                    "type": {
+                      "key": "datasets_databases",
+                      "label": "Datasets & Databases"
+                    },
+                    "subtype": {
+                      "key": "genomic_datasets",
+                      "label": "genomic datasets"
+                    }
+                },
+                {
+                    "type": {
+                      "key": "analysis_tools",
+                      "label": "Analysis Tools"
+                    }
+                }
             ],
-            researchAreas: [
-    
+            'researchAreas': [
+                {
+                    'key': 'cancer_treatment',
+                    'label': 'Cancer Treatment'
+                },
+                {
+                    'key': 'cancer_biology',
+                    'label': 'Cancer Biology'
+                },            
             ],
-            researchTypes: [
-    
+            'researchTypes': [
+        
             ]
         },
     ],
@@ -357,7 +434,7 @@ const dummyResults = {
             "items": [
                 {
                     "key": "datasets_databases",
-                    "label": "Datasets & Databases",
+                    "label": "Chicken and Cows",
                     "count": '10',  //TODO: Convert to number
                     "selected": false //TODO: Convert to bool
                 },
@@ -377,7 +454,7 @@ const dummyResults = {
                     "key": "cancer_prevention",
                     "label": "Cancer Prevention",
                     "count": '32',
-                    "selected": true
+                    "selected": false
                 },
                 {
                     "key": "cancer_genomics",
@@ -401,7 +478,7 @@ const dummyResults = {
                     'key': 'cancer_omics',
                     'label': 'Cancer Omics',
                     'count': '1',
-                    'selected': true,
+                    'selected': false,
                 },
                 
             ]
@@ -414,7 +491,7 @@ const dummyResults = {
                     'key': 'bananas',
                     'label': 'Bananas R Us',
                     'count': '1',
-                    'selected': true,
+                    'selected': false,
                 },
             ]  
         }

@@ -4,7 +4,10 @@ import './SearchBar.css';
 class SearchBar extends React.PureComponent {
     onChange = e => {
         e.preventDefault();
-        this.props.onChange(e.target.value)
+        this.props.onChange({
+            page: this.props.page,
+            value: e.target.value,
+        })
     }
 
     onSubmit = e => {
