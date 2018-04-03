@@ -147,7 +147,7 @@ class Results extends React.PureComponent {
                 ?
                     <React.Fragment>
                         <div className="results__header">
-                            <h1>Resources for Researchers: Search Results</h1>
+                            <h1>Resources for Researchers</h1>
                             <div className='results__count-container'>
                                 <h2>We found {this.props.results.length} results that match your search</h2>
                                 <h2><Link to="/">Start Over</Link></h2>

@@ -1,3 +1,12 @@
+.resource__back {
+    color: #169bd5;
+    cursor: pointer;
+}
+
+.resource__back:hover {
+    text-decoration: underline;
+}
+
 .r4r-resource .resource__docs {
     margin-top: 15px;
     margin-bottom: 15px;

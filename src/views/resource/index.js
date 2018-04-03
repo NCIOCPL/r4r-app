@@ -106,6 +106,16 @@ class Resource extends React.PureComponent {
         return (
             <div className='r4r-resource'>
                 <h1>{ title }</h1>
+                {
+                    /* TODO: Refactor into a more functional approach */
+                    this.props.currentResults && this.props.currentResults.includes(this.props.resource) &&
+                        <div 
+                            className="resource__back" 
+                            onClick={ this.props.history.goBack }
+                        >
+                            <p>&lt; Back to results</p>
+                        </div>
+                }
                 <MultiLineText text={ description }/>
                 <a href={ website }>Learn more about { title } ></a>
                 <h2>Contact Information</h2>
@@ -148,6 +158,7 @@ class Resource extends React.PureComponent {
 
 const mapStateToProps = ({ api, searchForm }) => ({
     resource: api.currentResource,
+    currentResults: api.currentResults,
     searchBarValue: searchForm.searchBarValues.resource,
 })
 
