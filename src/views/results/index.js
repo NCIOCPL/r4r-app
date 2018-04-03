@@ -166,7 +166,6 @@ class Results extends React.PureComponent {
                             </div>
                         </div>
                         { this.renderPager(true) }
-                        {/* Selected filters tiles (abstract to component with click callback)*/}
                         <div className="dummy-flex-search-container">
                             <div className="results__facets">
                                 { this.renderToolTypes() }

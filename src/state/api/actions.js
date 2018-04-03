@@ -221,6 +221,9 @@ const dummyResults = {
                     email: 'Jk339o@nih.gov',
                 },
             ],
+            docs: [
+                'National Institute of Belgium'
+            ],
             resourceAccess: {
                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
                 notes: 'Registrants will have to provide grantee institution name.',
@@ -231,8 +234,15 @@ const dummyResults = {
             toolTypes: [
     
             ],
-            researchAreas: [
-    
+            'researchAreas': [
+                {
+                    'key': 'cancer_treatment',
+                    'label': 'Cancer Treatment'
+                },
+                {
+                    'key': 'cancer_biology',
+                    'label': 'Cancer Biology'
+                },            
             ],
             researchTypes: [
     
@@ -256,6 +266,10 @@ const dummyResults = {
                     phone: '240-276-6210',
                     email: 'Jk339o@nih.gov',
                 },
+            ],
+            docs: [
+                'National Institute of Belgium',
+                'Perestroika and Glasnost'
             ],
             resourceAccess: {
                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
@@ -315,6 +329,11 @@ const dummyResults = {
                     email: 'Jk339o@nih.gov',
                 },
             ],
+            docs: [
+                'National Institute of Belgium',
+                'Perestroika and Glasnost',
+                'Peter Gabriel\'s cat'
+            ],
             resourceAccess: {
                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
                 notes: 'Registrants will have to provide grantee institution name.',
@@ -372,6 +391,11 @@ const dummyResults = {
                     phone: '240-276-6210',
                     email: 'Jk339o@nih.gov',
                 },
+            ],
+            docs: [
+                'National Institute of Belgium',
+                'Perestroika and Glasnost',
+                'Peter Gabriel\'s cat'
             ],
             resourceAccess: {
                 type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
@@ -566,6 +590,11 @@ const dummyResourceResult = {
             phone: '240-276-6210',
             email: 'Jk339o@nih.gov',
         },
+    ],
+    docs: [
+        'National Institute of Belgium',
+        'Perestroika and Glasnost',
+        'Peter Gabriel and his cat'
     ],
     resourceAccess: {
         type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into

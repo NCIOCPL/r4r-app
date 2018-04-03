@@ -31,6 +31,25 @@ class Resource extends React.PureComponent {
         this.props.newSearch({ [filterType]: filter });
     }
 
+    renderDocsString = (docs = []) => {
+        const base = 'This resource is managed by the National Cancer Institute'
+        if(!docs.length) {
+            return base + '.';
+        }
+        if(docs.length === 1) {
+            return `${ base } and ${ docs[0] }.`;
+        }
+        const grammarfiedDocs = docs.reduce((acc, doc, idx, arr) => {
+            if(idx === arr.length - 1){
+                acc = acc + ', and ' + doc;
+                return acc;
+            }
+            acc = acc + ', ' + doc;
+            return acc
+        })
+        return `${ base }, ${ grammarfiedDocs }.`;
+    }
+
     renderSimilarResources = () => {
         // There are a few fidgety bits here. 
         //The name values are the search params themselves.
@@ -82,6 +101,7 @@ class Resource extends React.PureComponent {
         description,
         pocs,
         resourceAccess,
+        docs,
     }) => {
         return (
             <div className='r4r-resource'>
@@ -94,6 +114,10 @@ class Resource extends React.PureComponent {
                         <ContactInformation contact={ poc } key={ idx } />
                     ))
                 }
+                <div className="resource__docs">
+                    { this.renderDocsString(docs) }
+                </div>
+                <h2 className="resource__access">Resource Access</h2>
                 <div className='dummy-access-section'>
                     {/* TODO: Logo based on resourceAccess.type */}
                     <p>{ resourceAccess.type }</p>
