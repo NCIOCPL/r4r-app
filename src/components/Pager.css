@@ -1,0 +1,8 @@
+.r4r-pager {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.r4r-pager > div {
+    margin: 5px;
+}

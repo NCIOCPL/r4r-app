@@ -7,7 +7,7 @@ import MultiLineText from '../../components/MultiLineText';
 import ContactInformation from '../../components/ContactInformation';
 import Spinner from '../../components/ScienceSpinner';
 import { 
-    updateSearchBar 
+    updateSearchBar,
 } from '../../state/searchForm/actions';
 import { 
     newSearch,
@@ -23,7 +23,7 @@ class Resource extends React.PureComponent {
 
     newTextSearch = () => {
         this.props.newSearch({
-            q: this.props.searchBarValue
+            q: this.props.searchBarValue,
         });
     }
 
@@ -116,9 +116,9 @@ class Resource extends React.PureComponent {
 
     render() {
         if(this.props.resource && this.props.match.params.id === this.props.resource.id) {
-            return this.renderResource(this.props.resource)
+            return this.renderResource(this.props.resource);
         }
-        return <Spinner />
+        return <Spinner />;
     }
 }
 

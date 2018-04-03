@@ -194,11 +194,14 @@ export const fetchResource = resourceId => (dispatch, getState) => {
         console.log('Resource not cached, fetching from db')
         dispatch(cacheResources([dummyResourceResult]));
         dispatch(loadResource(dummyResourceResult));
-    }, 2000)
+    }, 1000)
 }
 
 const dummyResults = {
-    results: [
+    "meta": {
+		"totalResults": 168
+	},
+    "results": [
         {
             id: '123',
             title: 'Chernobyl Tissue Bank',

@@ -11,11 +11,6 @@ import {
 } from './actions'
 
 const initialState = {
-    // Need to figure out a way to indicate to resource page whether a search had just been made
-    // This is an issue because caching the results is necessary when a user clicks through to an external
-    // site. However, if they have the tab open and then go directly to a different resource page
-    // without executing another search, it will still show back to search results for the old search.
-    // Not sure what approach to take for this yet.
     isFetching: false,
     searchParams: '',
     referenceFacets: null,
@@ -23,6 +18,7 @@ const initialState = {
     currentSearchText: '',
     currentResults: null, 
     currentFilters: null,
+    currentMetaData: null,
     currentFacets: null, // Deprecate this after filterstate is implemented correctly
     currentResource: null,
     cachedSearches: {},
@@ -79,11 +75,13 @@ const reducer = (state = initialState, action) => {
             const {
                 results: currentResults,
                 facets: currentFacets,
+                meta: currentMetaData,
             } = action.payload;
             return {
                 ...state,
                 currentResults,
                 currentFacets,
+                currentMetaData,
             };
         case CACHE_NEW_SEARCH_RESULTS:
             return {
