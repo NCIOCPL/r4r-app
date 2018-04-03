@@ -1,8 +1,44 @@
 .r4r-pager {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    height: 30px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
-.r4r-pager > div {
-    margin: 5px;
+.r4r-pager .pager__num {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.r4r-pager .pager__arrow {
+    border-radius: 5px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.r4r-pager .pager__num, .r4r-pager .pager__arrow {
+    padding: 5px;
+    cursor: pointer;
+    transition: all 150ms linear;
+}
+
+.pager__num:not(.pager__num--active):hover, .pager__arrow:hover {
+    background: #b2dffa;
+}
+
+.r4r-pager .pager__num--active {
+    background: #169bd5;
+    color: white;
+    cursor: default;
+    user-select: none;
+    box-shadow: 0 5px 5px -3px #70c6fc;
 }

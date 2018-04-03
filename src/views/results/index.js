@@ -33,6 +33,10 @@ class Results extends React.PureComponent {
         });
     }
 
+    pagerSearch = from => {
+        
+    }
+
     toggleFilter = (filterType) => (filterKey) => () => {
         this.props.updateFilter(filterType, filterKey);
     }
@@ -96,6 +100,7 @@ class Results extends React.PureComponent {
                 total={ this.props.totalResults }
                 resultsSize={ this.props.results && this.props.results.length }
                 startFrom={ this.props.startFrom }
+                callBack={ this.pagerSearch }
             />;
     }
 
@@ -111,7 +116,7 @@ class Results extends React.PureComponent {
             console.log('Filters have been updated')
             // Generate new search based on current filters state
             const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
-            // Need to account for searchText (as well as any other options (from, size...))
+            //TODO: Need to account for searchText (as well as any other options (from, size...))
             paramsObject.q = this.props.currentSearchText;
             this.props.newSearch(paramsObject);
         }

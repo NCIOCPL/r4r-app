@@ -16,12 +16,19 @@ class Pager extends React.PureComponent {
 
     static defaultProps = {
         pageSize: 20,
-        startFrom: 0,
+        startFrom: 45,
     }
 
     renderPages = (total, current) => {
         const pages = Array(total).fill().map((el, idx) => {
-            return <div key={ idx }>{ idx + 1 }</div>
+            return (
+                <div
+                    key={ idx } 
+                    className={ `pager__num ${current === idx + 1 ? 'pager__num--active' : ''}`}
+                >
+                { idx + 1 }
+                </div>
+            ) 
         })
         return pages;
     }
@@ -37,20 +44,20 @@ class Pager extends React.PureComponent {
         const isFirstPage = startFrom <= pageSize;
         const isLastPage = startFrom >= total - pageSize;
         const totalPages = Math.ceil(total / pageSize);
-        const currentPage = Math.ceil(startFrom / pageSize);
+        const currentPage = Math.ceil((startFrom + 1) / pageSize);
         return (
             !isSinglePageOnly &&
                 <div className='r4r-pager'>
                     { 
                         !isFirstPage && 
-                            <div>{ '<' }</div> 
+                            <div className='pager__arrow'>{ '<' }</div> 
                     }
                     {
                         this.renderPages(totalPages, currentPage)
                     }
                     { 
                         !isLastPage && 
-                            <div>{ '>' }</div> 
+                            <div className='pager__arrow'>{ '>' }</div> 
                     }
                 </div>
         )

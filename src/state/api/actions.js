@@ -505,7 +505,8 @@ const dummyResults = {
 // Pre-processed
 const dummyFacetResults = {
 	"meta": {
-		"totalResults": 168
+        "totalResults": 168,
+        "from": 40
 	},
 	"results": [],
 	"facets": [{
