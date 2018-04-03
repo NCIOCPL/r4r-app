@@ -10,6 +10,7 @@ import {
 } from '../../state/searchForm/actions'
 import {
     transformFacetFiltersIntoParamsObject,
+    keyHandler,
 } from '../../utilities';
 import FilterBox from '../../components/FilterBox';
 import ResultTile from '../../components/ResultTile';
@@ -74,6 +75,9 @@ class Results extends React.PureComponent {
                 key={ idx }
                 className="selected-filters__filter"
                 onClick={ this.toggleFilter(filter.param)(filter.key) }
+                onKeyPress={ keyHandler({
+                    fn: this.toggleFilter(filter.param)(filter.key),
+                })}
             >
                 <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
             </div>

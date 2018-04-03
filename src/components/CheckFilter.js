@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { keyHandler } from '../utilities';
 
 class CheckFilter extends React.PureComponent {
     static propTypes = {
@@ -25,6 +26,9 @@ class CheckFilter extends React.PureComponent {
             <label
                 className={ this.props.className }
                 tabIndex="0"
+                onKeyPress={ keyHandler({
+                    fn: this.onChange,
+                })}
             >
                 <input 
                     type="checkbox"

@@ -16,6 +16,7 @@ import {
 import {
     composeQueryString,
     formatFilters,
+    keyHandler,
 } from '../../utilities';
 import './index.css';
 
@@ -74,6 +75,9 @@ class Resource extends React.PureComponent {
                     label={ label }
                     className={ 'similar-resource__tile' }
                     onClick={ this.newFilterSearch({ filterType, filter })}
+                    onKeyPress={ keyHandler({
+                        fn: this.newFilterSearch({ filterType, filter }),
+                    })}
                 />
             )
         })
@@ -112,6 +116,9 @@ class Resource extends React.PureComponent {
                         <div 
                             className="resource__back" 
                             onClick={ this.props.history.goBack }
+                            onKeyPress={ keyHandler({
+                                fn: this.props.history.goBack,
+                            })}
                             tabIndex="0"
                         >
                             <p>&lt; Back to results</p>

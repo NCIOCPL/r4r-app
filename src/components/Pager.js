@@ -5,6 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PagerCounter from './PagerCounter';
+import { keyHandler } from '../utilities';
 import '../polyfills/array_fill';
 import './Pager.css';
 
@@ -39,6 +40,9 @@ class Pager extends React.PureComponent {
                     key={ idx } 
                     className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
                     onClick={ this.onClick((idx * this.props.pageSize), isCurrent) }
+                    onKeyPress={ keyHandler({
+                        fn: this.onClick((idx * this.props.pageSize), isCurrent),
+                    })}
                     tabIndex="0"
                 >
                 { idx + 1 }
@@ -79,6 +83,9 @@ class Pager extends React.PureComponent {
                                 className='pager__arrow' 
                                 tabIndex="0"
                                 onClick={ this.onClick((startFrom - pageSize), false) }
+                                onKeyPress={ keyHandler({
+                                    fn: this.onClick((startFrom - pageSize), false),
+                                })}
                             >
                             { '<' }
                             </div> 
@@ -92,6 +99,9 @@ class Pager extends React.PureComponent {
                                 className='pager__arrow' 
                                 tabIndex="0"
                                 onClick={ this.onClick((startFrom + pageSize), false) }
+                                onKeyPress={ keyHandler({
+                                    fn: this.onClick((startFrom + pageSize), false),
+                                })}
                             >
                             { '>' }
                             </div> 

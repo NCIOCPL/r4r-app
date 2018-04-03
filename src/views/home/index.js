@@ -13,6 +13,7 @@ import {
 } from '../../state/api/actions';
 import {
     composeQueryString,
+    keyHandler,
 } from '../../utilities';
 import './index.css';
 
@@ -94,6 +95,9 @@ class Home extends React.PureComponent {
                 <div className='r4r__view-all'>
                     <h2 
                     onClick={ this.viewAllOnClick }
+                    onKeyPress={ keyHandler({
+                        fn: this.viewAllOnClick,
+                    })}
                     tabIndex="0"
                     >
                         View All Resources >

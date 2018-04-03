@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BrowseTile from './BrowseTile';
+import { keyHandler } from '../utilities';
 import '../polyfills/object_entries';
 import './BrowseBox.css';
 
@@ -28,7 +29,15 @@ class BrowseBox extends React.PureComponent {
                                 onClick={ 
                                     this.props.searchFunction({
                                         filterType: this.props.filterType,
-                                        filter: key
+                                        filter: key,
+                                    })
+                                }
+                                onKeyPress={
+                                    keyHandler({
+                                        fn: this.props.searchFunction({
+                                            filterType: this.props.filterType,
+                                            filter: key
+                                        }),
                                     })
                                 }
                             />
