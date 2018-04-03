@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../polyfills/array_fill';
 import './Pager.css';
 
 class Pager extends React.PureComponent {
