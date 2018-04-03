@@ -123,6 +123,14 @@ class Results extends React.PureComponent {
             paramsObject.q = this.props.currentSearchText;
             this.props.newSearch(paramsObject);
         }
+
+        if(prevProps.location.search && prevProps.location.search !== this.props.location.search) {
+            console.log('User navigation triggered refresh')
+            // Same procedure as first pass in componentDidMount
+            const unparsedQueryString = this.props.location.search;
+            const parsedQueryParams = queryString.parse(unparsedQueryString);
+            this.props.newSearch(parsedQueryParams);       
+        }
     }
 
     render() {

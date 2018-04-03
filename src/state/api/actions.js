@@ -112,6 +112,19 @@ export const newSearch = searchParams => (dispatch, getState) => {
     const isAlreadyOnSearchPage = history.location.pathname.toLowerCase() === '/search';
     const isAlreadyAtCorrectURL = history.location.search === newQueryString;
 
+    dispatch(updateSearchBar({
+        page: 'results',
+        value: searchText,
+    }));
+    dispatch(updateSearchBar({
+        page: 'resource',
+        value: '',
+    }));
+    dispatch(updateSearchBar({
+        page: 'home',
+        value: '',
+    }));
+
     if(newQueryString === currentSearchQueryString) {
         console.log('Current search matches last search, reusing results')
         if(isAlreadyOnSearchPage) {
@@ -154,18 +167,6 @@ export const newSearch = searchParams => (dispatch, getState) => {
         dispatch(setCurrentSearchQueryString(newQueryString))
         dispatch(loadNewSearchResults(processedResults));
         dispatch(setFetchingStatus(false));
-        dispatch(updateSearchBar({
-            page: 'results',
-            value: searchText,
-        }));
-        dispatch(updateSearchBar({
-            page: 'resource',
-            value: '',
-        }));
-        dispatch(updateSearchBar({
-            page: 'home',
-            value: '',
-        }));
         if(!isAlreadyAtCorrectURL) {
             console.log('navigating to search page')
             history.push(`/search${ newQueryString }`)
