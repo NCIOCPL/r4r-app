@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-
+import '../polyfills/object_entries';
 // All API parsing and formatting will be centralized so that future changes to the API only
 // need to be handled here. The app will always expect a certain structure.
 
@@ -59,25 +59,11 @@ export const composeQueryText = rawText => {
     return null;
 }
 
-// TODO: Deprecating in favor of query-string library
-// export const composeQueryParams = params => {
-//     if(params) {
-//         const paramStrings = Object.entries(params).map(([param, value]) =>{
-//             return `${ param }=${ encodeURIComponent(value) }`
-//         })
-//         const composedParamStrings = paramStrings.join('&');
-//         return composedParamStrings;
-//     }
-//     return null;
-// }
-
 //TODO: Possibly add operator overloading to handle simple strings
 export const composeQueryString = params => {
     if(!params) {
         return;
     }
-    // TODO: DEPRECATED
-    // const queryParams = composeQueryParams(params);
     
     const queryParams = queryString.stringify(params);
     const composedQueryString = `${ '?' }${ queryParams }`;
@@ -92,7 +78,7 @@ export const transformFacetFiltersIntoQueryString = facets => {
             }
             return acc;
         }, [])
-        return [...acc, ...filters]
+        return [...acc, ...filters];
     }, [])
     return queryStringParams.join('&');
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BrowseTile from './BrowseTile';
+import '../polyfills/object_entries';
 import './BrowseBox.css';
 
 class BrowseBox extends React.PureComponent {

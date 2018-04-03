@@ -1,5 +1,6 @@
 import React from 'react';
 import CheckFilter from './CheckFilter';
+import '../polyfills/object_entries';
 
 class FilterBox extends React.PureComponent {
     onChange = value => {
