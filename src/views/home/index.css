@@ -26,6 +26,10 @@
 }
 
 .r4r__view-all {
+    display: flex;
+}
+
+.r4r__view-all h2 {
     cursor: pointer;
     color: #169bd5;
 }

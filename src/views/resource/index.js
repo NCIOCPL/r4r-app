@@ -112,6 +112,7 @@ class Resource extends React.PureComponent {
                         <div 
                             className="resource__back" 
                             onClick={ this.props.history.goBack }
+                            tabIndex="0"
                         >
                             <p>&lt; Back to results</p>
                         </div>

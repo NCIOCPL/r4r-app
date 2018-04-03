@@ -24,6 +24,7 @@ class CheckFilter extends React.PureComponent {
         return (
             <label
                 className={ this.props.className }
+                tabIndex="0"
             >
                 <input 
                     type="checkbox"
@@ -31,6 +32,7 @@ class CheckFilter extends React.PureComponent {
                     checked={ this.props.checked }
                     onChange={ this.onChange }
                     className='filter__checkbox'
+                    tabIndex="-1"
                 />
                 <span className='filter__label'>{`${this.props.label} (${this.props.count})`}</span>
             </label>

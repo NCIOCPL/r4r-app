@@ -39,6 +39,7 @@ class Pager extends React.PureComponent {
                     key={ idx } 
                     className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
                     onClick={ this.onClick((idx * this.props.pageSize), isCurrent) }
+                    tabIndex="0"
                 >
                 { idx + 1 }
                 </div>
@@ -74,14 +75,26 @@ class Pager extends React.PureComponent {
                 <div className='r4r-pager__nav'>
                     { 
                         !isFirstPage && 
-                            <div className='pager__arrow'>{ '<' }</div> 
+                            <div 
+                                className='pager__arrow' 
+                                tabIndex="0"
+                                onClick={ this.onClick((startFrom - pageSize), false) }
+                            >
+                            { '<' }
+                            </div> 
                     }
                     {
                         this.renderPages(totalPages, currentPage)
                     }
                     { 
                         !isLastPage && 
-                            <div className='pager__arrow'>{ '>' }</div> 
+                            <div 
+                                className='pager__arrow' 
+                                tabIndex="0"
+                                onClick={ this.onClick((startFrom + pageSize), false) }
+                            >
+                            { '>' }
+                            </div> 
                     }
                 </div>
             </div>

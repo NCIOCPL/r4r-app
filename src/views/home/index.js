@@ -91,8 +91,13 @@ class Home extends React.PureComponent {
                     This can execute a predefined search for any, first 20 results which can be built
                     as a simple a tag. This would be the first API call to prefetch I would guess.
                 */}
-                <div className='r4r__view-all' onClick={ this.viewAllOnClick }>
-                    <h2>View All Resources ></h2>
+                <div className='r4r__view-all'>
+                    <h2 
+                    onClick={ this.viewAllOnClick }
+                    tabIndex="0"
+                    >
+                        View All Resources >
+                    </h2>
                 </div>
             </div>
         )
