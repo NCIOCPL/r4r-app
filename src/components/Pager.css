@@ -1,5 +1,16 @@
 .r4r-pager {
     display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+}
+
+.r4r-pager__count {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.r4r-pager__nav {
+    display: flex;
     justify-content: flex-end;
     align-items: center;
     height: 30px;

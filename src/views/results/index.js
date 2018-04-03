@@ -102,13 +102,15 @@ class Results extends React.PureComponent {
         return null;
     }
 
-    renderPager = () => {
+    // TODO: Refactor to move this logic to the component itself largely
+    renderPager = (withCounter = false) => {
         return this.props.totalResults &&
             <Pager
                 total={ this.props.totalResults }
                 resultsSize={ this.props.results && this.props.results.length }
                 startFrom={ this.props.startFrom }
                 onClick={ this.pagerSearch }
+                withCounter={ withCounter }
             />;
     }
 
@@ -163,7 +165,7 @@ class Results extends React.PureComponent {
                                 { this.renderSelectedFilters() }
                             </div>
                         </div>
-                        { this.renderPager() }
+                        { this.renderPager(true) }
                         {/* Selected filters tiles (abstract to component with click callback)*/}
                         <div className="dummy-flex-search-container">
                             <div className="results__facets">

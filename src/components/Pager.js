@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import PagerCounter from './PagerCounter';
 import '../polyfills/array_fill';
 import './Pager.css';
 
@@ -14,12 +15,14 @@ class Pager extends React.PureComponent {
         pageSize: PropTypes.number.isRequired,
         resultsSize: PropTypes.number.isRequired,
         onClick: PropTypes.func,
+        withCounter: PropTypes.bool,
     }
 
     static defaultProps = {
         pageSize: 20,
         startFrom: 45,
         onClick: () => {},
+        withCounter: false,
     }
 
     onClick = (from, isCurrent) => () => {
@@ -58,7 +61,17 @@ class Pager extends React.PureComponent {
         const currentPage = Math.ceil((startFrom + 1) / pageSize);
         return (
             !isSinglePageOnly &&
-                <div className='r4r-pager'>
+            <div className="r4r-pager">
+                {
+                    /* Allow an optional results counter */
+                    this.props.withCounter &&
+                        <PagerCounter
+                            from={ startFrom }
+                            to={ startFrom + resultsSize }
+                            total={ total }
+                        />
+                }
+                <div className='r4r-pager__nav'>
                     { 
                         !isFirstPage && 
                             <div className='pager__arrow'>{ '<' }</div> 
@@ -71,6 +84,7 @@ class Pager extends React.PureComponent {
                             <div className='pager__arrow'>{ '>' }</div> 
                     }
                 </div>
+            </div>
         )
     }
 }
