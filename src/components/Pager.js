@@ -12,19 +12,29 @@ class Pager extends React.PureComponent {
         startFrom: PropTypes.number.isRequired,
         pageSize: PropTypes.number.isRequired,
         resultsSize: PropTypes.number.isRequired,
+        onClick: PropTypes.func,
     }
 
     static defaultProps = {
         pageSize: 20,
         startFrom: 45,
+        onClick: () => {},
+    }
+
+    onClick = (from, isCurrent) => () => {
+        if(!isCurrent) {
+            this.props.onClick({ from })
+        }
     }
 
     renderPages = (total, current) => {
         const pages = Array(total).fill().map((el, idx) => {
+            const isCurrent = current === idx + 1;
             return (
                 <div
                     key={ idx } 
-                    className={ `pager__num ${current === idx + 1 ? 'pager__num--active' : ''}`}
+                    className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
+                    onClick={ this.onClick((idx * this.props.pageSize), isCurrent) }
                 >
                 { idx + 1 }
                 </div>

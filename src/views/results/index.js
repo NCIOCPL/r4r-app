@@ -34,7 +34,14 @@ class Results extends React.PureComponent {
     }
 
     pagerSearch = from => {
-        
+        const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
+        //TODO: Need to account for searchText (as well as any other options (from, size...))
+        const paramsObjectFinal = {
+            ...paramsObject,
+            ...from,
+            q: this.props.currentSearchText,
+        };
+        this.props.newSearch(paramsObjectFinal);        
     }
 
     toggleFilter = (filterType) => (filterKey) => () => {
@@ -100,7 +107,7 @@ class Results extends React.PureComponent {
                 total={ this.props.totalResults }
                 resultsSize={ this.props.results && this.props.results.length }
                 startFrom={ this.props.startFrom }
-                callBack={ this.pagerSearch }
+                onClick={ this.pagerSearch }
             />;
     }
 
