@@ -1,7 +1,6 @@
 {
   "name": "r4r-app",
   "version": "0.1.0",
-  "homepage": "https://BrenanBeltzNIH.github.io/r4r-app",
   "private": true,
   "dependencies": {
     "deep-equal": "^1.0.1",
