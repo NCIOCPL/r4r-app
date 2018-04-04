@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { 
@@ -27,7 +28,28 @@ import './index.css';
 // that would be a different flow. Hmm.)
 
 class Results extends React.PureComponent {
-
+    static propTypes = {
+        newSearch: PropTypes.func.isRequired,
+        updateFilter: PropTypes.func.isRequired,
+        searchBarOnChange: PropTypes.func.isRequired,
+        totalResults: PropTypes.number,
+        startFrom: PropTypes.number,
+        searchBarValue: PropTypes.string,
+        currentSearchText: PropTypes.string,
+        facets: PropTypes.objectOf(PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            param: PropTypes.oneOf(['toolTypes.type', 'toolTypes.subtype', 'researchAreas', 'researchTypes']),
+            items: PropTypes.arrayOf(PropTypes.shape({
+                key: PropTypes.string.isRequired,
+                label: PropTypes.string.isRequired,
+                //TODO: These will fail until the data returned in JSON is converted
+                count: PropTypes.number.isRequired,
+                selected: PropTypes.bool.isRequired,
+            }))
+        })),
+        //TODO:  This is the same interface from Resource, import once extracted to definition file
+        results: PropTypes.array,
+    }
 
     newTextSearch = () => {
         // Do not execute on empty search fields

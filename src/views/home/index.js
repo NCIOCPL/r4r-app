@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar';
@@ -18,8 +19,22 @@ import {
 import './index.css';
 
 class Home extends React.PureComponent {
+    static propTypes = {
+        searchBarValue: PropTypes.string,
+        newSearch: PropTypes.func.isRequired,
+        loadFacets: PropTypes.func.isRequired,
+        searchBarOnChange: PropTypes.func.isRequired,
+        referenceFacets: PropTypes.objectOf(PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            items: PropTypes.objectOf(PropTypes.shape({
+                label: PropTypes.string.isRequired,
+                // TODO: These will fail until I start correctly processing the JSON
+                count: PropTypes.number.isRequired,
+                selected: PropTypes.bool.isRequired,
+            }))
+        }))
+    }
 
-    // TODO: Move this parsing into the action creator so it also has access to the unencoded text
     newTextSearch = () => {
         // We don't want to execute a search on an empty string
         if(this.props.searchBarValue) {

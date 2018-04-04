@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar';
@@ -21,6 +22,62 @@ import {
 import './index.css';
 
 class Resource extends React.PureComponent {
+    //TODO: Some of these will fail until the data is processed coming back from the API
+    //TODO: Define these interfaces in another file
+    static propTypes = {
+        newSearch: PropTypes.func.isRequired,
+        searchBarOnChange: PropTypes.func.isRequired,
+        fetchResource: PropTypes.func.isRequired,
+        searchBarValue: PropTypes.string,
+        resource: PropTypes.shape({
+            meta: PropTypes.shape({
+                totalResults: PropTypes.number,
+            }),
+            results: PropTypes.arrayOf(PropTypes.shape({
+                id: PropTypes.string.isRequired,
+                title: PropTypes.string.isRequired,
+                website: PropTypes.string.isRequired,
+                description: PropTypes.string.isRequired,
+                pocs: PropTypes.arrayOf(PropTypes.shape({
+                    name: PropTypes.shape({
+                        prefix: PropTypes.string,
+                        firstName: PropTypes.string,
+                        middleName: PropTypes.string,
+                        lastName: PropTypes.string,
+                        suffix: PropTypes.string,
+                    }),
+                    title: PropTypes.string,
+                    phone: PropTypes.string,
+                    email: PropTypes.string,
+                })),
+                docs: PropTypes.arrayOf(PropTypes.string),
+                resourceAccess: PropTypes.shape({
+                    type: PropTypes.string.isRequired,
+                    notes: PropTypes.string,
+                }),
+                toolTypes: PropTypes.arrayOf(PropTypes.shape({
+                    type: PropTypes.shape({
+                        key: PropTypes.string.isRequired,
+                        label: PropTypes.string.isRequired,
+                    }).isRequired,
+                    subType: PropTypes.shape({
+                        key: PropTypes.string.isRequired,
+                        label: PropTypes.string.isRequired,
+                    })
+                })),
+                researchAreas: PropTypes.arrayOf(PropTypes.shape({
+                    key: PropTypes.string.isRequired,
+                    label: PropTypes.string.isRequired,
+                })),
+                researchTypes: PropTypes.arrayOf(PropTypes.shape({
+                    key: PropTypes.string.isRequired,
+                    label: PropTypes.string.isRequired,
+                })),
+            }))
+        }),
+        //TODO: This is an arrayOf the resources, change it once that custom proptype is defined
+        currentResults: PropTypes.array,
+    }
 
     newTextSearch = () => {
         // Don't execute on empty search bar

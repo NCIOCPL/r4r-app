@@ -14,7 +14,7 @@ class ContactInformation extends React.PureComponent {
             title: PropTypes.string,
             phone: PropTypes.string,
             email: PropTypes.string,
-        })
+        }),
     }
 
     render() {
