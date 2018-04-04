@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Router from './Router';
+import PagerCounter from './PagerCounter';
 
 it('renders without crashing', () => {
-  shallow(<Router />);
+  shallow(<PagerCounter />);
 });

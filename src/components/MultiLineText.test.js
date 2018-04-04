@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Router from './Router';
+import MultiLineText from './MultiLineText';
 
 it('renders without crashing', () => {
-  shallow(<Router />);
+  shallow(<MultiLineText />);
 });
