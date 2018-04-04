@@ -21,9 +21,12 @@ class Home extends React.PureComponent {
 
     // TODO: Move this parsing into the action creator so it also has access to the unencoded text
     newTextSearch = () => {
-        this.props.newSearch({
-            q: this.props.searchBarValue,
-        });
+        // We don't want to execute a search on an empty string
+        if(this.props.searchBarValue) {
+            this.props.newSearch({
+                q: this.props.searchBarValue,
+            });
+        }
     }
 
     // If I want to make this reusable for resource page it's going to have to be able to accomodate

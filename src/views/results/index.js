@@ -22,7 +22,7 @@ import '../../polyfills/object_entries';
 // import deepEqual from 'deep-equal'; // TODO: Remove dependency if remains unused
 import './index.css';
 
-//NOTE: Maybe the searching spinner should happen on the search page and this page only rendered
+//TODO: NOTE: Maybe the searching spinner should happen on the search page and this page only rendered
 // when results are returned (however if someone is linked directly here from an external site
 // that would be a different flow. Hmm.)
 
@@ -30,14 +30,18 @@ class Results extends React.PureComponent {
 
 
     newTextSearch = () => {
-        this.props.newSearch({
-            q: this.props.searchBarValue
-        });
+        // Do not execute on empty search fields
+        if(this.props.searchBarValue) {
+            this.props.newSearch({
+                q: this.props.searchBarValue
+            });
+        }
     }
 
     pagerSearch = from => {
         const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
         //TODO: Need to account for searchText (as well as any other options (from, size...))
+        //TODO: Only send text if textfield is populated
         const paramsObjectFinal = {
             ...paramsObject,
             ...from,

@@ -23,9 +23,12 @@ import './index.css';
 class Resource extends React.PureComponent {
 
     newTextSearch = () => {
-        this.props.newSearch({
-            q: this.props.searchBarValue,
-        });
+        // Don't execute on empty search bar
+        if(this.props.searchBarValue) {
+            this.props.newSearch({
+                q: this.props.searchBarValue,
+            });
+        }
     }
 
     newFilterSearch = ({filterType, filter}) => () => {
