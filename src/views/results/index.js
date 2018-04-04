@@ -21,6 +21,9 @@ import Pager from '../../components/Pager';
 import queryString from 'query-string';
 import '../../polyfills/object_entries';
 // import deepEqual from 'deep-equal'; // TODO: Remove dependency if remains unused
+import {
+    resourceInterface
+} from '../../interfaces';
 import './index.css';
 
 //TODO: NOTE: Maybe the searching spinner should happen on the search page and this page only rendered
@@ -47,8 +50,7 @@ class Results extends React.PureComponent {
                 selected: PropTypes.bool.isRequired,
             }))
         })),
-        //TODO:  This is the same interface from Resource, import once extracted to definition file
-        results: PropTypes.array,
+        results: PropTypes.arrayOf(resourceInterface),
     }
 
     newTextSearch = () => {
