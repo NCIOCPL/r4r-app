@@ -1,7 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './SearchBar.css';
 
 class SearchBar extends React.PureComponent {
+    static propTypes = {
+        page: PropTypes.oneOf(['home', 'resource', 'results']),
+        value: PropTypes.string,
+        onChange: PropTypes.func.isRequired,
+        onSubmit: PropTypes.func.isRequired,
+    }
+
     onChange = e => {
         e.preventDefault();
         this.props.onChange({

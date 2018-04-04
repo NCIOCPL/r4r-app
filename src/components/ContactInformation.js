@@ -1,8 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ContactInformation extends React.PureComponent {
-    //TODO: This needs to be a lot less brittle and based on a specific structure.;
-    //Also, there will be possibly be multiple types of Contact Components?
+    static propTypes = {
+        contact: PropTypes.shape({
+            name: PropTypes.shape({
+                prefix: PropTypes.string,
+                firstName: PropTypes.string,
+                middleName: PropTypes.string,
+                lastName: PropTypes.string,
+                suffix: PropTypes.string,
+            }),
+            title: PropTypes.string,
+            phone: PropTypes.string,
+            email: PropTypes.string,
+        })
+    }
+
     render() {
         const {
             name: {

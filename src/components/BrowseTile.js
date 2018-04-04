@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './BrowseTile.css';
 
 class BrowseTile extends React.PureComponent {
+    static propTypes = {
+        className: PropTypes.string,
+        onClick: PropTypes.func.isRequired,
+        onKeyPress: PropTypes.func.isRequired,
+    }
 
     render() {
         return (

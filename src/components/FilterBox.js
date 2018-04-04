@@ -1,14 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CheckFilter from './CheckFilter';
 import '../polyfills/object_entries';
 
 class FilterBox extends React.PureComponent {
-    onChange = value => {
-        // TODO: Set filters selected in store, generate new query string, execute new query
-        console.log('Dummy filter onChange function firing', {
-            param: this.props.facet.param,
-            value,
-        })
+    static propTypes = {
+        className: PropTypes.string,
+        facet: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            items: PropTypes.objectOf(PropTypes.shape({
+                label: PropTypes.string,
+                //TODO: These will currently fail because I am not processing the return JSON back into
+                // the correct primitives.
+                selected: PropTypes.bool.isRequired,
+                count: PropTypes.number.isRequired,
+            }))
+        }),
+        onChange: PropTypes.func.isRequired,
     }
 
     render() {
