@@ -1,4 +1,4 @@
-import { shape, arrayOf, string, number, bool, func } from 'prop-types';
+import { shape, arrayOf, string } from 'prop-types';
 
 export const resourceInterface = shape({
     id: string.isRequired,

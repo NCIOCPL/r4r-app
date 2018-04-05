@@ -6,7 +6,7 @@ class CheckFilter extends React.PureComponent {
     static propTypes = {
         label: PropTypes.string.isRequired,
         checked: PropTypes.bool.isRequired,
-        count: PropTypes.string.isRequired,
+        count: PropTypes.number.isRequired,
         className: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
     }

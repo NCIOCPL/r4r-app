@@ -15,7 +15,6 @@ import {
     fetchResource,
 } from '../../state/api/actions';
 import {
-    composeQueryString,
     formatFilters,
     keyHandler,
 } from '../../utilities';
@@ -99,17 +98,6 @@ class Resource extends React.PureComponent {
     }
 
     componentDidMount() {
-
-        // NOTE: The currentResults or the currentResource might contain it, so we need to check both
-        // and in that order. ORRRR, we should be populating a separate cache with the resources (provided
-        // what is coming back is the full information (and why shouldn't it be when they are so simple and
-        // small??))
-        // TODO:
-        // On load check to see if cache contains resource matching current pathname
-        // If not, fetch the resource
-        // Render Dynamically
-        // This logic flow can be extracted to a thunk since it just needs to know the params
-        // And make a getState query before executing the fetch
         const resourceId = this.props.match.params.id;
         this.props.fetchResource(resourceId);
     }

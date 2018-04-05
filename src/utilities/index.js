@@ -23,6 +23,9 @@ export const formatFilters = (filterType, resource = {}) => {
     })
 }
 
+// Despite causing issues with iterating for rendering purposes (which we solve for now
+// with Object.entries) converting the data into a hashmap makes lookups a lot quicker and simpler.
+// This is a debatable tradeoff and could be rolled back with a few hours of refactoring.
 export const formatRawResourcesFacets = rawFacets => {
     const formattedFacets = rawFacets.reduce((acc, facetType) => {
         const facetTypeFilters = facetType.items.reduce((acc, filter) => {
@@ -35,8 +38,9 @@ export const formatRawResourcesFacets = rawFacets => {
 
             acc[key] = {
                 label,
-                count,
-                selected
+                // We want to process the JSON back into the correct primitives before passing them to the store
+                count: ~~count, // This is one of many ways to parseInt. This way will coerce bad values into 0 instead of NaN.
+                selected: (typeof !!selected === 'boolean') ? !!selected : null
             };
             return acc;
         }, {})

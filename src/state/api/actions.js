@@ -72,35 +72,35 @@ export const updateFilter = (filterType, filter) => ({
 
 // When the home page loads, we want to fetch all available facets to use for dynamically
 // rendering the browse tiles.
+// TODO: If we pass in the referenceFacets we can make this purer. (Or if we handle validation in the 
+// component. Or if we chain two thunks, one for cache validation and one for search execution.)
 export const loadFacets = () => (dispatch, getState) => {
     const queryString = '?size=0&includeFacets=toolType.type&includeFacets=researchAreas';
-    // This process can be abstracted into a generic load from cache method to be shared (later)
-    const store = getState();
-
+    //TODO: This process can be abstracted into a generic load from cache method to be shared (later)
+    
     // We want this to be a cheap lookup to see if a facets object exists, the only way to load one
     // will be after a successfull fetch so we shouldn't need to do any additional validation.
+    const store = getState();
     const isCached = store.api.referenceFacets;
     if(isCached){
         console.log('Facets are cached already.')
         return;
     }
-    console.log('Fetching facets')
+
     // Fetch facets and load them. The home component will render them as soon as they become available.
+    console.log('Fetching facets')
     setTimeout(() => {
-        //We'll also want to process the returned results into a hashmap for easier lookup by the rendering
-        //components. For now my dummy represents the already processed structure.
-        // processFacetResultsOnSuccessfulFetch()
         const dummyFacets = dummyFacetResults.facets;
         const formattedFacets = formatRawResourcesFacets(dummyFacets)
         dispatch(loadNewFacetResults(formattedFacets));
-    }, 0)
+    }, 1000)
 }
 
-// Need to rewrite this to allow for cases where the call is being made as part of a prefetch
+//TODO: Need to rewrite this to allow for cases where the call is being made as part of a prefetch
 // cycle and even though the results are new we don't want to navigate.
 
 // TODO: Fix issue with double fire and double redirect. Currently it is triple firing because of the dummy data overwriting changes, when it has a dynamic return
-// we need to see if the issue persists.
+// we need to see if the issue persists when interacting with the real API.
 export const newSearch = searchParams => (dispatch, getState) => {
     const store = getState();
     const currentSearchQueryString = store.api.currentSearchQueryString;
@@ -199,7 +199,8 @@ export const fetchResource = resourceId => (dispatch, getState) => {
 
 const dummyResults = {
     "meta": {
-		"totalResults": 168
+        "totalResults": 168,
+        "from": 20
 	},
     "results": [
         {

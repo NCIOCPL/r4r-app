@@ -42,10 +42,8 @@ class Results extends React.PureComponent {
         facets: PropTypes.objectOf(PropTypes.shape({
             title: PropTypes.string.isRequired,
             param: PropTypes.oneOf(['toolTypes.type', 'toolTypes.subtype', 'researchAreas', 'researchTypes']),
-            items: PropTypes.arrayOf(PropTypes.shape({
-                key: PropTypes.string.isRequired,
+            items: PropTypes.objectOf(PropTypes.shape({
                 label: PropTypes.string.isRequired,
-                //TODO: These will fail until the data returned in JSON is converted
                 count: PropTypes.number.isRequired,
                 selected: PropTypes.bool.isRequired,
             }))
@@ -135,14 +133,17 @@ class Results extends React.PureComponent {
 
     // TODO: Refactor to move this logic to the component itself largely
     renderPager = (withCounter = false) => {
-        return this.props.totalResults &&
-            <Pager
-                total={ this.props.totalResults }
-                resultsSize={ this.props.results && this.props.results.length }
-                startFrom={ this.props.startFrom }
-                onClick={ this.pagerSearch }
-                withCounter={ withCounter }
-            />;
+        return this.props.totalResults 
+            ?
+                <Pager
+                    total={ this.props.totalResults }
+                    resultsSize={ this.props.results && this.props.results.length }
+                    startFrom={ this.props.startFrom }
+                    onClick={ this.pagerSearch }
+                    withCounter={ withCounter }
+                />
+            :
+                null;
     }
 
     componentDidMount() {

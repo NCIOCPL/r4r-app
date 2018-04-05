@@ -13,7 +13,6 @@ import {
     newSearch,
 } from '../../state/api/actions';
 import {
-    composeQueryString,
     keyHandler,
 } from '../../utilities';
 import './index.css';
@@ -28,7 +27,6 @@ class Home extends React.PureComponent {
             title: PropTypes.string.isRequired,
             items: PropTypes.objectOf(PropTypes.shape({
                 label: PropTypes.string.isRequired,
-                // TODO: These will fail until I start correctly processing the JSON
                 count: PropTypes.number.isRequired,
                 selected: PropTypes.bool.isRequired,
             }))

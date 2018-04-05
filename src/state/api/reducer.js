@@ -19,7 +19,7 @@ const initialState = {
     currentResults: null, 
     currentFilters: null,
     currentMetaData: null,
-    currentFacets: null, // Deprecate this after filterstate is implemented correctly
+    currentFacets: null,
     currentResource: null,
     cachedSearches: {},
     cachedResources: {},
