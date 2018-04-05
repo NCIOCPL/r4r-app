@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as reducers from './state';
 import Router from './Router';
+import ErrorBoundary from './ErrorBoundary';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 
 // Don't need to fingerprint since it's session storage.
@@ -29,11 +30,13 @@ const saveAllStateToSessionStorage = () => {
 // store.subscribe(saveAllStateToSessionStorage);
 
 const ReduxConnectedApp = () => (
-    <Provider store={ store }>
-        <div className="r4r-container">
-            <Router />
-        </div>
-    </Provider>
+    <ErrorBoundary>
+        <Provider store={ store }>
+            <div className="r4r-container">
+                <Router />
+            </div>
+        </Provider>
+    </ErrorBoundary>
 );
 
 ReactDOM.render(<ReduxConnectedApp />, document.getElementById('root'));
