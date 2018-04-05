@@ -35,6 +35,7 @@ class SearchBar extends React.PureComponent {
                     type="text" 
                     value={ this.props.value }
                     onChange={ this.onChange }
+                    aria-label="search"
                 />
                 <input 
                     type="submit" 
