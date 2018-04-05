@@ -11,12 +11,18 @@ export const CACHE_RESOURCES = "CACHE RESOURCES";
 export const FETCHING_STATUS = "FETCHING STATUS";
 export const LOAD_NEW_FACET_RESULTS = "LOAD NEW FACET RESULTS";
 export const LOAD_NEW_SEARCH_RESULTS = "LOAD NEW SEARCH RESULTS";
+export const FETCHING_FACETS_STATUS = "FETCHING FACETS STATUS";
 export const SET_CURRENT_SEARCH_TEXT = "SET CURRENT SEARCH TEXT";
 export const CACHE_NEW_SEARCH_RESULTS = "CACHE NEW SEARCH RESULTS";
 export const SET_CURRENT_SEARCH_QUERY_STRING = "SET CURRENT SEARCH QUERY STRING";
 
 const setFetchingStatus = status => ({
     type: FETCHING_STATUS,
+    payload: status,
+})
+
+const setFacetsFetchingStatus = status => ({
+    type: FETCHING_FACETS_STATUS,
     payload: status,
 })
 
@@ -86,14 +92,15 @@ export const loadFacets = () => (dispatch, getState) => {
         console.log('Facets are cached already.')
         return;
     }
-
+    
     // Fetch facets and load them. The home component will render them as soon as they become available.
     console.log('Fetching facets')
+    dispatch(setFacetsFetchingStatus(true));
     setTimeout(() => {
         const dummyFacets = dummyFacetResults.facets;
         const formattedFacets = formatRawResourcesFacets(dummyFacets)
         dispatch(loadNewFacetResults(formattedFacets));
-    }, 1000)
+    }, 2000)
 }
 
 //TODO: Need to rewrite this to allow for cases where the call is being made as part of a prefetch

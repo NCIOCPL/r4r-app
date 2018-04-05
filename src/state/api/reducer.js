@@ -4,6 +4,7 @@ import {
     LOAD_NEW_SEARCH_RESULTS,
     CACHE_NEW_SEARCH_RESULTS,
     LOAD_NEW_FACET_RESULTS,
+    FETCHING_FACETS_STATUS,
     FETCHING_STATUS,
     CACHE_RESOURCES,
     LOAD_RESOURCE,
@@ -12,6 +13,7 @@ import {
 
 const initialState = {
     isFetching: false,
+    isFetchingFacets: false,
     searchParams: '',
     referenceFacets: null,
     currentSearchQueryString: '',
@@ -66,10 +68,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.payload,
             }
+        case FETCHING_FACETS_STATUS:
+            return {
+                ...state,
+                isFetchingFacets: action.payload,
+            }
         case LOAD_NEW_FACET_RESULTS:
             return {
                 ...state,
                 referenceFacets: action.payload,
+                isFetchingFacets: false,
             }
         case LOAD_NEW_SEARCH_RESULTS:
             const {

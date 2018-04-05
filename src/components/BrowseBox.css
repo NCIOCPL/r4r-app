@@ -1,7 +1,14 @@
 .browse-tiles__container {
     display: flex;
+    /* min-height: 80px; */
 }
 
 .browse-tiles__container .browse__tile {
     margin: 20px;
+}
+
+.browse-tiles__container .DNA_cont {
+    display: block;
+    margin: 40px;
+    width: auto;
 }

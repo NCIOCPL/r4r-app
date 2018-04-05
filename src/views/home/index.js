@@ -83,23 +83,23 @@ class Home extends React.PureComponent {
 
                 <h3>Tool Type</h3>
                 {
-                    this.props.referenceFacets &&
                     <BrowseBox
-                        facetFilters={ this.props.referenceFacets['toolTypes.type'].items }
+                        facets={ this.props.referenceFacets }
                         filterType={ 'toolTypes.type' }
                         className='tool-types'
                         searchFunction={ this.newFilterSearch }
+                        isFetching={ this.props.isFetchingFacets }
                     />
                 }
                 <h3>Research Area</h3>
                 <div className='browse__container'>
                 {
-                    this.props.referenceFacets &&
                     <BrowseBox
-                        facetFilters={ this.props.referenceFacets['researchAreas'].items }
+                        facets={ this.props.referenceFacets }
                         filterType={ 'researchAreas'}
                         className='research-areas'
                         searchFunction={ this.newFilterSearch }
+                        isFetching={ this.props.isFetchingFacets }
                     />
                 }                
                 </div>
@@ -126,6 +126,7 @@ const mapStateToProps = ({
 }) => ({
     searchBarValue: searchForm.searchBarValues.home,
     referenceFacets: api.referenceFacets,
+    isFetchingFacets: api.isFetchingFacets,
 })
 
 const mapDispatchToProps = {

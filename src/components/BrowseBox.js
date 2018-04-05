@@ -1,50 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BrowseTile from './BrowseTile';
+import { default as Spinner } from './ScienceSpinner';
 import { keyHandler } from '../utilities';
 import '../polyfills/object_entries';
 import './BrowseBox.css';
 
 class BrowseBox extends React.PureComponent {
     static propTypes = {
-        facetFilters: PropTypes.object.isRequired,
+        facets: PropTypes.object,
+        // facetFilters: PropTypes.object.isRequired,
         className: PropTypes.string,
         searchFunction: PropTypes.func.isRequired,
         filterType: PropTypes.string.isRequired,
+        isFetching: PropTypes.bool.isRequired,
     }
 
     static defaultProps = {
-        facetFilters: {},
+        facets: {},
+        // facetFilters: {},
         searchFunction: () => {},
         filterType: '',
+    }
+
+    renderFacets = () => {
+        if(!this.props.facets || !this.props.facets.hasOwnProperty(this.props.filterType)) return null;
+
+        return Object.entries(this.props.facets[this.props.filterType].items).map(([key, { label }], idx) => {
+            return (
+                <BrowseTile
+                    key={ idx }
+                    label={ label }
+                    onClick={ 
+                        this.props.searchFunction({
+                            filterType: this.props.filterType,
+                            filter: key,
+                        })
+                    }
+                    onKeyPress={
+                        keyHandler({
+                            fn: this.props.searchFunction({
+                                filterType: this.props.filterType,
+                                filter: key
+                            }),
+                        })
+                    }
+                />
+            )
+        })
     }
 
     render() {
         return(
             <div className={`browse-tiles__container ${this.props.className ? `browse-tiles__container--${ this.props.className }` : '' }`}>
                 {
-                    Object.entries(this.props.facetFilters).map(([key, { label }], idx) => {
-                        return (
-                            <BrowseTile
-                                key={ idx }
-                                label={ label }
-                                onClick={ 
-                                    this.props.searchFunction({
-                                        filterType: this.props.filterType,
-                                        filter: key,
-                                    })
-                                }
-                                onKeyPress={
-                                    keyHandler({
-                                        fn: this.props.searchFunction({
-                                            filterType: this.props.filterType,
-                                            filter: key
-                                        }),
-                                    })
-                                }
-                            />
-                        )
-                    })
+                    !this.props.isFetching
+                    ?
+                        this.renderFacets()
+                    :
+                        <Spinner />
                 }
             </div>
         )
