@@ -8,10 +8,15 @@ class MultiLineText extends React.PureComponent {
     }
     
     static defaultProps = {
-        type: 'p'
+        type: 'p',
+        text: '',
     }
 
     render(){
+        if(!this.props.text) {
+            return null;
+        }
+
         return this.props.text.split('\n').map((paragraph, idx) => (
             <this.props.type key={idx}>{ paragraph }</this.props.type>
         ))

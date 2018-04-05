@@ -18,6 +18,9 @@ class ContactInformation extends React.PureComponent {
     }
 
     render() {
+        if(!this.props.contact || !this.props.contact.name) {
+            return null;
+        }
         const {
             name: {
                 prefix,

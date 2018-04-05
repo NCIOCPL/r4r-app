@@ -15,6 +15,8 @@ class BrowseBox extends React.PureComponent {
 
     static defaultProps = {
         facetFilters: {},
+        searchFunction: () => {},
+        filterType: '',
     }
 
     render() {

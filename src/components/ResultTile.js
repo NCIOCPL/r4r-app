@@ -9,6 +9,12 @@ class ResultTile extends React.PureComponent {
         id: PropTypes.string.isRequired,
     }
 
+    static defaultProps = {
+        title: '',
+        description: '',
+        id: '',
+    }
+
     render() {
         return (
             <div className="result-tile">

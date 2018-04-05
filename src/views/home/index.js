@@ -53,7 +53,7 @@ class Home extends React.PureComponent {
     }
 
     viewAllOnClick = () => {
-        // TODO: This exact string needs to be figured out
+        // TODO: This exact search params for view all needs to be confirmed with Sarina/Bryan
         this.props.newSearch({
             'from': '0',
             'size': '20',
@@ -106,10 +106,6 @@ class Home extends React.PureComponent {
                 }                
                 </div>
 
-                {/* 
-                    This can execute a predefined search for any, first 20 results which can be built
-                    as a simple a tag. This would be the first API call to prefetch I would guess.
-                */}
                 <div className='r4r__view-all'>
                     <h2 
                     onClick={ this.viewAllOnClick }

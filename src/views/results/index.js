@@ -80,7 +80,6 @@ class Results extends React.PureComponent {
 
     // This is going to be a highly idiosyncratic process of normalizing the data
     // Move this to a component for clarity
-    // TODO: Add in click handler to submit new filter change event
     renderSelectedFilters = () => {
         const selected = Object.entries(this.props.facets).reduce((acc, [param, facet]) => {
             const filters = Object.entries(facet.items).reduce((acc, [key, filter]) => {

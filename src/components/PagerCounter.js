@@ -9,6 +9,9 @@ class PagerCounter extends React.PureComponent {
     }
 
     render() {
+        if(!this.props.from || !this.props.to || !this.props.total) {
+            return null;
+        }
         return (
             <div className="r4r-pager__count">
                 <p>{`${ this.props.from } - ${ this.props.to } of ${ this.props.total }`}</p>

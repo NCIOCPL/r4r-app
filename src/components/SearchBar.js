@@ -10,6 +10,11 @@ class SearchBar extends React.PureComponent {
         onSubmit: PropTypes.func.isRequired,
     }
 
+    static defaultProps = {
+        onChange: () => {},
+        onSubmit: () => {},
+    }
+
     onChange = e => {
         e.preventDefault();
         this.props.onChange({

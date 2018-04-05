@@ -13,10 +13,12 @@ class CheckFilter extends React.PureComponent {
 
     static defaultProps = {
         className: 'filter-box__filter',
-        onChange: () => {}
+        onChange: () => {},
+        checked: false,
+        label: '',
+        count: ''
     }
 
-    // TODO: Massive work connecting all these filters
     onChange = () => {
         this.props.onChange(this.props.value);
     }

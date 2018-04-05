@@ -19,6 +19,10 @@ class FilterBox extends React.PureComponent {
         onChange: PropTypes.func.isRequired,
     }
 
+    static defaultProps = {
+        onChange: () => {},
+    }
+
     render() {
         return this.props.facet 
             ?

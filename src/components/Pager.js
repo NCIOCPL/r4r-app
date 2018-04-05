@@ -12,7 +12,7 @@ import './Pager.css';
 class Pager extends React.PureComponent {
     static propTypes = {
         total: PropTypes.number.isRequired,
-        startFrom: PropTypes.number.isRequired,
+        startFrom: PropTypes.number,
         pageSize: PropTypes.number.isRequired,
         resultsSize: PropTypes.number.isRequired,
         onClick: PropTypes.func,
@@ -21,9 +21,10 @@ class Pager extends React.PureComponent {
 
     static defaultProps = {
         pageSize: 20,
-        startFrom: 45,
         onClick: () => {},
         withCounter: false,
+        total: 0,
+        resultsSize: 0,
     }
 
     onClick = (from, isCurrent) => () => {
@@ -59,6 +60,11 @@ class Pager extends React.PureComponent {
             pageSize,
             resultsSize,
         } = this.props;
+
+        if(!total || !resultsSize) {
+            return null;
+        }
+
         const isSinglePageOnly = total <= pageSize;
         const isFirstPage = startFrom <= pageSize;
         const isLastPage = startFrom >= total - pageSize;

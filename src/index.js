@@ -14,6 +14,7 @@ const cachedState = loadStateFromSessionStorage();
 
 const store = createStore(
     combineReducers(reducers),
+    //TODO: Activate session storage 
     // cachedState,
     composeWithDevTools(applyMiddleware(
         thunk
