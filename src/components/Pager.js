@@ -68,7 +68,7 @@ class Pager extends React.PureComponent {
         }
 
         const isSinglePageOnly = total <= pageSize;
-        const isFirstPage = startFrom <= pageSize;
+        const isFirstPage = (startFrom + resultsSize) <= pageSize;
         const isLastPage = startFrom >= total - pageSize;
         const totalPages = Math.ceil(total / pageSize);
         const currentPage = Math.ceil((startFrom + 1) / pageSize);
