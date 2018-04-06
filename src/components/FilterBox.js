@@ -10,8 +10,6 @@ class FilterBox extends React.PureComponent {
             title: PropTypes.string.isRequired,
             items: PropTypes.objectOf(PropTypes.shape({
                 label: PropTypes.string,
-                //TODO: These will currently fail because I am not processing the return JSON back into
-                // the correct primitives.
                 selected: PropTypes.bool.isRequired,
                 count: PropTypes.number.isRequired,
             }))

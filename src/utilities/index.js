@@ -125,6 +125,25 @@ export const renderDocsString = (docs = []) => {
     return `${ base }, ${ grammarfiedDocs }.`;
 }
 
+export const getCurrentlySelectedFiltersFromFacets = facets => {
+    const selected = Object.entries(facets).reduce((acc, [param, facet]) => {
+        const filters = Object.entries(facet.items).reduce((acc, [key, filter]) => {
+            if(filter.selected) {
+                const filterContext = {
+                    ...filter,
+                    key,
+                    title: facet.title,
+                    param,
+                }
+                return [...acc, filterContext]
+            }
+            return acc;
+        }, [])
+        return [...acc, ...filters];
+    }, [])
+    return selected;
+}
+
 /**
  * A higher order function to handle key events. Especially useful in cases where you want multiple keys to
  * trigger the same event. Pass in the callback you want the keypress to trigger and an array 

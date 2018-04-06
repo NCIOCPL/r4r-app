@@ -12,6 +12,7 @@ import {
 import {
     transformFacetFiltersIntoParamsObject,
     keyHandler,
+    getCurrentlySelectedFiltersFromFacets,
 } from '../../utilities';
 import FilterBox from '../../components/FilterBox';
 import ResultTile from '../../components/ResultTile';
@@ -80,21 +81,7 @@ class Results extends React.PureComponent {
     // This is going to be a highly idiosyncratic process of normalizing the data
     // Move this to a component for clarity
     renderSelectedFilters = () => {
-        const selected = Object.entries(this.props.facets).reduce((acc, [param, facet]) => {
-            const filters = Object.entries(facet.items).reduce((acc, [key, filter]) => {
-                if(filter.selected) {
-                    const filterContext = {
-                        ...filter,
-                        key,
-                        title: facet.title,
-                        param,
-                    }
-                    return [...acc, filterContext]
-                }
-                return acc;
-            }, [])
-            return [...acc, ...filters];
-        }, [])
+        const selected = getCurrentlySelectedFiltersFromFacets(this.props.facets)
 
         if(!selected.length) {
             return null;
@@ -145,22 +132,7 @@ class Results extends React.PureComponent {
         }
         return null;
     }
-
-    // TODO: Refactor to move this logic to the component itself largely
-    renderPager = (withCounter = false) => {
-        return this.props.totalResults 
-            ?
-                <Pager
-                    total={ this.props.totalResults }
-                    resultsSize={ this.props.results && this.props.results.length }
-                    startFrom={ this.props.startFrom }
-                    onClick={ this.pagerSearch }
-                    withCounter={ withCounter }
-                />
-            :
-                null;
-    }
-
+    
     componentDidMount() {
         const unparsedQueryString = this.props.location.search;
         const parsedQueryParams = queryString.parse(unparsedQueryString);
@@ -209,7 +181,13 @@ class Results extends React.PureComponent {
                         <div className="results__selected-filters" aria-label="Selected Search Filters">
                             { this.renderSelectedFilters() }
                         </div>
-                        { this.renderPager(true) }
+                        <Pager
+                            total={ this.props.totalResults }
+                            resultsSize={ this.props.results && this.props.results.length }
+                            startFrom={ this.props.startFrom }
+                            onClick={ this.pagerSearch }
+                            withCounter={ true }
+                        />
                         <div className="dummy-flex-search-container">
                             <div className="results__facets" aria-label="Search Filters">
                                 { this.renderToolTypes() }
@@ -239,7 +217,13 @@ class Results extends React.PureComponent {
                                 }
                             </div>
                         </div>
-                        { this.renderPager() }
+                        <Pager
+                            total={ this.props.totalResults }
+                            resultsSize={ this.props.results && this.props.results.length }
+                            startFrom={ this.props.startFrom }
+                            onClick={ this.pagerSearch }
+                            withCounter={ false }
+                        />
                     </React.Fragment>
                 :
                     <Spinner />
