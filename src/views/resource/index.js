@@ -139,7 +139,7 @@ class Resource extends React.PureComponent {
                         { this.renderSimilarResources() }
                     </div>
                 </nav>
-                <div role="search">
+                <section role="search">
                     <h2>Search Resources</h2>
                     <SearchBar 
                         value={ this.props.searchBarValue }
@@ -147,7 +147,7 @@ class Resource extends React.PureComponent {
                         onSubmit={ this.newTextSearch }
                         page='resource'
                     />
-                </div>
+                </section>
             </div>
         )
     }

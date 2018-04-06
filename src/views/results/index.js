@@ -164,8 +164,8 @@ class Results extends React.PureComponent {
         return (
             this.props.results 
                 ?
-                    <React.Fragment>
-                        <div className="results__header">
+                    <div className="r4r-results">
+                        <header className="results__header">
                             <h1>Resources for Researchers</h1>
                             <div className='results__count-container'>
                                 <h2>We found {this.props.results.length} results that match your search</h2>
@@ -177,10 +177,10 @@ class Results extends React.PureComponent {
                                 onSubmit={ this.newTextSearch }
                                 page='results'                            
                             />
-                        </div>
-                        <div className="results__selected-filters" aria-label="Selected Search Filters">
+                        </header>
+                        <section className="results__selected-filters" aria-label="Selected Search Filters">
                             { this.renderSelectedFilters() }
-                        </div>
+                        </section>
                         <Pager
                             total={ this.props.totalResults }
                             resultsSize={ this.props.results && this.props.results.length }
@@ -189,7 +189,7 @@ class Results extends React.PureComponent {
                             withCounter={ true }
                         />
                         <div className="dummy-flex-search-container">
-                            <div className="results__facets" aria-label="Search Filters">
+                            <section className="results__facets" aria-label="Search Filters">
                                 { this.renderToolTypes() }
                                 <FilterBox 
                                     facet={ this.props.facets['researchAreas'] }
@@ -199,8 +199,8 @@ class Results extends React.PureComponent {
                                     facet={ this.props.facets['researchTypes'] }
                                     onChange={ this.toggleFilter('researchTypes') }
                                 />
-                            </div>
-                            <div className="results-container">
+                            </section>
+                            <section className="results-container" aria-label="search results">
                                 {
                                     this.props.results.map(({
                                         title,
@@ -215,7 +215,7 @@ class Results extends React.PureComponent {
                                         />
                                     ))
                                 }
-                            </div>
+                            </section>
                         </div>
                         <Pager
                             total={ this.props.totalResults }
@@ -224,7 +224,7 @@ class Results extends React.PureComponent {
                             onClick={ this.pagerSearch }
                             withCounter={ false }
                         />
-                    </React.Fragment>
+                    </div>
                 :
                     <Spinner />
         )
