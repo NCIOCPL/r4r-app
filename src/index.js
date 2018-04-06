@@ -33,10 +33,10 @@ const saveAllStateToSessionStorage = () => {
 const ReduxConnectedApp = () => (
     <ErrorBoundary>
         <Provider store={ store }>
-            <div className="r4r-container">
+            <main className="r4r-container">
                 <LiveRegion />
                 <Router />
-            </div>
+            </main>
         </Provider>
     </ErrorBoundary>
 );

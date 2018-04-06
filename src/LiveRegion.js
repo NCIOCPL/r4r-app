@@ -6,7 +6,13 @@ import { connect } from 'react-redux';
 class LiveRegion extends React.PureComponent {
     render() {
         return (
-            <div className="r4r-hidden" aria-live="polite" aria-atomic="true">
+            <div 
+                className="r4r-hidden"
+                role="alertdialog"
+                aria-live="polite" 
+                aria-atomic="true" 
+                tabIndex="-1"
+            >
                 {this.props.message}
             </div>
         )
