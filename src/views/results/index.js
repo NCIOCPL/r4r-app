@@ -96,18 +96,32 @@ class Results extends React.PureComponent {
             return [...acc, ...filters];
         }, [])
 
-        return selected.map((filter, idx) => (
-            <div 
-                key={ idx }
-                className="selected-filters__filter"
-                onClick={ this.toggleFilter(filter.param)(filter.key) }
-                onKeyPress={ keyHandler({
-                    fn: this.toggleFilter(filter.param)(filter.key),
-                })}
-            >
-                <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
-            </div>
-        ))
+        if(!selected.length) {
+            return null;
+        }
+
+        return (
+            <React.Fragment>
+                <h4 className="selected-filters__header" aria-hidden>Your selections:</h4>
+                <div className="selected-filters__filters-container">
+                {
+                    selected.map((filter, idx) => (
+                        <div 
+                            key={ idx }
+                            className="selected-filters__filter"
+                            onClick={ this.toggleFilter(filter.param)(filter.key) }
+                            onKeyPress={ keyHandler({
+                                fn: this.toggleFilter(filter.param)(filter.key),
+                            })}
+                        >
+                            <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
+                        </div>
+                    ))
+                }
+                </div>
+            </React.Fragment>
+        )
+        
     }
 
     //TODO: Pass the facet type and facets separately and handle the logic of rendering there
@@ -193,10 +207,7 @@ class Results extends React.PureComponent {
                             />
                         </div>
                         <div className="results__selected-filters" aria-label="Selected Search Filters">
-                            <h4 className="selected-filters__header" aria-hidden>Your selections:</h4>
-                            <div className="selected-filters__filters-container">
-                                { this.renderSelectedFilters() }
-                            </div>
+                            { this.renderSelectedFilters() }
                         </div>
                         { this.renderPager(true) }
                         <div className="dummy-flex-search-container">
