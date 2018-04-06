@@ -47,3 +47,11 @@ a {
 a:active {
   color: #169BD5;
 }
+
+.r4r-hidden {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

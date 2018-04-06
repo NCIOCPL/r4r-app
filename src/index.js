@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import * as reducers from './state';
 import Router from './Router';
 import ErrorBoundary from './ErrorBoundary';
+import LiveRegion from './LiveRegion';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 
 // Don't need to fingerprint since it's session storage.
@@ -33,6 +34,7 @@ const ReduxConnectedApp = () => (
     <ErrorBoundary>
         <Provider store={ store }>
             <div className="r4r-container">
+                <LiveRegion />
                 <Router />
             </div>
         </Provider>
