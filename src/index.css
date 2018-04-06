@@ -48,6 +48,10 @@ a:active {
   color: #169BD5;
 }
 
+address {
+  font-style: initial;
+}
+
 .r4r-hidden {
   position: absolute;
   left: -10000px;

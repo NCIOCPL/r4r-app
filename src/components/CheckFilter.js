@@ -27,6 +27,7 @@ class CheckFilter extends React.PureComponent {
         return (
             <label
                 className={ this.props.className }
+                role="checkbox"
                 tabIndex="0"
                 onKeyPress={ keyHandler({
                     fn: this.onChange,

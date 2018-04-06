@@ -65,16 +65,14 @@ class Home extends React.PureComponent {
     render() {
         return (
             <div className="r4r-home">
-                <header role="heading">
-                    <h1>Resources for Researchers</h1>
-                </header>
+                <h1>Resources for Researchers</h1>
                 <a className="r4r__link--about" href="#i-am-a-dummyuurl">ABOUT RESOURCES FOR RESEARCHERS</a>
                 <article>
                     <MultiLineText
                         text={ "I went out to a hazel wood because a fire was in my head. I cut and peeled a hazel wand and hooked a berry to a thread. And when white moths were on the wing, and moth-like stars were flickering out, I dropped the berry in a stream and caught a little, silver trout.\nWhen I had laid it on the floor, I went to blow the fire aflame. But something rustled on the floor and someone called me by my name. It had become a glimmering girl, with apple blossom in her hair, who called me by my name and ran and faded in the brightening air.\nThough I am old with wandering through hollow lands and hilly lands, I will find out where she has gone and kiss her lips and take her hands and walk among long dappled grass and pluck, til time and times are done, the silver apples of the moon, the golden apples of the sun." }
                     />
                 </article>
-                <div className='search' role="search">
+                <div className='search'>
                     <h2>Search for resources and tools</h2>
                     <SearchBar
                         value={ this.props.searchBarValue }

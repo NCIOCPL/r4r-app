@@ -34,12 +34,12 @@ class ContactInformation extends React.PureComponent {
             email
         } = this.props.contact;
         return (
-            <div className='contact-information'>
+            <address className='contact-information'>
                 { firstName || lastName ? <p>{[prefix, firstName, middleName, lastName, suffix].join(' ')}</p> : null }
                 { title ? <p>{ title }</p> : null }
                 { phone ? <p>{ phone }</p> : null }
                 { email ? <p>{ email }</p> : null }
-            </div>
+            </address>
         )
     }
 }

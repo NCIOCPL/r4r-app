@@ -45,6 +45,8 @@ class Pager extends React.PureComponent {
                         fn: this.onClick((idx * this.props.pageSize), isCurrent),
                     })}
                     tabIndex="0"
+                    role="link"
+                    aria-label={`Results Page ${ idx + 1 }`}
                 >
                 { idx + 1 }
                 </div>
@@ -72,7 +74,7 @@ class Pager extends React.PureComponent {
         const currentPage = Math.ceil((startFrom + 1) / pageSize);
         return (
             !isSinglePageOnly &&
-            <div className="r4r-pager">
+            <nav className="r4r-pager">
                 {
                     /* Allow an optional results counter */
                     this.props.withCounter &&
@@ -92,6 +94,8 @@ class Pager extends React.PureComponent {
                                 onKeyPress={ keyHandler({
                                     fn: this.onClick((startFrom - pageSize), false),
                                 })}
+                                aria-label="previous results page"
+                                role="link"
                             >
                             { '<' }
                             </div> 
@@ -108,12 +112,14 @@ class Pager extends React.PureComponent {
                                 onKeyPress={ keyHandler({
                                     fn: this.onClick((startFrom + pageSize), false),
                                 })}
+                                aria-label="next results page"
+                                role="link"
                             >
                             { '>' }
                             </div> 
                     }
                 </div>
-            </div>
+            </nav>
         )
     }
 }

@@ -106,6 +106,25 @@ export const transformFacetFiltersIntoParamsObject = facets => {
     return queryStringParams;
 }
 
+export const renderDocsString = (docs = []) => {
+    const base = 'This resource is managed by the National Cancer Institute'
+    if(!docs.length) {
+        return base + '.';
+    }
+    if(docs.length === 1) {
+        return `${ base } and ${ docs[0] }.`;
+    }
+    const grammarfiedDocs = docs.reduce((acc, doc, idx, arr) => {
+        if(idx === arr.length - 1){
+            acc = acc + ', and ' + doc;
+            return acc;
+        }
+        acc = acc + ', ' + doc;
+        return acc
+    })
+    return `${ base }, ${ grammarfiedDocs }.`;
+}
+
 /**
  * A higher order function to handle key events. Especially useful in cases where you want multiple keys to
  * trigger the same event. Pass in the callback you want the keypress to trigger and an array 

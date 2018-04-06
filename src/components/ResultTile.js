@@ -17,12 +17,12 @@ class ResultTile extends React.PureComponent {
 
     render() {
         return (
-            <div className="result-tile">
+            <article className="result-tile" aria-label="search result">
                 <h2>{ this.props.title }</h2>
                 {/* TODO: Improve snippet handling */}
                 <p>{ this.props.description && `${this.props.description.slice(0, 400)}...`}</p>
                 <Link to={`/resource/${ this.props.id }`}>View Resource ></Link>
-            </div>
+            </article>
         )
     }
 }

@@ -17,6 +17,7 @@ import {
 import {
     formatFilters,
     keyHandler,
+    renderDocsString,
 } from '../../utilities';
 import {
     resourceInterface
@@ -44,25 +45,6 @@ class Resource extends React.PureComponent {
 
     newFilterSearch = ({filterType, filter}) => () => {
         this.props.newSearch({ [filterType]: filter });
-    }
-
-    renderDocsString = (docs = []) => {
-        const base = 'This resource is managed by the National Cancer Institute'
-        if(!docs.length) {
-            return base + '.';
-        }
-        if(docs.length === 1) {
-            return `${ base } and ${ docs[0] }.`;
-        }
-        const grammarfiedDocs = docs.reduce((acc, doc, idx, arr) => {
-            if(idx === arr.length - 1){
-                acc = acc + ', and ' + doc;
-                return acc;
-            }
-            acc = acc + ', ' + doc;
-            return acc
-        })
-        return `${ base }, ${ grammarfiedDocs }.`;
     }
 
     renderSimilarResources = () => {
@@ -123,38 +105,49 @@ class Resource extends React.PureComponent {
                                 fn: this.props.history.goBack,
                             })}
                             tabIndex="0"
+                            role="link"
                         >
                             <p>&lt; Back to results</p>
                         </div>
                 }
-                <MultiLineText text={ description }/>
+                <article aria-label="Resource description">
+                    <MultiLineText text={ description }/>
+                </article>
                 <a href={ website }>Learn more about { title } ></a>
-                <h2>Contact Information</h2>
-                { 
-                    pocs.map((poc, idx) => (
-                        <ContactInformation contact={ poc } key={ idx } />
-                    ))
-                }
-                <div className="resource__docs">
-                    { this.renderDocsString(docs) }
+                <article>
+                    <h2>Contact Information</h2>
+                    { 
+                        pocs.map((poc, idx) => (
+                            <ContactInformation contact={ poc } key={ idx } />
+                        ))
+                    }
+                </article>
+                <article className="resource__docs" aria-label="DOCs information">
+                    { renderDocsString(docs) }
+                </article>
+                <article aria-label="Resource Access Information">
+                    <h2 className="resource__access">Resource Access</h2>
+                    <div className='dummy-access-section'>
+                        {/* TODO: Logo based on resourceAccess.type */}
+                        <p>{ resourceAccess.type }</p>
+                        <p>{ resourceAccess.notes }</p>
+                    </div>
+                </article>
+                <nav>
+                    <h2>Find Similar Resources</h2>
+                    <div className='similar-resource__container'>
+                        { this.renderSimilarResources() }
+                    </div>
+                </nav>
+                <div role="search">
+                    <h2>Search Resources</h2>
+                    <SearchBar 
+                        value={ this.props.searchBarValue }
+                        onChange={ this.props.searchBarOnChange }
+                        onSubmit={ this.newTextSearch }
+                        page='resource'
+                    />
                 </div>
-                <h2 className="resource__access">Resource Access</h2>
-                <div className='dummy-access-section'>
-                    {/* TODO: Logo based on resourceAccess.type */}
-                    <p>{ resourceAccess.type }</p>
-                    <p>{ resourceAccess.notes }</p>
-                </div>
-                <h2>Find Similar Resources</h2>
-                <div className='similar-resource__container'>
-                    { this.renderSimilarResources() }
-                </div>
-                <h2>Search Resources</h2>
-                <SearchBar 
-                    value={ this.props.searchBarValue }
-                    onChange={ this.props.searchBarOnChange }
-                    onSubmit={ this.newTextSearch }
-                    page='resource'
-                />
             </div>
         )
     }

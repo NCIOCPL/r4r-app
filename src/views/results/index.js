@@ -31,6 +31,7 @@ import './index.css';
 // that would be a different flow. Hmm.)
 
 class Results extends React.PureComponent {
+
     static propTypes = {
         newSearch: PropTypes.func.isRequired,
         updateFilter: PropTypes.func.isRequired,
@@ -191,15 +192,15 @@ class Results extends React.PureComponent {
                                 page='results'                            
                             />
                         </div>
-                        <div className="results__selected-filters">
-                            <h4 className="selected-filters__header">Your selections:</h4>
+                        <div className="results__selected-filters" aria-label="Selected Search Filters">
+                            <h4 className="selected-filters__header" aria-hidden>Your selections:</h4>
                             <div className="selected-filters__filters-container">
                                 { this.renderSelectedFilters() }
                             </div>
                         </div>
                         { this.renderPager(true) }
                         <div className="dummy-flex-search-container">
-                            <div className="results__facets">
+                            <div className="results__facets" aria-label="Search Filters">
                                 { this.renderToolTypes() }
                                 <FilterBox 
                                     facet={ this.props.facets['researchAreas'] }

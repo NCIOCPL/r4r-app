@@ -8,7 +8,7 @@ class LiveRegion extends React.PureComponent {
         return (
             <div 
                 className="r4r-hidden"
-                role="alertdialog"
+                role="status"
                 aria-live="polite" 
                 aria-atomic="true" 
                 tabIndex="-1"
