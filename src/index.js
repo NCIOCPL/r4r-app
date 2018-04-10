@@ -41,4 +41,6 @@ const ReduxConnectedApp = () => (
     </ErrorBoundary>
 );
 
-ReactDOM.render(<ReduxConnectedApp />, document.getElementById('root'));
+document.addEventListener('DOMContentLoaded', () => {
+    ReactDOM.render(<ReduxConnectedApp />, document.getElementById('r4r-root'));
+})

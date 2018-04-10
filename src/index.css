@@ -6,7 +6,7 @@
   text-rendering: optimizeLegibility;
 }
 
-html, body, #root {
+html, body, #r4r-root {
   height: 100%;
   width: 100%;
 }

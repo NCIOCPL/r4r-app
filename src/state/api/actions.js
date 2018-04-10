@@ -178,7 +178,7 @@ export const newSearch = searchParams => (dispatch, getState) => {
             console.log('navigating to search page')
             history.push(`/search${ newQueryString }`)
         }
-    }, 0);
+    }, 2000);
 }
 
 export const fetchResource = resourceId => (dispatch, getState) => {
