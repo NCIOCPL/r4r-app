@@ -176,7 +176,7 @@ export const newSearch = searchParams => (dispatch, getState) => {
         dispatch(setFetchingStatus(false));
         if(!isAlreadyAtCorrectURL) {
             console.log('navigating to search page')
-            history.push(`/search${ newQueryString }`)
+            history.push(`/r4r/search${ newQueryString }`)
         }
     }, 2000);
 }

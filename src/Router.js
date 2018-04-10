@@ -12,8 +12,8 @@ import Resource from './views/resource';
 const AppRouter = () => (
     <Router history={ history }>
         <Switch>
-            <Route path="/search" component={ Results } />
-            <Route path="/resource/:id" component={ Resource } />
+            <Route path="/r4r/search" component={ Results } />
+            <Route path="/r4r/resource/:id" component={ Resource } />
             <Route path="*" component={ Home } />
         </Switch>
     </Router>

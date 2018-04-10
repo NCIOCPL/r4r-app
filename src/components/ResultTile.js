@@ -21,7 +21,7 @@ class ResultTile extends React.PureComponent {
                 <h2>{ this.props.title }</h2>
                 {/* TODO: Improve snippet handling */}
                 <p>{ this.props.description && `${this.props.description.slice(0, 400)}...`}</p>
-                <Link to={`/resource/${ this.props.id }`}>View Resource ></Link>
+                <Link to={`/r4r/resource/${ this.props.id }`}>View Resource ></Link>
             </article>
         )
     }

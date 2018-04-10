@@ -20,5 +20,5 @@ it('renders the correct static route', () => {
     return pathMap;
   }, {});
 
-  expect(pathMap['/search']).toBe(Results);
+  expect(pathMap['/r4r/search']).toBe(Results);
 });
