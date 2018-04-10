@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import SearchBar from '../../components/SearchBar';
 import BrowseBox from '../../components/BrowseBox';
 import MultiLineText from '../../components/MultiLineText';
@@ -65,6 +66,10 @@ class Home extends React.PureComponent {
     render() {
         return (
             <div className="r4r-home">
+                <Helmet>
+                    <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                    <meta property="og:url" content="https://www.cancer.gov/research/r4r" />
+                </Helmet>
                 <h1>Resources for Researchers</h1>
                 <a className="r4r__link--about" href="#i-am-a-dummyuurl">ABOUT RESOURCES FOR RESEARCHERS</a>
                 <article>

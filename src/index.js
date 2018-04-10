@@ -9,6 +9,7 @@ import * as reducers from './state';
 import Router from './Router';
 import ErrorBoundary from './ErrorBoundary';
 import LiveRegion from './LiveRegion';
+import { Helmet } from 'react-helmet';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 
 // Don't need to fingerprint since it's session storage.
@@ -34,6 +35,12 @@ const ReduxConnectedApp = () => (
     <ErrorBoundary>
         <Provider store={ store }>
             <main className="r4r-container">
+                <Helmet 
+                    defaultTitle="Resources for Researchers - National Cancer Institute"
+                >
+                    <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                    <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
+                </Helmet>
                 <LiveRegion />
                 <Router />
             </main>

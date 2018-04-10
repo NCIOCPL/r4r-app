@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { 
     newSearch,
     updateFilter,
@@ -162,7 +163,15 @@ class Results extends React.PureComponent {
 
     render() {
         return (
-            this.props.results 
+            <React.Fragment>
+                <Helmet>
+                    <title>Resources for Researchers: Search Results - National Cancer Institute</title>
+                    <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                    <meta property="og:url" content="https://www.cancer.gov/research/r4r/search" />
+                    <meta property="twitter:title" content="Resources for Researchers: Search Results - National Cancer Institute" />
+                </Helmet>
+            {
+                this.props.results 
                 ?
                     <div className="r4r-results">
                         <header className="results__header">
@@ -227,6 +236,8 @@ class Results extends React.PureComponent {
                     </div>
                 :
                     <Spinner />
+            }
+            </React.Fragment>
         )
     }
 }

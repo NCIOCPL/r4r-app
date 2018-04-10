@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
 import MultiLineText from '../../components/MultiLineText';
@@ -85,6 +86,7 @@ class Resource extends React.PureComponent {
     }
 
     renderResource = ({
+        id,
         title,
         website,
         description,
@@ -94,6 +96,13 @@ class Resource extends React.PureComponent {
     }) => {
         return (
             <div className='r4r-resource'>
+                <Helmet>
+                    <title>Resources for Researchers: { title } - National Cancer Institute</title>
+                    <meta property="og:description" content={ description.substr(0, 300) } />
+                    <meta name="description" content={ description.substr(0, 300) } />
+                    <meta property="twitter:title" content={`Resources for Researchers: ${ title } - National Cancer Institute`} />
+                    <meta property="og:url" content={`https://www.cancer.gov/research/r4r/resource/${ id }`} />
+                </Helmet>
                 <h1>{ title }</h1>
                 {
                     /* TODO: Refactor into a more functional approach */
