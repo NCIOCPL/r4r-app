@@ -4,6 +4,10 @@ import '../polyfills/object_entries';
 // need to be handled here. The app will always expect a certain structure.
 
 export const formatFilters = (filterType, resource = {}) => {
+    if(typeof resource !== 'object' || resource === null) {
+        return;
+    }
+
     return resource[filterType].map(filter => {
         // Have to handle special case of type/subtypes for tooltypes
         // This isn't elegant, but hopefully readable
@@ -27,6 +31,7 @@ export const formatFilters = (filterType, resource = {}) => {
 // with Object.entries) converting the data into a hashmap makes lookups a lot quicker and simpler.
 // This is a debatable tradeoff and could be rolled back with a few hours of refactoring.
 export const formatRawResourcesFacets = rawFacets => {
+
     const formattedFacets = rawFacets.reduce((acc, facetType) => {
         const facetTypeFilters = facetType.items.reduce((acc, filter) => {
             const {
@@ -63,9 +68,8 @@ export const composeQueryText = rawText => {
     return null;
 }
 
-//TODO: Possibly add operator overloading to handle simple strings
 export const composeQueryString = params => {
-    if(!params) {
+    if(typeof params !== 'object' || params === null) {
         return;
     }
     
@@ -75,6 +79,10 @@ export const composeQueryString = params => {
 }
 
 export const transformFacetFiltersIntoQueryString = facets => {
+    if(typeof facets !== 'object' || facets === null) {
+        return;
+    }
+
     const queryStringParams = Object.entries(facets).reduce((acc, [facetParam, { items }]) => {
         const filters = Object.entries(items).reduce((acc, [filterKey, { selected }]) => {
             if(selected) {
@@ -88,6 +96,10 @@ export const transformFacetFiltersIntoQueryString = facets => {
 }
 
 export const transformFacetFiltersIntoParamsObject = facets => {
+    if(typeof facets !== 'object' || facets === null) {
+        return;
+    }
+
     const queryStringParams = Object.entries(facets).reduce((acc, [facetParam, { items }]) => {
         const filters = Object.entries(items).reduce((acc, [filterKey, { selected }]) => {
             if(selected) {
@@ -107,13 +119,19 @@ export const transformFacetFiltersIntoParamsObject = facets => {
 }
 
 export const renderDocsString = (docs = []) => {
-    const base = 'This resource is managed by the National Cancer Institute'
+    if(typeof docs !== 'array' || !docs.length) {
+        return '';
+    }
+
+    const base = 'This resource is managed by the National Cancer Institute';
+
     if(!docs.length) {
         return base + '.';
     }
     if(docs.length === 1) {
         return `${ base } and ${ docs[0] }.`;
     }
+
     const grammarfiedDocs = docs.reduce((acc, doc, idx, arr) => {
         if(idx === arr.length - 1){
             acc = acc + ', and ' + doc;
@@ -126,6 +144,10 @@ export const renderDocsString = (docs = []) => {
 }
 
 export const getCurrentlySelectedFiltersFromFacets = facets => {
+    if(typeof facets !== 'object' || facets === null) {
+        return [];
+    }
+
     const selected = Object.entries(facets).reduce((acc, [param, facet]) => {
         const filters = Object.entries(facet.items).reduce((acc, [key, filter]) => {
             if(filter.selected) {
@@ -160,8 +182,18 @@ export const getCurrentlySelectedFiltersFromFacets = facets => {
  * @param {boolean} [options.prevDef = false]
  * @return {function} A wrapped version of your function to pass to use as an eventListener callback
  */
-export const keyHandler = options => e => {
-    const {fn = () => {}, keys = ['Enter', ' '], stopProp = true, prevDef = true} = options;
+export const keyHandler = (options = {}) => e => {
+    if(typeof options !== 'object' || options === null) {
+        return;
+    }
+    
+    const {
+        fn = () => {}, 
+        keys = ['Enter', ' '], 
+        stopProp = true, 
+        prevDef = true
+    } = options;
+
     if (keys.includes(e.key)) {
         stopProp && e.stopPropagation();
         prevDef && e.preventDefault();
