@@ -96,7 +96,7 @@ class Resource extends React.PureComponent {
         docs,
     }) => {
         return (
-            <Theme type="div" className='r4r-resource'>
+            <Theme element="div" className='r4r-resource'>
                 <Helmet>
                     <title>Resources for Researchers: { title } - National Cancer Institute</title>
                     <meta property="og:description" content={ description.substr(0, 300) } />
@@ -108,7 +108,7 @@ class Resource extends React.PureComponent {
                 {
                     /* TODO: Refactor into a more functional approach */
                     this.props.currentResults && this.props.currentResults.includes(this.props.resource) &&
-                        <Theme type="div"
+                        <Theme element="div"
                             className="resource__back" 
                             onClick={ this.props.history.goBack }
                             onKeyPress={ keyHandler({
@@ -132,12 +132,12 @@ class Resource extends React.PureComponent {
                         ))
                     }
                 </article>
-                <Theme type="article" className="resource__docs" aria-label="DOCs information">
+                <Theme element="article" className="resource__docs" aria-label="DOCs information">
                     { renderDocsString(docs) }
                 </Theme>
                 <article aria-label="Resource Access Information">
-                    <Theme type="h2" className="resource__access">Resource Access</Theme>
-                    <Theme type="div" className='dummy-access-section'>
+                    <Theme element="h2" className="resource__access">Resource Access</Theme>
+                    <Theme element="div" className='dummy-access-section'>
                         {/* TODO: Logo based on resourceAccess.type */}
                         <p>{ resourceAccess.type }</p>
                         <p>{ resourceAccess.notes }</p>
@@ -145,7 +145,7 @@ class Resource extends React.PureComponent {
                 </article>
                 <nav>
                     <h2>Find Similar Resources</h2>
-                    <Theme type="div" className='similar-resource__container'>
+                    <Theme element="div" className='similar-resource__container'>
                         { this.renderSimilarResources() }
                     </Theme>
                 </nav>

@@ -1,9 +1,9 @@
-.r4r-home {
+.r4r-home.r4r-DEFAULT {
     width: 1000px;
     padding-left: 10px;
 }
 
-.r4r__link--about {
+.r4r__link--about.r4r-DEFAULT {
     display: block;
     height: 45px;
     width: 350px;
@@ -15,21 +15,21 @@
 
 }
 
-.r4r-home .r4r__link--about {
+.r4r-home.r4r-DEFAULT .r4r__link--about.r4r-DEFAULT {
     margin: 20px 0;
     margin-left: auto;
 }
 
-.r4r-home .home__search {
+.r4r-home.r4r-DEFAULT .home__search.r4r-DEFAULT {
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-.r4r__view-all {
+.r4r__view-all.r4r-DEFAULT {
     display: flex;
 }
 
-.r4r__view-all h2 {
+.r4r__view-all.r4r-DEFAULT h2 {
     cursor: pointer;
     color: #169bd5;
 }

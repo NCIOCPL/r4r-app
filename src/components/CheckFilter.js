@@ -27,7 +27,7 @@ class CheckFilter extends React.PureComponent {
     render() {
         return (
             <Theme
-                type="label"
+                element="label"
                 className={ this.props.className }
                 role="checkbox"
                 tabIndex="0"
@@ -36,7 +36,7 @@ class CheckFilter extends React.PureComponent {
                 })}
             >
                 <Theme
-                    type="input" 
+                    element="input" 
                     type="checkbox"
                     value={ this.props.label }
                     checked={ this.props.checked }
@@ -44,7 +44,7 @@ class CheckFilter extends React.PureComponent {
                     className='filter__checkbox'
                     tabIndex="-1"
                 />
-                <Theme type="span" className='filter__label'>
+                <Theme element="span" className='filter__label'>
                     {`${this.props.label} (${this.props.count})`}
                 </Theme>
             </Theme>

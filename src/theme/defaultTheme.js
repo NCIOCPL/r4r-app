@@ -31,6 +31,7 @@ export const defaultThemeHooks = [
     'pager__arrow',
     'facet__box',
     'facet__title',
+    'facet__filter',
     'contact-information',
     'filter-box__filter',
     'filter__checkbox',
@@ -38,4 +39,5 @@ export const defaultThemeHooks = [
     'r4r-boundary',
     'boundary__inner',
     'r4r-hidden',
+    'results-container',
 ]

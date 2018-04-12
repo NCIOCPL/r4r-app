@@ -1,13 +1,12 @@
-.browse-tiles__container {
+.browse-tiles__container.r4r-DEFAULT {
     display: flex;
-    /* min-height: 80px; */
 }
 
-.browse-tiles__container .browse__tile {
+.browse-tiles__container.r4r-DEFAULT .browse__tile.r4r-DEFAULT {
     margin: 20px;
 }
 
-.browse-tiles__container .DNA_cont {
+.browse-tiles__container.r4r-DEFAULT .r4r-spinner {
     display: block;
     margin: 40px;
     width: auto;

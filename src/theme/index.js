@@ -5,7 +5,7 @@ const ThemeContext = React.createContext();
 
 export const createTheme = customTheme => {
     const theme = defaultThemeHooks.reduce((acc, hook) => {
-        acc[hook] = customTheme[hook] || 'r4r__DEFAULT'
+        acc[hook] = customTheme[hook] || 'r4r-DEFAULT'
         return acc;
     }, {})
 
@@ -27,7 +27,7 @@ export class ThemeProvider extends React.Component {
 export class Theme extends React.Component {
     render() {
         const {
-            type: Type,
+            element: Element,
             className = '',
             children,
             ...rest,
@@ -39,12 +39,12 @@ export class Theme extends React.Component {
             <ThemeContext.Consumer>
                 {
                     theme => (
-                        <Type 
+                        <Element 
                             className={ `${ primaryClassName } ${ secondaryClassNames } ${ theme[primaryClassName] ? theme[primaryClassName] : '' }`}
                             { ...rest }
                         >
                             { children }
-                        </Type>
+                        </Element>
                     )
                 }
             </ThemeContext.Consumer>

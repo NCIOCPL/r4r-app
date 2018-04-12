@@ -39,7 +39,7 @@ class Pager extends React.PureComponent {
             const isCurrent = current === idx + 1;
             return (
                 <Theme
-                    type="div"
+                    element="div"
                     key={ idx } 
                     className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
                     onClick={ this.onClick((idx * this.props.pageSize), isCurrent) }
@@ -76,7 +76,7 @@ class Pager extends React.PureComponent {
         const currentPage = Math.ceil((startFrom + 1) / pageSize);
         return (
             !isSinglePageOnly &&
-            <Theme type="nav" className="r4r-pager">
+            <Theme element="nav" className="r4r-pager">
                 {
                     /* Allow an optional results counter */
                     this.props.withCounter &&
@@ -86,11 +86,11 @@ class Pager extends React.PureComponent {
                             total={ total }
                         />
                 }
-                <Theme type="div" className='r4r-pager__nav'>
+                <Theme element="div" className='r4r-pager__nav'>
                     { 
                         !isFirstPage && 
                             <Theme
-                                type="div"
+                                element="div"
                                 className='pager__arrow' 
                                 tabIndex="0"
                                 onClick={ this.onClick((startFrom - pageSize), false) }
@@ -109,7 +109,7 @@ class Pager extends React.PureComponent {
                     { 
                         !isLastPage && 
                             <Theme
-                                type="div" 
+                                element="div" 
                                 className='pager__arrow' 
                                 tabIndex="0"
                                 onClick={ this.onClick((startFrom + pageSize), false) }

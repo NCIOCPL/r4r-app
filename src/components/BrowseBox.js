@@ -54,7 +54,7 @@ class BrowseBox extends React.PureComponent {
 
     render() {
         return(
-            <Theme type="div" className="browse-tiles__container">
+            <Theme element="div" className="browse-tiles__container">
                 {
                     !this.props.isFetching
                     ?

@@ -57,7 +57,7 @@ const initialize = ({
         <ErrorBoundary>
             <Provider store={ store }>
                 <ThemeProvider theme={ theme }>
-                    <Theme type='main' className="r4r-container">
+                    <Theme element='main' className="r4r-container">
                         <Helmet 
                             defaultTitle="Resources for Researchers - National Cancer Institute"
                         >

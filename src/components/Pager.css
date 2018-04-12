@@ -1,15 +1,15 @@
-.r4r-pager {
+.r4r-pager.r4r-DEFAULT {
     display: flex;
     flex-direction: column;
     margin-right: 25px;
 }
 
-.r4r-pager__count {
+.r4r-pager__count.r4r-DEFAULT {
     display: flex;
     justify-content: flex-end;
 }
 
-.r4r-pager__nav {
+.r4r-pager__nav.r4r-DEFAULT {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -18,7 +18,7 @@
     margin-bottom: 8px;
 }
 
-.r4r-pager .pager__num {
+.r4r-pager.r4r-DEFAULT .pager__num.r4r-DEFAULT {
     border-radius: 50%;
     height: 30px;
     width: 30px;
@@ -28,7 +28,7 @@
     align-items: center;
 }
 
-.r4r-pager .pager__arrow {
+.r4r-pager.r4r-DEFAULT .pager__arrow.r4r-DEFAULT {
     border-radius: 5px;
     height: 30px;
     display: flex;
@@ -36,17 +36,17 @@
     align-items: center;
 }
 
-.r4r-pager .pager__num, .r4r-pager .pager__arrow {
+.r4r-pager.r4r-DEFAULT .pager__num.r4r-DEFAULT, .r4r-pager.r4r-DEFAULT .pager__arrow.r4r-DEFAULT {
     padding: 5px;
     cursor: pointer;
     transition: all 150ms linear;
 }
 
-.pager__num:not(.pager__num--active):hover, .pager__arrow:hover {
+.pager__num.r4r-DEFAULT:not(.pager__num--active):hover, .pager__arrow.r4r-DEFAULT:hover {
     background: #b2dffa;
 }
 
-.r4r-pager .pager__num--active {
+.r4r-pager.r4r-DEFAULT .pager__num--active.r4r-DEFAULT {
     background: #169bd5;
     color: white;
     cursor: default;

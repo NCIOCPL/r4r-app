@@ -19,7 +19,7 @@ class BrowseTile extends React.PureComponent {
     render() {
         return (
             <Theme
-                type="div"
+                element="div"
                 className={ this.props.className }
                 role="link"
                 tabIndex='0' 

@@ -8,7 +8,7 @@ class LiveRegion extends React.PureComponent {
     render() {
         return (
             <Theme
-                type="div"
+                element="div"
                 className="r4r-hidden"
                 role="status"
                 aria-live="polite" 

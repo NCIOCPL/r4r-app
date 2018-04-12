@@ -1,4 +1,4 @@
-.browse__tile {
+.browse__tile.r4r-DEFAULT {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,10 +15,10 @@
 
 }
 
-.browse__tile:hover {
+.browse__tile.r4r-DEFAULT:hover {
     box-shadow: 0 18px 15px -15px rgba(0,0,0,0.2);
 }
 
-.browse__tile:active {
+.browse__tile.r4r-DEFAULT:active {
     box-shadow: 0 10px 5px -8px rgba(0,0,0,0.2);
 }

@@ -3,7 +3,7 @@ import './ScienceSpinner.css';
 
 const ScienceSpinner = () => (
     <div 
-        className="DNA_cont"
+        className="r4r-spinner"
         role="alertdialog" 
         aria-busy="true" 
         aria-live="assertive"

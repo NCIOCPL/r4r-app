@@ -14,41 +14,44 @@ html, body, #r4r-root {
 .r4r-container {
   height: 100%;
   width: 100%;
+}
+
+.r4r-container.r4r-DEFAULT {
   padding: 10px;
 }
 
-h1 {
+.r4r-container.r4r-DEFAULT h1 {
   margin-top: 17px;
   margin-bottom: 17px;
 }
 
-h2 {
+.r4r-container.r4r-DEFAULT h2 {
   margin-top: 12px;
   margin-bottom: 12px;
 }
 
-h3 {
+.r4r-container.r4r-DEFAULT h3 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
 
-p {
+.r4r-container.r4r-DEFAULT p {
   line-height: 1.35em;
   font-size: 16px;
   margin-top: 8px;
   margin-bottom: 8px;
 }
 
-a {
+.r4r-container.r4r-DEFAULT a {
   text-decoration-line: none;
   color: #169BD5;
 }
 
-a:active {
+.r4r-container.r4r-DEFAULT a:active {
   color: #169BD5;
 }
 
-address {
+.r4r-container.r4r-DEFAULT address {
   font-style: initial;
 }
 

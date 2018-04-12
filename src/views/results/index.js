@@ -91,12 +91,12 @@ class Results extends React.PureComponent {
 
         return (
             <React.Fragment>
-                <Theme type="h4" className="selected-filters__header" aria-hidden>Your selections:</Theme>
-                <Theme type="div" className="selected-filters__filters-container">
+                <Theme element="h4" className="selected-filters__header" aria-hidden>Your selections:</Theme>
+                <Theme element="div" className="selected-filters__filters-container">
                 {
                     selected.map((filter, idx) => (
                         <Theme
-                            type="div" 
+                            element="div" 
                             key={ idx }
                             className="selected-filters__filter"
                             onClick={ this.toggleFilter(filter.param)(filter.key) }
@@ -175,10 +175,10 @@ class Results extends React.PureComponent {
             {
                 this.props.results 
                 ?
-                    <Theme type="div" className="r4r-results">
-                        <Theme type="header" className="results__header">
+                    <Theme element="div" className="r4r-results">
+                        <Theme element="header" className="results__header">
                             <h1>Resources for Researchers</h1>
-                            <Theme type="div" className='results__count-container'>
+                            <Theme element="div" className='results__count-container'>
                                 <h2>We found {this.props.results.length} results that match your search</h2>
                                 <h2><Link to="/">Start Over</Link></h2>
                             </Theme>
@@ -189,7 +189,7 @@ class Results extends React.PureComponent {
                                 page='results'                            
                             />
                         </Theme>
-                        <Theme type="section" className="results__selected-filters" aria-label="Selected Search Filters">
+                        <Theme element="section" className="results__selected-filters" aria-label="Selected Search Filters">
                             { this.renderSelectedFilters() }
                         </Theme>
                         <Pager
@@ -199,8 +199,8 @@ class Results extends React.PureComponent {
                             onClick={ this.pagerSearch }
                             withCounter={ true }
                         />
-                        <Theme type="div" className="dummy-flex-search-container">
-                            <Theme type="section" className="results__facets" aria-label="Search Filters">
+                        <Theme element="div" className="dummy-flex-search-container">
+                            <Theme element="section" className="results__facets" aria-label="Search Filters">
                                 { this.renderToolTypes() }
                                 <FilterBox 
                                     facet={ this.props.facets['researchAreas'] }
@@ -211,7 +211,7 @@ class Results extends React.PureComponent {
                                     onChange={ this.toggleFilter('researchTypes') }
                                 />
                             </Theme>
-                            <section className="results-container" aria-label="search results">
+                            <Theme element="section" className="results-container" aria-label="search results">
                                 {
                                     this.props.results.map(({
                                         title,
@@ -226,7 +226,7 @@ class Results extends React.PureComponent {
                                         />
                                     ))
                                 }
-                            </section>
+                            </Theme>
                         </Theme>
                         <Pager
                             total={ this.props.totalResults }

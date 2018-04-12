@@ -17,8 +17,8 @@ class ErrorBoundary extends React.Component {
         return (
             this.state.hasError
                 ?
-                    <Theme type="div" className="r4r-boundary">
-                        <Theme type="div" className="boundary__inner">
+                    <Theme element="div" className="r4r-boundary">
+                        <Theme element="div" className="boundary__inner">
                             <p>An unexpected error has occured.</p>
                             <p>Please try refreshing the page.</p>
                         </Theme>

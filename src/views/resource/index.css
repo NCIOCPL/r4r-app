@@ -1,23 +1,23 @@
-.resource__back {
+.resource__back.r4r-DEFAULT {
     color: #169bd5;
     cursor: pointer;
 }
 
-.resource__back:hover {
+.resource__back.r4r-DEFAULT:hover {
     text-decoration: underline;
 }
 
-.r4r-resource .resource__docs {
+.r4r-resource.r4r-DEFAULT .resource__docs.r4r-DEFAULT {
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: .9em;
 }
 
-.similar-resource__container {
+.similar-resource__container.r4r-DEFAULT {
     display: flex;
 }
 
-.similar-resource__tile {
+.similar-resource__tile.r4r-DEFAULT {
     color: white;
     background: #169bd5;
     padding: 10px;
@@ -31,10 +31,10 @@
 
 }
 
-.similar-resource__tile:hover {
+.similar-resource__tile.r4r-DEFAULT:hover {
     box-shadow: 0 18px 15px -15px rgba(0,0,0,0.2);
 }
 
-.similar-resource__tile:active {
+.similar-resource__tile.r4r-DEFAULT:active {
     box-shadow: 0 10px 5px -8px rgba(0,0,0,0.2);
 }

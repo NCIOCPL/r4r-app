@@ -35,7 +35,7 @@ class ContactInformation extends React.PureComponent {
             email
         } = this.props.contact;
         return (
-            <Theme type="address" className='contact-information'>
+            <Theme element="address" className='contact-information'>
                 { firstName || lastName ? <p>{[prefix, firstName, middleName, lastName, suffix].join(' ')}</p> : null }
                 { title ? <p>{ title }</p> : null }
                 { phone ? <p>{ phone }</p> : null }

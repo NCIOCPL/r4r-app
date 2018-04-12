@@ -31,7 +31,7 @@ class SearchBar extends React.PureComponent {
 
     render() {
         return(
-            <Theme type="form" onSubmit={ this.onSubmit } className='searchbar__container'>
+            <Theme element="form" onSubmit={ this.onSubmit } className='searchbar__container'>
                 <input 
                     type="text" 
                     value={ this.props.value }
