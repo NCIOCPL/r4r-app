@@ -11,7 +11,7 @@ import ErrorBoundary from './ErrorBoundary';
 import LiveRegion from './LiveRegion';
 import { Helmet } from 'react-helmet';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
-import { ThemeProvider, Theme } from './themes';
+import { createTheme, ThemeProvider, Theme } from './theme';
 
 /**
  * @param {object} [config]
@@ -19,23 +19,15 @@ import { ThemeProvider, Theme } from './themes';
  */
 const initialize = ({
     customTheme = {},
+    appId = 'DEFAULT_APP_ID',
 } = {}) => {
-
-    // ################ TODO: MODULARIZE
-    // For custom theming, we could use our own context API, but since we already have react-redux's connect HOC,
-    // it makes sense to standardize the context usage and just provide access through the store (despite no
-    // futher changes after instantiation.). We will have to seed our reducer in a slightly more dynamic way.
-    const defaultThemeHooks = [
-        'r4r-container'
-    ]
-
-    const theme = defaultThemeHooks.reduce((acc, hook) => {
-        acc[hook] = customTheme[hook] || 'r4r__DEFAULT'
-        return acc;
-    }, {})
-
-    const appId = 'r4r-browser-cache'
+    if(typeof customTheme !== 'object' || customTheme === null) {
+        throw new Error('customTheme must be a non-null object')
+    }
+    
+    const theme = createTheme(customTheme);
     let cachedState;
+
 
     if(process.env.NODE_ENV !== 'development') {
         cachedState = loadStateFromSessionStorage(appId);
@@ -84,6 +76,8 @@ const initialize = ({
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initialize();
+    initialize({
+        appId: 'r4r-browser-cache',
+    });
 })
 

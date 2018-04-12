@@ -1,5 +1,5 @@
 // Returning undefined ensures Redux will load from initialState if sessionStorage isn't available
-export const loadStateFromSessionStorage = (appId = 'DEFAULT_APP_ID') => {
+export const loadStateFromSessionStorage = appId => {
     try {
         const serializedState = sessionStorage.getItem(appId);
         if(serializedState === null) {
@@ -14,7 +14,7 @@ export const loadStateFromSessionStorage = (appId = 'DEFAULT_APP_ID') => {
 
 export const saveStatetoSessionStorage = ({
     state,
-    appId = 'DEFAULT_APP_ID',
+    appId,
 }) => {
     try {
         const serializedState = JSON.stringify(state);
