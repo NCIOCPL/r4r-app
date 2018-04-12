@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Theme } from '../../theme';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
 import MultiLineText from '../../components/MultiLineText';
@@ -95,7 +96,7 @@ class Resource extends React.PureComponent {
         docs,
     }) => {
         return (
-            <div className='r4r-resource'>
+            <Theme type="div" className='r4r-resource'>
                 <Helmet>
                     <title>Resources for Researchers: { title } - National Cancer Institute</title>
                     <meta property="og:description" content={ description.substr(0, 300) } />
@@ -107,7 +108,7 @@ class Resource extends React.PureComponent {
                 {
                     /* TODO: Refactor into a more functional approach */
                     this.props.currentResults && this.props.currentResults.includes(this.props.resource) &&
-                        <div 
+                        <Theme type="div"
                             className="resource__back" 
                             onClick={ this.props.history.goBack }
                             onKeyPress={ keyHandler({
@@ -117,7 +118,7 @@ class Resource extends React.PureComponent {
                             role="link"
                         >
                             <p>&lt; Back to results</p>
-                        </div>
+                        </Theme>
                 }
                 <article aria-label="Resource description">
                     <MultiLineText text={ description }/>
@@ -131,22 +132,22 @@ class Resource extends React.PureComponent {
                         ))
                     }
                 </article>
-                <article className="resource__docs" aria-label="DOCs information">
+                <Theme type="article" className="resource__docs" aria-label="DOCs information">
                     { renderDocsString(docs) }
-                </article>
+                </Theme>
                 <article aria-label="Resource Access Information">
-                    <h2 className="resource__access">Resource Access</h2>
-                    <div className='dummy-access-section'>
+                    <Theme type="h2" className="resource__access">Resource Access</Theme>
+                    <Theme type="div" className='dummy-access-section'>
                         {/* TODO: Logo based on resourceAccess.type */}
                         <p>{ resourceAccess.type }</p>
                         <p>{ resourceAccess.notes }</p>
-                    </div>
+                    </Theme>
                 </article>
                 <nav>
                     <h2>Find Similar Resources</h2>
-                    <div className='similar-resource__container'>
+                    <Theme type="div" className='similar-resource__container'>
                         { this.renderSimilarResources() }
-                    </div>
+                    </Theme>
                 </nav>
                 <section role="search">
                     <h2>Search Resources</h2>
@@ -157,7 +158,7 @@ class Resource extends React.PureComponent {
                         page='resource'
                     />
                 </section>
-            </div>
+            </Theme>
         )
     }
 

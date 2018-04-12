@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 
 class ContactInformation extends React.PureComponent {
     static propTypes = {
@@ -34,12 +35,12 @@ class ContactInformation extends React.PureComponent {
             email
         } = this.props.contact;
         return (
-            <address className='contact-information'>
+            <Theme type="address" className='contact-information'>
                 { firstName || lastName ? <p>{[prefix, firstName, middleName, lastName, suffix].join(' ')}</p> : null }
                 { title ? <p>{ title }</p> : null }
                 { phone ? <p>{ phone }</p> : null }
                 { email ? <p>{ email }</p> : null }
-            </address>
+            </Theme>
         )
     }
 }

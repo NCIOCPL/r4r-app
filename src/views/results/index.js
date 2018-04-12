@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Theme } from '../../theme';
 import { 
     newSearch,
     updateFilter,
@@ -90,11 +91,12 @@ class Results extends React.PureComponent {
 
         return (
             <React.Fragment>
-                <h4 className="selected-filters__header" aria-hidden>Your selections:</h4>
-                <div className="selected-filters__filters-container">
+                <Theme type="h4" className="selected-filters__header" aria-hidden>Your selections:</Theme>
+                <Theme type="div" className="selected-filters__filters-container">
                 {
                     selected.map((filter, idx) => (
-                        <div 
+                        <Theme
+                            type="div" 
                             key={ idx }
                             className="selected-filters__filter"
                             onClick={ this.toggleFilter(filter.param)(filter.key) }
@@ -103,10 +105,10 @@ class Results extends React.PureComponent {
                             })}
                         >
                             <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
-                        </div>
+                        </Theme>
                     ))
                 }
-                </div>
+                </Theme>
             </React.Fragment>
         )
         
@@ -173,23 +175,23 @@ class Results extends React.PureComponent {
             {
                 this.props.results 
                 ?
-                    <div className="r4r-results">
-                        <header className="results__header">
+                    <Theme type="div" className="r4r-results">
+                        <Theme type="header" className="results__header">
                             <h1>Resources for Researchers</h1>
-                            <div className='results__count-container'>
+                            <Theme type="div" className='results__count-container'>
                                 <h2>We found {this.props.results.length} results that match your search</h2>
                                 <h2><Link to="/">Start Over</Link></h2>
-                            </div>
+                            </Theme>
                             <SearchBar 
                                 value={ this.props.searchBarValue }
                                 onChange={ this.props.searchBarOnChange }
                                 onSubmit={ this.newTextSearch }
                                 page='results'                            
                             />
-                        </header>
-                        <section className="results__selected-filters" aria-label="Selected Search Filters">
+                        </Theme>
+                        <Theme type="section" className="results__selected-filters" aria-label="Selected Search Filters">
                             { this.renderSelectedFilters() }
-                        </section>
+                        </Theme>
                         <Pager
                             total={ this.props.totalResults }
                             resultsSize={ this.props.results && this.props.results.length }
@@ -197,8 +199,8 @@ class Results extends React.PureComponent {
                             onClick={ this.pagerSearch }
                             withCounter={ true }
                         />
-                        <div className="dummy-flex-search-container">
-                            <section className="results__facets" aria-label="Search Filters">
+                        <Theme type="div" className="dummy-flex-search-container">
+                            <Theme type="section" className="results__facets" aria-label="Search Filters">
                                 { this.renderToolTypes() }
                                 <FilterBox 
                                     facet={ this.props.facets['researchAreas'] }
@@ -208,7 +210,7 @@ class Results extends React.PureComponent {
                                     facet={ this.props.facets['researchTypes'] }
                                     onChange={ this.toggleFilter('researchTypes') }
                                 />
-                            </section>
+                            </Theme>
                             <section className="results-container" aria-label="search results">
                                 {
                                     this.props.results.map(({
@@ -225,7 +227,7 @@ class Results extends React.PureComponent {
                                     ))
                                 }
                             </section>
-                        </div>
+                        </Theme>
                         <Pager
                             total={ this.props.totalResults }
                             resultsSize={ this.props.results && this.props.results.length }
@@ -233,7 +235,7 @@ class Results extends React.PureComponent {
                             onClick={ this.pagerSearch }
                             withCounter={ false }
                         />
-                    </div>
+                    </Theme>
                 :
                     <Spinner />
             }

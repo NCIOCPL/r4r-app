@@ -13,13 +13,14 @@ class BrowseTile extends React.PureComponent {
     static defaultProps = {
         onClick: () => {},
         onKeyPress: () => {},
+        className: 'browse__tile',
     }
 
     render() {
         return (
             <Theme
                 type="div"
-                className="browse__tile"
+                className={ this.props.className }
                 role="link"
                 tabIndex='0' 
                 onClick={ this.props.onClick }

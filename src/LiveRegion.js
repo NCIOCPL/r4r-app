@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Theme } from './theme';
 
 // Use this component to announe state changes to screen-readers
 // by passing a message to state/announcements/actions/newMessage()
 class LiveRegion extends React.PureComponent {
     render() {
         return (
-            <div 
+            <Theme
+                type="div"
                 className="r4r-hidden"
                 role="status"
                 aria-live="polite" 
@@ -14,7 +16,7 @@ class LiveRegion extends React.PureComponent {
                 tabIndex="-1"
             >
                 {this.props.message}
-            </div>
+            </Theme>
         )
     }
 }

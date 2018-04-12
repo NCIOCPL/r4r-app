@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 
 class PagerCounter extends React.PureComponent {
     static propTypes = {
@@ -13,9 +14,9 @@ class PagerCounter extends React.PureComponent {
             return null;
         }
         return (
-            <div className="r4r-pager__count" aria-label="Results count">
+            <Theme type="div" className="r4r-pager__count" aria-label="Results count">
                 <p>{`${ this.props.from } - ${ this.props.to } of ${ this.props.total }`}</p>
-            </div>
+            </Theme>
         )
     }
 }

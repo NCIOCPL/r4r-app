@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 import './SearchBar.css';
 
 class SearchBar extends React.PureComponent {
@@ -30,7 +31,7 @@ class SearchBar extends React.PureComponent {
 
     render() {
         return(
-            <form onSubmit={ this.onSubmit } className='searchbar__container'>
+            <Theme type="form" onSubmit={ this.onSubmit } className='searchbar__container'>
                 <input 
                     type="text" 
                     value={ this.props.value }
@@ -41,7 +42,7 @@ class SearchBar extends React.PureComponent {
                     type="submit" 
                     value="Search"
                 />
-            </form>
+            </Theme>
         )
     }
 }

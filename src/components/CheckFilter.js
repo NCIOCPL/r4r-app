@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 import { keyHandler } from '../utilities';
 
 class CheckFilter extends React.PureComponent {
@@ -25,7 +26,8 @@ class CheckFilter extends React.PureComponent {
 
     render() {
         return (
-            <label
+            <Theme
+                type="label"
                 className={ this.props.className }
                 role="checkbox"
                 tabIndex="0"
@@ -33,7 +35,8 @@ class CheckFilter extends React.PureComponent {
                     fn: this.onChange,
                 })}
             >
-                <input 
+                <Theme
+                    type="input" 
                     type="checkbox"
                     value={ this.props.label }
                     checked={ this.props.checked }
@@ -41,8 +44,10 @@ class CheckFilter extends React.PureComponent {
                     className='filter__checkbox'
                     tabIndex="-1"
                 />
-                <span className='filter__label'>{`${this.props.label} (${this.props.count})`}</span>
-            </label>
+                <Theme type="span" className='filter__label'>
+                    {`${this.props.label} (${this.props.count})`}
+                </Theme>
+            </Theme>
         )
     }
 }

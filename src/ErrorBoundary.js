@@ -1,4 +1,5 @@
 import React from 'react';
+import { Theme } from './theme';
 import './ErrorBoundary.css';
 
 class ErrorBoundary extends React.Component {
@@ -16,12 +17,12 @@ class ErrorBoundary extends React.Component {
         return (
             this.state.hasError
                 ?
-                    <div className="r4r-boundary">
-                        <div className="boundary__inner">
+                    <Theme type="div" className="r4r-boundary">
+                        <Theme type="div" className="boundary__inner">
                             <p>An unexpected error has occured.</p>
                             <p>Please try refreshing the page.</p>
-                        </div>
-                    </div>
+                        </Theme>
+                    </Theme>
                 :
                     this.props.children
         )

@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 import PagerCounter from './PagerCounter';
 import { keyHandler } from '../utilities';
 import '../polyfills/array_fill';
@@ -37,7 +38,8 @@ class Pager extends React.PureComponent {
         const pages = Array(total).fill().map((el, idx) => {
             const isCurrent = current === idx + 1;
             return (
-                <div
+                <Theme
+                    type="div"
                     key={ idx } 
                     className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
                     onClick={ this.onClick((idx * this.props.pageSize), isCurrent) }
@@ -49,7 +51,7 @@ class Pager extends React.PureComponent {
                     aria-label={`Results Page ${ idx + 1 }`}
                 >
                 { idx + 1 }
-                </div>
+                </Theme>
             ) 
         })
         return pages;
@@ -74,7 +76,7 @@ class Pager extends React.PureComponent {
         const currentPage = Math.ceil((startFrom + 1) / pageSize);
         return (
             !isSinglePageOnly &&
-            <nav className="r4r-pager">
+            <Theme type="nav" className="r4r-pager">
                 {
                     /* Allow an optional results counter */
                     this.props.withCounter &&
@@ -84,10 +86,11 @@ class Pager extends React.PureComponent {
                             total={ total }
                         />
                 }
-                <div className='r4r-pager__nav'>
+                <Theme type="div" className='r4r-pager__nav'>
                     { 
                         !isFirstPage && 
-                            <div 
+                            <Theme
+                                type="div"
                                 className='pager__arrow' 
                                 tabIndex="0"
                                 onClick={ this.onClick((startFrom - pageSize), false) }
@@ -98,14 +101,15 @@ class Pager extends React.PureComponent {
                                 role="link"
                             >
                             { '<' }
-                            </div> 
+                            </Theme> 
                     }
                     {
                         this.renderPages(totalPages, currentPage)
                     }
                     { 
                         !isLastPage && 
-                            <div 
+                            <Theme
+                                type="div" 
                                 className='pager__arrow' 
                                 tabIndex="0"
                                 onClick={ this.onClick((startFrom + pageSize), false) }
@@ -116,10 +120,10 @@ class Pager extends React.PureComponent {
                                 role="link"
                             >
                             { '>' }
-                            </div> 
+                            </Theme> 
                     }
-                </div>
-            </nav>
+                </Theme>
+            </Theme>
         )
     }
 }

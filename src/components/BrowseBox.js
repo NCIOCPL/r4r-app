@@ -32,6 +32,7 @@ class BrowseBox extends React.PureComponent {
                 <BrowseTile
                     key={ idx }
                     label={ label }
+                    className="browse__tile"
                     onClick={ 
                         this.props.searchFunction({
                             filterType: this.props.filterType,

@@ -23,4 +23,18 @@
     padding: 10px;
     margin: 10px;
     border-radius: 7px;
+    user-select: none;
+    cursor: pointer;
+
+    box-shadow: 0 15px 5px -12px rgba(0,0,0,0.2);
+    transition: box-shadow 125ms linear;
+
+}
+
+.similar-resource__tile:hover {
+    box-shadow: 0 18px 15px -15px rgba(0,0,0,0.2);
+}
+
+.similar-resource__tile:active {
+    box-shadow: 0 10px 5px -8px rgba(0,0,0,0.2);
 }

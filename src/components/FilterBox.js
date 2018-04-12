@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 import CheckFilter from './CheckFilter';
 import '../polyfills/object_entries';
 
@@ -24,8 +25,8 @@ class FilterBox extends React.PureComponent {
     render() {
         return this.props.facet 
             ?
-                <div className={`facet__box ${ this.props.className ? 'facet__box--' + this.props.className : '' }`}>
-                    <h4 className={`facet__title ${ this.props.className ? 'facet__title--' + this.props.className : '' }`}>{ this.props.facet.title }</h4>
+                <Theme type="div" className={`facet__box ${ this.props.className ? 'facet__box--' + this.props.className : '' }`}>
+                    <Theme type="h4" className={`facet__title ${ this.props.className ? 'facet__title--' + this.props.className : '' }`}>{ this.props.facet.title }</Theme>
                     { 
                         Object.entries(this.props.facet.items).map(([ 
                             key,
@@ -46,7 +47,7 @@ class FilterBox extends React.PureComponent {
                             />
                         ))
                     }
-                </div>
+                </Theme>
             : 
                 null
     }
