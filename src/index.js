@@ -34,35 +34,32 @@ const initialize = ({
         return acc;
     }, {})
 
-    // const themeReducer = (state = theme, action) => {
-    //     switch(action.type) {
-    //         default:
-    //             return state;
-    //     }
-    // };
-    // #################################
+    const appId = 'r4r-browser-cache'
+    let cachedState;
 
-    // Don't need to fingerprint since it's session storage.
-    const cachedState = loadStateFromSessionStorage();
+    if(process.env.NODE_ENV !== 'development') {
+        cachedState = loadStateFromSessionStorage(appId);
+    }
 
     const store = createStore(
-        combineReducers({
-            ...reducers,
-            // themeReducer,
-        }),
-        //TODO: Activate session storage 
-        // cachedState,
+        combineReducers(reducers),
+        cachedState,
         composeWithDevTools(applyMiddleware(
             thunk
         ))
     );
 
-    const saveAllStateToSessionStorage = () => {
-        const state = store.getState();
-        console.log('Saving state to session storage')
-        saveStatetoSessionStorage(state);
+    if(process.env.NODE_ENV !== 'development') {
+        const saveAllStateToSessionStorage = () => {
+            const state = store.getState();
+            saveStatetoSessionStorage({
+                state,
+                appId,
+            });
+        };
+    
+        store.subscribe(saveAllStateToSessionStorage);
     }
-    // store.subscribe(saveAllStateToSessionStorage);
 
     const ReduxConnectedApp = () => (
         <ErrorBoundary>
