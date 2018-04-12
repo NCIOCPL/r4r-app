@@ -22,3 +22,6 @@ yarn-error.log*
 
 package-lock.json
 todo.md
+
+# This folder is only used for development of Cgov custom theme
+cancergov_styles

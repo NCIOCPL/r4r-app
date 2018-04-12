@@ -13,6 +13,13 @@ import { Helmet } from 'react-helmet';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
 
+// Remove this block after CGOV custom theme development is complete
+if(process.env.NODE_ENV !== 'production') {
+    import('./cancergov_styles/nvcg.css');
+    import('./cancergov_styles/InnerPage.css');
+    import('./cancergov_styles/r4r__cgov-theme.css');
+}
+
 /**
  * @param {object} [config]
  * @param {object} [config.theme] a hashmap where key = r4r default classname and custom classname to inject alongside it (or else default)
@@ -27,7 +34,6 @@ const initialize = ({
     
     const theme = createTheme(customTheme);
     let cachedState;
-
 
     if(process.env.NODE_ENV !== 'development') {
         cachedState = loadStateFromSessionStorage(appId);
@@ -75,9 +81,15 @@ const initialize = ({
     ReactDOM.render(<ReduxConnectedApp />, document.getElementById('r4r-root'));
 }
 
+// CancerGov config object
+const customTheme = {
+    'r4r-container': 'cancer-gov'
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     initialize({
         appId: 'r4r-browser-cache',
+        customTheme,
     });
 })
 
