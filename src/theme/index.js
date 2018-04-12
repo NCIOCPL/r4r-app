@@ -32,12 +32,15 @@ export class Theme extends React.Component {
             children,
             ...rest,
         } = this.props;
+        const classNames = className.split(' ');
+        const [ primaryClassName, ...otherClassNames ] = classNames;
+        const secondaryClassNames = otherClassNames.join(' ');
         return (
             <ThemeContext.Consumer>
                 {
                     theme => (
                         <Type 
-                            className={ `${ className } ${ theme[className] ? theme[className] : '' }`}
+                            className={ `${ primaryClassName } ${ secondaryClassNames } ${ theme[primaryClassName] ? theme[primaryClassName] : '' }`}
                             { ...rest }
                         >
                             { children }
