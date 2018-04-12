@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 import BrowseTile from './BrowseTile';
 import { default as Spinner } from './ScienceSpinner';
 import { keyHandler } from '../utilities';
@@ -52,7 +53,7 @@ class BrowseBox extends React.PureComponent {
 
     render() {
         return(
-            <div className={`browse-tiles__container ${this.props.className ? `browse-tiles__container--${ this.props.className }` : '' }`}>
+            <Theme type="div" className="browse-tiles__container">
                 {
                     !this.props.isFetching
                     ?
@@ -60,7 +61,7 @@ class BrowseBox extends React.PureComponent {
                     :
                         <Spinner />
                 }
-            </div>
+            </Theme>
         )
     }
 }

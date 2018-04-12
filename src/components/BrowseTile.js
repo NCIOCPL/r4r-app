@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
 import './BrowseTile.css';
 
 class BrowseTile extends React.PureComponent {
@@ -16,15 +17,16 @@ class BrowseTile extends React.PureComponent {
 
     render() {
         return (
-            <div 
-                className={ `browse__tile ${ this.props.className ? this.props.className : '' }` }
+            <Theme
+                type="div"
+                className="browse__tile"
                 role="link"
                 tabIndex='0' 
                 onClick={ this.props.onClick }
                 onKeyPress={ this.props.onKeyPress }
             >
                 <p>{ this.props.label }</p>
-            </div>
+            </Theme>
         )
     }
 }
