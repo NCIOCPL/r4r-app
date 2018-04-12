@@ -24,6 +24,7 @@ export const defaultThemeHooks = [
     'results__facets',
     'result-tile',
     'searchbar__container',
+    'searchbar__button--submit',
     'r4r-pager',
     'r4r-pager__count',
     'r4r-pager__nav',

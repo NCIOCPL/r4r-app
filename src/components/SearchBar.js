@@ -38,9 +38,11 @@ class SearchBar extends React.PureComponent {
                     onChange={ this.onChange }
                     aria-label="search"
                 />
-                <input 
+                <Theme
+                    element="input" 
                     type="submit" 
                     value="Search"
+                    className="searchbar__button--submit"
                 />
             </Theme>
         )

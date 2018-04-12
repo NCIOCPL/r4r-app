@@ -1,12 +1,15 @@
-.searchbar__container.r4r-DEFAULT {
+.searchbar__container {
     display: flex;
     width: 600px;
     height: 40px;
 }
 
-.searchbar__container.r4r-DEFAULT input[type="text"] {
+.searchbar__container.r4r-DEFAULT {
     height: 100%;
     flex: 1;
+}
+
+.searchbar__container.r4r-DEFAULT input[type="text"] {
     border: none;
     padding: 6px 10px;
     font-size: 18px;
@@ -14,10 +17,14 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
-.searchbar__container.r4r-DEFAULT input[type="submit"] {
+.searchbar__container. input[type="submit"] {
     height: 100%;
     width: 100px;
     margin-left: 18px;
+
+}
+
+.searchbar__container.r4r-DEFAULT input[type="submit"] {
     padding: 6px;
     color: white;
     background: #169bd5;
