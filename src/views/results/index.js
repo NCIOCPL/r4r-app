@@ -23,7 +23,6 @@ import SearchBar from '../../components/SearchBar';
 import Pager from '../../components/Pager';
 import queryString from 'query-string';
 import '../../polyfills/object_entries';
-// import deepEqual from 'deep-equal'; // TODO: Remove dependency if remains unused
 import {
     resourceInterface
 } from '../../interfaces';
