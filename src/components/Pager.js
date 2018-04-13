@@ -35,25 +35,51 @@ class Pager extends React.PureComponent {
     }
 
     renderPages = (total, current) => {
-        const pages = Array(total).fill().map((el, idx) => {
-            const isCurrent = current === idx + 1;
-            return (
-                <Theme
-                    element="div"
-                    key={ idx } 
-                    className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
-                    onClick={ this.onClick((idx * this.props.pageSize), isCurrent) }
-                    onKeyPress={ keyHandler({
-                        fn: this.onClick((idx * this.props.pageSize), isCurrent),
-                    })}
-                    tabIndex="0"
-                    role="link"
-                    aria-label={`Results Page ${ idx + 1 }`}
-                >
-                { idx + 1 }
-                </Theme>
-            ) 
+        const pagesFromStart = current;
+        const pagesFromEnd = total - current;
+        let p;
+        if(pagesFromStart > 5){
+            p = [1, 0, current - 2, current - 1, current];
+        }
+        else {
+            p = Array(current).fill().map((el, idx) => idx + 1); 
+        }
+        if(pagesFromEnd > 5) {
+            p = [...p, current + 1, current + 2, 0, total];
+        }
+        else {
+            const remainingPages = Array(pagesFromEnd).fill().map((el, idx) => current + idx + 1);
+            p = [ ...p, ...remainingPages ]; 
+        }
+        
+        const pages = p.map((el, idx) => {
+            const isCurrent = current === el;
+            return el
+                ?
+                    <Theme
+                        element="div"
+                        key={ idx } 
+                        className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
+                        onClick={ this.onClick((el * this.props.pageSize), isCurrent) }
+                        onKeyPress={ keyHandler({
+                            fn: this.onClick((el * this.props.pageSize), isCurrent),
+                        })}
+                        tabIndex="0"
+                        role="link"
+                        aria-label={`Results Page ${ el }`}
+                    >
+                    { el }
+                    </Theme>
+                :
+                    <Theme
+                        element="div"
+                        key={ idx }
+                        className={ `pager__num pager_ellipses`}
+                    >
+                    ...
+                    </Theme>
         })
+        
         return pages;
     }
 
@@ -100,7 +126,7 @@ class Pager extends React.PureComponent {
                                 aria-label="previous results page"
                                 role="link"
                             >
-                            { '<' }
+                            { '< Previous' }
                             </Theme> 
                     }
                     {
@@ -119,7 +145,7 @@ class Pager extends React.PureComponent {
                                 aria-label="next results page"
                                 role="link"
                             >
-                            { '>' }
+                            { 'Next >' }
                             </Theme> 
                     }
                 </Theme>

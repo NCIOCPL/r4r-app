@@ -36,6 +36,10 @@
     align-items: center;
 }
 
+.r4r-pager .pager__num.r4r-DEFAULT:focus, .r4r-pager .pager__arrow.r4r-DEFAULT:focus {
+    background: #b2dffa;
+}
+
 .r4r-pager.r4r-DEFAULT .pager__num.r4r-DEFAULT, .r4r-pager.r4r-DEFAULT .pager__arrow.r4r-DEFAULT {
     padding: 5px;
     cursor: pointer;
