@@ -9,6 +9,7 @@ import {
     CACHE_RESOURCES,
     LOAD_RESOURCE,
     UPDATE_FILTER,
+    CLEAR_FILTERS,
 } from './actions'
 
 const initialState = {
@@ -30,10 +31,10 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case UPDATE_FILTER:
-        const {
-            filterType,
-            filter
-        } = action.payload
+            const {
+                filterType,
+                filter
+            } = action.payload;
             return {
                 ...state,
                 currentFacets: {
@@ -48,6 +49,28 @@ const reducer = (state = initialState, action) => {
                             }
                         }
                     }
+                }
+            }
+        case CLEAR_FILTERS:
+            const newCurrentFacets = Object.entries(state.currentFacets).reduce((acc, [facetKey, facetValue]) => {
+                const newItems = Object.entries(facetValue.items).reduce((acc, [itemKey, itemValue])=> {
+                    acc[itemKey] = {
+                        ...itemValue,
+                        selected: false,
+                    }
+                    return acc;
+                }, {})
+                acc[facetKey] = {
+                    ...facetValue,
+                    items: newItems,
+                } 
+                return acc;
+            }, {})
+            return {
+                ...state,
+                currentFacets: {
+                    ...state.currentFacets,
+                    ...newCurrentFacets,
                 }
             }
         case CACHE_RESOURCES:

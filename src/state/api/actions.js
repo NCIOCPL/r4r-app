@@ -5,6 +5,7 @@ import {
     composeQueryString,
 } from '../../utilities';
 
+export const CLEAR_FILTERS = "CLEAR FILTERS";
 export const UPDATE_FILTER = "UPDATE FILTER";
 export const LOAD_RESOURCE = "LOAD RESOURCE";
 export const CACHE_RESOURCES = "CACHE RESOURCES";
@@ -74,6 +75,10 @@ export const updateFilter = (filterType, filter) => ({
         filterType,
         filter,
     },
+})
+
+export const clearFilters = () => ({
+    type: CLEAR_FILTERS,
 })
 
 // When the home page loads, we want to fetch all available facets to use for dynamically
@@ -454,7 +459,7 @@ const dummyResults = {
                     "key": "datasets_databases",
                     "label": "Datasets & Databases",
                     "count": '10',  //TODO: Convert to number
-                    "selected": false //TODO: Convert to bool
+                    "selected": true //TODO: Convert to bool
                 },
                 {
                     "key": "lab_tools",
@@ -472,7 +477,7 @@ const dummyResults = {
                     "key": "datasets_databases",
                     "label": "Chicken and Cows",
                     "count": '10',  //TODO: Convert to number
-                    "selected": false //TODO: Convert to bool
+                    "selected": true //TODO: Convert to bool
                 },
                 {
                     "key": "lab_tools",

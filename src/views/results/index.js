@@ -7,6 +7,7 @@ import { Theme } from '../../theme';
 import { 
     newSearch,
     updateFilter,
+    clearFilters,
 } from '../../state/api/actions';
 import {
     updateSearchBar,
@@ -37,6 +38,7 @@ class Results extends React.PureComponent {
     static propTypes = {
         newSearch: PropTypes.func.isRequired,
         updateFilter: PropTypes.func.isRequired,
+        clearFilters: PropTypes.func.isRequired,
         searchBarOnChange: PropTypes.func.isRequired,
         totalResults: PropTypes.number,
         startFrom: PropTypes.number,
@@ -60,6 +62,20 @@ class Results extends React.PureComponent {
             this.props.newSearch({
                 q: this.props.searchBarValue
             });
+        }
+    }
+
+    clearFilters = () => {
+        if(this.props.searchBarValue) {
+            this.props.newSearch({
+                q: this.props.searchBarValue
+            });
+        }
+        else {
+            this.props.newSearch({
+                from: 0,
+                size: 20,
+            })
         }
     }
 
@@ -98,6 +114,7 @@ class Results extends React.PureComponent {
                             element="div" 
                             key={ idx }
                             className="selected-filters__filter"
+                            tabIndex="0"
                             onClick={ this.toggleFilter(filter.param)(filter.key) }
                             onKeyPress={ keyHandler({
                                 fn: this.toggleFilter(filter.param)(filter.key),
@@ -106,6 +123,20 @@ class Results extends React.PureComponent {
                             <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
                         </Theme>
                     ))
+                }
+                {
+                    (selected.length > 1) &&
+                        <Theme
+                            element="div"
+                            tabIndex="0"
+                            className="selected-filters__filter selected-filters__clear"
+                            onClick={ this.props.clearFilters }
+                            onKeyPress={ keyHandler({
+                                fn: this.props.clearFilters,
+                            })}
+                        >
+                            <p>Clear all X</p>
+                        </Theme>
                 }
                 </Theme>
             </React.Fragment>
@@ -255,6 +286,7 @@ const mapStateToProps = ({ api, searchForm }) => ({
 const mapDispatchToProps = {
     newSearch,
     updateFilter,
+    clearFilters,
     searchBarOnChange: updateSearchBar,
 }
 

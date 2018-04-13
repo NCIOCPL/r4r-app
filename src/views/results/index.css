@@ -32,6 +32,7 @@
     margin: 5px 10px;
     border-radius: 8px;
     cursor: pointer;
+    outline-style: auto;
 }
 
 .selected-filters__filter.r4r-DEFAULT p {
