@@ -27,7 +27,7 @@ export class ThemeProvider extends React.Component {
 export class Theme extends React.Component {
     render() {
         const {
-            element: Element,
+            element: Element = 'div',
             className = '',
             children,
             ...rest,
