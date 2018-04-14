@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 import { Theme } from '../../theme';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
@@ -71,6 +72,7 @@ class Resource extends React.PureComponent {
                 <BrowseTile
                     key={ idx }
                     label={ label }
+                    tabIndex="0"
                     className={ 'similar-resource__tile' }
                     onClick={ this.newFilterSearch({ filterType, filter })}
                     onKeyPress={ keyHandler({
@@ -104,60 +106,65 @@ class Resource extends React.PureComponent {
                     <meta property="twitter:title" content={`Resources for Researchers: ${ title } - National Cancer Institute`} />
                     <meta property="og:url" content={`https://www.cancer.gov/research/r4r/resource/${ id }`} />
                 </Helmet>
-                <h1>{ title }</h1>
-                {
-                    /* TODO: Refactor into a more functional approach */
-                    this.props.currentResults && this.props.currentResults.includes(this.props.resource) &&
-                        <Theme element="div"
-                            className="resource__back" 
-                            onClick={ this.props.history.goBack }
-                            onKeyPress={ keyHandler({
-                                fn: this.props.history.goBack,
-                            })}
-                            tabIndex="0"
-                            role="link"
-                        >
-                            <p>&lt; Back to results</p>
-                        </Theme>
-                }
-                <article aria-label="Resource description">
-                    <MultiLineText text={ description }/>
-                </article>
-                <a href={ website }>Learn more about { title } ></a>
-                <article>
-                    <h2>Contact Information</h2>
-                    { 
-                        pocs.map((poc, idx) => (
-                            <ContactInformation contact={ poc } key={ idx } />
-                        ))
-                    }
-                </article>
-                <Theme element="article" className="resource__docs" aria-label="DOCs information">
-                    { renderDocsString(docs) }
+                <Theme element="div" className="resource__left">
+                    <h1>{ title }</h1>
+                    <Theme element="div" className="resource__nav">
+                        {
+                            this.props.currentResults && this.props.currentResults.includes(this.props.resource) &&
+                                <Theme element="div"
+                                    className="resource__back" 
+                                    onClick={ this.props.history.goBack }
+                                    onKeyPress={ keyHandler({
+                                        fn: this.props.history.goBack,
+                                    })}
+                                    tabIndex="0"
+                                    role="link"
+                                >
+                                    <p>&lt; Back to results</p>
+                                </Theme>
+                        }
+                        <Link to="/">Start Over</Link>
+                    </Theme>
+                    <article aria-label="Resource description">
+                        <MultiLineText text={ description }/>
+                    </article>
+                    <Theme element="a" className="resource__link--external" href={ website }>Learn more about { title } ></Theme>
+                    <article>
+                        <h2>Contact Information</h2>
+                        { 
+                            pocs.map((poc, idx) => (
+                                <ContactInformation contact={ poc } key={ idx } />
+                            ))
+                        }
+                    </article>
+                    <Theme element="article" className="resource__docs" aria-label="DOCs information">
+                        { renderDocsString(docs) }
+                    </Theme>
                 </Theme>
-                <article aria-label="Resource Access Information">
-                    <Theme element="h2" className="resource__access">Resource Access</Theme>
-                    <Theme element="div" className='dummy-access-section'>
-                        {/* TODO: Logo based on resourceAccess.type */}
-                        <p>{ resourceAccess.type }</p>
-                        <p>{ resourceAccess.notes }</p>
-                    </Theme>
-                </article>
-                <nav>
-                    <h2>Find Similar Resources</h2>
-                    <Theme element="div" className='similar-resource__container'>
-                        { this.renderSimilarResources() }
-                    </Theme>
-                </nav>
-                <section role="search">
-                    <h2>Search Resources</h2>
-                    <SearchBar 
-                        value={ this.props.searchBarValue }
-                        onChange={ this.props.searchBarOnChange }
-                        onSubmit={ this.newTextSearch }
-                        page='resource'
-                    />
-                </section>
+                <Theme element="div" className="resource__right">
+                    <article aria-label="Resource Access Information">
+                        <Theme element="div" className='resource__access'>
+                            {/* TODO: Logo based on resourceAccess.type */}
+                            <p>{ resourceAccess.type }</p>
+                            <p>{ resourceAccess.notes }</p>
+                        </Theme>
+                    </article>
+                    <section role="search">
+                        <SearchBar 
+                            value={ this.props.searchBarValue }
+                            onChange={ this.props.searchBarOnChange }
+                            onSubmit={ this.newTextSearch }
+                            placeholder="Search for resources"
+                            page='resource'
+                        />
+                    </section>
+                    <nav>
+                        <h2>Find Similar Resources</h2>
+                        <Theme element="div" className='similar-resource__container'>
+                            { this.renderSimilarResources() }
+                        </Theme>
+                    </nav>
+                </Theme>
             </Theme>
         )
     }
