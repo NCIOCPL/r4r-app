@@ -1,59 +1,55 @@
 .r4r-pager.r4r-DEFAULT {
     display: flex;
-    flex-direction: column;
-    margin-right: 25px;
+    justify-content: flex-end;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
 }
 
 .r4r-pager__count.r4r-DEFAULT {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    margin-right: auto;
+}
+
+.r4r-pager__count p:first-child::after {
+    content: '|';
+    margin: 0 10px;
 }
 
 .r4r-pager__nav.r4r-DEFAULT {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 30px;
-    margin-top: 8px;
-    margin-bottom: 8px;
 }
 
-.r4r-pager.r4r-DEFAULT .pager__num.r4r-DEFAULT {
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    margin: 3px;
+.pager__num.r4r-DEFAULT, .pager__arrow.r4r-DEFAULT {
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-weight: 400;
+    color: #2b7bba;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.r4r-pager.r4r-DEFAULT .pager__arrow.r4r-DEFAULT {
-    border-radius: 5px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.r4r-pager .pager__num.r4r-DEFAULT:focus, .r4r-pager .pager__arrow.r4r-DEFAULT:focus {
-    background: #b2dffa;
-}
-
-.r4r-pager.r4r-DEFAULT .pager__num.r4r-DEFAULT, .r4r-pager.r4r-DEFAULT .pager__arrow.r4r-DEFAULT {
-    padding: 5px;
     cursor: pointer;
     transition: all 150ms linear;
 }
 
+.r4r-pager .pager__num.r4r-DEFAULT:focus, .r4r-pager .pager__arrow.r4r-DEFAULT:focus {
+    background: #cbe8fc;
+}
+
+.r4r-pager.r4r-DEFAULT .pager__num.r4r-DEFAULT, .r4r-pager.r4r-DEFAULT .pager__arrow.r4r-DEFAULT {
+    margin: 0 3px;
+}
+
 .pager__num.r4r-DEFAULT:not(.pager__num--active):hover, .pager__arrow.r4r-DEFAULT:hover {
-    background: #b2dffa;
+    background: #cbe8fc;
 }
 
 .r4r-pager.r4r-DEFAULT .pager__num--active.r4r-DEFAULT {
-    background: #169bd5;
+    background: #2a71a5;
     color: white;
     cursor: default;
     user-select: none;
-    box-shadow: 0 5px 5px -3px #70c6fc;
 }
