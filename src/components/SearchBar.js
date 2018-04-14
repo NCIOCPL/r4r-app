@@ -9,11 +9,13 @@ class SearchBar extends React.PureComponent {
         value: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         onSubmit: PropTypes.func.isRequired,
+        placeholder: PropTypes.string,
     }
 
     static defaultProps = {
         onChange: () => {},
         onSubmit: () => {},
+        placeholder: '',
     }
 
     onChange = e => {
@@ -37,6 +39,7 @@ class SearchBar extends React.PureComponent {
                     value={ this.props.value }
                     onChange={ this.onChange }
                     aria-label="search"
+                    placeholder={ this.props.placeholder }
                 />
                 <Theme
                     element="input" 
