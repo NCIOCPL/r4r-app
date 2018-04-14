@@ -74,7 +74,7 @@ class Pager extends React.PureComponent {
                     <Theme
                         element="div"
                         key={ idx }
-                        className={ `pager__num pager_ellipses`}
+                        className={ `pager__num pager__ellipses`}
                     >
                     ...
                     </Theme>

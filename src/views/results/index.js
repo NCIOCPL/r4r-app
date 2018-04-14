@@ -135,7 +135,7 @@ class Results extends React.PureComponent {
                                 fn: this.props.clearFilters,
                             })}
                         >
-                            <p>Clear all X</p>
+                            <p>Clear all</p>
                         </Theme>
                 }
                 </Theme>
@@ -207,11 +207,8 @@ class Results extends React.PureComponent {
                 ?
                     <Theme element="div" className="r4r-results">
                         <Theme element="header" className="results__header">
-                            <h1>Resources for Researchers</h1>
-                            <Theme element="div" className='results__count-container'>
-                                <h2>We found {this.props.results.length} results that match your search</h2>
-                                <h2><Link to="/">Start Over</Link></h2>
-                            </Theme>
+                            <h1>Resources for Researchers: Search Results</h1>
+
                             <SearchBar 
                                 value={ this.props.searchBarValue }
                                 onChange={ this.props.searchBarOnChange }
@@ -229,7 +226,7 @@ class Results extends React.PureComponent {
                             onClick={ this.pagerSearch }
                             withCounter={ true }
                         />
-                        <Theme element="div" className="dummy-flex-search-container">
+                        <Theme element="div" className="results__main">
                             <Theme element="section" className="results__facets" aria-label="Search Filters">
                                 { this.renderToolTypes() }
                                 <FilterBox 

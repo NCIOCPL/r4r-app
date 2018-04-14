@@ -83,7 +83,9 @@ const initialize = ({
 
 // CancerGov config object
 const customTheme = {
-    'r4r-container': 'cancer-gov'
+    'r4r-container': 'row',
+    'searchbar__container': 'cancer-gov',
+    'searchbar__button--submit': 'button',
 };
 
 document.addEventListener('DOMContentLoaded', () => {

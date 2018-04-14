@@ -20,7 +20,7 @@ export const defaultThemeHooks = [
     'results__header',
     'results__count-container',
     'results__selected-filters',
-    'dummy-flex-search-container',
+    'results__main',
     'results__facets',
     'result-tile',
     'searchbar__container',

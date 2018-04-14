@@ -26,7 +26,9 @@ class FilterBox extends React.PureComponent {
         return this.props.facet 
             ?
                 <Theme element="div" className={`facet__box ${ this.props.className ? 'facet__box--' + this.props.className : '' }`}>
-                    <Theme element="h4" className={`facet__title ${ this.props.className ? 'facet__title--' + this.props.className : '' }`}>{ this.props.facet.title }</Theme>
+                    <Theme element="h4" className={`facet__title ${ this.props.className ? 'facet__title--' + this.props.className : '' }`}>
+                        { this.props.facet.title }
+                    </Theme>
                     { 
                         Object.entries(this.props.facet.items).map(([ 
                             key,

@@ -1,6 +1,6 @@
 .searchbar__container {
     display: flex;
-    width: 600px;
+    width: 700px;
     height: 40px;
 }
 
@@ -17,7 +17,7 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
-.searchbar__container. input[type="submit"] {
+.searchbar__container input[type="submit"] {
     height: 100%;
     width: 100px;
     margin-left: 18px;

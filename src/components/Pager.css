@@ -43,9 +43,15 @@
     margin: 0 3px;
 }
 
-.pager__num.r4r-DEFAULT:not(.pager__num--active):hover, .pager__arrow.r4r-DEFAULT:hover {
+.pager__num.r4r-DEFAULT:hover, .pager__arrow.r4r-DEFAULT:hover {
     background: #cbe8fc;
 }
+
+.pager__num.pager__ellipses:hover, .pager__num.pager__num--active:hover {
+    background: none;
+    cursor: default;
+}
+
 
 .r4r-pager.r4r-DEFAULT .pager__num--active.r4r-DEFAULT {
     background: #2a71a5;
