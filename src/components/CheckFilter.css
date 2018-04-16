@@ -1,0 +1,31 @@
+.facet__filter.r4r-DEFAULT {
+}
+
+.filter__label.r4r-DEFAULT {
+    display: flex;
+}
+
+.facet__filter.r4r-DEFAULT .filter__label::before {
+    content: '';
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #186d89;
+    color: #186d89;
+}
+
+input.filter__checkbox:checked + .filter__label.r4r-DEFAULT::before {
+    content: '✓';
+    font-size: 1.1em;
+    padding-left: 3px;
+    padding-top: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter__checkbox.r4r-DEFAULT {
+   opacity: 0;
+   position: absolute;
+   z-index: -1;
+}

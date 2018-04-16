@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Theme } from '../theme';
 import { keyHandler } from '../utilities';
+import './CheckFilter.css';
 
 class CheckFilter extends React.PureComponent {
     static propTypes = {
