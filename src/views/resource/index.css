@@ -55,6 +55,7 @@
 .resource__back {
     display: flex;
     align-items: flex-end;
+    cursor: pointer;
 }
 
 .resource__back::after {
@@ -76,5 +77,22 @@
 .similar-resource__tile.r4r-DEFAULT {
     user-select: none;
     cursor: pointer;
-    padding: 3px 0;
+    background: #169bd5;
+    padding: 5px;
+    text-align: center;
+    color: white;
+
+    box-shadow: 0 15px 5px -12px rgba(0,0,0,0.2);
+    transition: box-shadow 125ms linear;
+}
+
+.similar-resource__tile.r4r-DEFAULT:hover {
+    box-shadow: 0 18px 15px -15px rgba(0,0,0,0.2);
+}
+.similar-resource__tile.r4r-DEFAULT:active {
+    box-shadow: 0 10px 5px -8px rgba(0,0,0,0.2);
+}
+
+.similar-resource__container .similar-resource__tile.r4r-DEFAULT {
+    margin: 5px 0;
 }

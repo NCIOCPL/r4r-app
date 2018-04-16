@@ -86,6 +86,7 @@ const customTheme = {
     'r4r-container': 'row',
     'searchbar__container': 'cancer-gov',
     'searchbar__button--submit': 'button',
+    'similar-resource__tile': 'arrow-link',
 };
 
 document.addEventListener('DOMContentLoaded', () => {
