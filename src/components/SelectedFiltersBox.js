@@ -7,7 +7,7 @@ import {
 
 class SelectedFiltersBox extends React.PureComponent {
     static propTypes = {
-        selected: PropTypes.object.isRequired, //TODO: More granular type definition here
+        selected: PropTypes.array.isRequired, //TODO: More granular type definition here
         toggleFilter: PropTypes.func.isRequired,
         clearFilters: PropTypes.func.isRequired,
     }

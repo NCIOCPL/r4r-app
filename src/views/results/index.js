@@ -236,6 +236,7 @@ class Results extends React.PureComponent {
                             withCounter={ false }
                         />
                         <MobileMenu
+                            key={0}
                             isOpen={ this.state.isMobileMenuOpen }
                             closeMenu={ () => this.setState({isMobileMenuOpen: false}) }
                         >
