@@ -119,19 +119,19 @@ export const transformFacetFiltersIntoParamsObject = facets => {
 }
 
 export const renderDocsString = (docs = []) => {
-    if(typeof docs !== 'array' || !docs.length) {
+    if(!Array.isArray(docs) || !docs.length) {
         return '';
     }
-
+    
     const base = 'This resource is managed by the National Cancer Institute';
-
+    
     if(!docs.length) {
         return base + '.';
     }
     if(docs.length === 1) {
         return `${ base } and ${ docs[0] }.`;
     }
-
+    
     const grammarfiedDocs = docs.reduce((acc, doc, idx, arr) => {
         if(idx === arr.length - 1){
             acc = acc + ', and ' + doc;
