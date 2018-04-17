@@ -13,10 +13,11 @@ import {
     updateSearchBar,
 } from '../../state/searchForm/actions'
 import {
+    getCurrentlySelectedFiltersFromFacets,
     transformFacetFiltersIntoParamsObject,
     keyHandler,
-    getCurrentlySelectedFiltersFromFacets,
 } from '../../utilities';
+import SelectedFiltersBox from '../../components/SelectedFiltersBox';
 import FilterBox from '../../components/FilterBox';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
@@ -34,6 +35,10 @@ import './index.css';
 // that would be a different flow. Hmm.)
 
 class Results extends React.PureComponent {
+
+    state = {
+        isMobileMenuOpen: false,
+    }
 
     static propTypes = {
         newSearch: PropTypes.func.isRequired,
@@ -95,53 +100,20 @@ class Results extends React.PureComponent {
         this.props.updateFilter(filterType, filterKey);
     }
 
-    // This is going to be a highly idiosyncratic process of normalizing the data
-    // Move this to a component for clarity
-    renderSelectedFilters = () => {
-        const selected = getCurrentlySelectedFiltersFromFacets(this.props.facets)
-
-        if(!selected.length) {
-            return null;
-        }
-
+    renderFilters = facets => {
         return (
-            <React.Fragment>
-                <Theme element="h4" className="selected-filters__header" aria-hidden>Your selections:</Theme>
-                <Theme element="div" className="selected-filters__filters-container">
-                {
-                    selected.map((filter, idx) => (
-                        <Theme
-                            element="div" 
-                            key={ idx }
-                            className="selected-filters__filter"
-                            tabIndex="0"
-                            onClick={ this.toggleFilter(filter.param)(filter.key) }
-                            onKeyPress={ keyHandler({
-                                fn: this.toggleFilter(filter.param)(filter.key),
-                            })}
-                        >
-                            <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
-                        </Theme>
-                    ))
-                }
-                {
-                    (selected.length > 1) &&
-                        <Theme
-                            element="div"
-                            tabIndex="0"
-                            className="selected-filters__filter selected-filters__clear"
-                            onClick={ this.props.clearFilters }
-                            onKeyPress={ keyHandler({
-                                fn: this.props.clearFilters,
-                            })}
-                        >
-                            <p>Clear all</p>
-                        </Theme>
-                }
-                </Theme>
-            </React.Fragment>
+            <Theme element="section" className="results__facets" aria-label="Search Filters">
+                { this.renderToolTypes() }
+                <FilterBox 
+                    facet={ facets['researchAreas'] }
+                    onChange={ this.toggleFilter('researchAreas') }
+                />
+                <FilterBox 
+                    facet={ facets['researchTypes'] }
+                    onChange={ this.toggleFilter('researchTypes') }
+                />
+            </Theme>
         )
-        
     }
 
     //TODO: Pass the facet type and facets separately and handle the logic of rendering there
@@ -216,9 +188,11 @@ class Results extends React.PureComponent {
                                 page='results'                            
                             />
                         </Theme>
-                        <Theme element="section" className="results__selected-filters" aria-label="Selected Search Filters">
-                            { this.renderSelectedFilters() }
-                        </Theme>
+                        <SelectedFiltersBox 
+                            selected={ getCurrentlySelectedFiltersFromFacets(this.props.facets) }
+                            clearFilters={this.props.clearFilters}
+                            toggleFilter={this.toggleFilter}
+                        />
                         <Pager
                             total={ this.props.totalResults }
                             resultsSize={ this.props.results && this.props.results.length }
@@ -227,17 +201,7 @@ class Results extends React.PureComponent {
                             withCounter={ true }
                         />
                         <Theme element="div" className="results__main">
-                            <Theme element="section" className="results__facets" aria-label="Search Filters">
-                                { this.renderToolTypes() }
-                                <FilterBox 
-                                    facet={ this.props.facets['researchAreas'] }
-                                    onChange={ this.toggleFilter('researchAreas') }
-                                />
-                                <FilterBox 
-                                    facet={ this.props.facets['researchTypes'] }
-                                    onChange={ this.toggleFilter('researchTypes') }
-                                />
-                            </Theme>
+                            { this.renderFilters(this.props.facets) }
                             <Theme element="section" className="results-container" aria-label="search results">
                                 {
                                     this.props.results.map(({

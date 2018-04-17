@@ -183,7 +183,7 @@ export const newSearch = searchParams => (dispatch, getState) => {
             console.log('navigating to search page')
             history.push(`/r4r/search${ newQueryString }`)
         }
-    }, 2000);
+    }, 500);
 }
 
 export const fetchResource = resourceId => (dispatch, getState) => {

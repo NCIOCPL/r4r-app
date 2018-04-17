@@ -145,7 +145,7 @@ class Resource extends React.PureComponent {
                     <article aria-label="Resource Access Information">
                         <Theme element="div" className='resource__access'>
                             {/* TODO: Logo based on resourceAccess.type */}
-                            <p>{ resourceAccess.type }</p>
+                            <h4>{ resourceAccess.type }</h4>
                             <p>{ resourceAccess.notes }</p>
                         </Theme>
                     </article>
