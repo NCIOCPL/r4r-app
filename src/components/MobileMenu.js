@@ -26,6 +26,7 @@ class MobileMenu extends React.PureComponent {
                         >
                             <Theme
                                 element="button"
+                                autoFocus
                                 className="results__button--done"
                                 onClick={ this.props.closeMenu }
                             >
