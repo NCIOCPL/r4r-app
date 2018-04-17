@@ -19,6 +19,7 @@ import {
 } from '../../utilities';
 import SelectedFiltersBox from '../../components/SelectedFiltersBox';
 import FilterBox from '../../components/FilterBox';
+import MobileMenu from '../../components/MobileMenu';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
 import SearchBar from '../../components/SearchBar';
@@ -137,15 +138,19 @@ class Results extends React.PureComponent {
         }
         return null;
     }
-    
-    componentDidMount() {
+
+    newFullSearch = () => {
         const unparsedQueryString = this.props.location.search;
         const parsedQueryParams = queryString.parse(unparsedQueryString);
         this.props.newSearch(parsedQueryParams);
     }
+    
+    componentDidMount() {
+        this.newFullSearch();
+    }
 
     componentDidUpdate(prevProps, prevState) {
-        // Watch only for changes to the filters
+        // Watch only for changes to the filters...
         if(prevProps.facets && this.props.facets !== prevProps.facets) {
             console.log('Filters have been updated')
             // Generate new search based on current filters state
@@ -155,13 +160,10 @@ class Results extends React.PureComponent {
             this.props.newSearch(paramsObject);
         }
 
-        // And to the URL querystring
+        // ...and to the URL querystring
         if(prevProps.location.search && prevProps.location.search !== this.props.location.search) {
             console.log('User navigation triggered refresh')
-            // Same procedure as the first pass in componentDidMount
-            const unparsedQueryString = this.props.location.search;
-            const parsedQueryParams = queryString.parse(unparsedQueryString);
-            this.props.newSearch(parsedQueryParams);       
+            this.newFullSearch();      
         }
     }
 
@@ -187,6 +189,13 @@ class Results extends React.PureComponent {
                                 onSubmit={ this.newTextSearch }
                                 page='results'                            
                             />
+                            <Theme
+                                element="button"
+                                className="results__filter-button"
+                                onClick={() => this.setState({isMobileMenuOpen: true})}
+                            >
+                                Filter
+                            </Theme>
                         </Theme>
                         <SelectedFiltersBox 
                             selected={ getCurrentlySelectedFiltersFromFacets(this.props.facets) }
@@ -226,6 +235,12 @@ class Results extends React.PureComponent {
                             onClick={ this.pagerSearch }
                             withCounter={ false }
                         />
+                        <MobileMenu
+                            isOpen={ this.state.isMobileMenuOpen }
+                            closeMenu={ () => this.setState({isMobileMenuOpen: false}) }
+                        >
+                            { this.renderFilters(this.props.facets) }
+                        </MobileMenu>
                     </Theme>
                 :
                     <Spinner />

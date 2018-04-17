@@ -1,7 +1,7 @@
 .searchbar__container {
     display: flex;
     width: 700px;
-    height: 40px;
+    max-width: 95%;
 }
 
 .searchbar__container.r4r-DEFAULT {
@@ -17,14 +17,13 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
-.searchbar__container input[type="submit"] {
+.searchbar__container .searchbar__button--submit {
     height: 100%;
     width: 100px;
     margin-left: 18px;
-
 }
 
-.searchbar__container.r4r-DEFAULT input[type="submit"] {
+.searchbar__container .searchbar__button--submit.r4r-DEFAULT {
     padding: 6px;
     color: white;
     background: #169bd5;
@@ -35,10 +34,10 @@
     transition: box-shadow 125ms linear;
 }
 
-.searchbar__container.r4r-DEFAULT input[type="submit"]:hover {
+.searchbar__container .searchbar__button--submit.r4r-DEFAULT:hover {
     box-shadow: 0 18px 15px -15px rgba(0,0,0,0.2);
 }
 
-.searchbar__container.r4r-DEFAULT input[type="submit"]:active {
+.searchbar__container .searchbar__button--submit.r4r-DEFAULT:active {
     box-shadow: 0 10px 5px -8px rgba(0,0,0,0.2);
 }
