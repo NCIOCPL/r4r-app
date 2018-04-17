@@ -22,11 +22,15 @@ if(process.env.NODE_ENV !== 'production') {
 
 /**
  * @param {object} [config]
- * @param {object} [config.theme] a hashmap where key = r4r default classname and custom classname to inject alongside it (or else default)
+ * @param {string} [config.appId = 'DEFAULT_APP_ID'] the id used by the app for sessionStorage
+ * @param {string} [config.rootId = 'r4r-root] the id of the dom node for the app to attach to
+ * @param {object} [config.theme = {}] a hashmap where key = r4r default classname and custom classname to inject alongside it (or else default)
+ * @returns {Node} The DOM node to which the app is hooked
  */
 const initialize = ({
     customTheme = {},
     appId = 'DEFAULT_APP_ID',
+    rootId = 'r4r-root',
 } = {}) => {
     if(typeof customTheme !== 'object' || customTheme === null) {
         throw new Error('customTheme must be a non-null object')
@@ -77,8 +81,9 @@ const initialize = ({
             </Provider>
         </ErrorBoundary>
     );
-
-    ReactDOM.render(<ReduxConnectedApp />, document.getElementById('r4r-root'));
+    const appRootDOMNode = document.getElementById(rootId);
+    ReactDOM.render(<ReduxConnectedApp />, appRootDOMNode);
+    return appRootDOMNode;
 }
 
 // CancerGov config object
@@ -86,7 +91,7 @@ const customTheme = {
     'r4r-container': 'row',
     'searchbar__container': 'cancer-gov',
     'searchbar__button--submit': 'button',
-    'similar-resource__tile': 'arrow-link',
+    // 'similar-resource__tile': 'arrow-link',
 };
 
 document.addEventListener('DOMContentLoaded', () => {
