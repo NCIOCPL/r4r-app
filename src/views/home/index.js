@@ -72,56 +72,62 @@ class Home extends React.PureComponent {
                     <meta property="og:url" content="https://www.cancer.gov/research/r4r" />
                 </Helmet>
                 <h1>Resources for Researchers</h1>
-                <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">ABOUT RESOURCES FOR RESEARCHERS</Theme>
-                <article>
-                    <MultiLineText
-                        text={ "I went out to a hazel wood because a fire was in my head. I cut and peeled a hazel wand and hooked a berry to a thread. And when white moths were on the wing, and moth-like stars were flickering out, I dropped the berry in a stream and caught a little, silver trout.\nWhen I had laid it on the floor, I went to blow the fire aflame. But something rustled on the floor and someone called me by my name. It had become a glimmering girl, with apple blossom in her hair, who called me by my name and ran and faded in the brightening air.\nThough I am old with wandering through hollow lands and hilly lands, I will find out where she has gone and kiss her lips and take her hands and walk among long dappled grass and pluck, til time and times are done, the silver apples of the moon, the golden apples of the sun." }
-                    />
-                </article>
-                <Theme element="div" className='home__search'>
-                    <h2>Search for resources and tools</h2>
-                    <SearchBar
-                        value={ this.props.searchBarValue }
-                        onChange={ this.props.searchBarOnChange }
-                        onSubmit={ this.newTextSearch }
-                        page='home'
-                    />
+                <Theme element="main" className="home__main">
+                    <Theme element="div" className='home__search'>
+                        <SearchBar
+                            value={ this.props.searchBarValue }
+                            onChange={ this.props.searchBarOnChange }
+                            onSubmit={ this.newTextSearch }
+                            placeholder="Search for resources and tools"
+                            page='home'
+                        />
+                    </Theme>
+                    <Theme element="article" className="home__desc">
+                        <MultiLineText
+                            text={ "I went out to a hazel wood because a fire was in my head. I cut and peeled a hazel wand and hooked a berry to a thread. And when white moths were on the wing, and moth-like stars were flickering out, I dropped the berry in a stream and caught a little, silver trout.\nWhen I had laid it on the floor, I went to blow the fire aflame. But something rustled on the floor and someone called me by my name." }
+                            />
+                        <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">About Resources for Researchers ></Theme>
+                    </Theme>
                 </Theme>
-                <nav>
-                    <h2>Find resources by tool type or research area</h2>
-
-                    <h3>Tool Type</h3>
-                    {
-                        <BrowseBox
-                            facets={ this.props.referenceFacets }
-                            filterType={ 'toolTypes.type' }
-                            searchFunction={ this.newFilterSearch }
-                            isFetching={ this.props.isFetchingFacets }
-                        />
-                    }
-                    <h3>Research Area</h3>
-                    {
-                        <BrowseBox
-                            facets={ this.props.referenceFacets }
-                            filterType={ 'researchAreas'}
-                            searchFunction={ this.newFilterSearch }
-                            isFetching={ this.props.isFetchingFacets }
-                        />
-                    }                
-
-                    <Theme element="div" className='r4r__view-all'>
-                        <h2 
-                        onClick={ this.viewAllOnClick }
-                        onKeyPress={ keyHandler({
-                            fn: this.viewAllOnClick,
-                        })}
-                        tabIndex="0"
-                        role="link"
+                <Theme element="nav" className="home-nav">
+                    <Theme element="div" className="home-nav__header">
+                        <h2>Find resources by tool type or research area</h2>
+                        <Theme element="p" className='r4r__view-all'
+                            onClick={ this.viewAllOnClick }
+                            onKeyPress={ keyHandler({
+                                fn: this.viewAllOnClick,
+                            })}
+                            tabIndex="0"
+                            role="link"
                         >
                             View All Resources >
-                        </h2>
+                        </Theme>
                     </Theme>
-                </nav>
+                    <Theme element="div" className="home-nav__main">
+                        <Theme element="div" className="home-nav__section">
+                            <Theme element="h4" className="home-nav__title">Tool Type</Theme>
+                            {
+                                <BrowseBox
+                                    facets={ this.props.referenceFacets }
+                                    filterType={ 'toolTypes.type' }
+                                    searchFunction={ this.newFilterSearch }
+                                    isFetching={ this.props.isFetchingFacets }
+                                />
+                            }
+                        </Theme>
+                        <Theme element="div" className="home-nav__section">
+                            <Theme element="h4" className="home-nav__title">Research Area</Theme>
+                            {
+                                <BrowseBox
+                                    facets={ this.props.referenceFacets }
+                                    filterType={ 'researchAreas'}
+                                    searchFunction={ this.newFilterSearch }
+                                    isFetching={ this.props.isFetchingFacets }
+                                />
+                            }
+                        </Theme>
+                    </Theme>         
+                </Theme>
             </Theme>
         )
     }

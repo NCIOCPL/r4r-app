@@ -45,4 +45,13 @@ export const defaultThemeHooks = [
     'boundary__inner',
     'r4r-hidden',
     'results-container',
+    'home__main',
+    'home__search',
+    'home__desc',
+    'home-nav',
+    'home-nav__header',
+    'home-nav__main',
+    'home-nav__section',
+    'home-nav__title',
+
 ]

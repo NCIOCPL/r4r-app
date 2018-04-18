@@ -17,7 +17,7 @@ import { createTheme, ThemeProvider, Theme } from './theme';
 if(process.env.NODE_ENV !== 'production') {
     import('./cancergov_styles/nvcg.css');
     import('./cancergov_styles/InnerPage.css');
-    import('./cancergov_styles/r4r__cgov-theme.css');
+    import('./cancergov_styles/r4r_cgov_theme.css');
 }
 
 /**
@@ -91,7 +91,8 @@ const customTheme = {
     'r4r-container': 'row',
     'searchbar__container': 'cancer-gov',
     'searchbar__button--submit': 'button',
-    // 'similar-resource__tile': 'arrow-link',
+    'browse__tile': 'arrow-link',
+    'similar-resource__tile': 'arrow-link',
 };
 
 document.addEventListener('DOMContentLoaded', () => {
