@@ -183,7 +183,7 @@ export const newSearch = searchParams => (dispatch, getState) => {
             console.log('navigating to search page')
             history.push(`/r4r/search${ newQueryString }`)
         }
-    }, 500);
+    }, 1000);
 }
 
 export const fetchResource = resourceId => (dispatch, getState) => {
@@ -459,7 +459,7 @@ const dummyResults = {
                     "key": "datasets_databases",
                     "label": "Datasets & Databases",
                     "count": '10',  //TODO: Convert to number
-                    "selected": true //TODO: Convert to bool
+                    "selected": false //TODO: Convert to bool
                 },
                 {
                     "key": "lab_tools",

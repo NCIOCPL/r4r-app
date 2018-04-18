@@ -18,7 +18,7 @@ import {
     keyHandler,
 } from '../../utilities';
 import SelectedFiltersBox from '../../components/SelectedFiltersBox';
-import FilterBox from '../../components/FilterBox';
+import Filters from '../../components/Filters';
 import MobileMenu from '../../components/MobileMenu';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
@@ -101,44 +101,6 @@ class Results extends React.PureComponent {
         this.props.updateFilter(filterType, filterKey);
     }
 
-    renderFilters = facets => {
-        return (
-            <Theme element="section" className="results__facets" aria-label="Search Filters">
-                { this.renderToolTypes() }
-                <FilterBox 
-                    facet={ facets['researchAreas'] }
-                    onChange={ this.toggleFilter('researchAreas') }
-                />
-                <FilterBox 
-                    facet={ facets['researchTypes'] }
-                    onChange={ this.toggleFilter('researchTypes') }
-                />
-            </Theme>
-        )
-    }
-
-    //TODO: Pass the facet type and facets separately and handle the logic of rendering there
-    renderToolTypes = () => {
-        if(this.props.facets['toolTypes.type']) {
-            const toolTypesTypeFilters = this.props.facets['toolTypes.type'].items;
-            const isToolTypeSelected = Object.entries(toolTypesTypeFilters).some(([key, obj]) => obj.selected);
-            return !isToolTypeSelected
-                ?   <FilterBox 
-                        className="tool-types"
-                        facet={ this.props.facets['toolTypes.type'] }
-                        onChange={ this.toggleFilter('toolTypes.type') }
-                    />
-                : this.props.facets['toolTypes.subtype'] && this.props.facets['toolTypes.subtype'].items
-                ?   <FilterBox
-                        className="subtool-types"
-                        facet={ this.props.facets['toolTypes.subtype'] }
-                        onChange={ this.toggleFilter('toolTypes.subtype') }
-                    />
-                : null //TODO: Redundant, rework
-        }
-        return null;
-    }
-
     newFullSearch = () => {
         const unparsedQueryString = this.props.location.search;
         const parsedQueryParams = queryString.parse(unparsedQueryString);
@@ -182,7 +144,6 @@ class Results extends React.PureComponent {
                     <Theme element="div" className="r4r-results">
                         <Theme element="header" className="results__header">
                             <h1>Resources for Researchers: Search Results</h1>
-
                             <SearchBar 
                                 value={ this.props.searchBarValue }
                                 onChange={ this.props.searchBarOnChange }
@@ -210,7 +171,10 @@ class Results extends React.PureComponent {
                             withCounter={ true }
                         />
                         <Theme element="div" className="results__main">
-                            { this.renderFilters(this.props.facets) }
+                            <Filters
+                                facets={ this.props.facets }
+                                onChange={ this.toggleFilter }
+                            />
                             <Theme element="section" className="results-container" aria-label="search results">
                                 {
                                     this.props.results.map(({
@@ -240,7 +204,10 @@ class Results extends React.PureComponent {
                             isOpen={ this.state.isMobileMenuOpen }
                             closeMenu={ () => this.setState({isMobileMenuOpen: false}) }
                         >
-                            { this.renderFilters(this.props.facets) }
+                            <Filters
+                                facets={ this.props.facets }
+                                onChange={ this.toggleFilter }
+                            />
                         </MobileMenu>
                     </Theme>
                 :
