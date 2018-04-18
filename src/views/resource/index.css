@@ -96,3 +96,13 @@
 .similar-resource__container .similar-resource__tile.r4r-DEFAULT {
     margin: 5px 0;
 }
+
+@media only screen and (max-width: 768px){
+    .r4r-resource {
+        flex-direction: column;
+    }
+
+    .r4r-resource .resource__right {
+        width: 100%;
+    }
+}

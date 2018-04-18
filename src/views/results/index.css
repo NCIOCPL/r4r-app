@@ -231,7 +231,7 @@
         overflow-x: hidden;
     }
 
-    .searchbar__container {
+    .r4r-results .searchbar__container {
         flex-direction: column;
         align-items: center;
     }
@@ -253,7 +253,8 @@
 
     .results__filter-button {
         display: block;
-        width: 95%;
+        width: 700px;
+        max-width: 95%;
         height: 40px;
         font-size: 16px;
         margin: 10px auto;
@@ -294,5 +295,20 @@
 
     .r4r-pager__count.r4r-DEFAULT {
         margin: 10px 0;
+    }
+}
+
+@media only screen and (max-width: 640px){
+    .r4r-pager__count{
+        flex-direction: column;
+    }
+
+    .r4r-pager__count p:first-child::after{
+        content: "";
+        display: block;
+        margin: 10px auto;
+        width: 125px;
+        height: 1px;
+        background: #7d7d7d;    
     }
 }

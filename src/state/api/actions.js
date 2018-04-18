@@ -562,6 +562,30 @@ const dummyFacetResults = {
 				"count": 27,
 				"selected": false
 			},			
+			{
+				"key": "community_research_tools",
+				"label": "Community Research Tools",
+				"count": 10,
+				"selected": false
+			},
+			{
+				"key": "clinical_research_tools",
+				"label": "Clinical Research Tools",
+				"count": 27,
+				"selected": false
+			},			
+			{
+				"key": "analysis_tools",
+				"label": "Analysis Tools",
+				"count": 10,
+				"selected": false
+			},
+			{
+				"key": "terminology",
+				"label": "Terminology",
+				"count": 27,
+				"selected": false
+			},			
 		]
 	},
 	{
@@ -577,6 +601,54 @@ const dummyFacetResults = {
 			{
 				"key": "cancer_genomics",
 				"label": "Cancer Genomics",
+				"count": 2,
+				"selected": false
+			},
+			{
+				"key": "cancer_treatment",
+				"label": "Cancer Treatment",
+				"count": 32,
+				"selected": false
+			},
+			{
+				"key": "cancer_omics",
+				"label": "Cancer Omics",
+				"count": 2,
+				"selected": false
+			},
+			{
+				"key": "screening_detection",
+				"label": "Screening & Detection",
+				"count": 32,
+				"selected": false
+			},
+			{
+				"key": "cancer_health_disparities",
+				"label": "Cancer Health Disparities",
+				"count": 2,
+				"selected": false
+			},
+			{
+				"key": "cancer_public_health",
+				"label": "Cancer & Public Health",
+				"count": 32,
+				"selected": false
+			},
+			{
+				"key": "cancer_diagnosis",
+				"label": "Cancer Diagnosis",
+				"count": 2,
+				"selected": false
+			},
+			{
+				"key": "cancer_causes",
+				"label": "Causes of Cancer",
+				"count": 32,
+				"selected": false
+			},
+			{
+				"key": "cancer_survivorship",
+				"label": "Cancer Survivorship",
 				"count": 2,
 				"selected": false
 			},
