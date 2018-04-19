@@ -30,8 +30,8 @@
 }
 
 .home-nav.r4r-DEFAULT {
-    width: 95%;
-    margin: 0 auto;
+    /* width: 95%;
+    margin: 0 auto; */
 }
 
 .home-nav__header.r4r-DEFAULT {
@@ -68,8 +68,8 @@
 
     .r4r-home .home__main {
         flex-direction: column;
-        margin: 0 auto;
-        width: 95%;
+        /* margin: 0 auto;
+        width: 95%; */
     }
     
     .r4r-home .searchbar__container{

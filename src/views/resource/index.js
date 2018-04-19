@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Theme } from '../../theme';
+import SVG from '../../components/SVG';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
 import MultiLineText from '../../components/MultiLineText';
@@ -144,7 +145,7 @@ class Resource extends React.PureComponent {
                 <Theme element="div" className="resource__right">
                     <article aria-label="Resource Access Information">
                         <Theme element="div" className='resource__access'>
-                            {/* TODO: Logo based on resourceAccess.type */}
+                            <SVG iconType={ resourceAccess.type }/>
                             <h4>{ resourceAccess.type }</h4>
                             <p>{ resourceAccess.notes }</p>
                         </Theme>
