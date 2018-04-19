@@ -296,6 +296,10 @@
     .r4r-pager__count.r4r-DEFAULT {
         margin: 10px 0;
     }
+
+    .results-container.r4r-DEFAULT .result-tile.r4r-DEFAULT {
+        margin: 0 15px 40px 15px;
+    }
 }
 
 @media only screen and (max-width: 640px){

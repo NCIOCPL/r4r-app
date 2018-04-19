@@ -4,8 +4,7 @@ import { Theme } from '../theme';
 
 const freeIcon = 
     <svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-        <title>Free-icon</title>
-        <desc>Created with Sketch.</desc>
+        <title>Free Access Icon</title>
         <defs></defs>
         <g id="R4R-Result-Description" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="R4R-Result-Description---LESS-TEXT---Desktop---1441" transform="translate(-930.000000, -287.000000)" fill="#000000">
@@ -19,9 +18,8 @@ const freeIcon =
     </svg>; 
 
 const contractIcon =
-<svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-    <title>contract-icon</title>
-    <desc>Created with Sketch.</desc>
+<svg width="30px" height="30px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <title>Registration Required Icon</title>
     <defs>
         <polygon id="path-1" points="0.0038671875 0 32.9976716 0 32.9976716 33 0.0038671875 33"></polygon>
     </defs>
@@ -51,8 +49,7 @@ const contractIcon =
 
 const moneyIcon =
 <svg width="40px" height="41px" viewBox="0 0 40 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-    <title>money-bag</title>
-    <desc>Created with Sketch.</desc>
+    <title>Paid Access Icon</title>
     <defs>
         <polygon id="path-1" points="0.00482564778 2.44307224e-05 39.7582708 2.44307224e-05 39.7582708 41 0.00482564778 41"></polygon>
     </defs>
@@ -80,14 +77,13 @@ const moneyIcon =
 
 const images = {
     "free": freeIcon,
-    "Requires Registration": contractIcon,
+    "registration": contractIcon,
     "paid": moneyIcon,
 }
 
 class SVG extends React.PureComponent{
     static propTypes = {
-        className: PropTypes.string,
-        iconType: PropTypes.oneOf(["free", "Registration Required", "paid"]).isRequired,
+        iconType: PropTypes.oneOf(Object.keys(images)).isRequired,
     }
 
     render(){

@@ -238,7 +238,7 @@ const dummyResults = {
                 'National Institute of Belgium'
             ],
             resourceAccess: {
-                type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
+                type: 'free', // If this is effectively a key or id, maybe it should have one for the logo to hook into
                 notes: 'Registrants will have to provide grantee institution name.',
             },
             // Make component for these things.
@@ -285,7 +285,7 @@ const dummyResults = {
                 'Perestroika and Glasnost'
             ],
             resourceAccess: {
-                type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
+                type: 'registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
                 notes: 'Registrants will have to provide grantee institution name.',
             },
             // Make component for these things.
@@ -348,7 +348,7 @@ const dummyResults = {
                 'Peter Gabriel\'s cat'
             ],
             resourceAccess: {
-                type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
+                type: 'registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
                 notes: 'Registrants will have to provide grantee institution name.',
             },
             // Make component for these things.
@@ -411,7 +411,7 @@ const dummyResults = {
                 'Peter Gabriel\'s cat'
             ],
             resourceAccess: {
-                type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
+                type: 'paid', // If this is effectively a key or id, maybe it should have one for the logo to hook into
                 notes: 'Registrants will have to provide grantee institution name.',
             },
             // Make component for these things.
@@ -682,7 +682,7 @@ const dummyResourceResult = {
         'Peter Gabriel and his cat'
     ],
     resourceAccess: {
-        type: 'Requires Registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
+        type: 'registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
         notes: 'Registrants will have to provide grantee institution name.',
     },
     // Make component for these things.

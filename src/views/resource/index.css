@@ -14,6 +14,22 @@
 
 .resource__access.r4r-DEFAULT {
     padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.resource__access.r4r-DEFAULT svg {
+    margin: 5px 0;
+    margin-right: 10px;
+    width: 35px;
+}
+.resource__access.r4r-DEFAULT h4{
+    flex: 1;
+}
+
+.resource__access.r4r-DEFAULT p {
+    width: 100%;
+    padding-top: 10px;
 }
 
 .resource__link--external.r4r-DEFAULT {

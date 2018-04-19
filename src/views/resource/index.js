@@ -28,6 +28,12 @@ import {
 } from '../../interfaces';
 import './index.css';
 
+const resourceAccessTitles = {
+    'free': 'Free to use',
+    'registration': 'This resource requires registration',
+    'paid': 'Payment Required'
+}
+
 class Resource extends React.PureComponent {
     static propTypes = {
         newSearch: PropTypes.func.isRequired,
@@ -146,7 +152,7 @@ class Resource extends React.PureComponent {
                     <article aria-label="Resource Access Information">
                         <Theme element="div" className='resource__access'>
                             <SVG iconType={ resourceAccess.type }/>
-                            <h4>{ resourceAccess.type }</h4>
+                            <h4>{ resourceAccessTitles[resourceAccess.type] }</h4>
                             <p>{ resourceAccess.notes }</p>
                         </Theme>
                     </article>
