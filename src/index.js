@@ -12,6 +12,8 @@ import LiveRegion from './LiveRegion';
 import { Helmet } from 'react-helmet';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
+import { createBrowserHistory } from 'history';
+
 
 // Remove this block after CGOV custom theme development is complete
 if(process.env.NODE_ENV !== 'production') {
@@ -31,6 +33,7 @@ const initialize = ({
     customTheme = {},
     appId = 'DEFAULT_APP_ID',
     rootId = 'r4r-root',
+    historyProps = {},
 } = {}) => {
     if(typeof customTheme !== 'object' || customTheme === null) {
         throw new Error('customTheme must be a non-null object')
@@ -43,11 +46,19 @@ const initialize = ({
         cachedState = loadStateFromSessionStorage(appId);
     }
 
+    /**
+     * By instantiating our history object here, instead of using BrowserRouter which is a wrapper around Router 
+     * and the history API setup, we can have access to it outside of the component
+     * tree (especially in our thunks to allow redirecting after searches (this would otherwise be impossible)).
+     * In this case we are passing it as a third argument in our thunks (dispatch, getState, history)
+     */
+    const history = createBrowserHistory(historyProps);
+
     const store = createStore(
         combineReducers(reducers),
         cachedState,
         composeWithDevTools(applyMiddleware(
-            thunk
+            thunk.withExtraArgument(history)
         ))
     );
 
@@ -75,7 +86,7 @@ const initialize = ({
                             <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
                         </Helmet>
                         <LiveRegion />
-                        <Router />
+                        <Router history={ history }/>
                     </Theme>
                 </ThemeProvider>
             </Provider>
@@ -99,6 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initialize({
         appId: 'r4r-browser-cache',
         customTheme,
+        historyProps: {
+            basename: '/research/r4r',
+        }
     });
 })
 

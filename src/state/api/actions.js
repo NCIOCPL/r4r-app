@@ -1,4 +1,3 @@
-import history from '../../history';
 import { updateSearchBar } from '../searchForm/actions';
 import {
     formatRawResourcesFacets,
@@ -113,7 +112,7 @@ export const loadFacets = () => (dispatch, getState) => {
 
 // TODO: Fix issue with double fire and double redirect. Currently it is triple firing because of the dummy data overwriting changes, when it has a dynamic return
 // we need to see if the issue persists when interacting with the real API.
-export const newSearch = searchParams => (dispatch, getState) => {
+export const newSearch = searchParams => (dispatch, getState, history) => {
     const store = getState();
     const currentSearchQueryString = store.api.currentSearchQueryString;
     const searchCache = store.api.cachedSearches;
@@ -181,7 +180,7 @@ export const newSearch = searchParams => (dispatch, getState) => {
         dispatch(setFetchingStatus(false));
         if(!isAlreadyAtCorrectURL) {
             console.log('navigating to search page')
-            history.push(`/r4r/search${ newQueryString }`)
+            history.push(`/search${ newQueryString }`)
         }
     }, 1000);
 }
