@@ -74,7 +74,7 @@ const initialize = ({
         store.subscribe(saveAllStateToSessionStorage);
     }
 
-    const ReduxConnectedApp = () => (
+    const App = () => (
         <ErrorBoundary>
             <Provider store={ store }>
                 <ThemeProvider theme={ theme }>
@@ -93,7 +93,7 @@ const initialize = ({
         </ErrorBoundary>
     );
     const appRootDOMNode = document.getElementById(rootId);
-    ReactDOM.render(<ReduxConnectedApp />, appRootDOMNode);
+    ReactDOM.render(<App />, appRootDOMNode);
     return appRootDOMNode;
 }
 

@@ -6,7 +6,7 @@ const freeIcon =
     <svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <title>Free Access Icon</title>
         <defs></defs>
-        <g id="R4R-Result-Description" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="R4R-Result-Description" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g id="R4R-Result-Description---LESS-TEXT---Desktop---1441" transform="translate(-930.000000, -287.000000)" fill="#000000">
                 <g id="resource-access" transform="translate(930.000000, 265.000000)">
                     <g id="Free" transform="translate(0.000000, 22.000000)">
@@ -23,7 +23,7 @@ const contractIcon =
     <defs>
         <polygon id="path-1" points="0.0038671875 0 32.9976716 0 32.9976716 33 0.0038671875 33"></polygon>
     </defs>
-    <g id="R4R-Result-Description" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="R4R-Result-Description" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="R4R-Result-Description---Desktop-HD---1441" transform="translate(-931.000000, -288.000000)">
             <g id="resource-access" transform="translate(931.000000, 266.000000)">
                 <g id="Requires-Registratio" transform="translate(0.000000, 15.000000)">
@@ -53,7 +53,7 @@ const moneyIcon =
     <defs>
         <polygon id="path-1" points="0.00482564778 2.44307224e-05 39.7582708 2.44307224e-05 39.7582708 41 0.00482564778 41"></polygon>
     </defs>
-    <g id="R4R-Result-Description" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="R4R-Result-Description" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="R4R-Result-Description---LESS-TEXT---Desktop---1441" transform="translate(-941.000000, -314.000000)">
             <g id="resource-access" transform="translate(930.000000, 265.000000)">
                 <g id="Requires-Payment" transform="translate(11.000000, 49.000000)">
