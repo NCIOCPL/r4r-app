@@ -100,6 +100,7 @@ class Resource extends React.PureComponent {
         title,
         website,
         description,
+        body,
         poCs,
         resourceAccess,
         doCs,
@@ -132,9 +133,7 @@ class Resource extends React.PureComponent {
                         }
                         <Link to="/">Start Over</Link>
                     </Theme>
-                    <article aria-label="Resource description">
-                        <MultiLineText text={ description }/>
-                    </article>
+                    <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
                     <Theme element="a" className="resource__link--external" href={ website }>Learn more about { title } ></Theme>
                     <article>
                         <h2>Contact Information</h2>
