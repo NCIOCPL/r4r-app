@@ -1,11 +1,11 @@
-import { shape, arrayOf, string } from 'prop-types';
+import { shape, arrayOf, string, number } from 'prop-types';
 
 export const resourceInterface = shape({
-    id: string.isRequired,
+    id: number.isRequired,
     title: string.isRequired,
-    website: string.isRequired,
+    website: string, //TODO: Is this assumption erroneous?
     description: string.isRequired,
-    pocs: arrayOf(shape({
+    poCs: arrayOf(shape({
         name: shape({
             prefix: string,
             firstName: string,
@@ -17,21 +17,22 @@ export const resourceInterface = shape({
         phone: string,
         email: string,
     })),
-    docs: arrayOf(string),
+    doCs: arrayOf(shape({
+        key: string.isRequired,
+        label: string.isRequired,
+    })),
     resourceAccess: shape({
         type: string.isRequired,
         notes: string,
     }),
     toolTypes: arrayOf(shape({
-        type: shape({
-            key: string.isRequired,
-            label: string.isRequired,
-        }).isRequired,
-        subType: shape({
-            key: string.isRequired,
-            label: string.isRequired,
-        })
-    })),
+        key: string.isRequired,
+        label: string.isRequired,
+    }).isRequired),
+    subToolTypes: arrayOf(shape({
+        key: string.isRequired,
+        label: string.isRequired,
+    }).isRequired),
     researchAreas: arrayOf(shape({
         key: string.isRequired,
         label: string.isRequired,

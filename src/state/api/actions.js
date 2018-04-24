@@ -80,12 +80,16 @@ export const clearFilters = () => ({
     type: CLEAR_FILTERS,
 })
 
+const API_resourcesEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resources';
+const API_resourceEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resource';
+
 // When the home page loads, we want to fetch all available facets to use for dynamically
 // rendering the browse tiles.
 // TODO: If we pass in the referenceFacets we can make this purer. (Or if we handle validation in the 
 // component. Or if we chain two thunks, one for cache validation and one for search execution.)
 export const loadFacets = () => (dispatch, getState) => {
     const queryString = '?size=0&includeFacets=toolType.type&includeFacets=researchAreas';
+    const queryEndpoint = API_resourcesEndpoint + queryString;
     //TODO: This process can be abstracted into a generic load from cache method to be shared (later)
     
     // We want this to be a cheap lookup to see if a facets object exists, the only way to load one
@@ -97,6 +101,10 @@ export const loadFacets = () => (dispatch, getState) => {
         return;
     }
     
+    // Add in http error handling  
+    fetch(queryEndpoint)
+        .then(res => res.json())
+        .then(res => console.log(res))
     // Fetch facets and load them. The home component will render them as soon as they become available.
     console.log('Fetching facets')
     dispatch(setFacetsFetchingStatus(true));
@@ -104,7 +112,7 @@ export const loadFacets = () => (dispatch, getState) => {
         const dummyFacets = dummyFacetResults.facets;
         const formattedFacets = formatRawResourcesFacets(dummyFacets)
         dispatch(loadNewFacetResults(formattedFacets));
-    }, 2000)
+    }, 1000)
 }
 
 //TODO: Need to rewrite this to allow for cases where the call is being made as part of a prefetch
@@ -123,6 +131,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     const isAlreadyOnSearchPage = history.location.pathname.toLowerCase() === '/search';
     const isAlreadyAtCorrectURL = history.location.search === newQueryString;
 
+    // We only want to retain search text on the results page (otherwise stale text will be visible on page changes)
     dispatch(updateSearchBar({
         page: 'results',
         value: searchText,
@@ -160,29 +169,56 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     //TODO: This won't work on new filters where the search isn't cached but we don't want to redirect
     console.log('Current search is not cached, fetching from db')
     dispatch(setFetchingStatus(true));
-    setTimeout(() => {
-        // TODO: FETCH DATA
-        console.log('Fetching from API')
-        const rawFacets = dummyResults.facets;
-        const formattedFacets = formatRawResourcesFacets(rawFacets)
-        const processedResults = {
-            ...dummyResults,
-            facets: formattedFacets,
-        };
-        const resultsToCache = {
-            [newQueryString]: processedResults,
-        }
 
-        dispatch(cacheNewSearchResults(resultsToCache));
-        dispatch(cacheResources(dummyResults.results));
-        dispatch(setCurrentSearchQueryString(newQueryString))
-        dispatch(loadNewSearchResults(processedResults));
-        dispatch(setFetchingStatus(false));
-        if(!isAlreadyAtCorrectURL) {
-            console.log('navigating to search page')
-            history.push(`/search${ newQueryString }`)
-        }
-    }, 1000);
+    console.log('Fetching from API')
+    // Add in http error handling  
+    fetch(API_resourcesEndpoint + newQueryString)
+        .then(res => res.json())
+        .then(res => {console.log(res); return res;})
+        .then(res => {
+            const rawFacets = res.facets;
+            const formattedFacets = formatRawResourcesFacets(rawFacets)
+            const processedResults = {
+                ...res,
+                facets: formattedFacets,
+            };
+            const resultsToCache = {
+                [newQueryString]: processedResults,
+            }
+            console.log(processedResults)
+    
+            dispatch(cacheNewSearchResults(resultsToCache));
+            dispatch(cacheResources(res.results));
+            dispatch(setCurrentSearchQueryString(newQueryString))
+            dispatch(loadNewSearchResults(processedResults));
+            dispatch(setFetchingStatus(false));
+            if(!isAlreadyAtCorrectURL) {
+                console.log('navigating to search page')
+                history.push(`/search${ newQueryString }`)
+            }            
+        })
+    
+    // setTimeout(() => {
+    //     const rawFacets = dummyResults.facets;
+    //     const formattedFacets = formatRawResourcesFacets(rawFacets)
+    //     const processedResults = {
+    //         ...dummyResults,
+    //         facets: formattedFacets,
+    //     };
+    //     const resultsToCache = {
+    //         [newQueryString]: processedResults,
+    //     }
+
+    //     dispatch(cacheNewSearchResults(resultsToCache));
+    //     dispatch(cacheResources(dummyResults.results));
+    //     dispatch(setCurrentSearchQueryString(newQueryString))
+    //     dispatch(loadNewSearchResults(processedResults));
+    //     dispatch(setFetchingStatus(false));
+    //     if(!isAlreadyAtCorrectURL) {
+    //         console.log('navigating to search page')
+    //         history.push(`/search${ newQueryString }`)
+    //     }
+    // }, 1000);
 }
 
 export const fetchResource = resourceId => (dispatch, getState) => {
@@ -200,8 +236,8 @@ export const fetchResource = resourceId => (dispatch, getState) => {
 
     // We need to fetch and process the resource from the /resource api endpoint. For now we
     // will use dummy + setTimeout
+    console.log('Deep linking has been disabled until API hookup')
     setTimeout(() => {
-        //TODO: 1) Fetch resource
         console.log('Resource not cached, fetching from db')
         dispatch(cacheResources([dummyResourceResult]));
         dispatch(loadResource(dummyResourceResult));
@@ -219,7 +255,7 @@ const dummyResults = {
             title: 'Chernobyl Tissue Bank',
             website: 'https://en.wikipedia.org/wiki/Chernobyl',
             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            pocs: [
+            poCs: [
                 {
                     name: {
                         prefix: 'Dr.',
@@ -233,7 +269,7 @@ const dummyResults = {
                     email: 'Jk339o@nih.gov',
                 },
             ],
-            docs: [
+            doCs: [
                 'National Institute of Belgium'
             ],
             resourceAccess: {
@@ -265,7 +301,7 @@ const dummyResults = {
             title: 'Chernobyl Tissue Bank',
             website: 'https://en.wikipedia.org/wiki/Chernobyl',
             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            pocs: [
+            poCs: [
                 {
                     name: {
                         prefix: 'Dr.',
@@ -279,7 +315,7 @@ const dummyResults = {
                     email: 'Jk339o@nih.gov',
                 },
             ],
-            docs: [
+            doCs: [
                 'National Institute of Belgium',
                 'Perestroika and Glasnost'
             ],
@@ -327,7 +363,7 @@ const dummyResults = {
             title: 'Chernobyl Tissue Bank',
             website: 'https://en.wikipedia.org/wiki/Chernobyl',
             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            pocs: [
+            poCs: [
                 {
                     name: {
                         prefix: 'Dr.',
@@ -341,7 +377,7 @@ const dummyResults = {
                     email: 'Jk339o@nih.gov',
                 },
             ],
-            docs: [
+            doCs: [
                 'National Institute of Belgium',
                 'Perestroika and Glasnost',
                 'Peter Gabriel\'s cat'
@@ -390,7 +426,7 @@ const dummyResults = {
             title: 'Chernobyl Tissue Bank',
             website: 'https://en.wikipedia.org/wiki/Chernobyl',
             description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            pocs: [
+            poCs: [
                 {
                     name: {
                         prefix: 'Dr.',
@@ -404,7 +440,7 @@ const dummyResults = {
                     email: 'Jk339o@nih.gov',
                 },
             ],
-            docs: [
+            doCs: [
                 'National Institute of Belgium',
                 'Perestroika and Glasnost',
                 'Peter Gabriel\'s cat'
@@ -452,7 +488,7 @@ const dummyResults = {
 	"facets": [
         {
             "title": "Tool Types",
-            "param": "toolTypes.type",
+            "param": "toolTypes",
             "items": [
                 {
                     "key": "datasets_databases",
@@ -547,7 +583,7 @@ const dummyFacetResults = {
 	"results": [],
 	"facets": [{
 		"title": "Tool Types",
-		"param": "toolTypes.type",
+		"param": "toolTypes",
 		"items": [
 			{
 				"key": "datasets_databases",
@@ -661,7 +697,7 @@ const dummyResourceResult = {
     title: 'Chernobyl Tissue Bank',
     website: 'https://en.wikipedia.org/wiki/Chernobyl',
     description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-    pocs: [
+    poCs: [
         {
             name: {
                 prefix: 'Dr.',
@@ -675,7 +711,7 @@ const dummyResourceResult = {
             email: 'Jk339o@nih.gov',
         },
     ],
-    docs: [
+    doCs: [
         'National Institute of Belgium',
         'Perestroika and Glasnost',
         'Peter Gabriel and his cat'

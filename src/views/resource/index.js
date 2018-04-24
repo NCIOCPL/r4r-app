@@ -100,9 +100,9 @@ class Resource extends React.PureComponent {
         title,
         website,
         description,
-        pocs,
+        poCs,
         resourceAccess,
-        docs,
+        doCs,
     }) => {
         return (
             <Theme element="div" className='r4r-resource'>
@@ -139,13 +139,13 @@ class Resource extends React.PureComponent {
                     <article>
                         <h2>Contact Information</h2>
                         { 
-                            pocs.map((poc, idx) => (
+                            poCs.map((poc, idx) => (
                                 <ContactInformation contact={ poc } key={ idx } />
                             ))
                         }
                     </article>
                     <Theme element="article" className="resource__docs" aria-label="DOCs information">
-                        { renderDocsString(docs) }
+                        { renderDocsString(doCs) }
                     </Theme>
                 </Theme>
                 <Theme element="div" className="resource__right">
@@ -177,7 +177,7 @@ class Resource extends React.PureComponent {
     }
 
     render() {
-        if(this.props.resource && this.props.match.params.id === this.props.resource.id) {
+        if(this.props.resource && this.props.match.params.id == this.props.resource.id) {
             return this.renderResource(this.props.resource);
         }
         return <Spinner />;

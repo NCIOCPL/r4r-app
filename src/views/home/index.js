@@ -109,7 +109,7 @@ class Home extends React.PureComponent {
                             {
                                 <BrowseBox
                                     facets={ this.props.referenceFacets }
-                                    filterType={ 'toolTypes.type' }
+                                    filterType={ 'toolTypes' }
                                     searchFunction={ this.newFilterSearch }
                                     isFetching={ this.props.isFetchingFacets }
                                 />

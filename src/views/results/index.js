@@ -54,7 +54,7 @@ class Results extends React.PureComponent {
         currentSearchText: PropTypes.string,
         facets: PropTypes.objectOf(PropTypes.shape({
             title: PropTypes.string.isRequired,
-            param: PropTypes.oneOf(['toolTypes.type', 'toolTypes.subtype', 'researchAreas', 'researchTypes']),
+            param: PropTypes.oneOf(['toolTypes', 'toolTypes.subtype', 'researchAreas', 'researchTypes']),
             items: PropTypes.objectOf(PropTypes.shape({
                 label: PropTypes.string.isRequired,
                 count: PropTypes.number.isRequired,

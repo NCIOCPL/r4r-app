@@ -12,7 +12,7 @@ export const formatFilters = (filterType, resource = {}) => {
         // Have to handle special case of type/subtypes for tooltypes
         // This isn't elegant, but hopefully readable
         if(filter.type) {
-            filterType = 'toolTypes.type';
+            filterType = 'toolTypes';
             filter = filter.type;
         }
         if(filter.subtype) {
@@ -118,26 +118,26 @@ export const transformFacetFiltersIntoParamsObject = facets => {
     return queryStringParams;
 }
 
-export const renderDocsString = (docs = []) => {
-    if(!Array.isArray(docs) || !docs.length) {
+export const renderDocsString = (doCs = []) => {
+    if(!Array.isArray(doCs) || !doCs.length) {
         return '';
     }
     
     const base = 'This resource is managed by the National Cancer Institute';
     
-    if(!docs.length) {
+    if(!doCs.length) {
         return base + '.';
     }
-    if(docs.length === 1) {
-        return `${ base } and ${ docs[0] }.`;
+    if(doCs.length === 1) {
+        return `${ base } and ${ doCs[0].label }.`;
     }
     
-    const grammarfiedDocs = docs.reduce((acc, doc, idx, arr) => {
+    const grammarfiedDocs = doCs.reduce((acc, doc, idx, arr) => {
         if(idx === arr.length - 1){
-            acc = acc + ', and ' + doc;
+            acc = acc + ', and ' + doc.label;
             return acc;
         }
-        acc = acc + ', ' + doc;
+        acc = acc + ', ' + doc.label;
         return acc
     })
     return `${ base }, ${ grammarfiedDocs }.`;

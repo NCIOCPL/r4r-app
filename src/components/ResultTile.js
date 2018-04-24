@@ -7,7 +7,7 @@ class ResultTile extends React.PureComponent {
     static propTypes = {
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
     }
 
     static defaultProps = {

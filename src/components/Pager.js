@@ -26,6 +26,7 @@ class Pager extends React.PureComponent {
         withCounter: false,
         total: 0,
         resultsSize: 0,
+        startFrom: 1,
     }
 
     onClick = (from, isCurrent) => () => {

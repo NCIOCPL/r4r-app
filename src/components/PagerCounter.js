@@ -5,9 +5,9 @@ import { Theme } from '../theme';
 
 class PagerCounter extends React.PureComponent {
     static propTypes = {
-        from: PropTypes.number.isRequired,
-        to: PropTypes.number.isRequired,
-        total: PropTypes.number.isRequired,
+        from: PropTypes.number,
+        to: PropTypes.number,
+        total: PropTypes.number,
     }
 
     render() {

@@ -11,14 +11,14 @@ class Filters extends React.PureComponent {
     }
 
     render(){
-        const toolTypesTypeFilters = this.props.facets['toolTypes.type'].items || [];
+        const toolTypesTypeFilters = this.props.facets['toolTypes'].items || [];
         const isToolTypeSelected = Object.entries(toolTypesTypeFilters).some(([key, obj]) => obj.selected);
         return (
             <Theme element="section" className="results__facets" aria-label="Search Filters">
                 <FilterBox 
                     className="tool-types"
-                    facet={ this.props.facets['toolTypes.type'] }
-                    onChange={ this.props.onChange('toolTypes.type') }
+                    facet={ this.props.facets['toolTypes'] }
+                    onChange={ this.props.onChange('toolTypes') }
                 />
                 <FilterBox
                     className="subtool-types"

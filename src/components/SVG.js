@@ -87,7 +87,7 @@ class SVG extends React.PureComponent{
     }
 
     render(){
-        return images[this.props.iconType];
+        return images[this.props.iconType] || null;
     }
 }
 
