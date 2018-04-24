@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Theme } from '../theme';
 
+// Deprecated (BB 4/2018)
 class MobileMenu extends React.PureComponent {
     static propTypes = {
         isOpen: PropTypes.bool.isRequired,

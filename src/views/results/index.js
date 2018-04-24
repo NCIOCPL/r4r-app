@@ -19,7 +19,6 @@ import {
 } from '../../utilities';
 import SelectedFiltersBox from '../../components/SelectedFiltersBox';
 import Filters from '../../components/Filters';
-import MobileMenu from '../../components/MobileMenu';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
 import SearchBar from '../../components/SearchBar';
@@ -36,9 +35,12 @@ import './index.css';
 // that would be a different flow. Hmm.)
 
 class Results extends React.PureComponent {
-
-    state = {
-        isMobileMenuOpen: false,
+    constructor(props){
+        super(props);
+        this.state = {
+            isMobileMenuOpen: false,
+        }
+        this.mediaQueryListener = window.matchMedia('(max-width: 768px)');
     }
 
     static propTypes = {
@@ -62,6 +64,14 @@ class Results extends React.PureComponent {
         results: PropTypes.arrayOf(resourceInterface),
     }
 
+    // We want to make sure that the mobile filter menu closes automatically if the window resizes above the mobile
+    // breakpoint
+    mediaQueryEvent = e => {
+        if(!e.matches) {
+            this.setState({isMobileMenuOpen: false})
+        }
+    }
+
     newTextSearch = () => {
         // Do not execute on empty search fields
         if(this.props.searchBarValue) {
@@ -69,6 +79,7 @@ class Results extends React.PureComponent {
                 q: this.props.searchBarValue
             });
         }
+        this.setState({ isMobileMenuOpen: false });
     }
 
     clearFilters = () => {
@@ -109,6 +120,7 @@ class Results extends React.PureComponent {
     
     componentDidMount() {
         this.newFullSearch();
+        this.mediaQueryListener.addListener(this.mediaQueryEvent);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -129,6 +141,10 @@ class Results extends React.PureComponent {
         }
     }
 
+    componentWillUnmount() {
+        this.mediaQueryListener.removeListener(this.mediaQueryEvent);
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -143,7 +159,7 @@ class Results extends React.PureComponent {
                 ?
                     <Theme element="div" className="r4r-results">
                         <Theme element="header" className="results__header">
-                            <h1>Resources for Researchers: Search Results</h1>
+                            <h1>Search Results</h1>
                             <SearchBar 
                                 value={ this.props.searchBarValue }
                                 onChange={ this.props.searchBarOnChange }
@@ -153,62 +169,72 @@ class Results extends React.PureComponent {
                             <Theme
                                 element="button"
                                 className="results__filter-button"
-                                onClick={() => this.setState({isMobileMenuOpen: true})}
+                                onClick={() => this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen })}
                             >
-                                Filter
+                                { !this.state.isMobileMenuOpen ? 'Filter' : 'Done' }
                             </Theme>
                         </Theme>
-                        <SelectedFiltersBox 
-                            selected={ getCurrentlySelectedFiltersFromFacets(this.props.facets) }
-                            clearFilters={this.props.clearFilters}
-                            toggleFilter={this.toggleFilter}
-                        />
-                        <Pager
-                            total={ this.props.totalResults }
-                            resultsSize={ this.props.results && this.props.results.length }
-                            startFrom={ this.props.startFrom }
-                            onClick={ this.pagerSearch }
-                            withCounter={ true }
-                        />
-                        <Theme element="div" className="results__main">
-                            <Filters
-                                facets={ this.props.facets }
-                                onChange={ this.toggleFilter }
-                            />
-                            <Theme element="section" className="results-container" aria-label="search results">
-                                {
-                                    this.props.results.map(({
-                                        title,
-                                        description,
-                                        id
-                                    }, idx) => (
-                                        <ResultTile
-                                            key={ idx }
-                                            title={ title }
-                                            description={ description }
-                                            id={ id }
-                                        />
-                                    ))
-                                }
-                            </Theme>
-                        </Theme>
-                        <Pager
-                            total={ this.props.totalResults }
-                            resultsSize={ this.props.results && this.props.results.length }
-                            startFrom={ this.props.startFrom }
-                            onClick={ this.pagerSearch }
-                            withCounter={ false }
-                        />
-                        <MobileMenu
-                            key={0}
-                            isOpen={ this.state.isMobileMenuOpen }
-                            closeMenu={ () => this.setState({isMobileMenuOpen: false}) }
-                        >
-                            <Filters
-                                facets={ this.props.facets }
-                                onChange={ this.toggleFilter }
-                            />
-                        </MobileMenu>
+                        {
+                            !this.state.isMobileMenuOpen &&
+                                <SelectedFiltersBox 
+                                    selected={ getCurrentlySelectedFiltersFromFacets(this.props.facets) }
+                                    clearFilters={this.props.clearFilters}
+                                    toggleFilter={this.toggleFilter}
+                                />
+                        }
+                        {
+                            !this.state.isMobileMenuOpen &&
+                                <Pager
+                                    total={ this.props.totalResults }
+                                    resultsSize={ this.props.results && this.props.results.length }
+                                    startFrom={ this.props.startFrom }
+                                    onClick={ this.pagerSearch }
+                                    withCounter={ true }
+                                />
+                        }
+                        {
+                            !this.state.isMobileMenuOpen &&
+                                <Theme element="div" className="results__main">
+                                    <Filters
+                                        facets={ this.props.facets }
+                                        onChange={ this.toggleFilter }
+                                    />
+                                    <Theme element="section" className="results-container" aria-label="search results">
+                                        {
+                                            this.props.results.map(({
+                                                title,
+                                                description,
+                                                id
+                                            }, idx) => (
+                                                <ResultTile
+                                                    key={ idx }
+                                                    title={ title }
+                                                    description={ description }
+                                                    id={ id }
+                                                />
+                                            ))
+                                        }
+                                    </Theme>
+                                </Theme>
+                        }
+                        {
+                            !this.state.isMobileMenuOpen &&
+                                <Pager
+                                    total={ this.props.totalResults }
+                                    resultsSize={ this.props.results && this.props.results.length }
+                                    startFrom={ this.props.startFrom }
+                                    onClick={ this.pagerSearch }
+                                    withCounter={ false }
+                                />
+
+                        }
+                        {
+                            this.state.isMobileMenuOpen &&
+                                <Filters
+                                    facets={ this.props.facets }
+                                    onChange={ this.toggleFilter }
+                                />
+                        }
                     </Theme>
                 :
                     <Spinner />

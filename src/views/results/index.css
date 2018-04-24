@@ -46,14 +46,13 @@
     border-bottom: 1px solid #7d7d7d;
 }
 
-/* The span is to obviate the element introduced by ReactCSSTransitionGroup */
-.results__facets.r4r-DEFAULT, .results__facets > span {
+
+.results__facets.r4r-DEFAULT {
     width: 320px;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
 }
-
 
 .facet__box.r4r-DEFAULT {
     width: 100%;
@@ -62,29 +61,6 @@
     display: flex;
     flex-flow: column nowrap;
     box-shadow: 0 4px 9px -1px rgba(0,0,0,0.3);
-}
-
-.filter-box-enter.facet__box.r4r-DEFAULT{
-    height: 0;
-    opacity: 0.6;
-}
-
-.filter-box-enter.filter-box-enter-active.facet__box.r4r-DEFAULT{
-    height: 100%;
-    opacity: 1;
-    transition: all 500ms ease-in-out;
-}
-
-.filter-box-leave.facet__box.r4r-DEFAULT{
-    height: 100%;
-    opacity: 1;
-}
-
-.filter-box-leave.filter-box-leave-active.facet__box.r4r-DEFAULT{
-    height: 0;
-    opacity: 0.6;
-    transition: all 50ms cubic-bezier(0.175, 0.885, 0.320, 1);
-
 }
 
 .facet__title.r4r-DEFAULT {
@@ -134,94 +110,8 @@
     margin: 0 40px 40px 40px;
 }
 
-.result-tile.r4r-DEFAULT {
-
-}
-
 .r4r-results .searchbar__container {
     margin: 30px 0;
-}
-
-.results__mobile-nav {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 320px;
-    background: white;
-    color: black;
-    z-index: 9999;
-}
-
-.results__mobile-nav .results__selected-filters.r4r-DEFAULT {
-    flex-direction: column;
-}
-
-.results__mobile-nav .facet__box {
-    width: 95%;
-}
-
-.results__button--done {
-    width: 90%;
-    height: 40px;
-    margin: 15px auto;
-    background: #2a71a5;
-    color: white;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.slide-enter .results__mobile-nav{
-    display: block;
-    opacity: 0.01;
-    right: -320px;
-}
-
-.slide-enter.slide-enter-active .results__mobile-nav{
-    opacity: 1;
-    right: 0;
-    transition: right 300ms cubic-bezier(0.175, 0.885, 0.320, 1);
-}
-
-.slide-leave .results__mobile-nav{
-    right: 0;
-    opacity: 1;
-}
-
-.slide-leave.slide-leave-active .results__mobile-nav{
-    right: -320px;
-    transition: right 300ms ease-in-out;
-}
-
-.results__mobile-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-    background: black;
-    opacity: 0.4;
-}
-
-.slide-enter .results__mobile-overlay{
-    opacity: 0.01;
-}
-
-.slide-enter.slide-enter-active .results__mobile-overlay{
-    opacity: 0.4;
-    transition: opacity 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
-}
-
-.slide-leave .results__mobile-overlay{
-    opacity: 0.4;
-}
-
-.slide-leave.slide-leave-active .results__mobile-overlay{
-    opacity: 0.01;
-    transition: opacity 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
 
 /* TODO: The rules for other components should be moved to the appropriate file */
@@ -276,10 +166,25 @@
         display: none;
     }
 
+    .results__facets.r4r-DEFAULT {
+        max-width: 700px;
+        width: 95%;
+        margin: 0 auto;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
     .results__facets .facet__box.r4r-DEFAULT {
-        max-width: 280px;
+        min-width: 280px;
+        flex: 1;
         margin-left: 0;
         margin-right: 0;
+        height: auto;
+    }
+
+    .results__facets .facet__box.r4r-DEFAULT:not(:last-child):nth-child(odd){
+        margin-right: 5px;
     }
 
     .r4r-results .results__selected-filters.r4r-DEFAULT {
@@ -301,7 +206,7 @@
         margin: 0 15px 40px 15px;
     }
 }
-
+/* TODO: Facet box margin issues at one column mobile view */
 @media only screen and (max-width: 640px){
     .r4r-pager__count{
         flex-direction: column;
