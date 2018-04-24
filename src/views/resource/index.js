@@ -29,9 +29,9 @@ import {
 import './index.css';
 
 const resourceAccessTitles = {
-    'free': 'Free to use',
-    'registration': 'This resource requires registration',
-    'paid': 'Payment Required'
+    'open': 'Free to use',
+    'register': 'This resource requires registration',
+    'cost': 'Payment Required'
 }
 
 class Resource extends React.PureComponent {

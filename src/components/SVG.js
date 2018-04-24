@@ -76,9 +76,9 @@ const moneyIcon =
 </svg>;
 
 const images = {
-    "free": freeIcon,
-    "registration": contractIcon,
-    "paid": moneyIcon,
+    "open": freeIcon,
+    "register": contractIcon,
+    "cost": moneyIcon,
 }
 
 class SVG extends React.PureComponent{

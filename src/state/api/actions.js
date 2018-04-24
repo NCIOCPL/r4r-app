@@ -81,7 +81,7 @@ export const clearFilters = () => ({
 })
 
 const API_resourcesEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resources';
-const API_resourceEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resource';
+const API_resourceEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resource/';
 
 // When the home page loads, we want to fetch all available facets to use for dynamically
 // rendering the browse tiles.
@@ -236,12 +236,19 @@ export const fetchResource = resourceId => (dispatch, getState) => {
 
     // We need to fetch and process the resource from the /resource api endpoint. For now we
     // will use dummy + setTimeout
-    console.log('Deep linking has been disabled until API hookup')
-    setTimeout(() => {
-        console.log('Resource not cached, fetching from db')
-        dispatch(cacheResources([dummyResourceResult]));
-        dispatch(loadResource(dummyResourceResult));
-    }, 1000)
+    console.log('Resource not cached, fetching from db')
+    fetch(API_resourceEndpoint + resourceId)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            dispatch(cacheResources([res]));
+            dispatch(loadResource(res));
+
+        })
+    // setTimeout(() => {
+    //     dispatch(cacheResources([dummyResourceResult]));
+    //     dispatch(loadResource(dummyResourceResult));
+    // }, 1000)
 }
 
 const dummyResults = {
