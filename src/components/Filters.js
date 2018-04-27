@@ -21,9 +21,9 @@ class Filters extends React.PureComponent {
                     onChange={ this.props.onChange('toolTypes') }
                 />
                 <FilterBox
-                    className="subtool-types"
-                    facet={ this.props.facets['toolTypes.subtype'] }
-                    onChange={ this.props.onChange('toolTypes.subtype') }
+                    className="tool-subtypes"
+                    facet={ this.props.facets['toolSubtypes'] }
+                    onChange={ this.props.onChange('toolSubtypes') }
                     isVisible={ isToolTypeSelected }
                 />                        
                 <FilterBox 
