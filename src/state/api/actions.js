@@ -9,6 +9,7 @@ export const UPDATE_FILTER = "UPDATE FILTER";
 export const LOAD_RESOURCE = "LOAD RESOURCE";
 export const CACHE_RESOURCES = "CACHE RESOURCES";
 export const FETCHING_STATUS = "FETCHING STATUS";
+export const UPDATE_TOOLTYPE_FILTER = "UPDATE TOOLTYPE FILTER";
 export const LOAD_NEW_FACET_RESULTS = "LOAD NEW FACET RESULTS";
 export const LOAD_NEW_SEARCH_RESULTS = "LOAD NEW SEARCH RESULTS";
 export const FETCHING_FACETS_STATUS = "FETCHING FACETS STATUS";
@@ -68,13 +69,29 @@ const setCurrentSearchQueryString = queryString => ({
     payload: queryString,
 })
 
-export const updateFilter = (filterType, filter) => ({
-    type: UPDATE_FILTER,
-    payload: {
-        filterType,
-        filter,
-    },
-})
+// Tooltypes are a special case because when we clear a selected tooltype
+// we want to also clear all currently checked toolsubtypes. We can clear all toolsubtypes
+// regardless of what state the tooltype is switching to because if it's being unchecked
+// all toolsubtypes need to be cleared, and if it's being checked then we can assume that
+// no toolsubtypes had been selected.
+export const updateFilter = (filterType, filter) => {
+    if(filterType === 'toolTypes'){
+        return {
+            type: UPDATE_TOOLTYPE_FILTER,
+            payload: {
+                filter,
+            },
+        }
+    }
+
+    return {
+        type: UPDATE_FILTER,
+        payload: {
+            filterType,
+            filter,
+        },
+    }
+}
 
 export const clearFilters = () => ({
     type: CLEAR_FILTERS,
@@ -118,10 +135,15 @@ export const loadFacets = () => (dispatch, getState) => {
 //TODO: Need to rewrite this to allow for cases where the call is being made as part of a prefetch
 // cycle and even though the results are new we don't want to navigate.
 
-// TODO: Fix issue with double fire and double redirect. Currently it is triple firing because of the dummy data overwriting changes, when it has a dynamic return
-// we need to see if the issue persists when interacting with the real API.
 export const newSearch = searchParams => (dispatch, getState, history) => {
     const store = getState();
+
+    // Do not allow multiple fetchs to be executed in parallel.
+    if(store.api.isFetching){
+        console.log('Already fetching. Aborting.')
+        return;
+    }
+
     const currentSearchQueryString = store.api.currentSearchQueryString;
     const searchCache = store.api.cachedSearches;
     const searchText = searchParams.q || '';
@@ -173,6 +195,10 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     console.log('Fetching from API')
     // Add in http error handling  
     fetch(API_resourcesEndpoint + newQueryString)
+        .then(res => {
+            console.log(res)
+            return res
+        })
         .then(res => res.json())
         .then(res => {console.log(res); return res;})
         .then(res => {
@@ -191,34 +217,11 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
             dispatch(cacheResources(res.results));
             dispatch(setCurrentSearchQueryString(newQueryString))
             dispatch(loadNewSearchResults(processedResults));
-            dispatch(setFetchingStatus(false));
             if(!isAlreadyAtCorrectURL) {
                 console.log('navigating to search page')
                 history.push(`/search${ newQueryString }`)
             }            
         })
-    
-    // setTimeout(() => {
-    //     const rawFacets = dummyResults.facets;
-    //     const formattedFacets = formatRawResourcesFacets(rawFacets)
-    //     const processedResults = {
-    //         ...dummyResults,
-    //         facets: formattedFacets,
-    //     };
-    //     const resultsToCache = {
-    //         [newQueryString]: processedResults,
-    //     }
-
-    //     dispatch(cacheNewSearchResults(resultsToCache));
-    //     dispatch(cacheResources(dummyResults.results));
-    //     dispatch(setCurrentSearchQueryString(newQueryString))
-    //     dispatch(loadNewSearchResults(processedResults));
-    //     dispatch(setFetchingStatus(false));
-    //     if(!isAlreadyAtCorrectURL) {
-    //         console.log('navigating to search page')
-    //         history.push(`/search${ newQueryString }`)
-    //     }
-    // }, 1000);
 }
 
 export const fetchResource = resourceId => (dispatch, getState) => {
@@ -245,343 +248,9 @@ export const fetchResource = resourceId => (dispatch, getState) => {
             dispatch(loadResource(res));
 
         })
-    // setTimeout(() => {
-    //     dispatch(cacheResources([dummyResourceResult]));
-    //     dispatch(loadResource(dummyResourceResult));
-    // }, 1000)
 }
 
-const dummyResults = {
-    "meta": {
-        "totalResults": 168,
-        "from": 20
-	},
-    "results": [
-        {
-            id: '123',
-            title: 'Chernobyl Tissue Bank',
-            website: 'https://en.wikipedia.org/wiki/Chernobyl',
-            description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            poCs: [
-                {
-                    name: {
-                        prefix: 'Dr.',
-                        firstName: 'James',
-                        middleName: 'Randy',
-                        lastName: 'Knowlton',
-                        suffix: 'Ph.D.',
-                    },
-                    title: 'Program Director',
-                    phone: '240-276-6210',
-                    email: 'Jk339o@nih.gov',
-                },
-            ],
-            doCs: [
-                'National Institute of Belgium'
-            ],
-            resourceAccess: {
-                type: 'free', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-                notes: 'Registrants will have to provide grantee institution name.',
-            },
-            // Make component for these things.
-            // The click event should be passed though, so that on the resource page it can trigger a new search
-            // with just the filter, and on other pages it triggers a full-filter and text search.
-            toolTypes: [
-    
-            ],
-            'researchAreas': [
-                {
-                    'key': 'cancer_treatment',
-                    'label': 'Cancer Treatment'
-                },
-                {
-                    'key': 'cancer_biology',
-                    'label': 'Cancer Biology'
-                },            
-            ],
-            researchTypes: [
-    
-            ]
-        },
-        {
-            id: '456',
-            title: 'Chernobyl Tissue Bank',
-            website: 'https://en.wikipedia.org/wiki/Chernobyl',
-            description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            poCs: [
-                {
-                    name: {
-                        prefix: 'Dr.',
-                        firstName: 'James',
-                        middleName: 'Randy',
-                        lastName: 'Knowlton',
-                        suffix: 'Ph.D.',
-                    },
-                    title: 'Program Director',
-                    phone: '240-276-6210',
-                    email: 'Jk339o@nih.gov',
-                },
-            ],
-            doCs: [
-                'National Institute of Belgium',
-                'Perestroika and Glasnost'
-            ],
-            resourceAccess: {
-                type: 'registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-                notes: 'Registrants will have to provide grantee institution name.',
-            },
-            // Make component for these things.
-            // The click event should be passed though, so that on the resource page it can trigger a new search
-            // with just the filter, and on other pages it triggers a full-filter and text search.
-            "toolTypes": [
-                {
-                    "type": {
-                      "key": "datasets_databases",
-                      "label": "Datasets & Databases"
-                    },
-                    "subtype": {
-                      "key": "genomic_datasets",
-                      "label": "genomic datasets"
-                    }
-                },
-                {
-                    "type": {
-                      "key": "analysis_tools",
-                      "label": "Analysis Tools"
-                    }
-                }
-            ],
-            'researchAreas': [
-                {
-                    'key': 'cancer_treatment',
-                    'label': 'Cancer Treatment'
-                },
-                {
-                    'key': 'cancer_biology',
-                    'label': 'Cancer Biology'
-                },            
-            ],
-            'researchTypes': [
-        
-            ]
-        },
-        {
-            id: '789',
-            title: 'Chernobyl Tissue Bank',
-            website: 'https://en.wikipedia.org/wiki/Chernobyl',
-            description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            poCs: [
-                {
-                    name: {
-                        prefix: 'Dr.',
-                        firstName: 'James',
-                        middleName: 'Randy',
-                        lastName: 'Knowlton',
-                        suffix: 'Ph.D.',
-                    },
-                    title: 'Program Director',
-                    phone: '240-276-6210',
-                    email: 'Jk339o@nih.gov',
-                },
-            ],
-            doCs: [
-                'National Institute of Belgium',
-                'Perestroika and Glasnost',
-                'Peter Gabriel\'s cat'
-            ],
-            resourceAccess: {
-                type: 'registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-                notes: 'Registrants will have to provide grantee institution name.',
-            },
-            // Make component for these things.
-            // The click event should be passed though, so that on the resource page it can trigger a new search
-            // with just the filter, and on other pages it triggers a full-filter and text search.
-            "toolTypes": [
-                {
-                    "type": {
-                      "key": "datasets_databases",
-                      "label": "Datasets & Databases"
-                    },
-                    "subtype": {
-                      "key": "genomic_datasets",
-                      "label": "genomic datasets"
-                    }
-                },
-                {
-                    "type": {
-                      "key": "analysis_tools",
-                      "label": "Analysis Tools"
-                    }
-                }
-            ],
-            'researchAreas': [
-                {
-                    'key': 'cancer_treatment',
-                    'label': 'Cancer Treatment'
-                },
-                {
-                    'key': 'cancer_biology',
-                    'label': 'Cancer Biology'
-                },            
-            ],
-            'researchTypes': [
-        
-            ]
-        },
-        {
-            id: '07734',
-            title: 'Chernobyl Tissue Bank',
-            website: 'https://en.wikipedia.org/wiki/Chernobyl',
-            description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-            poCs: [
-                {
-                    name: {
-                        prefix: 'Dr.',
-                        firstName: 'James',
-                        middleName: 'Randy',
-                        lastName: 'Knowlton',
-                        suffix: 'Ph.D.',
-                    },
-                    title: 'Program Director',
-                    phone: '240-276-6210',
-                    email: 'Jk339o@nih.gov',
-                },
-            ],
-            doCs: [
-                'National Institute of Belgium',
-                'Perestroika and Glasnost',
-                'Peter Gabriel\'s cat'
-            ],
-            resourceAccess: {
-                type: 'paid', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-                notes: 'Registrants will have to provide grantee institution name.',
-            },
-            // Make component for these things.
-            // The click event should be passed though, so that on the resource page it can trigger a new search
-            // with just the filter, and on other pages it triggers a full-filter and text search.
-            "toolTypes": [
-                {
-                    "type": {
-                      "key": "datasets_databases",
-                      "label": "Datasets & Databases"
-                    },
-                    "subtype": {
-                      "key": "genomic_datasets",
-                      "label": "genomic datasets"
-                    }
-                },
-                {
-                    "type": {
-                      "key": "analysis_tools",
-                      "label": "Analysis Tools"
-                    }
-                }
-            ],
-            'researchAreas': [
-                {
-                    'key': 'cancer_treatment',
-                    'label': 'Cancer Treatment'
-                },
-                {
-                    'key': 'cancer_biology',
-                    'label': 'Cancer Biology'
-                },            
-            ],
-            'researchTypes': [
-        
-            ]
-        },
-    ],
-	"facets": [
-        {
-            "title": "Tool Types",
-            "param": "toolTypes",
-            "items": [
-                {
-                    "key": "datasets_databases",
-                    "label": "Datasets & Databases",
-                    "count": '10',  //TODO: Convert to number
-                    "selected": false //TODO: Convert to bool
-                },
-                {
-                    "key": "lab_tools",
-                    "label": "Lab Tools",
-                    "count": '27',
-                    "selected": false
-                },			
-            ]
-        },
-        {
-            "title": "Subtool Types",
-            "param": "toolTypes.subtype",
-            "items": [
-                {
-                    "key": "datasets_databases",
-                    "label": "Chicken and Cows",
-                    "count": '10',  //TODO: Convert to number
-                    "selected": true //TODO: Convert to bool
-                },
-                {
-                    "key": "lab_tools",
-                    "label": "Lab Tools",
-                    "count": '27',
-                    "selected": false
-                },			
-            ]
-        },
-        {
-            "title": "Research Areas",
-            "param": "researchAreas",
-            "items": [
-                {
-                    "key": "cancer_prevention",
-                    "label": "Cancer Prevention",
-                    "count": '32',
-                    "selected": false
-                },
-                {
-                    "key": "cancer_genomics",
-                    "label": "Cancer Genomics",
-                    "count": '2',
-                    "selected": false
-                },
-                {
-                    'key': 'cancer_treatment',
-                    'label': 'Cancer Treatment',
-                    'count': '1',
-                    'selected': false,
-                },
-                {
-                    'key': 'cancer_biology',
-                    'label': 'Cancer Biology',
-                    'count': '1',
-                    'selected': false,
-                },
-                {
-                    'key': 'cancer_omics',
-                    'label': 'Cancer Omics',
-                    'count': '1',
-                    'selected': false,
-                },
-                
-            ]
-        },
-        {
-            'title': 'Research Types',
-            'param': 'researchTypes',
-            'items':	[
-                {
-                    'key': 'bananas',
-                    'label': 'Bananas R Us',
-                    'count': '1',
-                    'selected': false,
-                },
-            ]  
-        }
-	]
-}
-
-// Pre-processed
+// // Pre-processed
 const dummyFacetResults = {
 	"meta": {
         "totalResults": 168,
@@ -697,69 +366,4 @@ const dummyFacetResults = {
 		]
 	}
 	]
-}
-
-const dummyResourceResult = {
-    id: '123',
-    title: 'Chernobyl Tissue Bank',
-    website: 'https://en.wikipedia.org/wiki/Chernobyl',
-    description: 'DCB supports and manages biospecimen resources that collect, store, process, and disseminate human biological specimens (biospecimens) and associated data set for research on human cancer biology. The Chernobyl Tissue Bank is an international collaborative project that is supported by NCI and another global partner, with active participation from Russia and Ukraine, two countries heavily affected by the 1986 Chernobyl accident.\nThe objective of the CTB is to establish and maintain a research resource that supports studies on the biology of thyroid cancer, the major health consequence of the Chernobyl accident.    For more information on this Tissue Bank, please visit the Chernobyl Tissue Bank website.',
-    poCs: [
-        {
-            name: {
-                prefix: 'Dr.',
-                firstName: 'James',
-                middleName: 'Randy',
-                lastName: 'Knowlton',
-                suffix: 'Ph.D.',
-            },
-            title: 'Program Director',
-            phone: '240-276-6210',
-            email: 'Jk339o@nih.gov',
-        },
-    ],
-    doCs: [
-        'National Institute of Belgium',
-        'Perestroika and Glasnost',
-        'Peter Gabriel and his cat'
-    ],
-    resourceAccess: {
-        type: 'registration', // If this is effectively a key or id, maybe it should have one for the logo to hook into
-        notes: 'Registrants will have to provide grantee institution name.',
-    },
-    // Make component for these things.
-    // The click event should be passed though, so that on the resource page it can trigger a new search
-    // with just the filter, and on other pages it triggers a full-filter and text search.
-
-    "toolTypes": [
-        {
-            "type": {
-              "key": "datasets_databases",
-              "label": "Datasets & Databases"
-            },
-            "subtype": {
-              "key": "genomic_datasets",
-              "label": "genomic datasets"
-            }
-        },
-        {
-            "type": {
-              "key": "analysis_tools",
-              "label": "Analysis Tools"
-            }
-        }
-    ],
-    'researchAreas': [
-        {
-            'key': 'cancer_treatment',
-            'label': 'Cancer Treatment'
-        },
-        {
-            'key': 'cancer_biology',
-            'label': 'Cancer Biology'
-        },            
-    ],
-    'researchTypes': [
-
-    ]
 }

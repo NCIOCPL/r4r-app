@@ -3,6 +3,7 @@ import {
     SET_CURRENT_SEARCH_QUERY_STRING,
     LOAD_NEW_SEARCH_RESULTS,
     CACHE_NEW_SEARCH_RESULTS,
+    UPDATE_TOOLTYPE_FILTER,
     LOAD_NEW_FACET_RESULTS,
     FETCHING_FACETS_STATUS,
     FETCHING_STATUS,
@@ -49,6 +50,27 @@ const reducer = (state = initialState, action) => {
                             }
                         }
                     }
+                }
+            }
+        case UPDATE_TOOLTYPE_FILTER:
+            const {
+                toolSubtypes,
+                ...currFacets
+            } = state.currentFacets;
+            return {
+                ...state,
+                currentFacets: {
+                    ...currFacets,
+                    'toolTypes': {
+                        ...state.currentFacets['toolTypes'],
+                        items: {
+                            ...state.currentFacets['toolTypes'].items,
+                            [action.payload.filter]: {
+                                ...state.currentFacets['toolTypes'].items[action.payload.filter],
+                                selected: !state.currentFacets['toolTypes'].items[action.payload.filter].selected,
+                            }
+                        }
+                    },
                 }
             }
         case CLEAR_FILTERS:
@@ -110,6 +132,7 @@ const reducer = (state = initialState, action) => {
             } = action.payload;
             return {
                 ...state,
+                isFetching: false,
                 currentResults,
                 currentFacets,
                 currentMetaData,
