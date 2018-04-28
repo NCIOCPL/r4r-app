@@ -3,6 +3,11 @@ import {
     formatRawResourcesFacets,
     composeQueryString,
 } from '../../utilities';
+import {
+    timedFetch,
+    handleRequest,
+    handleNetworkFailure,
+} from '../../utilities/fetchHelpers'
 
 export const CLEAR_FILTERS = "CLEAR FILTERS";
 export const UPDATE_FILTER = "UPDATE FILTER";
@@ -194,13 +199,10 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
 
     console.log('Fetching from API')
     // Add in http error handling  
-    fetch(API_resourcesEndpoint + newQueryString)
-        .then(res => {
-            console.log(res)
-            return res
-        })
-        .then(res => res.json())
-        .then(res => {console.log(res); return res;})
+    
+    timedFetch(API_resourcesEndpoint + newQueryString, 2000)
+        .catch(handleNetworkFailure)
+        .then(handleRequest)
         .then(res => {
             const rawFacets = res.facets;
             const formattedFacets = formatRawResourcesFacets(rawFacets)
@@ -221,6 +223,15 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
                 console.log('navigating to search page')
                 history.push(`/search${ newQueryString }`)
             }            
+        })
+        .catch(err => {
+            if(err.timeoutError){
+                console.log(err.timeoutError);
+            }
+            else {
+                console.log(err.statusText)
+            }
+            //TODO: Redirect to error page and cancel fetch in store
         })
 }
 

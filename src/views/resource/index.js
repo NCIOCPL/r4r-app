@@ -28,6 +28,8 @@ import {
 } from '../../interfaces';
 import './index.css';
 
+// The API returns resources with one of three types of resourceAccess.type keys. This 
+// let's us create the corresponding title client-side.
 const resourceAccessTitles = {
     'open': 'Free to use',
     'register': 'This resource requires registration',
