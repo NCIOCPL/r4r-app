@@ -15,6 +15,7 @@ class BrowseBox extends React.PureComponent {
         searchFunction: PropTypes.func.isRequired,
         filterType: PropTypes.string.isRequired,
         isFetching: PropTypes.bool.isRequired,
+        showCount: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -22,33 +23,38 @@ class BrowseBox extends React.PureComponent {
         // facetFilters: {},
         searchFunction: () => {},
         filterType: '',
+        displayCount: false,
     }
 
     renderFacets = () => {
         if(!this.props.facets || !this.props.facets.hasOwnProperty(this.props.filterType)) return null;
 
-        return Object.entries(this.props.facets[this.props.filterType].items).map(([key, { label }], idx) => {
-            return (
-                <BrowseTile
-                    key={ idx }
-                    label={ label }
-                    className="browse__tile"
-                    onClick={ 
-                        this.props.searchFunction({
-                            filterType: this.props.filterType,
-                            filter: key,
-                        })
-                    }
-                    onKeyPress={
-                        keyHandler({
-                            fn: this.props.searchFunction({
+        return Object.entries(this.props.facets[this.props.filterType].items)
+            .sort((a, b) => b[1].count - a[1].count)
+            .map(([key, { label, count }], idx) => {
+                return (
+                    <BrowseTile
+                        key={ idx }
+                        label={ label }
+                        count={ count }
+                        displayCount={ this.props.displayCount }
+                        className="browse__tile"
+                        onClick={ 
+                            this.props.searchFunction({
                                 filterType: this.props.filterType,
-                                filter: key
-                            }),
-                        })
-                    }
-                />
-            )
+                                filter: key,
+                            })
+                        }
+                        onKeyPress={
+                            keyHandler({
+                                fn: this.props.searchFunction({
+                                    filterType: this.props.filterType,
+                                    filter: key
+                                }),
+                            })
+                        }
+                    />
+                )
         })
     }
 

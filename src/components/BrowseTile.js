@@ -8,6 +8,8 @@ class BrowseTile extends React.PureComponent {
         className: PropTypes.string,
         onClick: PropTypes.func.isRequired,
         onKeyPress: PropTypes.func.isRequired,
+        displayCount: PropTypes.bool,
+        count: PropTypes.number.isRequired,
     }
 
     static defaultProps = {
@@ -26,7 +28,7 @@ class BrowseTile extends React.PureComponent {
                 onClick={ this.props.onClick }
                 onKeyPress={ this.props.onKeyPress }
             >
-                { this.props.label }
+                { this.props.label }{ this.props.displayCount ? ` (${this.props.count})` : null }
             </Theme>
         )
     }

@@ -112,6 +112,7 @@ class Home extends React.PureComponent {
                                     filterType={ 'toolTypes' }
                                     searchFunction={ this.newFilterSearch }
                                     isFetching={ this.props.isFetchingFacets }
+                                    displayCount={ true }
                                 />
                             }
                         </Theme>
@@ -123,6 +124,7 @@ class Home extends React.PureComponent {
                                     filterType={ 'researchAreas'}
                                     searchFunction={ this.newFilterSearch }
                                     isFetching={ this.props.isFetchingFacets }
+                                    displayCount={ true }
                                 />
                             }
                         </Theme>
