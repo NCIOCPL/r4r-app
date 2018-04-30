@@ -24,7 +24,7 @@ export const timedFetch = (url, timeout = 4000, fetchOptions) => {
     return Promise.race([
         fetch(url, fetchOptions), 
         new Promise((_, reject) => {
-            setTimeout(reject.call(null, { timeoutError: `Request timed out after ${ timeout / 1000}s.`}), timeout)
+            setTimeout(() => reject({ timeoutError: `Request timed out after ${ timeout / 1000}s.`}), timeout)
         })
     ])
 }

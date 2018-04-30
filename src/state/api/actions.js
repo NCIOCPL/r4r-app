@@ -110,7 +110,7 @@ const API_resourceEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resource/';
 // TODO: If we pass in the referenceFacets we can make this purer. (Or if we handle validation in the 
 // component. Or if we chain two thunks, one for cache validation and one for search execution.)
 export const loadFacets = () => (dispatch, getState) => {
-    const queryString = '?size=0&includeFacets=toolType.type&includeFacets=researchAreas';
+    const queryString = '?size=0&includeFacets=toolTypes&includeFacets=researchAreas';
     const queryEndpoint = API_resourcesEndpoint + queryString;
     //TODO: This process can be abstracted into a generic load from cache method to be shared (later)
     
@@ -123,18 +123,27 @@ export const loadFacets = () => (dispatch, getState) => {
         return;
     }
     
-    // Add in http error handling  
-    fetch(queryEndpoint)
-        .then(res => res.json())
-        .then(res => console.log(res))
     // Fetch facets and load them. The home component will render them as soon as they become available.
     console.log('Fetching facets')
     dispatch(setFacetsFetchingStatus(true));
-    setTimeout(() => {
-        const dummyFacets = dummyFacetResults.facets;
-        const formattedFacets = formatRawResourcesFacets(dummyFacets)
-        dispatch(loadNewFacetResults(formattedFacets));
-    }, 1000)
+    // Add in http error handling  
+    timedFetch(queryEndpoint, 15000)
+        .catch(handleNetworkFailure)
+        .then(res => res.json())
+        .then(res => {
+            const formattedFacets = formatRawResourcesFacets(res.facets)
+            dispatch(loadNewFacetResults(formattedFacets));
+        })
+        //TODO: separate function with dependencies injected
+        .catch(err => {
+            if(err.timeoutError){
+                console.log(err.timeoutError);
+            }
+            else {
+                console.log(err.statusText)
+            }
+            //TODO: Redirect to error page and cancel fetch in store
+        })
 }
 
 //TODO: Need to rewrite this to allow for cases where the call is being made as part of a prefetch
@@ -187,20 +196,13 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
             return;
         }
     }
-    // Fetch new results from api
-    // Restructure facets to match rendering expectations (array => hashmap)
-    // Store new results to cache with a key of querystring unparsed
-    // TODO: Need to have a size limit on the cache (either number of records or memory footprint (which
-    // might invite using an array instead of hash to have better replication of a heap))
 
     //TODO: This won't work on new filters where the search isn't cached but we don't want to redirect
     console.log('Current search is not cached, fetching from db')
     dispatch(setFetchingStatus(true));
 
-    console.log('Fetching from API')
-    // Add in http error handling  
-    
-    timedFetch(API_resourcesEndpoint + newQueryString, 2000)
+    console.log('Fetching from API')    
+    timedFetch(API_resourcesEndpoint + newQueryString, 15000)
         .catch(handleNetworkFailure)
         .then(handleRequest)
         .then(res => {
@@ -212,9 +214,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
             };
             const resultsToCache = {
                 [newQueryString]: processedResults,
-            }
-            console.log(processedResults)
-    
+            }    
             dispatch(cacheNewSearchResults(resultsToCache));
             dispatch(cacheResources(res.results));
             dispatch(setCurrentSearchQueryString(newQueryString))
@@ -251,130 +251,12 @@ export const fetchResource = resourceId => (dispatch, getState) => {
     // We need to fetch and process the resource from the /resource api endpoint. For now we
     // will use dummy + setTimeout
     console.log('Resource not cached, fetching from db')
-    fetch(API_resourceEndpoint + resourceId)
+    timedFetch(API_resourceEndpoint + resourceId, 15000)
+        .catch(handleNetworkFailure)
         .then(res => res.json())
         .then(res => {
-            console.log(res)
             dispatch(cacheResources([res]));
             dispatch(loadResource(res));
 
         })
-}
-
-// // Pre-processed
-const dummyFacetResults = {
-	"meta": {
-        "totalResults": 168,
-        "from": 40
-	},
-	"results": [],
-	"facets": [{
-		"title": "Tool Types",
-		"param": "toolTypes",
-		"items": [
-			{
-				"key": "datasets_databases",
-				"label": "Datasets & Databases",
-				"count": 10,
-				"selected": false
-			},
-			{
-				"key": "lab_tools",
-				"label": "Lab Tools",
-				"count": 27,
-				"selected": false
-			},			
-			{
-				"key": "community_research_tools",
-				"label": "Community Research Tools",
-				"count": 10,
-				"selected": false
-			},
-			{
-				"key": "clinical_research_tools",
-				"label": "Clinical Research Tools",
-				"count": 27,
-				"selected": false
-			},			
-			{
-				"key": "analysis_tools",
-				"label": "Analysis Tools",
-				"count": 10,
-				"selected": false
-			},
-			{
-				"key": "terminology",
-				"label": "Terminology",
-				"count": 27,
-				"selected": false
-			},			
-		]
-	},
-	{
-		"title": "Research Areas",
-		"param": "researchAreas",
-		"items": [
-			{
-				"key": "cancer_prevention",
-				"label": "Cancer Prevention",
-				"count": 32,
-				"selected": false
-			},
-			{
-				"key": "cancer_genomics",
-				"label": "Cancer Genomics",
-				"count": 2,
-				"selected": false
-			},
-			{
-				"key": "cancer_treatment",
-				"label": "Cancer Treatment",
-				"count": 32,
-				"selected": false
-			},
-			{
-				"key": "cancer_omics",
-				"label": "Cancer Omics",
-				"count": 2,
-				"selected": false
-			},
-			{
-				"key": "screening_detection",
-				"label": "Screening & Detection",
-				"count": 32,
-				"selected": false
-			},
-			{
-				"key": "cancer_health_disparities",
-				"label": "Cancer Health Disparities",
-				"count": 2,
-				"selected": false
-			},
-			{
-				"key": "cancer_public_health",
-				"label": "Cancer & Public Health",
-				"count": 32,
-				"selected": false
-			},
-			{
-				"key": "cancer_diagnosis",
-				"label": "Cancer Diagnosis",
-				"count": 2,
-				"selected": false
-			},
-			{
-				"key": "cancer_causes",
-				"label": "Causes of Cancer",
-				"count": 32,
-				"selected": false
-			},
-			{
-				"key": "cancer_survivorship",
-				"label": "Cancer Survivorship",
-				"count": 2,
-				"selected": false
-			},
-		]
-	}
-	]
 }

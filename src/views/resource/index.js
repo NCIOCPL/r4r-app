@@ -62,9 +62,6 @@ class Resource extends React.PureComponent {
     renderSimilarResources = () => {
         // There are a few fidgety bits here. 
         //The name values are the search params themselves.
-        //TODO: ANOTHER BIG ISSUE ALL OVER THE APP IS THE FACT THAT THERE CAN BE MULTIPLE SUBTOOL TYPES
-        //WHICH WON'T WORK IN A PARAMS OBJECT WITHOUT A SPECIAL CASE. UH OH. (for the nonce
-        // I will assume there is only one at a time.)
 
         const filters = [
             ...formatFilters('toolTypes', this.props.resource), 
