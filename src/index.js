@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import * as reducers from './state';
 import Router from './Router';
 import ErrorBoundary from './ErrorBoundary';
+import FatalErrorBoundary from './FatalErrorBoundary';
 import LiveRegion from './LiveRegion';
 import { Helmet } from 'react-helmet';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
@@ -75,22 +76,24 @@ const initialize = ({
     }
 
     const App = () => (
-        <ErrorBoundary>
+        <FatalErrorBoundary>
             <Provider store={ store }>
-                <ThemeProvider theme={ theme }>
-                    <Theme element='main' className="r4r-container">
-                        <Helmet 
-                            defaultTitle="Resources for Researchers - National Cancer Institute"
-                        >
-                            <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                            <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
-                        </Helmet>
-                        <LiveRegion />
-                        <Router history={ history }/>
-                    </Theme>
-                </ThemeProvider>
+                <ErrorBoundary>
+                    <ThemeProvider theme={ theme }>
+                        <Theme element='main' className="r4r-container">
+                            <Helmet 
+                                defaultTitle="Resources for Researchers - National Cancer Institute"
+                            >
+                                <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                                <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
+                            </Helmet>
+                            <LiveRegion />
+                            <Router history={ history }/>
+                        </Theme>
+                    </ThemeProvider>
+                </ErrorBoundary>
             </Provider>
-        </ErrorBoundary>
+        </FatalErrorBoundary>
     );
     const appRootDOMNode = document.getElementById(rootId);
     ReactDOM.render(<App />, appRootDOMNode);

@@ -1,32 +1,27 @@
 import React from 'react';
-import { Theme } from './theme';
-import './ErrorBoundary.css';
+import PropTypes from 'prop-types';
+import Error from './components/Error';
+import { connect } from 'react-redux';
 
-class ErrorBoundary extends React.Component {
-    state = {
-        hasError: false,
+class ErrorBoundary extends React.PureComponent {
+    static propTypes = {
+        error: PropTypes.string,
+        children: PropTypes.oneOfType([
+            PropTypes.arrayOf(PropTypes.node),
+            PropTypes.node
+        ])
     }
-
-    componentDidCatch(error, info){
-        this.setState({
-            hasError: true,
-        })
-    }
-
-    render() {
-        return (
-            this.state.hasError
-                ?
-                    <Theme element="div" className="r4r-boundary">
-                        <Theme element="div" className="boundary__inner">
-                            <p>An unexpected error has occured.</p>
-                            <p>Please try refreshing the page.</p>
-                        </Theme>
-                    </Theme>
-                :
-                    this.props.children
-        )
+    
+    render(){
+        if(this.props.error){
+            return <Error message={ this.props.error }/>
+        }
+        return this.props.children;
     }
 }
 
-export default ErrorBoundary;
+const mapStateToProps = store => ({
+    error: store.error,
+})
+
+export default connect(mapStateToProps)(ErrorBoundary);
