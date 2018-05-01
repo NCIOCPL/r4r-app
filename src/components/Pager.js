@@ -108,7 +108,7 @@ class Pager extends React.PureComponent {
                     /* Allow an optional results counter */
                     this.props.withCounter &&
                         <PagerCounter
-                            from={ startFrom }
+                            from={ startFrom + 1 }
                             to={ startFrom + resultsSize }
                             total={ total }
                         />
