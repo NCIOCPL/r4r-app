@@ -84,7 +84,7 @@ class Home extends React.PureComponent {
                     </Theme>
                     <Theme element="article" className="home__desc">
                         <MultiLineText
-                            text={ "I went out to a hazel wood because a fire was in my head. I cut and peeled a hazel wand and hooked a berry to a thread. And when white moths were on the wing, and moth-like stars were flickering out, I dropped the berry in a stream and caught a little, silver trout.\nWhen I had laid it on the floor, I went to blow the fire aflame. But something rustled on the floor and someone called me by my name." }
+                            text={ "Resources for Researchers is a directory of tools and serv ices developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone." }
                             />
                         <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">About Resources for Researchers ></Theme>
                     </Theme>
