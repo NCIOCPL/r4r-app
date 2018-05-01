@@ -13,6 +13,10 @@ class SelectedFiltersBox extends React.PureComponent {
     }
 
     render(){
+        if(!this.props.selected.length){
+            return null;
+        }
+
         return (
             <Theme element="section" className="results__selected-filters" aria-label="Selected Search Filters">
                 {

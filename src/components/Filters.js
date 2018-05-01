@@ -11,7 +11,7 @@ class Filters extends React.PureComponent {
     }
 
     render(){
-        const toolTypesTypeFilters = this.props.facets['toolTypes'] && this.props.facets['toolTypes'].items || [];
+        const toolTypesTypeFilters = (this.props.facets['toolTypes'] && this.props.facets['toolTypes'].items) || [];
         const isToolTypeSelected = Object.entries(toolTypesTypeFilters).some(([key, obj]) => obj.selected);
         return (
             <Theme element="section" className="results__facets" aria-label="Search Filters">

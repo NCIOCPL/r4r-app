@@ -97,7 +97,6 @@ class Results extends React.PureComponent {
 
     pagerSearch = from => {
         const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
-        //TODO: Need to account for searchText (as well as any other options (from, size...))
         const paramsObjectFinal = {
             ...paramsObject,
             ...from,
@@ -250,7 +249,7 @@ const mapStateToProps = ({ api, searchForm }) => ({
     currentSearchText: api.currentSearchText,
     searchBarValue: searchForm.searchBarValues.results,
     totalResults: api.currentMetaData && api.currentMetaData.totalResults,
-    startFrom: api.currentMetaData && api.currentMetaData.from,
+    startFrom: api.currentMetaData && api.currentMetaData.startFrom,
 })
 
 const mapDispatchToProps = {
