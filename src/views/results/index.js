@@ -53,7 +53,7 @@ class Results extends React.PureComponent {
         currentSearchText: PropTypes.string,
         facets: PropTypes.objectOf(PropTypes.shape({
             title: PropTypes.string.isRequired,
-            param: PropTypes.oneOf(['toolTypes', 'toolTypes.subtype', 'researchAreas', 'researchTypes']),
+            param: PropTypes.oneOf(['toolTypes', 'toolSubtypes', 'researchAreas', 'researchTypes']),
             items: PropTypes.objectOf(PropTypes.shape({
                 label: PropTypes.string.isRequired,
                 count: PropTypes.number.isRequired,
@@ -127,8 +127,10 @@ class Results extends React.PureComponent {
             console.log('Filters have been updated')
             // Generate new search based on current filters state
             const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
-            //TODO: Need to account for searchText (as well as any other options (from, size...))
             paramsObject.q = this.props.currentSearchText;
+            if(this.props.startFrom){
+                paramsObject.from = this.props.startFrom;
+            }
             this.props.newSearch(paramsObject);
         }
 
