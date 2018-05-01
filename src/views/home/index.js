@@ -84,7 +84,7 @@ class Home extends React.PureComponent {
                     </Theme>
                     <Theme element="article" className="home__desc">
                         <MultiLineText
-                            text={ "Resources for Researchers is a directory of tools and serv ices developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone." }
+                            text={ "Resources for Researchers is a directory of tools and services developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone." }
                             />
                         <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">About Resources for Researchers ></Theme>
                     </Theme>

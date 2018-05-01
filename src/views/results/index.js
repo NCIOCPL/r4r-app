@@ -101,11 +101,8 @@ class Results extends React.PureComponent {
         const paramsObjectFinal = {
             ...paramsObject,
             ...from,
+            q: this.props.currentSearchText,
         };
-        // Only send text if textfield is populated
-        if(this.props.currentSearchText){
-            paramsObjectFinal['q'] = this.props.currentSearchText
-        }
         this.props.newSearch(paramsObjectFinal);        
     }
 
