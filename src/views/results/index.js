@@ -96,6 +96,7 @@ class Results extends React.PureComponent {
     }
 
     pagerSearch = from => {
+        console.log(from)
         const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
         const paramsObjectFinal = {
             ...paramsObject,

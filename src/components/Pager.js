@@ -38,22 +38,22 @@ class Pager extends React.PureComponent {
     renderPages = (total, current) => {
         const pagesFromStart = current;
         const pagesFromEnd = total - current;
-        let p;
+        let pages;
         if(pagesFromStart > 5){
-            p = [1, 0, current - 2, current - 1, current];
+            pages = [1, 0, current - 2, current - 1, current];
         }
         else {
-            p = Array(current).fill().map((el, idx) => idx + 1); 
+            pages = Array(current).fill().map((el, idx) => idx + 1); 
         }
         if(pagesFromEnd > 5) {
-            p = [...p, current + 1, current + 2, 0, total];
+            pages = [...pages, current + 1, current + 2, 0, total];
         }
         else {
             const remainingPages = Array(pagesFromEnd).fill().map((el, idx) => current + idx + 1);
-            p = [ ...p, ...remainingPages ]; 
+            pages = [ ...pages, ...remainingPages ]; 
         }
         
-        const pages = p.map((el, idx) => {
+        const renderedPages = pages.map((el, idx) => {
             const isCurrent = current === el;
             return el
                 ?
@@ -61,9 +61,9 @@ class Pager extends React.PureComponent {
                         element="div"
                         key={ idx } 
                         className={ `pager__num ${ isCurrent ? 'pager__num--active' : ''}`}
-                        onClick={ this.onClick((el * this.props.pageSize), isCurrent) }
+                        onClick={ this.onClick(((el - 1) * this.props.pageSize), isCurrent) }
                         onKeyPress={ keyHandler({
-                            fn: this.onClick((el * this.props.pageSize), isCurrent),
+                            fn: this.onClick(((el - 1) * this.props.pageSize), isCurrent),
                         })}
                         tabIndex="0"
                         role="link"
@@ -81,7 +81,7 @@ class Pager extends React.PureComponent {
                     </Theme>
         })
         
-        return pages;
+        return renderedPages;
     }
 
     render(){
