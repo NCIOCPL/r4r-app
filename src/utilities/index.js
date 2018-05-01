@@ -207,3 +207,23 @@ export const keyHandler = (options = {}) => e => {
         return fn();
     }
 }
+
+export const formatPagerArray = (total, current) => {
+    const pagesFromStart = current;
+    const pagesFromEnd = total - current;
+    let pages;
+    if(pagesFromStart > 5){
+        pages = [1, 0, current - 2, current - 1, current];
+    }
+    else {
+        pages = Array(current).fill().map((el, idx) => idx + 1); 
+    }
+    if(pagesFromEnd > 5) {
+        pages = [...pages, current + 1, current + 2, 0, total];
+    }
+    else {
+        const remainingPages = Array(pagesFromEnd).fill().map((el, idx) => current + idx + 1);
+        pages = [ ...pages, ...remainingPages ]; 
+    }
+    return pages;
+}

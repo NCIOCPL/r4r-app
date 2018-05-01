@@ -1,12 +1,11 @@
-// TODO: EVERYTHINGGGGGGG (- SOME THINGS)!
-
-// Pass in search callbacks to add as onClick handlers for the various pager elements
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Theme } from '../theme';
 import PagerCounter from './PagerCounter';
-import { keyHandler } from '../utilities';
+import { 
+    keyHandler,
+    formatPagerArray,
+} from '../utilities';
 import '../polyfills/array_fill';
 import './Pager.css';
 
@@ -36,22 +35,7 @@ class Pager extends React.PureComponent {
     }
 
     renderPages = (total, current) => {
-        const pagesFromStart = current;
-        const pagesFromEnd = total - current;
-        let pages;
-        if(pagesFromStart > 5){
-            pages = [1, 0, current - 2, current - 1, current];
-        }
-        else {
-            pages = Array(current).fill().map((el, idx) => idx + 1); 
-        }
-        if(pagesFromEnd > 5) {
-            pages = [...pages, current + 1, current + 2, 0, total];
-        }
-        else {
-            const remainingPages = Array(pagesFromEnd).fill().map((el, idx) => current + idx + 1);
-            pages = [ ...pages, ...remainingPages ]; 
-        }
+        const pages = formatPagerArray(total, current);
         
         const renderedPages = pages.map((el, idx) => {
             const isCurrent = current === el;
