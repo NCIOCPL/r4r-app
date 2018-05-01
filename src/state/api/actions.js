@@ -126,7 +126,7 @@ export const loadFacets = () => (dispatch, getState) => {
     
     console.log('Fetching facets')
     dispatch(setFacetsFetchingStatus(true));
-    timedFetch(queryEndpoint, 1000)
+    timedFetch(queryEndpoint, 15000)
         .catch(handleNetworkFailure)
         .then(handleResponse)
         .then(res => {

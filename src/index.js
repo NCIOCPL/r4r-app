@@ -78,20 +78,20 @@ const initialize = ({
     const App = () => (
         <FatalErrorBoundary>
             <Provider store={ store }>
-                <ErrorBoundary>
                     <ThemeProvider theme={ theme }>
                         <Theme element='main' className="r4r-container">
-                            <Helmet 
-                                defaultTitle="Resources for Researchers - National Cancer Institute"
-                            >
-                                <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                                <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
-                            </Helmet>
-                            <LiveRegion />
-                            <Router history={ history }/>
+                            <ErrorBoundary>
+                                <Helmet 
+                                    defaultTitle="Resources for Researchers - National Cancer Institute"
+                                >
+                                    <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                                    <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
+                                </Helmet>
+                                <LiveRegion />
+                                <Router history={ history }/>
+                            </ErrorBoundary>
                         </Theme>
                     </ThemeProvider>
-                </ErrorBoundary>
             </Provider>
         </FatalErrorBoundary>
     );

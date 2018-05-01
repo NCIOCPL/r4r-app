@@ -16,8 +16,6 @@ const ScienceSpinner = () => (
         <div className="nucleobase"></div>
         <div className="nucleobase"></div>
         <div className="nucleobase"></div>
-        <div className="nucleobase"></div>
-        <div className="nucleobase"></div>
     </div>
 )
 

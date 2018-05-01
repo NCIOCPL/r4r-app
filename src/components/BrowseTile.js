@@ -9,7 +9,7 @@ class BrowseTile extends React.PureComponent {
         onClick: PropTypes.func.isRequired,
         onKeyPress: PropTypes.func.isRequired,
         displayCount: PropTypes.bool,
-        count: PropTypes.number.isRequired,
+        count: PropTypes.number,
     }
 
     static defaultProps = {
