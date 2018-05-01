@@ -8,7 +8,6 @@ import { Theme } from '../../theme';
 import SVG from '../../components/SVG';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
-import MultiLineText from '../../components/MultiLineText';
 import ContactInformation from '../../components/ContactInformation';
 import Spinner from '../../components/ScienceSpinner';
 import { 
@@ -175,6 +174,7 @@ class Resource extends React.PureComponent {
     }
 
     render() {
+        // eslint-disable-next-line
         if(this.props.resource && this.props.match.params.id == this.props.resource.id) {
             return this.renderResource(this.props.resource);
         }

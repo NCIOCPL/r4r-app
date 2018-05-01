@@ -1,10 +1,11 @@
+
 import { registerError } from '../state/error/actions';
 
 /**
  * We don't need to verify the type of success code as the API only returns 200 (no other 2-300 codes)
  * 
  * @param {Response} response 
- * @return {object|PromiseRejectionEvent<object>} Returns either the JSON parsed reponse body or a Promise rejection
+ * @return {object|Promise<object>} Returns either the JSON parsed reponse body or a Promise rejection
  */
 export const handleResponse = (response) => {
     if(response.ok){
@@ -21,8 +22,8 @@ export const handleResponse = (response) => {
 /**
  * We catch network errors to add formatting necessary for the final error catching process to dispatch the appropriate message
  * 
- * @param {Reponse} error
- * @throws {Reponse} Will throw the response if their is a network error
+ * @param {object} error
+ * @throws {object} Will throw the response if their is a network error
  */
 export const handleNetworkFailure = error => {
     error.response = {
@@ -31,6 +32,7 @@ export const handleNetworkFailure = error => {
     };
     throw error;
 }
+
 
 /**
  * Fetches don't support timeouts natively. In order to achieve that we race our fetch against a Promise.reject that resolves after a given

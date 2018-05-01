@@ -1,5 +1,4 @@
 import { updateSearchBar } from '../searchForm/actions';
-import { registerError } from '../error/actions';
 import {
     formatRawResourcesFacets,
     composeQueryString,

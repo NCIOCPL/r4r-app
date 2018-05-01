@@ -30,12 +30,13 @@ class CheckFilter extends React.PureComponent {
             <Theme
                 element="label"
                 className={ this.props.className }
-                role="checkbox"
                 tabIndex="0"
+                role="checkbox"
+                aria-checked={ this.props.checked }
                 onKeyPress={ keyHandler({
                     fn: this.onChange,
                 })}
-            >
+                >
                 <Theme
                     element="input" 
                     type="checkbox"

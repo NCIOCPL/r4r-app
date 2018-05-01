@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Theme } from '../../theme';
 import { 
@@ -15,7 +15,6 @@ import {
 import {
     getCurrentlySelectedFiltersFromFacets,
     transformFacetFiltersIntoParamsObject,
-    keyHandler,
 } from '../../utilities';
 import SelectedFiltersBox from '../../components/SelectedFiltersBox';
 import Filters from '../../components/Filters';

@@ -1,6 +1,7 @@
 export default (() => {
     if (!Array.prototype.fill) {
         console.log('Polyfilling Array.prototype.fill()')
+        // eslint-disable-next-line
         Object.defineProperty(Array.prototype, 'fill', {
           value: function(value) {
       
