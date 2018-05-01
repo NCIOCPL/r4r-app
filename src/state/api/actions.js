@@ -1,12 +1,14 @@
 import { updateSearchBar } from '../searchForm/actions';
+import { registerError } from '../error/actions';
 import {
     formatRawResourcesFacets,
     composeQueryString,
 } from '../../utilities';
 import {
     timedFetch,
-    handleRequest,
+    handleResponse,
     handleNetworkFailure,
+    constructErrorMessage,
 } from '../../utilities/fetchHelpers'
 
 export const CLEAR_FILTERS = "CLEAR FILTERS";
@@ -123,27 +125,16 @@ export const loadFacets = () => (dispatch, getState) => {
         return;
     }
     
-    // Fetch facets and load them. The home component will render them as soon as they become available.
     console.log('Fetching facets')
     dispatch(setFacetsFetchingStatus(true));
-    // Add in http error handling  
-    timedFetch(queryEndpoint, 15000)
+    timedFetch(queryEndpoint, 1000)
         .catch(handleNetworkFailure)
-        .then(res => res.json())
+        .then(handleResponse)
         .then(res => {
             const formattedFacets = formatRawResourcesFacets(res.facets)
             dispatch(loadNewFacetResults(formattedFacets));
         })
-        //TODO: separate function with dependencies injected
-        .catch(err => {
-            if(err.timeoutError){
-                console.log(err.timeoutError);
-            }
-            else {
-                console.log(err.statusText)
-            }
-            //TODO: Redirect to error page and cancel fetch in store
-        })
+        .catch(err => constructErrorMessage(err, dispatch))
 }
 
 //TODO: Need to rewrite this to allow for cases where the call is being made as part of a prefetch
@@ -204,10 +195,9 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     console.log('Fetching from API')    
     timedFetch(API_resourcesEndpoint + newQueryString, 15000)
         .catch(handleNetworkFailure)
-        .then(handleRequest)
+        .then(handleResponse)
         .then(res => {
-            const rawFacets = res.facets;
-            const formattedFacets = formatRawResourcesFacets(rawFacets)
+            const formattedFacets = formatRawResourcesFacets(res.facets)
             const processedResults = {
                 ...res,
                 facets: formattedFacets,
@@ -224,15 +214,8 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
                 history.push(`/search${ newQueryString }`)
             }            
         })
-        .catch(err => {
-            if(err.timeoutError){
-                console.log(err.timeoutError);
-            }
-            else {
-                console.log(err.statusText)
-            }
-            //TODO: Redirect to error page and cancel fetch in store
-        })
+        .catch(err => constructErrorMessage(err, dispatch))
+
 }
 
 export const fetchResource = resourceId => (dispatch, getState) => {
@@ -248,15 +231,13 @@ export const fetchResource = resourceId => (dispatch, getState) => {
         return;
     }
 
-    // We need to fetch and process the resource from the /resource api endpoint. For now we
-    // will use dummy + setTimeout
     console.log('Resource not cached, fetching from db')
     timedFetch(API_resourceEndpoint + resourceId, 15000)
         .catch(handleNetworkFailure)
-        .then(res => res.json())
+        .then(handleResponse)
         .then(res => {
             dispatch(cacheResources([res]));
             dispatch(loadResource(res));
-
         })
+        .catch(err => constructErrorMessage(err, dispatch))
 }

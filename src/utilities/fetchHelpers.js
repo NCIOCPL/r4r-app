@@ -1,6 +1,12 @@
-// For now we will not check the particular success code since the api only returns one type of success (200), so we
-// can just use response.ok (which is 200 - 299), we also don't need to worry about empty success (204, 205)
-export const handleRequest = async (response) => {
+import { registerError } from '../state/error/actions';
+
+/**
+ * We don't need to verify the type of success code as the API only returns 200 (no other 2-300 codes)
+ * 
+ * @param {Response} response 
+ * @return {object|PromiseRejectionEvent<object>} Returns either the JSON parsed reponse body or a Promise rejection
+ */
+export const handleResponse = (response) => {
     if(response.ok){
         return response.json();
     }
@@ -12,6 +18,12 @@ export const handleRequest = async (response) => {
     return Promise.reject(rejection);
 }
 
+/**
+ * We catch network errors to add formatting necessary for the final error catching process to dispatch the appropriate message
+ * 
+ * @param {Reponse} error
+ * @throws {Reponse} Will throw the response if their is a network error
+ */
 export const handleNetworkFailure = error => {
     error.response = {
         status: 0,
@@ -20,11 +32,32 @@ export const handleNetworkFailure = error => {
     throw error;
 }
 
-export const timedFetch = (url, timeout = 4000, fetchOptions) => {
+/**
+ * Fetches don't support timeouts natively. In order to achieve that we race our fetch against a Promise.reject that resolves after a given
+ * timeout. (Promises only resolve once so even though the HTTP connection will not be ended, it's eventual response will never be handled in the case
+ * of a rejection. In the case of a success, the settimout silently fires to no effect.)
+ * 
+ * @param {string} url 
+ * @param {number} [timeout=15000] 
+ * @param {object} [fetchOptions] Equivalent to the second argument passed to Fetch()
+ * @return {Promise} return a Promise.race
+ */
+export const timedFetch = (url, timeout = 15000, fetchOptions) => {
     return Promise.race([
         fetch(url, fetchOptions), 
         new Promise((_, reject) => {
             setTimeout(() => reject({ timeoutError: `Request timed out after ${ timeout / 1000}s.`}), timeout)
         })
     ])
+}
+
+/**
+ * Determine the appropriate type of error message and dispatch it.
+ * 
+ * @param {object} err 
+ * @param {*} dispatch The dispatch method from the store
+ */
+export const constructErrorMessage = (err, dispatch) => {
+    const message = err.timeoutError ? err.timeoutError : err.response.statusText ? err.response.statusText : err.message;
+    dispatch(registerError(message));
 }
