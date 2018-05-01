@@ -98,12 +98,14 @@ class Results extends React.PureComponent {
     pagerSearch = from => {
         const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
         //TODO: Need to account for searchText (as well as any other options (from, size...))
-        //TODO: Only send text if textfield is populated
         const paramsObjectFinal = {
             ...paramsObject,
             ...from,
-            q: this.props.currentSearchText,
         };
+        // Only send text if textfield is populated
+        if(this.props.currentSearchText){
+            paramsObjectFinal['q'] = this.props.currentSearchText
+        }
         this.props.newSearch(paramsObjectFinal);        
     }
 

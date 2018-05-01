@@ -16,7 +16,7 @@ export const formatFilters = (filterType, resource = {}) => {
             filter = filter.type;
         }
         if(filter.subtype) {
-            filterType = 'toolTypes.subtype';
+            filterType = 'toolSubtypes';
             filter = filter.subtype;
         }
         return {
@@ -72,8 +72,15 @@ export const composeQueryString = params => {
     if(typeof params !== 'object' || params === null) {
         return;
     }
+
+    // We remove the qString and only add it back in if it is not empty
+    // to avoid unnecessary 'q=' in query string
+    const { q, ...rest } = params;
+    if(q){
+        rest['q'] = q;
+    }
     
-    const queryParams = queryString.stringify(params);
+    const queryParams = queryString.stringify(rest);
     const composedQueryString = `${ '?' }${ queryParams }`;
     return composedQueryString;
 }
