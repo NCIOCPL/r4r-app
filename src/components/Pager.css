@@ -12,11 +12,6 @@
     margin-right: auto;
 }
 
-.r4r-pager__count p:first-child::after {
-    content: '|';
-    margin: 0 10px;
-}
-
 .r4r-pager__nav.r4r-DEFAULT {
     display: flex;
     justify-content: flex-end;

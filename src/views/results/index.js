@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Theme } from '../../theme';
 import { 
@@ -22,6 +22,7 @@ import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
 import SearchBar from '../../components/SearchBar';
 import Pager from '../../components/Pager';
+import NoResults from '../../components/NoResults';
 import queryString from 'query-string';
 import '../../polyfills/object_entries';
 import {
@@ -159,20 +160,25 @@ class Results extends React.PureComponent {
                 ?
                     <Theme element="div" className="r4r-results">
                         <Theme element="header" className="results__header">
-                            <h1>Search Results</h1>
+                            <h1>Resources for Researchers Search Results</h1>
+                            <Link to="/">Resources for Researchers Home</Link>
                             <SearchBar 
                                 value={ this.props.searchBarValue }
                                 onChange={ this.props.searchBarOnChange }
                                 onSubmit={ this.newTextSearch }
                                 page='results'                            
                             />
-                            <Theme
-                                element="button"
-                                className="results__filter-button"
-                                onClick={() => this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen })}
-                            >
-                                { !this.state.isMobileMenuOpen ? 'Filter' : 'Done' }
-                            </Theme>
+                            {
+                                /* Don't show the filter button when there are no results to filter */
+                                !!this.props.results.length &&
+                                    <Theme
+                                        element="button"
+                                        className="results__filter-button"
+                                        onClick={() => this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen })}
+                                    >
+                                        { !this.state.isMobileMenuOpen ? 'Filter' : 'Done' }
+                                    </Theme>
+                            }
                         </Theme>
                         {
                             !this.state.isMobileMenuOpen &&
@@ -195,26 +201,34 @@ class Results extends React.PureComponent {
                         {
                             !this.state.isMobileMenuOpen &&
                                 <Theme element="div" className="results__main">
-                                    <Filters
-                                        facets={ this.props.facets }
-                                        onChange={ this.toggleFilter }
-                                    />
-                                    <Theme element="section" className="results-container" aria-label="search results">
-                                        {
-                                            this.props.results.map(({
-                                                title,
-                                                description,
-                                                id
-                                            }, idx) => (
-                                                <ResultTile
-                                                    key={ idx }
-                                                    title={ title }
-                                                    description={ description }
-                                                    id={ id }
-                                                />
-                                            ))
-                                        }
-                                    </Theme>
+                                {
+                                    this.props.results.length 
+                                    ?
+                                        <React.Fragment>
+                                            <Filters
+                                                facets={ this.props.facets }
+                                                onChange={ this.toggleFilter }
+                                            />
+                                            <Theme element="section" className="results-container" aria-label="search results">
+                                                {
+                                                    this.props.results.map(({
+                                                        title,
+                                                        description,
+                                                        id
+                                                    }, idx) => (
+                                                        <ResultTile
+                                                            key={ idx }
+                                                            title={ title }
+                                                            description={ description }
+                                                            id={ id }
+                                                        />
+                                                    ))
+                                                }
+                                            </Theme>
+                                        </React.Fragment>
+                                    :
+                                        <NoResults />
+                                }
                                 </Theme>
                         }
                         {

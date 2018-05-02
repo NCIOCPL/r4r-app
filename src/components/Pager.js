@@ -76,17 +76,12 @@ class Pager extends React.PureComponent {
             resultsSize,
         } = this.props;
 
-        if(!total || !resultsSize) {
-            return null;
-        }
-
         const isSinglePageOnly = total <= pageSize;
         const isFirstPage = (startFrom + resultsSize) <= pageSize;
         const isLastPage = startFrom >= total - pageSize;
         const totalPages = Math.ceil(total / pageSize);
         const currentPage = Math.ceil((startFrom + 1) / pageSize);
         return (
-            !isSinglePageOnly &&
             <Theme element="nav" className="r4r-pager">
                 {
                     /* Allow an optional results counter */
@@ -97,43 +92,47 @@ class Pager extends React.PureComponent {
                             total={ total }
                         />
                 }
-                <Theme element="div" className='r4r-pager__nav'>
-                    { 
-                        !isFirstPage && 
-                            <Theme
-                                element="div"
-                                className='pager__arrow' 
-                                tabIndex="0"
-                                onClick={ this.onClick((startFrom - pageSize), false) }
-                                onKeyPress={ keyHandler({
-                                    fn: this.onClick((startFrom - pageSize), false),
-                                })}
-                                aria-label="previous results page"
-                                role="link"
-                            >
-                            { '< Previous' }
-                            </Theme> 
-                    }
-                    {
-                        this.renderPages(totalPages, currentPage)
-                    }
-                    { 
-                        !isLastPage && 
-                            <Theme
-                                element="div" 
-                                className='pager__arrow' 
-                                tabIndex="0"
-                                onClick={ this.onClick((startFrom + pageSize), false) }
-                                onKeyPress={ keyHandler({
-                                    fn: this.onClick((startFrom + pageSize), false),
-                                })}
-                                aria-label="next results page"
-                                role="link"
-                            >
-                            { 'Next >' }
-                            </Theme> 
-                    }
-                </Theme>
+                {
+                    !isSinglePageOnly &&
+                        <Theme element="div" className='r4r-pager__nav'>
+                            { 
+                                !isFirstPage && 
+                                    <Theme
+                                        element="div"
+                                        className='pager__arrow' 
+                                        tabIndex="0"
+                                        onClick={ this.onClick((startFrom - pageSize), false) }
+                                        onKeyPress={ keyHandler({
+                                            fn: this.onClick((startFrom - pageSize), false),
+                                        })}
+                                        aria-label="previous results page"
+                                        role="link"
+                                    >
+                                    { '< Previous' }
+                                    </Theme> 
+                            }
+                            {
+                                this.renderPages(totalPages, currentPage)
+                            }
+                            { 
+                                !isLastPage && 
+                                    <Theme
+                                        element="div" 
+                                        className='pager__arrow' 
+                                        tabIndex="0"
+                                        onClick={ this.onClick((startFrom + pageSize), false) }
+                                        onKeyPress={ keyHandler({
+                                            fn: this.onClick((startFrom + pageSize), false),
+                                        })}
+                                        aria-label="next results page"
+                                        role="link"
+                                    >
+                                    { 'Next >' }
+                                    </Theme> 
+                            }
+                        </Theme>
+
+                }
             </Theme>
         )
     }
