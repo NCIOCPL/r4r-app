@@ -1,42 +1,10 @@
 .r4r-results .results__selected-filters.r4r-DEFAULT {
-    margin: 30px 0;
+    margin: 20px 0;
     display: flex;
 }
 
 .results__filter-button {
     display: none;
-}
-
-.selected-filters__header.r4r-DEFAULT {
-    width: 150px;
-}
-
-.selected-filters__filters-container.r4r-DEFAULT {
-    flex: 1;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: baseline;
-}
-
-.selected-filters__filter.r4r-DEFAULT {
-    color: white;
-    background: #2a71a5;
-    padding: 7px 12px;
-    margin: 5px 10px;
-    cursor: pointer;
-}
-
-.selected-filters__filter.selected-filters__clear.r4r-DEFAULT {
-    background: none;
-    color: #169bd5;
-}
-
-.selected-filters__filter.r4r-DEFAULT p {
-    font-weight: bold;
-}
-
-.selected-filters__filter.r4r-DEFAULT p span {
-    font-weight: normal;
 }
 
 .results__main.r4r-DEFAULT {
@@ -125,7 +93,7 @@
 }
 
 .r4r-results .searchbar__container {
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
 /* TODO: The rules for other components should be moved to the appropriate file */

@@ -4,6 +4,7 @@ import { Theme } from '../theme';
 import {
     keyHandler,
 } from '../utilities';
+import './SelectedFiltersBox.css';
 
 class SelectedFiltersBox extends React.PureComponent {
     static propTypes = {
@@ -23,7 +24,7 @@ class SelectedFiltersBox extends React.PureComponent {
                     this.props.selected.length
                     ?
                         <React.Fragment>
-                            <Theme element="h4" className="selected-filters__header" aria-hidden>Your selections:</Theme>
+                            <Theme element="p" className="selected-filters__header" aria-hidden>Your Selections:</Theme>
                             <Theme element="div" className="selected-filters__filters-container">
                             {
                                 this.props.selected.map((filter, idx) => (
@@ -37,7 +38,8 @@ class SelectedFiltersBox extends React.PureComponent {
                                             fn: this.props.toggleFilter(filter.param)(filter.key),
                                         })}
                                     >
-                                        <p>{`${filter.title}: `} <span>{filter.label}</span> X</p>
+                                        <p>{filter.label}</p>
+                                        <p>✖</p>
                                     </Theme>
                                 ))
                             }

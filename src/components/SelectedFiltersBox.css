@@ -1,0 +1,41 @@
+.selected-filters__header.r4r-DEFAULT {
+    width: 120px;
+    font-size: 16px;
+    color: #777;
+    align-self: center;
+}
+
+.selected-filters__filters-container.r4r-DEFAULT {
+    flex: 1;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+}
+
+.selected-filters__filter.r4r-DEFAULT {
+    color: white;
+    background: #2a71a5;
+    font-size: 14px;
+    padding: 7px 12px;
+    margin: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+}
+
+.selected-filters__filter.selected-filters__clear.r4r-DEFAULT {
+    background: none;
+    color: #169bd5;
+    font-size: 1.1em;
+
+}
+
+.selected-filters__filter.r4r-DEFAULT > p:nth-child(2) {
+    width: 10px;
+    margin-left: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: -5px;
+}
