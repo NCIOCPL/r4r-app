@@ -36,13 +36,13 @@ const initialize = ({
     rootId = 'r4r-root',
     historyProps = {},
 } = {}) => {
+
     if(typeof customTheme !== 'object' || customTheme === null) {
         throw new Error('customTheme must be a non-null object')
     }
-    
     const theme = createTheme(customTheme);
-    let cachedState;
 
+    let cachedState;
     if(process.env.NODE_ENV !== 'development') {
         cachedState = loadStateFromSessionStorage(appId);
     }

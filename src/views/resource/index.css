@@ -13,10 +13,14 @@
 }
 
 .resource__access.r4r-DEFAULT {
-    padding: 15px 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.r4r-resource .resource__left .resource__access {
+    margin-bottom: 10px;
 }
 
 .resource__access.r4r-DEFAULT svg {
@@ -28,21 +32,26 @@
     flex: 1;
 }
 
+
+
 .resource__access.r4r-DEFAULT p {
     width: 100%;
     padding-top: 10px;
 }
 
 .resource__link--external.r4r-DEFAULT {
-    display: block;
-    margin: 10px 0;
+    display: inline-block;
+    margin: 20px 0;
+    background-color: #2fc799;
+    width: auto;
+    padding: 10px;
+    color: white;
+    border-radius: 3px;
 }
 
 .r4r-resource .searchbar__container {
     width: 100%;
     height: auto;
-    flex-direction: column;
-    border-top: 1px solid #7d7d7d;
     border-bottom: 1px solid #7d7d7d;
     padding: 20px 0;
 }
@@ -50,11 +59,6 @@
 .r4r-resource .searchbar__container input[type="text"] {
     margin-bottom: 10px;
 }
-
-.r4r-resource .searchbar__container .searchbar__button--submit {
-    width: 100%;
-    margin: 0;
-} 
 
 .resource__nav {
     display: flex;
@@ -83,7 +87,6 @@
 .r4r-resource.r4r-DEFAULT .resource__docs.r4r-DEFAULT {
     margin-top: 15px;
     margin-bottom: 15px;
-    font-size: .9em;
 }
 
 .similar-resource__container.r4r-DEFAULT {

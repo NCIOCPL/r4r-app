@@ -73,35 +73,39 @@ class Home extends React.PureComponent {
                 </Helmet>
                 <h1>Resources for Researchers</h1>
                 <Theme element="main" className="home__main">
-                    <Theme element="div" className='home__search'>
-                        <SearchBar
-                            value={ this.props.searchBarValue }
-                            onChange={ this.props.searchBarOnChange }
-                            onSubmit={ this.newTextSearch }
-                            placeholder="Search for resources and tools"
-                            page='home'
-                        />
-                    </Theme>
                     <Theme element="article" className="home__desc">
                         <MultiLineText
                             text={ "Resources for Researchers is a directory of tools and services developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone." }
                             />
-                        <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">About Resources for Researchers ></Theme>
+                        <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">About Resources for Researchers</Theme>
                     </Theme>
                 </Theme>
                 <Theme element="nav" className="home-nav">
                     <Theme element="div" className="home-nav__header">
-                        <h2>Find resources by tool type or research area</h2>
-                        <Theme element="p" className='r4r__view-all'
-                            onClick={ this.viewAllOnClick }
-                            onKeyPress={ keyHandler({
-                                fn: this.viewAllOnClick,
-                            })}
-                            tabIndex="0"
-                            role="link"
-                        >
-                            View All Resources >
+                        <div>
+                            <Theme element="h2" className='r4r__view-all'
+                                onClick={ this.viewAllOnClick }
+                                onKeyPress={ keyHandler({
+                                    fn: this.viewAllOnClick,
+                                })}
+                                tabIndex="0"
+                                role="link"
+                            >
+                                View All Resources
+                            </Theme>
+                        </div>
+                        <Theme element="div" className='home__search'>
+                            <SearchBar
+                                value={ this.props.searchBarValue }
+                                onChange={ this.props.searchBarOnChange }
+                                onSubmit={ this.newTextSearch }
+                                placeholder="Find NCI-supported resources"
+                                page='home'
+                            />
                         </Theme>
+                        <div>
+                            <h2>Browse Resources</h2>
+                        </div>
                     </Theme>
                     <Theme element="div" className="home-nav__main">
                         <Theme element="div" className="home-nav__section">

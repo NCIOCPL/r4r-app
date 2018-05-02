@@ -103,11 +103,6 @@
         overflow-x: hidden;
     }
 
-    .r4r-results .searchbar__container {
-        flex-direction: column;
-        align-items: center;
-    }
-
     .r4r-results .results__header {
         padding: 0;
         height: auto;
@@ -118,10 +113,6 @@
         margin: 0 auto;
     }
 
-    .r4r-results  .searchbar__container .searchbar__button--submit {
-        width: 100%;
-        margin: 0;
-    }
 
     .results__filter-button {
         display: block;

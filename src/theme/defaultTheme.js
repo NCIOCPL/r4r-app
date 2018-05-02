@@ -53,6 +53,7 @@ export const defaultThemeHooks = [
     'home-nav__main',
     'home-nav__section',
     'home-nav__title',
-    'r4r-error'
+    'r4r-error',
+    'resource__link--external',
 
 ]

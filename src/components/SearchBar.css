@@ -1,7 +1,7 @@
 .searchbar__container {
     display: flex;
     width: 700px;
-    max-width: 95%;
+    max-width: 100%;
 }
 
 .searchbar__container.r4r-DEFAULT {

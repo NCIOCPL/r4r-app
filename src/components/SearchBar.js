@@ -44,7 +44,7 @@ class SearchBar extends React.PureComponent {
                 <Theme
                     element="input" 
                     type="submit" 
-                    value="Search"
+                    value="Q"
                     className="searchbar__button--submit"
                 />
             </Theme>

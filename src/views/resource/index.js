@@ -129,10 +129,17 @@ class Resource extends React.PureComponent {
                                     <p>&lt; Back to results</p>
                                 </Theme>
                         }
-                        <Link to="/">Start Over</Link>
+                        <Link to="/">Resources for Researchers Home</Link>
                     </Theme>
+                    <article aria-label="Resource Access Information">
+                        <Theme element="div" className='resource__access'>
+                            <SVG iconType={ resourceAccess.type }/>
+                            <h4>{ resourceAccessTitles[resourceAccess.type] }</h4>
+                            <p>{ resourceAccess.notes }</p>
+                        </Theme>
+                    </article>
                     <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
-                    <Theme element="a" className="resource__link--external" href={ website }>Learn more about { title } ></Theme>
+                    <Theme element="a" className="resource__link--external" href={ website }>Visit Resource</Theme>
                     <article>
                         <h2>Contact Information</h2>
                         { 
@@ -146,24 +153,17 @@ class Resource extends React.PureComponent {
                     </Theme>
                 </Theme>
                 <Theme element="div" className="resource__right">
-                    <article aria-label="Resource Access Information">
-                        <Theme element="div" className='resource__access'>
-                            <SVG iconType={ resourceAccess.type }/>
-                            <h4>{ resourceAccessTitles[resourceAccess.type] }</h4>
-                            <p>{ resourceAccess.notes }</p>
-                        </Theme>
-                    </article>
                     <section role="search">
                         <SearchBar 
                             value={ this.props.searchBarValue }
                             onChange={ this.props.searchBarOnChange }
                             onSubmit={ this.newTextSearch }
-                            placeholder="Search for resources"
+                            placeholder="Find NCI-supported resources"
                             page='resource'
                         />
                     </section>
                     <nav>
-                        <h2>Find Similar Resources</h2>
+                        <h2>Find Related Resources</h2>
                         <Theme element="div" className='similar-resource__container'>
                             { this.renderSimilarResources() }
                         </Theme>
