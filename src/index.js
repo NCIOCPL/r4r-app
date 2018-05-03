@@ -64,15 +64,17 @@ const initialize = ({
     );
 
     if(process.env.NODE_ENV !== 'development') {
-        const saveAllStateToSessionStorage = () => {
-            const state = store.getState();
+        const saveDesiredStateToSessionStorage = () => {
+            const allState = store.getState();
+            // No need to store ARIA-LIVE info or error to session storage
+            const { announcements, error, ...state } = allState;
             saveStatetoSessionStorage({
                 state,
                 appId,
             });
         };
     
-        store.subscribe(saveAllStateToSessionStorage);
+        store.subscribe(saveDesiredStateToSessionStorage);
     }
 
     const App = () => (
