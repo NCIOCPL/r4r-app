@@ -40,6 +40,7 @@ class Home extends React.PureComponent {
         if(this.props.searchBarValue) {
             this.props.newSearch({
                 q: this.props.searchBarValue,
+                from: 0,
             });
         }
     }
@@ -49,14 +50,15 @@ class Home extends React.PureComponent {
     newFilterSearch = ({filterType, filter}) => () => {
         this.props.newSearch({ 
             [filterType]: filter,
+            from: 0,
         });
     }
 
     viewAllOnClick = () => {
         // TODO: This exact search params for view all needs to be confirmed with Sarina/Bryan
         this.props.newSearch({
-            'from': '0',
-            'size': '20',
+            from: 0,
+            size: 20,
         });
     }
 

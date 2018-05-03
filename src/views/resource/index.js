@@ -50,12 +50,16 @@ class Resource extends React.PureComponent {
         if(this.props.searchBarValue) {
             this.props.newSearch({
                 q: this.props.searchBarValue,
+                from: 0,
             });
         }
     }
 
     newFilterSearch = ({filterType, filter}) => () => {
-        this.props.newSearch({ [filterType]: filter });
+        this.props.newSearch({ 
+            [filterType]: filter,
+            from: 0,
+        });
     }
 
     renderSimilarResources = () => {
