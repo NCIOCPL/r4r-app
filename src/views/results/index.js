@@ -97,7 +97,6 @@ class Results extends React.PureComponent {
     }
 
     pagerSearch = from => {
-        console.log(from)
         const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
         const paramsObjectFinal = {
             ...paramsObject,
@@ -264,7 +263,7 @@ const mapStateToProps = ({ api, searchForm }) => ({
     currentSearchText: api.currentSearchText,
     searchBarValue: searchForm.searchBarValues.results,
     totalResults: api.currentMetaData && api.currentMetaData.totalResults,
-    startFrom: api.currentMetaData && api.currentMetaData.startFrom,
+    startFrom: api.currentMetaData && api.currentMetaData.from,
 })
 
 const mapDispatchToProps = {

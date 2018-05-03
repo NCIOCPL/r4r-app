@@ -20,7 +20,6 @@ class FilterBox extends React.PureComponent {
     }
 
     static defaultProps = {
-        onChange: () => {},
         isVisible: true,
     }
 

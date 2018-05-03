@@ -50,6 +50,11 @@ const reducer = (state = initialState, action) => {
                             }
                         }
                     }
+                },
+                // We want to reset the results page to the first page of results whenever a filter is flipped
+                currentMetaData: {
+                    ...state.currentMetaData,
+                    from: 0,
                 }
             }
         case UPDATE_TOOLTYPE_FILTER:
@@ -71,6 +76,11 @@ const reducer = (state = initialState, action) => {
                             }
                         }
                     },
+                },
+                // We want to reset the results page to the first page of results whenever a filter is flipped                
+                currentMetaData: {
+                    ...state.currentMetaData,
+                    from: 0,
                 }
             }
         case CLEAR_FILTERS:
@@ -93,6 +103,10 @@ const reducer = (state = initialState, action) => {
                 currentFacets: {
                     ...state.currentFacets,
                     ...newCurrentFacets,
+                },
+                currentMetaData: {
+                    ...state.currentMetaData,
+                    from: 0,
                 }
             }
         case CACHE_RESOURCES:
