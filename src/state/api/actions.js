@@ -9,6 +9,10 @@ import {
     handleNetworkFailure,
     constructErrorMessage,
 } from '../../utilities/fetchHelpers'
+import {
+    validateSearchResponse,
+    validateSearchRequest,
+} from '../../utilities/validation';
 
 export const CLEAR_FILTERS = "CLEAR FILTERS";
 export const UPDATE_FILTER = "UPDATE FILTER";
@@ -136,9 +140,6 @@ export const loadFacets = () => (dispatch, getState) => {
         .catch(err => constructErrorMessage(err, dispatch))
 }
 
-//TODO: Need to rewrite this to allow for cases where the call is being made as part of a prefetch
-// cycle and even though the results are new we don't want to navigate.
-
 export const newSearch = searchParams => (dispatch, getState, history) => {
     const store = getState();
 
@@ -151,7 +152,6 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     const currentSearchQueryString = store.api.currentSearchQueryString;
     const searchCache = store.api.cachedSearches;
     const searchText = searchParams.q || '';
-    dispatch(setCurrentSearchText(searchText));
     const newQueryString = composeQueryString(searchParams);
     const isCached = searchCache.hasOwnProperty(newQueryString);
     const isAlreadyOnSearchPage = history.location.pathname.toLowerCase() === '/search';
@@ -185,6 +185,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
         if(isAlreadyAtCorrectURL){
             return;
         }
+        return
     }
 
     //TODO: This won't work on new filters where the search isn't cached but we don't want to redirect
@@ -195,7 +196,16 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     timedFetch(API_resourcesEndpoint + newQueryString, 15000)
         .catch(handleNetworkFailure)
         .then(handleResponse)
+        .then(validateSearchResponse)
         .then(res => {
+            // Resources will be stored in a separate cache
+            dispatch(cacheResources(res.results));
+
+            // Search results will be processed to
+            // a) convert facets into a map for easy lookups
+            // b) replace full resources with just id of resources
+            // When a searchresult is loaded, the resources will be repopulated from the resource cache.
+            // This avoids a lot of duplication in the results cache.
             const formattedFacets = formatRawResourcesFacets(res.facets)
             const processedResults = {
                 ...res,
@@ -205,7 +215,6 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
                 [newQueryString]: processedResults,
             }    
             dispatch(cacheNewSearchResults(resultsToCache));
-            dispatch(cacheResources(res.results));
             dispatch(setCurrentSearchQueryString(newQueryString))
             dispatch(loadNewSearchResults(processedResults));
             if(!isAlreadyAtCorrectURL) {
