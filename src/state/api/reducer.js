@@ -2,12 +2,10 @@ import {
     SET_CURRENT_SEARCH_TEXT,
     SET_CURRENT_SEARCH_QUERY_STRING,
     LOAD_NEW_SEARCH_RESULTS,
-    CACHE_NEW_SEARCH_RESULTS,
     UPDATE_TOOLTYPE_FILTER,
     LOAD_NEW_FACET_RESULTS,
     FETCHING_FACETS_STATUS,
     FETCHING_STATUS,
-    CACHE_RESOURCES,
     LOAD_RESOURCE,
     UPDATE_FILTER,
     CLEAR_FILTERS,
@@ -25,8 +23,6 @@ const initialState = {
     currentMetaData: null,
     currentFacets: null,
     currentResource: null,
-    cachedSearches: {},
-    cachedResources: {},
 }
 
 const reducer = (state = initialState, action) => {
@@ -109,14 +105,6 @@ const reducer = (state = initialState, action) => {
                     from: 0,
                 }
             }
-        case CACHE_RESOURCES:
-            return {
-                ...state,
-                cachedResources: {
-                    ...state.cachedResources,
-                    ...action.payload,
-                }
-            }
         case LOAD_RESOURCE:
             return {
                 ...state,
@@ -151,14 +139,6 @@ const reducer = (state = initialState, action) => {
                 currentFacets,
                 currentMetaData,
             };
-        case CACHE_NEW_SEARCH_RESULTS:
-            return {
-                ...state,
-                cachedSearches: {
-                    ...state.cachedSearches,
-                    ...action.payload,
-                }
-            }
         case SET_CURRENT_SEARCH_TEXT:
             return {
                 ...state,

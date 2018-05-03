@@ -150,7 +150,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     }
 
     const currentSearchQueryString = store.api.currentSearchQueryString;
-    const searchCache = store.api.cachedSearches;
+    const searchCache = store.cache.cachedSearches;
     const searchText = searchParams.q || '';
     const newQueryString = composeQueryString(searchParams);
     const isCached = searchCache.hasOwnProperty(newQueryString);
@@ -158,6 +158,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     const isAlreadyAtCorrectURL = history.location.search === newQueryString;
 
     // We only want to retain search text on the results page (otherwise stale text will be visible on page changes)
+    dispatch(setCurrentSearchText(searchText))
     dispatch(updateSearchBar({
         page: 'results',
         value: searchText,
@@ -179,8 +180,13 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     }
     if(isCached) {
         console.log('Current search is already cached, loading from cache')
-        const cachedResults = searchCache[newQueryString];
-        dispatch(loadNewSearchResults(cachedResults));
+        const cachedResult = searchCache[newQueryString];
+        const cachedResources = store.cache.cachedResources;
+        const reconstitutedResults = {
+            ...cachedResult,
+            results: cachedResult.results.map(id => cachedResources[id]),
+        }
+        dispatch(loadNewSearchResults(reconstitutedResults));
         dispatch(setCurrentSearchQueryString(newQueryString))
         if(isAlreadyAtCorrectURL){
             return;
@@ -198,25 +204,26 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
         .then(handleResponse)
         .then(validateSearchResponse)
         .then(res => {
-            // Resources will be stored in a separate cache
             dispatch(cacheResources(res.results));
+            dispatch(setCurrentSearchQueryString(newQueryString))
 
             // Search results will be processed to
             // a) convert facets into a map for easy lookups
             // b) replace full resources with just id of resources
             // When a searchresult is loaded, the resources will be repopulated from the resource cache.
             // This avoids a lot of duplication in the results cache.
-            const formattedFacets = formatRawResourcesFacets(res.facets)
             const processedResults = {
                 ...res,
-                facets: formattedFacets,
+                facets: formatRawResourcesFacets(res.facets),
             };
-            const resultsToCache = {
-                [newQueryString]: processedResults,
-            }    
-            dispatch(cacheNewSearchResults(resultsToCache));
-            dispatch(setCurrentSearchQueryString(newQueryString))
             dispatch(loadNewSearchResults(processedResults));
+
+            const strippedResults = {
+                ...processedResults,
+                results: processedResults.results.map(resource => resource.id),
+            }
+            dispatch(cacheNewSearchResults({ [newQueryString]: strippedResults }));
+
             if(!isAlreadyAtCorrectURL) {
                 console.log('navigating to search page')
                 history.push(`/search${ newQueryString }`)
@@ -228,7 +235,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
 
 export const fetchResource = resourceId => (dispatch, getState) => {
     const store = getState();
-    const cache = store.api.cachedResources;
+    const cache = store.cache.cachedResources;
     const cachedResource = cache[resourceId];
     if(cachedResource) {
         // Set cachedResource to currentResource (we don't need to bother to check if the current
