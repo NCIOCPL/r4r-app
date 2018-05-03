@@ -9,7 +9,10 @@ import {
     LOAD_RESOURCE,
     UPDATE_FILTER,
     CLEAR_FILTERS,
-} from './actions'
+} from './actions';
+import {
+    REGISTER_ERROR,
+} from '../error/actions';
 
 const initialState = {
     isFetching: false,
@@ -148,6 +151,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentSearchQueryString: action.payload,
+            }
+        case REGISTER_ERROR: 
+            return {
+                ...state,
+                isFetching: false,
+                isFetchingFacets: false
             }
         default:
             return state;
