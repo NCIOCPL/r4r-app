@@ -5,7 +5,7 @@ import { registerError } from '../state/error/actions';
  * We don't need to verify the type of success code as the API only returns 200 (no other 2-300 codes)
  * 
  * @param {Response} response 
- * @return {object|Promise<object>} Returns either the JSON parsed reponse body or a Promise rejection
+ * @return {Object|Promise<Object>} Returns either the JSON parsed reponse body or a Promise rejection
  */
 export const handleResponse = (response) => {
     if(response.ok){
@@ -22,8 +22,8 @@ export const handleResponse = (response) => {
 /**
  * We catch network errors to add formatting necessary for the final error catching process to dispatch the appropriate message
  * 
- * @param {object} error
- * @throws {object} Will throw the response if their is a network error
+ * @param {Object} error
+ * @throws {Object} Will throw the response if their is a network error
  */
 export const handleNetworkFailure = error => {
     error.response = {
@@ -41,7 +41,7 @@ export const handleNetworkFailure = error => {
  * 
  * @param {string} url 
  * @param {number} [timeout=15000] 
- * @param {object} [fetchOptions] Equivalent to the second argument passed to Fetch()
+ * @param {Object} [fetchOptions] Equivalent to the second argument passed to Fetch()
  * @return {Promise} return a Promise.race
  */
 export const timedFetch = (url, timeout = 15000, fetchOptions) => {
@@ -56,7 +56,7 @@ export const timedFetch = (url, timeout = 15000, fetchOptions) => {
 /**
  * Determine the appropriate type of error message and dispatch it.
  * 
- * @param {object} err 
+ * @param {Object} err 
  * @param {*} dispatch The dispatch method from the store
  */
 export const constructErrorMessage = (err, dispatch) => {

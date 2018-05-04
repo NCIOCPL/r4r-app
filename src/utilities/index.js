@@ -3,18 +3,85 @@ import '../polyfills/object_entries';
 // All API parsing and formatting will be centralized so that future changes to the API only
 // need to be handled here. The app will always expect a certain structure.
 
+/**
+ * @typedef KeyLabel
+ * @type {Object}
+ * @property {string} key
+ * @property {string} label
+ */
+
+/**
+ * @typedef Name 
+ * @type {Object}
+ * @property {string} [prefix]
+ * @property {string} [firstName]
+ * @property {string} [middleName]
+ * @property {string} [lastName]
+ * @property {string} [suffix]
+ */
+
+ /**
+  * @typedef POC
+  * @type {Object}
+  * @property {string} [title]
+  * @property {string} [phone]
+  * @property {string} [email]
+  * @property {Name} [name]
+  */
+
+/** 
+ * @typedef Resource
+ * @type {Object}
+ * @property {string} body
+ * @property {string} description
+ * @property {number} id
+ * @property {string} title
+ * @property {string} website
+ * @property {{type: string, notes: ?string}} resourceAccess
+ * @property {KeyLabel[]} doCs
+ * @property {KeyLabel[]} [researchAreas]
+ * @property {KeyLabel[]} [researchTypes]
+ * @property {KeyLabel[]} [toolTypes]
+ * @property {KeyLabel[]} [toolSubtypes]
+ * @property {POC[]} poCs
+ */
+
+ /**
+  * @typedef Facet
+  * @type {Object}
+  * @property {string} key
+  * @property {string} label
+  * @property {number} count
+  * @property {boolean} selected
+  */
+
+  /**
+   * @typedef FacetGroup
+   * @type {Object}
+   * @property {string} param
+   * @property {string} title
+   * @property {Facet[]} items
+   */
+
+/**
+ * 
+ * 
+ * @param {string} filterType 
+ * @param {Resource} [resource={}]
+ * @returns 
+ */
 export const formatFilters = (filterType, resource = {}) => {
     if(typeof resource !== 'object' || resource === null) {
         return;
     }
-
+    //TODO: Is this still the right approach for tool/sub? investigate
     return resource[filterType].map(filter => {
         // Have to handle special case of type/subtypes for tooltypes
         // This isn't elegant, but hopefully readable
         if(filter.type) {
             filterType = 'toolTypes';
             filter = filter.type;
-        }
+        }   
         if(filter.subtype) {
             filterType = 'toolSubtypes';
             filter = filter.subtype;
@@ -27,8 +94,13 @@ export const formatFilters = (filterType, resource = {}) => {
     })
 }
 
-// Despite causing issues with iterating for rendering purposes (which we solve for now
-// with Object.entries) converting the data into a hashmap makes lookups a lot quicker and simpler.
+/**
+ * The purpose of this conversion is to make future lookups cheaper by using a hashmap instead of filtering an array.
+ * However we will have to convert the facets back into an array for rendering passes, so this would be a questionable tradeoff
+ * if it wasn't such a small dataset.
+ * @param {FacetGroup[]} rawFacets
+ * @return {Object}
+ */
 export const formatRawResourcesFacets = rawFacets => {
     const formattedFacets = rawFacets.reduce((acc, facetType) => {
         const facetTypeFilters = facetType.items.reduce((acc, { key, ...filter}) => {
@@ -71,6 +143,7 @@ export const composeQueryString = params => {
     return composedQueryString;
 }
 
+
 export const transformFacetFiltersIntoQueryString = facets => {
     if(typeof facets !== 'object' || facets === null) {
         return;
@@ -88,6 +161,10 @@ export const transformFacetFiltersIntoQueryString = facets => {
     return queryStringParams.join('&');
 }
 
+/**
+ * 
+ * @param {Object} facets 
+ */
 export const transformFacetFiltersIntoParamsObject = facets => {
     if(typeof facets !== 'object' || facets === null) {
         return;
@@ -111,6 +188,15 @@ export const transformFacetFiltersIntoParamsObject = facets => {
     return queryStringParams;
 }
 
+/**
+ * Cached searches are previously stripped of full resource body. They only retain the reesource ID. Here we
+ * use those ID to reconstitute the original full body of the search results.
+ * @param {number|string} key 
+ * @param {Object} cache
+ * @param {Object} cache.cachedSearches
+ * @param {Object} cache.cachedResources
+ * @return {Object}
+ */
 export const reconstituteSearchResultsFromCache = (key, cache) => {
     const cachedResult = cache.cachedSearches[key];
     const cachedResources = cache.cachedResources;
@@ -121,6 +207,11 @@ export const reconstituteSearchResultsFromCache = (key, cache) => {
     return reconstitutedResults;
 }
 
+/**
+ * Return a grammatically appropriate sentence representing the resource DOCs
+ * @param {KeyLabel[]} doCs
+ * @return {string}
+ */
 export const renderDocsString = (doCs = []) => {
     if(!Array.isArray(doCs) || !doCs.length) {
         return '';
@@ -145,7 +236,12 @@ export const renderDocsString = (doCs = []) => {
     })
     return `${ base }, ${ grammarfiedDocs }.`;
 }
-
+/**
+ * 
+ * 
+ * @param {Object} facets 
+ * @returns 
+ */
 export const getCurrentlySelectedFiltersFromFacets = facets => {
     if(typeof facets !== 'object' || facets === null) {
         return [];
@@ -178,7 +274,7 @@ export const getCurrentlySelectedFiltersFromFacets = facets => {
  * one of the specified keys.
  * 
  * Additional paramaters allow you to control the stopPropagation and preventDefault handling of the browser.
- * @param {object} options
+ * @param {Object} options
  * @param {function} [options.fn = () => {}]
  * @param {Array<Number|String>} [options.keys = []] 
  * @param {boolean} [options.stopProp = false] 
