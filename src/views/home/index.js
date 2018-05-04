@@ -45,8 +45,6 @@ class Home extends React.PureComponent {
         }
     }
 
-    // If I want to make this reusable for resource page it's going to have to be able to accomodate
-    // type/subtype combinations potentially TODO: verify this
     newFilterSearch = ({filterType, filter}) => () => {
         this.props.newSearch({ 
             [filterType]: filter,
@@ -55,7 +53,6 @@ class Home extends React.PureComponent {
     }
 
     viewAllOnClick = () => {
-        // TODO: This exact search params for view all needs to be confirmed with Sarina/Bryan
         this.props.newSearch({
             from: 0,
             size: 20,
@@ -85,7 +82,7 @@ class Home extends React.PureComponent {
                 <Theme element="nav" className="home-nav">
                     <Theme element="div" className="home-nav__header">
                         <div>
-                            <Theme element="h2" className='r4r__view-all'
+                            <Theme element="h2" className='home__view-all'
                                 onClick={ this.viewAllOnClick }
                                 onKeyPress={ keyHandler({
                                     fn: this.viewAllOnClick,

@@ -111,6 +111,16 @@ export const transformFacetFiltersIntoParamsObject = facets => {
     return queryStringParams;
 }
 
+export const reconstituteSearchResultsFromCache = (key, cache) => {
+    const cachedResult = cache.cachedSearches[key];
+    const cachedResources = cache.cachedResources;
+    const reconstitutedResults = {
+        ...cachedResult,
+        results: cachedResult.results.map(id => cachedResources[id]),
+    }
+    return reconstitutedResults;
+}
+
 export const renderDocsString = (doCs = []) => {
     if(!Array.isArray(doCs) || !doCs.length) {
         return '';

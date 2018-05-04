@@ -63,9 +63,6 @@ class Resource extends React.PureComponent {
     }
 
     renderSimilarResources = () => {
-        // There are a few fidgety bits here. 
-        //The name values are the search params themselves.
-
         const filters = [
             ...formatFilters('toolTypes', this.props.resource), 
             ...formatFilters('researchAreas', this.props.resource), 

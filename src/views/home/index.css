@@ -20,11 +20,11 @@
     width: 100%;
 }
 
-.r4r__view-all.r4r-DEFAULT {
+.home__view-all.r4r-DEFAULT {
     display: flex;
 }
 
-.r4r__view-all.r4r-DEFAULT {
+.home__view-all.r4r-DEFAULT {
     cursor: pointer;
     color: #169bd5;
 }

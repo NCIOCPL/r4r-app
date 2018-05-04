@@ -2,6 +2,7 @@ import { updateSearchBar } from '../searchForm/actions';
 import {
     formatRawResourcesFacets,
     composeQueryString,
+    reconstituteSearchResultsFromCache,
 } from '../../utilities';
 import {
     timedFetch,
@@ -13,6 +14,9 @@ import {
     validateSearchResponse,
     validateSearchRequest,
 } from '../../utilities/validation';
+
+const API_resourcesEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resources';
+const API_resourceEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resource/';
 
 export const CLEAR_FILTERS = "CLEAR FILTERS";
 export const UPDATE_FILTER = "UPDATE FILTER";
@@ -83,44 +87,35 @@ const setCurrentSearchQueryString = queryString => ({
 // we want to also clear all currently checked toolsubtypes. We can clear all toolsubtypes
 // regardless of what state the tooltype is switching to because if it's being unchecked
 // all toolsubtypes need to be cleared, and if it's being checked then we can assume that
-// no toolsubtypes had been selected.
+// no toolsubtypes had been selected yet.
 export const updateFilter = (filterType, filter) => {
-    if(filterType === 'toolTypes'){
-        return {
+    return filterType === 'toolTypes'
+    ?
+        {
             type: UPDATE_TOOLTYPE_FILTER,
             payload: {
                 filter,
             },
         }
-    }
 
-    return {
-        type: UPDATE_FILTER,
-        payload: {
-            filterType,
-            filter,
-        },
-    }
+    :
+        {
+            type: UPDATE_FILTER,
+            payload: {
+                filterType,
+                filter,
+            },
+        }
 }
 
 export const clearFilters = () => ({
     type: CLEAR_FILTERS,
 })
 
-const API_resourcesEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resources';
-const API_resourceEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resource/';
-
-// When the home page loads, we want to fetch all available facets to use for dynamically
-// rendering the browse tiles.
-// TODO: If we pass in the referenceFacets we can make this purer. (Or if we handle validation in the 
-// component. Or if we chain two thunks, one for cache validation and one for search execution.)
 export const loadFacets = () => (dispatch, getState) => {
     const queryString = '?size=0&includeFacets=toolTypes&includeFacets=researchAreas';
     const queryEndpoint = API_resourcesEndpoint + queryString;
-    //TODO: This process can be abstracted into a generic load from cache method to be shared (later)
     
-    // We want this to be a cheap lookup to see if a facets object exists, the only way to load one
-    // will be after a successfull fetch so we shouldn't need to do any additional validation.
     const store = getState();
     const isCached = store.api.referenceFacets;
     if(isCached){
@@ -148,12 +143,16 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
         console.log('Already fetching. Aborting.')
         return;
     }
+    
+    searchParams = validateSearchRequest(searchParams);
 
     const currentSearchQueryString = store.api.currentSearchQueryString;
-    const searchCache = store.cache.cachedSearches;
     const searchText = searchParams.q || '';
     const newQueryString = composeQueryString(searchParams);
+    
+    const searchCache = store.cache.cachedSearches;
     const isCached = searchCache.hasOwnProperty(newQueryString);
+
     const isAlreadyOnSearchPage = history.location.pathname.toLowerCase() === '/search';
     const isAlreadyAtCorrectURL = history.location.search === newQueryString;
 
@@ -178,19 +177,12 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
             return;
         }
     }
+
     if(isCached) {
         console.log('Current search is already cached, loading from cache')
-        const cachedResult = searchCache[newQueryString];
-        const cachedResources = store.cache.cachedResources;
-        const reconstitutedResults = {
-            ...cachedResult,
-            results: cachedResult.results.map(id => cachedResources[id]),
-        }
+        const reconstitutedResults = reconstituteSearchResultsFromCache(newQueryString, getState().cache);
         dispatch(loadNewSearchResults(reconstitutedResults));
         dispatch(setCurrentSearchQueryString(newQueryString))
-        if(isAlreadyAtCorrectURL){
-            return;
-        }
         return
     }
 
@@ -238,9 +230,6 @@ export const fetchResource = resourceId => (dispatch, getState) => {
     const cache = store.cache.cachedResources;
     const cachedResource = cache[resourceId];
     if(cachedResource) {
-        // Set cachedResource to currentResource (we don't need to bother to check if the current
-        // resource is the same because it's so cheap in this case to copy over the object from
-        // the cache again, even if it isn't the most efficient.
         console.log('Resource already cached, loading from local cache')
         dispatch(loadResource(cachedResource));
         return;
