@@ -183,6 +183,10 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
         const reconstitutedResults = reconstituteSearchResultsFromCache(newQueryString, getState().cache);
         dispatch(loadNewSearchResults(reconstitutedResults));
         dispatch(setCurrentSearchQueryString(newQueryString))
+        if(isAlreadyAtCorrectURL){
+            return;
+        }
+        history.push(`/search${ newQueryString }`);
         return
     }
 
