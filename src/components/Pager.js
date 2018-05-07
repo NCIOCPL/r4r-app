@@ -108,7 +108,7 @@ class Pager extends React.PureComponent {
                                         aria-label="previous results page"
                                         role="link"
                                     >
-                                    { '< Previous' }
+                                    { '<' }
                                     </Theme> 
                             }
                             {
@@ -127,7 +127,7 @@ class Pager extends React.PureComponent {
                                         aria-label="next results page"
                                         role="link"
                                     >
-                                    { 'Next >' }
+                                    { '>' }
                                     </Theme> 
                             }
                         </Theme>

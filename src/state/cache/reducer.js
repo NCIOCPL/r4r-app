@@ -9,8 +9,6 @@ const initialState = {
     cachedResources: {},    
 }
 
-// TODO: This is going to be where the cache lives in the future. For now it is redundant and unused.
-
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case CACHE_RESOURCES:
