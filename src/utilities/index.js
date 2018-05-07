@@ -20,14 +20,14 @@ import '../polyfills/object_entries';
  * @property {string} [suffix]
  */
 
- /**
-  * @typedef POC
-  * @type {Object}
-  * @property {string} [title]
-  * @property {string} [phone]
-  * @property {string} [email]
-  * @property {Name} [name]
-  */
+/**
+ * @typedef POC
+ * @type {Object}
+ * @property {string} [title]
+ * @property {string} [phone]
+ * @property {string} [email]
+ * @property {Name} [name]
+ */
 
 /** 
  * @typedef Resource
@@ -46,22 +46,22 @@ import '../polyfills/object_entries';
  * @property {POC[]} poCs
  */
 
- /**
-  * @typedef Facet
-  * @type {Object}
-  * @property {string} key
-  * @property {string} label
-  * @property {number} count
-  * @property {boolean} selected
-  */
+/**
+ * @typedef Facet
+ * @type {Object}
+ * @property {string} key
+ * @property {string} label
+ * @property {number} count
+ * @property {boolean} selected
+ */
 
-  /**
-   * @typedef FacetGroup
-   * @type {Object}
-   * @property {string} param
-   * @property {string} title
-   * @property {Facet[]} items
-   */
+/**
+ * @typedef FacetGroup
+ * @type {Object}
+ * @property {string} param
+ * @property {string} title
+ * @property {Facet[]} items
+ */
 
 /**
  * 
@@ -118,9 +118,16 @@ export const formatRawResourcesFacets = rawFacets => {
     return formattedFacets;
 }
 
+/**
+ * Return a URI encoded string representing search text. An invalid argument will result in returning
+ * null.
+ * 
+ * @param {string} rawText
+ * @return {string|null} queryText
+ */
 export const composeQueryText = rawText => {
     if(rawText && typeof rawText === 'string') {
-        const queryText = encodeURIComponent(rawText)
+        const queryText = encodeURIComponent(rawText);
         return queryText;
     }
     return null;
@@ -152,7 +159,7 @@ export const transformFacetFiltersIntoQueryString = facets => {
     const queryStringParams = Object.entries(facets).reduce((acc, [facetParam, { items }]) => {
         const filters = Object.entries(items).reduce((acc, [filterKey, { selected }]) => {
             if(selected) {
-                acc = [ ...acc, `${facetParam}=${filterKey}`]
+                acc = [ ...acc, `${facetParam}=${filterKey}`];
             }
             return acc;
         }, [])
@@ -173,7 +180,7 @@ export const transformFacetFiltersIntoParamsObject = facets => {
     const queryStringParams = Object.entries(facets).reduce((acc, [facetParam, { items }]) => {
         const filters = Object.entries(items).reduce((acc, [filterKey, { selected }]) => {
             if(selected) {
-                acc = [ ...acc, filterKey]
+                acc = [ ...acc, filterKey];
             }
             return acc;
         }, [])
@@ -232,10 +239,11 @@ export const renderDocsString = (doCs = []) => {
             return acc;
         }
         acc = acc + ', ' + doc.label;
-        return acc
+        return acc;
     })
     return `${ base }, ${ grammarfiedDocs }.`;
 }
+
 /**
  * 
  * 
@@ -256,7 +264,7 @@ export const getCurrentlySelectedFiltersFromFacets = facets => {
                     title: facet.title,
                     param,
                 }
-                return [...acc, filterContext]
+                return [...acc, filterContext];
             }
             return acc;
         }, [])
@@ -300,6 +308,15 @@ export const keyHandler = (options = {}) => e => {
     }
 }
 
+/**
+ * Generate an array representing the currently selectable page skip numbers. 0 is
+ * used to represent an ellipses and will be rendered as such. Previous and next are handled
+ * externally.
+ * 
+ * @param {number} total 
+ * @param {number} current
+ * @return {number[]} pages
+ */
 export const formatPagerArray = (total, current) => {
     const pagesFromStart = current;
     const pagesFromEnd = total - current;

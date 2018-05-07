@@ -38,7 +38,18 @@ class Results extends React.PureComponent {
     constructor(props){
         super(props);
         this.state = {
+            /**
+             * This is the only instance of local state in the app. Both calculations can be handled through the reducers
+             * in a refactor.
+             */
             isMobileMenuOpen: false,
+            /**
+             * getCurrentlySelectedFiltersFromFacets:
+             * This method is an expensive nested reduce over nested arrays representing objects.
+             * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
+             * (being a light app, we will defer these optimizations for now).
+             */
+            selectedFilters: getCurrentlySelectedFiltersFromFacets(this.props.facets),
         }
         this.mediaQueryListener = window.matchMedia('(max-width: 768px)');
     }
@@ -125,6 +136,11 @@ class Results extends React.PureComponent {
         // Watch only for changes to the filters...
         if(prevProps.facets && this.props.facets !== prevProps.facets) {
             console.log('Filters have been updated')
+            // 1) Update local state watcher of selected filters
+            this.setState({
+                selectedFilters: getCurrentlySelectedFiltersFromFacets(this.props.facets)
+            });
+
             // Generate new search based on current filters state
             const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
             paramsObject.q = this.props.currentSearchText;
@@ -175,14 +191,21 @@ class Results extends React.PureComponent {
                                         className="results__filter-button"
                                         onClick={() => this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen })}
                                     >
-                                        { !this.state.isMobileMenuOpen ? 'Filter' : 'Done' }
+                                        { 
+                                            !this.state.isMobileMenuOpen 
+                                            ? 
+                                                `Filter ${ this.state.selectedFilters.length ? `(${ this.state.selectedFilters.length })` : ''}` 
+                                            : 
+                                                'Done' 
+                                        }
                                     </Theme>
                             }
                         </Theme>
                         {
                             !this.state.isMobileMenuOpen &&
-                                <SelectedFiltersBox 
-                                    selected={ getCurrentlySelectedFiltersFromFacets(this.props.facets) }
+                                <SelectedFiltersBox
+
+                                    selected={ this.state.selectedFilters }
                                     clearFilters={this.props.clearFilters}
                                     toggleFilter={this.toggleFilter}
                                 />
