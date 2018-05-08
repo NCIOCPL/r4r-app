@@ -1,5 +1,6 @@
 .r4r-error.r4r-DEFAULT {
     height: 100%;
+    min-height: 300px;
     width: 100%;
     display: flex;
     justify-content: center;
