@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Theme } from '../theme';
+import SVG from './SVG';
 import './SearchBar.css';
 
 class SearchBar extends React.PureComponent {
@@ -42,11 +43,12 @@ class SearchBar extends React.PureComponent {
                     placeholder={ this.props.placeholder }
                 />
                 <Theme
-                    element="input" 
+                    element="button" 
                     type="submit" 
-                    value="Q"
                     className="searchbar__button--submit"
-                />
+                >
+                    <SVG iconType="magnify" />
+                </Theme>
             </Theme>
         )
     }

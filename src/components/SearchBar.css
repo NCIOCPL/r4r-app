@@ -18,9 +18,11 @@
 }
 
 .searchbar__container .searchbar__button--submit {
+    margin: 0;
     height: 100%;
-    width: 100px;
-    margin-left: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .searchbar__container .searchbar__button--submit.r4r-DEFAULT {
