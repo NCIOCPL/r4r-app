@@ -1,3 +1,12 @@
+.r4r-results .notouch-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    user-select: none;
+    background: transparent;
+}
+
 .r4r-results .results__selected-filters.r4r-DEFAULT {
     margin: 20px 0;
     display: flex;
@@ -166,26 +175,24 @@
         margin: 10px auto;
     }
 
-    .r4r-pager.r4r-DEFAULT {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .r4r-pager__count.r4r-DEFAULT {
-        margin: 10px 0;
-    }
-
+    
     .results-container.r4r-DEFAULT .result-tile.r4r-DEFAULT {
         margin: 0 15px 40px 15px;
     }
 }
 /* TODO: Facet box margin issues at one column mobile view */
 @media only screen and (max-width: 640px){
+    .r4r-pager.r4r-DEFAULT {
+        flex-direction: column;
+        align-items: center;
+    }
+
     .r4r-pager__count{
+        margin: 10px auto;
         flex-direction: column;
     }
 
-    .r4r-pager__count p:first-child::after{
+    .r4r-pager__count::after{
         content: "";
         display: block;
         margin: 10px auto;

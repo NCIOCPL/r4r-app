@@ -23,6 +23,7 @@ import Spinner from '../../components/ScienceSpinner';
 import SearchBar from '../../components/SearchBar';
 import Pager from '../../components/Pager';
 import NoResults from '../../components/NoResults';
+import NoTouch from '../../components/NoTouch';
 import queryString from 'query-string';
 import '../../polyfills/object_entries';
 import {
@@ -37,19 +38,15 @@ import './index.css';
 class Results extends React.PureComponent {
     constructor(props){
         super(props);
+        console.log('constructor', props)
         this.state = {
             /**
              * This is the only instance of local state in the app. Both calculations can be handled through the reducers
              * in a refactor.
              */
             isMobileMenuOpen: false,
-            /**
-             * getCurrentlySelectedFiltersFromFacets:
-             * This method is an expensive nested reduce over nested arrays representing objects.
-             * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
-             * (being a light app, we will defer these optimizations for now).
-             */
-            selectedFilters: getCurrentlySelectedFiltersFromFacets(this.props.facets),
+            selectedFilters: [],
+            isMobile: false,
         }
         this.mediaQueryListener = window.matchMedia('(max-width: 768px)');
     }
@@ -121,6 +118,10 @@ class Results extends React.PureComponent {
         this.props.updateFilter(filterType, filterKey);
     }
 
+    toggleMobileMenu = () => {
+        this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen });
+    }
+
     newFullSearch = () => {
         const unparsedQueryString = this.props.location.search;
         const parsedQueryParams = queryString.parse(unparsedQueryString);
@@ -128,11 +129,24 @@ class Results extends React.PureComponent {
     }
     
     componentDidMount() {
+        console.log('mount', this.props)
         this.newFullSearch();
         this.mediaQueryListener.addListener(this.mediaQueryEvent);
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if(!prevProps) {
+            // The first time data is available for this to run we need to call it (since the data isn't requested until componentDidMount)
+            /**
+             * getCurrentlySelectedFiltersFromFacets:
+             * This method is an expensive nested reduce over nested arrays representing objects.
+             * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
+             * (being a light app, we will defer these optimizations for now).
+             */
+            this.setState({
+                selectedFilters: getCurrentlySelectedFiltersFromFacets(this.props.facets)
+            });
+        }
         // Watch only for changes to the filters...
         if(prevProps.facets && this.props.facets !== prevProps.facets) {
             console.log('Filters have been updated')
@@ -174,6 +188,10 @@ class Results extends React.PureComponent {
                 this.props.results 
                 ?
                     <Theme element="div" className="r4r-results">
+                        {
+                            this.props.isFetching &&
+                                <NoTouch />
+                        }
                         <Theme element="header" className="results__header">
                             <h1>Resources for Researchers Search Results</h1>
                             <Link to="/">Resources for Researchers Home</Link>
@@ -189,12 +207,12 @@ class Results extends React.PureComponent {
                                     <Theme
                                         element="button"
                                         className="results__filter-button"
-                                        onClick={() => this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen })}
+                                        onClick={ this.toggleMobileMenu }
                                     >
                                         { 
                                             !this.state.isMobileMenuOpen 
                                             ? 
-                                                `Filter ${ this.state.selectedFilters.length ? `(${ this.state.selectedFilters.length })` : ''}` 
+                                                `Filter (${ this.state.selectedFilters.length })` 
                                             : 
                                                 'Done' 
                                         }
@@ -202,13 +220,11 @@ class Results extends React.PureComponent {
                             }
                         </Theme>
                         {
-                            !this.state.isMobileMenuOpen &&
-                                <SelectedFiltersBox
-
-                                    selected={ this.state.selectedFilters }
-                                    clearFilters={this.props.clearFilters}
-                                    toggleFilter={this.toggleFilter}
-                                />
+                            <SelectedFiltersBox
+                                selected={ this.state.selectedFilters }
+                                clearFilters={this.props.clearFilters}
+                                toggleFilter={this.toggleFilter}
+                            />
                         }
                         {
                             !this.state.isMobileMenuOpen &&
@@ -287,6 +303,7 @@ const mapStateToProps = ({ api, searchForm }) => ({
     searchBarValue: searchForm.searchBarValues.results,
     totalResults: api.currentMetaData && api.currentMetaData.totalResults,
     startFrom: api.currentMetaData && api.currentMetaData.from,
+    isFetching: api.isFetching,
 })
 
 const mapDispatchToProps = {

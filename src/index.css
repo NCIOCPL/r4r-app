@@ -14,6 +14,7 @@ html, body, #r4r-root {
 .r4r-container {
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .r4r-container.r4r-DEFAULT {
