@@ -196,7 +196,7 @@
         margin-bottom: .6em;
     }
 
-    .r4r-pager__nav.r4r-DEFAULT{
+    .r4r-pager__nav.r4r-DEFAULT:not(:first-child){
         padding-top: 0.6em;
         border-top: 1px solid #777;
     }
