@@ -113,9 +113,11 @@ class Resource extends React.PureComponent {
                     <meta property="twitter:title" content={`Resources for Researchers: ${ title } - National Cancer Institute`} />
                     <meta property="og:url" content={`https://www.cancer.gov/research/r4r/resource/${ id }`} />
                 </Helmet>
-                <Theme element="div" className="resource__left">
+                <Theme element="header" className='r4r-resource__header'>
                     <h1>{ title }</h1>
-                    <Theme element="div" className="resource__nav">
+                </Theme>
+                <Theme element="div" className="resource__main">
+                    <Theme element="div" className="resource__home">
                         {
                             this.props.currentResults && this.props.currentResults.includes(this.props.resource) &&
                                 <Theme element="div"
@@ -153,7 +155,7 @@ class Resource extends React.PureComponent {
                         { renderDocsString(doCs) }
                     </Theme>
                 </Theme>
-                <Theme element="div" className="resource__right">
+                <Theme element="div" className="resource__nav">
                     <section role="search">
                         <SearchBar 
                             value={ this.props.searchBarValue }
