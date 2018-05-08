@@ -8,14 +8,6 @@
     margin-left: auto;
 }
 
-/* .home__main {
-    display: flex;
-}
-
-.home__main .home__search, .home__main .home__desc {
-    flex: 1;
-} */
-
 .home__search .searchbar__container {
     width: 100%;
 }
@@ -29,10 +21,7 @@
     color: #169bd5;
 }
 
-.home-nav.r4r-DEFAULT {
-}
-
-.home-nav__header.r4r-DEFAULT {
+.home-nav__tiles.r4r-DEFAULT {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -40,14 +29,28 @@
     margin-bottom: 10px;
 }
 
-/* This will get extracted */
-.home-nav__header.r4r-DEFAULT > div {
-    width: 50%;
+.home-nav__tile.r4r-DEFAULT {
+    width: 48%;
+    display: flex;
+    align-items: center;
 }
 
+.home-nav__tile.r4r-DEFAULT > svg {
+    width: 100px;
+}
+
+.home-nav__tile.r4r-DEFAULT > h2, .home-nav__tile.r4r-DEFAULT > div {
+    flex: 1;
+}
+
+
 @media only screen and (max-width: 768px){
-    .home-nav__header.r4r-DEFAULT > div {
+    .home-nav__tile.r4r-DEFAULT {
         width: 100%;
+    }
+
+    .home-nav__tile.r4r-DEFAULT:not(:last-of-type){
+        border-bottom: 1px solid #777;
     }
 }
 
@@ -89,7 +92,7 @@
 }
 
 @media only screen and (max-width: 640px){
-    .home-nav__header {
+    .home-nav__tiles {
         flex-direction: column;
     }
     

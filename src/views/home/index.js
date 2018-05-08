@@ -18,6 +18,7 @@ import {
     keyHandler,
 } from '../../utilities';
 import './index.css';
+import SVG from '../../components/SVG';
 
 class Home extends React.PureComponent {
     static propTypes = {
@@ -80,8 +81,9 @@ class Home extends React.PureComponent {
                     </Theme>
                 </Theme>
                 <Theme element="nav" className="home-nav">
-                    <Theme element="div" className="home-nav__header">
-                        <div>
+                    <Theme element="div" className="home-nav__tiles">
+                        <Theme element="div" className="home-nav__tile">
+                            <SVG iconType="open" />
                             <Theme element="h2" className='home__view-all'
                                 onClick={ this.viewAllOnClick }
                                 onKeyPress={ keyHandler({
@@ -92,19 +94,24 @@ class Home extends React.PureComponent {
                             >
                                 View All Resources
                             </Theme>
-                        </div>
-                        <Theme element="div" className='home__search'>
-                            <SearchBar
-                                value={ this.props.searchBarValue }
-                                onChange={ this.props.searchBarOnChange }
-                                onSubmit={ this.newTextSearch }
-                                placeholder="Find NCI-supported resources"
-                                page='home'
-                            />
                         </Theme>
-                        <div>
+                        <Theme element="div" className="home-nav__tile">
+                            <SVG iconType="open" />
+                            <Theme element="div" className='home__search'>
+                                <h2>Search Resources</h2>
+                                <SearchBar
+                                    value={ this.props.searchBarValue }
+                                    onChange={ this.props.searchBarOnChange }
+                                    onSubmit={ this.newTextSearch }
+                                    placeholder="Find NCI-supported resources"
+                                    page='home'
+                                />
+                            </Theme>
+                        </Theme>
+                        <Theme element="div" className="home-nav__tile">
+                            <SVG iconType="open" />
                             <h2>Browse Resources</h2>
-                        </div>
+                        </Theme>
                     </Theme>
                     <Theme element="div" className="home-nav__main">
                         <Theme element="div" className="home-nav__section">
