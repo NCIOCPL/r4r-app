@@ -1,10 +1,11 @@
 .r4r__link--about.r4r-DEFAULT {
-    display: block;
+    display: inline-block;
     margin: 5px;
 }
 
 .r4r-home.r4r-DEFAULT .r4r__link--about.r4r-DEFAULT {
     margin: 10px 0;
+    font-size: 0.9em;
     margin-left: auto;
 }
 
@@ -16,7 +17,7 @@
     display: flex;
 }
 
-.home__view-all.r4r-DEFAULT {
+.home__view-all.r4r-DEFAULT h2 {
     cursor: pointer;
     color: #169bd5;
 }

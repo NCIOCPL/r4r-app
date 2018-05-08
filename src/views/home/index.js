@@ -84,15 +84,17 @@ class Home extends React.PureComponent {
                     <Theme element="div" className="home-nav__tiles">
                         <Theme element="div" className="home-nav__tile">
                             <SVG iconType="viewAllIcon" className="home-tile__icon" />
-                            <Theme element="h2" className='home__view-all'
-                                onClick={ this.viewAllOnClick }
-                                onKeyPress={ keyHandler({
-                                    fn: this.viewAllOnClick,
-                                })}
-                                tabIndex="0"
-                                role="link"
-                            >
-                                View All Resources
+                            <Theme element="div" className='home__view-all'>
+                                <a
+                                    /* This is used instead of a pseudo element because of cgov outline styles being disabled */
+                                    onClick={ this.viewAllOnClick }
+                                    onKeyPress={ keyHandler({
+                                        fn: this.viewAllOnClick,
+                                    })}
+                                    tabIndex="0"
+                                >
+                                    <h2>View All Resources</h2>
+                                </a>
                             </Theme>
                         </Theme>
                         <Theme element="div" className="home-nav__tile">

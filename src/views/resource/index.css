@@ -138,6 +138,7 @@
 @media only screen and (max-width: 640px) {
     .resource__home.r4r-DEFAULT {
         flex-direction: column;
+        margin: 0;
     }
 
     .resource__back::after{
