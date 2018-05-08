@@ -2,7 +2,8 @@
     width: 120px;
     font-size: 16px;
     color: #777;
-    align-self: center;
+    align-self: flex-start;
+    margin: 6px 0;
 }
 
 .selected-filters__filters-container.r4r-DEFAULT {
@@ -16,8 +17,8 @@
     color: white;
     background: #2a71a5;
     font-size: 14px;
-    padding: 7px 12px;
-    margin: 5px 10px;
+    padding: 3px 12px;
+    margin: 3px 5px;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
@@ -28,7 +29,7 @@
     background: none;
     color: #169bd5;
     font-size: 1.1em;
-
+    width: auto;
 }
 
 .selected-filters__filter.r4r-DEFAULT > p:nth-child(2) {

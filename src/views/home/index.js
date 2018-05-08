@@ -83,7 +83,7 @@ class Home extends React.PureComponent {
                 <Theme element="nav" className="home-nav">
                     <Theme element="div" className="home-nav__tiles">
                         <Theme element="div" className="home-nav__tile">
-                            <SVG iconType="open" />
+                            <SVG iconType="viewAllIcon" className="home-tile__icon" />
                             <Theme element="h2" className='home__view-all'
                                 onClick={ this.viewAllOnClick }
                                 onKeyPress={ keyHandler({
@@ -96,7 +96,7 @@ class Home extends React.PureComponent {
                             </Theme>
                         </Theme>
                         <Theme element="div" className="home-nav__tile">
-                            <SVG iconType="open" />
+                            <SVG iconType="searchIcon" className="home-tile__icon" />
                             <Theme element="div" className='home__search'>
                                 <h2>Search Resources</h2>
                                 <SearchBar
@@ -109,7 +109,7 @@ class Home extends React.PureComponent {
                             </Theme>
                         </Theme>
                         <Theme element="div" className="home-nav__tile">
-                            <SVG iconType="open" />
+                            <SVG iconType="browseIcon" className="home-tile__icon"/>
                             <h2>Browse Resources</h2>
                         </Theme>
                     </Theme>

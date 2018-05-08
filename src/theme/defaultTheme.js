@@ -22,6 +22,7 @@ export const defaultThemeHooks = [
     'selected-filters__filter',
     'r4r-results',
     'results__header',
+    'results__selections-container',
     'results__count-container',
     'results__selected-filters',
     'results__main',
@@ -58,5 +59,7 @@ export const defaultThemeHooks = [
     'resource__link--external',
     'r4r-resource__header',
     'resource__home',
+    'r4r-svg-container',
+    'home-tile__icon',
 
 ]

@@ -7,7 +7,7 @@
     background: transparent;
 }
 
-.r4r-results .results__selected-filters.r4r-DEFAULT {
+.results__selected-filters.r4r-DEFAULT {
     margin: 20px 0;
     display: flex;
 }
@@ -106,7 +106,7 @@
 }
 
 /* TODO: The rules for other components should be moved to the appropriate file */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
 
     .r4r-container {
         overflow-x: hidden;
@@ -115,33 +115,28 @@
     .r4r-results .results__header {
         padding: 0;
         height: auto;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .r4r-results  .searchbar__container {
         margin: 0 auto;
+        width: auto;
+    }
+
+    .results__selections-container{
+        display: flex;
+        justify-content: flex-end;
     }
 
 
     .results__filter-button {
         display: block;
-        width: 700px;
-        max-width: 95%;
+        width: 130px;
         height: 40px;
         font-size: 16px;
         margin: 10px auto;
-        background: #2a71a5;
+        background: #620788;
         color: white;
-    }
-
-    .selected-filters__filters-container.r4r-DEFAULT {
-        justify-content: center;
-    }
-    .selected-filters__filter.selected-filters__clear.r4r-DEFAULT {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .results__main .results__facets.r4r-DEFAULT {
@@ -169,10 +164,11 @@
         margin-right: 5px;
     }
 
-    .r4r-results .results__selected-filters.r4r-DEFAULT {
-        flex-direction: column;
-        align-items: center;
-        margin: 10px auto;
+    .results__selected-filters.r4r-DEFAULT {
+        flex: 1;
+        justify-content: flex-start;
+        margin: 0;
+        margin-bottom: 10px;
     }
 
     
@@ -182,13 +178,26 @@
 }
 /* TODO: Facet box margin issues at one column mobile view */
 @media only screen and (max-width: 640px){
+    .results__selections-container{
+        flex-direction: column-reverse;
+    }
+
+    .results__selected-filters.r4r-DEFAULT{
+        flex-direction: column;
+    }
+
+    .results__filter-button{
+        width: 300px;
+    }
+
     .r4r-pager.r4r-DEFAULT {
         flex-direction: column;
         align-items: center;
     }
 
-    .r4r-pager__count{
+    .r4r-pager__count.r4r-DEFAULT{
         margin: 10px auto;
+        margin-bottom: 3px;
         flex-direction: column;
     }
 

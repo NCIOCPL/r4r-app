@@ -38,7 +38,6 @@ import './index.css';
 class Results extends React.PureComponent {
     constructor(props){
         super(props);
-        console.log('constructor', props)
         this.state = {
             /**
              * This is the only instance of local state in the app. Both calculations can be handled through the reducers
@@ -48,7 +47,7 @@ class Results extends React.PureComponent {
             selectedFilters: [],
             isMobile: false,
         }
-        this.mediaQueryListener = window.matchMedia('(max-width: 768px)');
+        this.mediaQueryListener = window.matchMedia('(max-width: 1024px)');
     }
 
     static propTypes = {
@@ -129,28 +128,22 @@ class Results extends React.PureComponent {
     }
     
     componentDidMount() {
-        console.log('mount', this.props)
         this.newFullSearch();
         this.mediaQueryListener.addListener(this.mediaQueryEvent);
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(!prevProps) {
-            // The first time data is available for this to run we need to call it (since the data isn't requested until componentDidMount)
+        
+        // Watch only for changes to the filters...
+        if(prevProps && this.props.facets !== prevProps.facets) {
+            console.log('Filters have been updated')
+            // 1) Update local state watcher of selected filters
             /**
              * getCurrentlySelectedFiltersFromFacets:
              * This method is an expensive nested reduce over nested arrays representing objects.
              * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
              * (being a light app, we will defer these optimizations for now).
              */
-            this.setState({
-                selectedFilters: getCurrentlySelectedFiltersFromFacets(this.props.facets)
-            });
-        }
-        // Watch only for changes to the filters...
-        if(prevProps.facets && this.props.facets !== prevProps.facets) {
-            console.log('Filters have been updated')
-            // 1) Update local state watcher of selected filters
             this.setState({
                 selectedFilters: getCurrentlySelectedFiltersFromFacets(this.props.facets)
             });
@@ -201,6 +194,15 @@ class Results extends React.PureComponent {
                                 onSubmit={ this.newTextSearch }
                                 page='results'                            
                             />
+                        </Theme>
+                        <div className="results__selections-container">
+                            {
+                                <SelectedFiltersBox
+                                    selected={ this.state.selectedFilters }
+                                    clearFilters={this.props.clearFilters}
+                                    toggleFilter={this.toggleFilter}
+                                />
+                            }
                             {
                                 /* Don't show the filter button when there are no results to filter */
                                 !!this.props.results.length &&
@@ -218,14 +220,7 @@ class Results extends React.PureComponent {
                                         }
                                     </Theme>
                             }
-                        </Theme>
-                        {
-                            <SelectedFiltersBox
-                                selected={ this.state.selectedFilters }
-                                clearFilters={this.props.clearFilters}
-                                toggleFilter={this.toggleFilter}
-                            />
-                        }
+                        </div>
                         {
                             !this.state.isMobileMenuOpen &&
                                 <Pager

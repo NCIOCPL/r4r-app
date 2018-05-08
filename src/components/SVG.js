@@ -1,12 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Theme } from '../theme';
+
+const searchIcon =
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100.6" style={{ enableBackground:'new 0 0 100 100.6' }} xmlSpace="preserve">
+    <g>
+        <path d="M95,3.8H5v92.5h90V3.8z M89,9.8v16H11v-16H89z M11,90.3V31.8h78v58.5H11z"/>
+        <circle cx="30" cy="17.7" r="4.1"/>
+        <circle cx="40.6" cy="17.7" r="4.1"/>
+        <circle cx="19.4" cy="17.7" r="4.1"/>
+    </g>
+    <path d="M69.3,81.3c-1.6,1.6-4.3,1.6-5.9,0l-7.7-7.7c-2.7,1.7-5.9,2.6-9.3,2.6c-9.8,0-17.8-8-17.8-17.9s8-17.8,17.8-17.8
+        s17.9,8,17.9,17.8c0,3.4-1,6.6-2.6,9.3l7.7,7.7C70.9,77,70.9,79.6,69.3,81.3z M46.3,46.8c-6.3,0-11.5,5.2-11.5,11.5
+        S40,69.9,46.4,69.9s11.6-5.2,11.6-11.6S52.7,46.8,46.3,46.8z"/>
+</svg>
+
+const viewAllIcon =
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100.6" style={{ enableBackground:'new 0 0 100 100.6' }} xmlSpace="preserve">
+    <g>
+        <path d="M95,3.8H5v92.5h90V3.8z M89,9.8v16H11v-16H89z M11,90.3V31.8h78v58.5H11z"/>
+        <circle cx="30" cy="17.7" r="4.1"/>
+        <circle cx="40.6" cy="17.7" r="4.1"/>
+        <circle cx="19.4" cy="17.7" r="4.1"/>
+    </g>
+    <path d="M84,58.1c-8.8-8.8-20.6-13.6-33-13.6s-24.2,4.8-33,13.6l3.9,3.9c5.4-5.4,12-9.1,19.3-10.9c-2.8,2.6-4.4,6.3-4.4,10.4
+	c0,7.9,6.4,14.2,14.2,14.2s14.2-6.4,14.2-14.2c0-4-1.7-7.7-4.4-10.4c7.3,1.7,13.9,5.5,19.3,10.9L84,58.1z"/>
+</svg>
+
+const browseIcon =
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100.6" style={{ enableBackground:'new 0 0 100 100.6' }} xmlSpace="preserve">
+    <g>
+        <path d="M95,3.8H5v92.5h90V3.8z M89,9.8v16H11v-16H89z M11,90.3V31.8h78v58.5H11z"/>
+        <circle cx="30" cy="17.7" r="4.1"/>
+        <circle cx="40.6" cy="17.7" r="4.1"/>
+        <circle cx="19.4" cy="17.7" r="4.1"/>
+        <path d="M63.1,84.4h19.8v-21H63.1V84.4z M69.1,69.4h7.8v9h-7.8V69.4z"/>
+        <path d="M17.1,84.4h19.8v-21H17.1V84.4z M23.1,69.4h7.8v9h-7.8V69.4z"/>
+        <path d="M40.1,84.4h19.8v-21H40.1V84.4z M46.1,69.4h7.8v9h-7.8V69.4z"/>
+        <path d="M63.1,58.4h19.8v-21H63.1V58.4z M69.1,43.4h7.8v9h-7.8V43.4z"/>
+        <path d="M17.1,58.4h19.8v-21H17.1V58.4z M23.1,43.4h7.8v9h-7.8V43.4z"/>
+        <path d="M40.1,58.4h19.8v-21H40.1V58.4z M46.1,43.4h7.8v9h-7.8V43.4z"/>
+    </g>
+</svg>
 
 const magnifyIcon =
 <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
     <title>Magnifying Glass Icon</title>
     <defs></defs>
-    <g id="r4r-magnify-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M12.370756,11.6338533 L11.497863,11.1003191 L12.0511346,10.2398009 C12.6676075,9.28098399 13,8.16636264 13,7 C13,3.6862915 10.3137085,1 7,1 C3.6862915,1 1,3.6862915 1,7 C1,10.3137085 3.6862915,13 7,13 C8.18648905,13 9.31933446,12.6559913 10.2886875,12.0193666 L11.1435654,11.4579236 L11.685632,12.3252172 C11.7040473,12.3546813 11.7258067,12.3825474 11.7510134,12.4086496 L14.5296468,15.2860088 C14.7214715,15.484649 15.0380057,15.4901741 15.2366459,15.2983495 C15.4352861,15.1065249 15.4408113,14.7899906 15.2489866,14.5913504 L12.4703532,11.7139912 C12.4398346,11.6823883 12.4065292,11.6557187 12.370756,11.6338533 Z" id="Combined-Shape" stroke="#FFFFFF" stroke-width="2"></path>
+    <g id="r4r-magnify-icon" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <path d="M12.370756,11.6338533 L11.497863,11.1003191 L12.0511346,10.2398009 C12.6676075,9.28098399 13,8.16636264 13,7 C13,3.6862915 10.3137085,1 7,1 C3.6862915,1 1,3.6862915 1,7 C1,10.3137085 3.6862915,13 7,13 C8.18648905,13 9.31933446,12.6559913 10.2886875,12.0193666 L11.1435654,11.4579236 L11.685632,12.3252172 C11.7040473,12.3546813 11.7258067,12.3825474 11.7510134,12.4086496 L14.5296468,15.2860088 C14.7214715,15.484649 15.0380057,15.4901741 15.2366459,15.2983495 C15.4352861,15.1065249 15.4408113,14.7899906 15.2489866,14.5913504 L12.4703532,11.7139912 C12.4398346,11.6823883 12.4065292,11.6557187 12.370756,11.6338533 Z" id="Combined-Shape" stroke="#FFFFFF" strokeWidth="2"></path>
     </g>
 </svg>
 
@@ -88,15 +133,33 @@ const images = {
     "register": contractIcon,
     "cost": moneyIcon,
     "magnify": magnifyIcon,
+    browseIcon,
+    viewAllIcon,
+    searchIcon,
 }
 
 class SVG extends React.PureComponent{
     static propTypes = {
         iconType: PropTypes.oneOf(Object.keys(images)).isRequired,
+        className: PropTypes.string,
+    }
+
+    static defaultProps = {
+        className: 'r4r-svg-container',
     }
 
     render(){
-        return images[this.props.iconType] || null;
+        if(!images[this.props.iconType]){
+            return null;
+        }
+        return (
+            <Theme
+                element="div"
+                className={ this.props.className }
+            >
+                { images[this.props.iconType] }
+            </Theme>
+        ) 
     }
 }
 
