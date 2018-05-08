@@ -31,17 +31,12 @@ import {
 } from '../../interfaces';
 import './index.css';
 
-//TODO: NOTE: Maybe the searching spinner should happen on the search page and this page only rendered
-// when results are returned (however if someone is linked directly here from an external site
-// that would be a different flow. Hmm.)
-
 class Results extends React.PureComponent {
     constructor(props){
         super(props);
         this.state = {
             /**
-             * This is the only instance of local state in the app. Both calculations can be handled through the reducers
-             * in a refactor.
+             * FYI, This is the only instance of local state in the app. 
              */
             isMobileMenuOpen: false,
             selectedFilters: [],
@@ -132,23 +127,26 @@ class Results extends React.PureComponent {
         this.mediaQueryListener.addListener(this.mediaQueryEvent);
     }
 
+    static getDerivedStateFromProps(nextProps, prevState){
+        /**
+         * getCurrentlySelectedFiltersFromFacets:
+         * This method is an expensive nested reduce over nested arrays representing objects.
+         * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
+         * (being a light app, we will defer these optimizations for now).
+         */
+        if(nextProps.facets !== prevState.facets){
+            return {
+                ...prevState,
+                selectedFilters: getCurrentlySelectedFiltersFromFacets(nextProps.facets),
+            }
+        }
+        return null;
+    }
+
     componentDidUpdate(prevProps, prevState) {
-        
         // Watch only for changes to the filters...
         if(prevProps && this.props.facets !== prevProps.facets) {
-            console.log('Filters have been updated')
-            // 1) Update local state watcher of selected filters
-            /**
-             * getCurrentlySelectedFiltersFromFacets:
-             * This method is an expensive nested reduce over nested arrays representing objects.
-             * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
-             * (being a light app, we will defer these optimizations for now).
-             */
-            this.setState({
-                selectedFilters: getCurrentlySelectedFiltersFromFacets(this.props.facets)
-            });
-
-            // Generate new search based on current filters state
+            // 2) Generate new search based on current filters state
             const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
             paramsObject.q = this.props.currentSearchText;
             if(this.props.startFrom){
