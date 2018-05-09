@@ -98,7 +98,7 @@
  * @param {Metadata} meta
  * @return {Metadata}
  */
-const validateStartFrom = meta => {
+export const validateStartFrom = meta => {
     if(!isNaN(meta.from) && !isNaN(meta.totalResults)){
         if(meta.from > meta.totalResults){
             meta = {
@@ -130,7 +130,7 @@ export const validateSearchResponse = res => {
  * @param {number} [req.from]
  * @return {RequestParams}
  */
-const addFromParamIfNoneFound = req => {
+export const addFromParamIfNoneFound = req => {
     if(!req.from){
         req.from = 0;
     }
