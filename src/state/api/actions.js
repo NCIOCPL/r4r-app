@@ -52,7 +52,7 @@ const cacheResources = resources => {
     }
 }
 
-const loadResource = resource => ({
+export const loadResource = resource => ({
     type: LOAD_RESOURCE,
     payload: resource,
 })
