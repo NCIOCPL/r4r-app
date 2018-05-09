@@ -63,11 +63,7 @@ class Resource extends React.PureComponent {
     }
 
     renderSimilarResources = () => {
-        const filters = [
-            ...formatFilters('toolTypes', this.props.resource), 
-            ...formatFilters('researchAreas', this.props.resource), 
-            ...formatFilters('researchTypes', this.props.resource)
-        ];
+        const filters = formatFilters(this.props.resource);
 
         return filters.map(({
             filter,

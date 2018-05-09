@@ -1,6 +1,9 @@
 import {
     UPDATE_SEARCH_BAR,
 } from './actions';
+import {
+    SET_CURRENT_SEARCH_TEXT,
+} from '../api/actions';
 
 const initialState = {
     searchBarValues: {
@@ -20,6 +23,16 @@ const reducer = (state = initialState, action) => {
                     [action.payload.page]: action.payload.value,
                 }
             };
+        case SET_CURRENT_SEARCH_TEXT:
+            return {
+                ...state,
+                searchBarValues: {
+                    ...state.searchBarValues,
+                    home: '',
+                    results: action.payload,
+                    resource: '',
+                }
+            }
         default:
             return state;
     }

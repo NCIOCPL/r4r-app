@@ -51,6 +51,8 @@ import '../polyfills/object_entries';
  * @type {Object}
  * @property {string} key
  * @property {string} label
+ * @property {string} param
+ * @property {string} title
  * @property {number} count
  * @property {boolean} selected
  */
@@ -63,36 +65,28 @@ import '../polyfills/object_entries';
  * @property {Facet[]} items
  */
 
-/**
- * 
- * 
- * @param {string} filterType 
- * @param {Resource} [resource={}]
- * @returns 
+ /**
+ * @typedef RequestParams
+ * @type {Object}
+ * @property {string} [q]
+ * @property {number} [size]
+ * @property {number} [from]
+ * @property {string[]} [toolTypes]
+ * @property {string[]} [toolSubtypes]
+ * @property {string[]} [researchAreas]
+ * @property {string[]} [researchTypes]
+ * @property {string[]} [docs]
+ * @property {string[]} [include]
+ * @property {string[]} [includeFacets]
  */
-export const formatFilters = (filterType, resource = {}) => {
-    if(typeof resource !== 'object' || resource === null) {
-        return;
-    }
-    //TODO: Is this still the right approach for tool/sub? investigate
-    return resource[filterType].map(filter => {
-        // Have to handle special case of type/subtypes for tooltypes
-        // This isn't elegant, but hopefully readable
-        if(filter.type) {
-            filterType = 'toolTypes';
-            filter = filter.type;
-        }   
-        if(filter.subtype) {
-            filterType = 'toolSubtypes';
-            filter = filter.subtype;
-        }
-        return {
-            filterType,
-            filter: filter.key,
-            label: filter.label,
-        }
-    })
-}
+
+ /**
+  * @typedef FormattedFilterForHomePage
+  * @type {Object}
+  * @property {string} filterType
+  * @property {string} filter
+  * @property {string} label
+  */
 
 /**
  * The purpose of this conversion is to make future lookups cheaper by using a hashmap instead of filtering an array.
@@ -119,20 +113,13 @@ export const formatRawResourcesFacets = rawFacets => {
 }
 
 /**
- * Return a URI encoded string representing search text. An invalid argument will result in returning
- * null.
- * 
- * @param {string} rawText
- * @return {string|null} queryText
+ * Given an object representing all valid search params, returns a stringified(URIEncoded) version.
+ * If an empty q string is provided it is stripped before encoding
+ * If an invalid object is provided the function returns undefined.
+ * (the conversion is done by the query-string library)
+ * @param {RequestParams} params
+ * @return {string}
  */
-export const composeQueryText = rawText => {
-    if(rawText && typeof rawText === 'string') {
-        const queryText = encodeURIComponent(rawText);
-        return queryText;
-    }
-    return null;
-}
-
 export const composeQueryString = params => {
     if(typeof params !== 'object' || params === null) {
         return;
@@ -150,26 +137,14 @@ export const composeQueryString = params => {
     return composedQueryString;
 }
 
-
-export const transformFacetFiltersIntoQueryString = facets => {
-    if(typeof facets !== 'object' || facets === null) {
-        return;
-    }
-
-    const queryStringParams = Object.entries(facets).reduce((acc, [facetParam, { items }]) => {
-        const filters = Object.entries(items).reduce((acc, [filterKey, { selected }]) => {
-            if(selected) {
-                acc = [ ...acc, `${facetParam}=${filterKey}`];
-            }
-            return acc;
-        }, [])
-        return [...acc, ...filters];
-    }, [])
-    return queryStringParams.join('&');
-}
-
 /**
- * 
+ * We want to generate a query params object from the current state of the facets in the store.
+ * The facets had been converted into a map by formatRawResourcesFacets(), but are otherwise the original data
+ * returned from the API.
+ * When a user selects a filter the map in the store is directly mutated to update the filter selection status.
+ * This function then grabs the current (new) state of the mutated results and generates
+ * an object of any selected filters. The app fires off the request immediately afterwards and overwrites
+ * the mutated results with the new clean results which should match (this is how we avoid getting out of sync).
  * @param {Object} facets 
  */
 export const transformFacetFiltersIntoParamsObject = facets => {
@@ -215,6 +190,38 @@ export const reconstituteSearchResultsFromCache = (key, cache) => {
 }
 
 /**
+ * RENDER HELPER
+ * Grab desired facets off the resource and reformat them into a single array for rendering on
+ * resource page. 
+ * (Currently returns all facet filters except toolSubtypes)
+ * 
+ * @param {Resource} [resource={}]
+ * @return {FormattedFilterForHomePage[]} 
+ */
+export const formatFilters = (resource = {}) => {
+    if(typeof resource !== 'object' || resource === null) {
+        return;
+    }
+
+    const filterTypes = ['toolTypes', 'researchAreas', 'researchTypes'];
+    const formatted = filterTypes.reduce((acc, filterType) => {
+        return [
+            ...acc, 
+            ...resource[filterType].map(filter => {
+                return {
+                    filterType,
+                    filter: filter.key,
+                    label: filter.label,
+                }
+            })
+        ];
+    }, [])
+
+    return formatted;
+}
+
+/**
+ * RENDER HELPER
  * Return a grammatically appropriate sentence representing the resource DOCs
  * @param {KeyLabel[]} doCs
  * @return {string}
@@ -245,10 +252,13 @@ export const renderDocsString = (doCs = []) => {
 }
 
 /**
+ * RENDER HELPER
+ * Given a map of facets containing maps of filters, returns an array of only the filters
+ * that are currently selected.
+ * Returns an empty array when provided invalid input (this functioning is for rendering only);
  * 
- * 
- * @param {Object} facets 
- * @returns 
+ * @param {FacetGroup[]} facets 
+ * @return {Facet[]}
  */
 export const getCurrentlySelectedFiltersFromFacets = facets => {
     if(typeof facets !== 'object' || facets === null) {
@@ -271,6 +281,36 @@ export const getCurrentlySelectedFiltersFromFacets = facets => {
         return [...acc, ...filters];
     }, [])
     return selected;
+}
+
+/**
+ * RENDER HELPER
+ * Generate an array representing the currently selectable page skip numbers. 0 is
+ * used to represent an ellipses and will be rendered as such. Previous and next are handled
+ * externally.
+ * 
+ * @param {number} total 
+ * @param {number} current
+ * @return {number[]} pages
+ */
+export const formatPagerArray = (total, current) => {
+    const pagesFromStart = current;
+    const pagesFromEnd = total - current;
+    let pages;
+    if(pagesFromStart > 5){
+        pages = [1, 0, current - 2, current - 1, current];
+    }
+    else {
+        pages = Array(current).fill().map((el, idx) => idx + 1); 
+    }
+    if(pagesFromEnd > 5) {
+        pages = [...pages, current + 1, current + 2, 0, total];
+    }
+    else {
+        const remainingPages = Array(pagesFromEnd).fill().map((el, idx) => current + idx + 1);
+        pages = [ ...pages, ...remainingPages ]; 
+    }
+    return pages;
 }
 
 /**
@@ -306,33 +346,4 @@ export const keyHandler = (options = {}) => e => {
         prevDef && e.preventDefault();
         return fn();
     }
-}
-
-/**
- * Generate an array representing the currently selectable page skip numbers. 0 is
- * used to represent an ellipses and will be rendered as such. Previous and next are handled
- * externally.
- * 
- * @param {number} total 
- * @param {number} current
- * @return {number[]} pages
- */
-export const formatPagerArray = (total, current) => {
-    const pagesFromStart = current;
-    const pagesFromEnd = total - current;
-    let pages;
-    if(pagesFromStart > 5){
-        pages = [1, 0, current - 2, current - 1, current];
-    }
-    else {
-        pages = Array(current).fill().map((el, idx) => idx + 1); 
-    }
-    if(pagesFromEnd > 5) {
-        pages = [...pages, current + 1, current + 2, 0, total];
-    }
-    else {
-        const remainingPages = Array(pagesFromEnd).fill().map((el, idx) => current + idx + 1);
-        pages = [ ...pages, ...remainingPages ]; 
-    }
-    return pages;
 }

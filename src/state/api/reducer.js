@@ -1,6 +1,5 @@
 import {
     SET_CURRENT_SEARCH_TEXT,
-    SET_CURRENT_SEARCH_QUERY_STRING,
     LOAD_NEW_SEARCH_RESULTS,
     UPDATE_TOOLTYPE_FILTER,
     LOAD_NEW_FACET_RESULTS,
@@ -134,9 +133,10 @@ const reducer = (state = initialState, action) => {
                 results: currentResults,
                 facets: currentFacets,
                 meta: currentMetaData,
-            } = action.payload;
+            } = action.payload.results;
             return {
                 ...state,
+                currentSearchQueryString: action.payload.newQueryString,
                 isFetching: false,
                 currentResults,
                 currentFacets,
@@ -146,11 +146,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentSearchText: action.payload,
-            }
-        case SET_CURRENT_SEARCH_QUERY_STRING:
-            return {
-                ...state,
-                currentSearchQueryString: action.payload,
             }
         case REGISTER_ERROR: 
             return {
