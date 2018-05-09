@@ -13,7 +13,6 @@ class ResultTile extends React.PureComponent {
     static defaultProps = {
         title: '',
         description: '',
-        id: '',
     }
 
     render() {

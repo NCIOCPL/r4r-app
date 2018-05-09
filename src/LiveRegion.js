@@ -4,7 +4,7 @@ import { Theme } from './theme';
 
 // Use this component to announe state changes to screen-readers
 // by passing a message to state/announcements/actions/newMessage()
-class LiveRegion extends React.PureComponent {
+export class LiveRegion extends React.PureComponent {
     render() {
         return (
             <Theme

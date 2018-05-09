@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Home } from './index';
+import NoTouch from './NoTouch';
 
 it('renders without crashing', () => {
-  shallow(<Home loadFacets={() => {}} />);
+  shallow(<NoTouch />);
 });

@@ -1,9 +1,9 @@
-import { shape, arrayOf, string, number } from 'prop-types';
+import { shape, arrayOf, string, number, bool } from 'prop-types';
 
 export const resourceInterface = shape({
     id: number.isRequired,
     title: string.isRequired,
-    website: string, //TODO: Is this assumption erroneous?
+    website: string,
     description: string.isRequired,
     poCs: arrayOf(shape({
         name: shape({
@@ -41,4 +41,13 @@ export const resourceInterface = shape({
         key: string.isRequired,
         label: string.isRequired,
     })),
+});
+
+export const filterInterface = shape({
+    key: string,
+    label: string,
+    param: string,
+    title: string,
+    count: number,
+    selected: bool,
 })

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Home } from './index';
+import FatalErrorBoundary from './FatalErrorBoundary';
 
 it('renders without crashing', () => {
-  shallow(<Home loadFacets={() => {}} />);
+  shallow(<FatalErrorBoundary />);
 });

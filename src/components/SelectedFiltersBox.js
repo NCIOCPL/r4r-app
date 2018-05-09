@@ -4,13 +4,20 @@ import { Theme } from '../theme';
 import {
     keyHandler,
 } from '../utilities';
+import {
+    filterInterface
+} from '../interfaces';
 import './SelectedFiltersBox.css';
 
 class SelectedFiltersBox extends React.PureComponent {
     static propTypes = {
-        selected: PropTypes.array.isRequired, //TODO: More granular type definition here
+        selected: PropTypes.arrayOf(filterInterface).isRequired, 
         toggleFilter: PropTypes.func.isRequired,
         clearFilters: PropTypes.func.isRequired,
+    }
+
+    static defaultProps = {
+        selected: [],
     }
 
     render(){

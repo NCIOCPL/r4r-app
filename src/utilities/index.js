@@ -47,7 +47,7 @@ import '../polyfills/object_entries';
  */
 
 /**
- * @typedef Facet
+ * @typedef Filter
  * @type {Object}
  * @property {string} key
  * @property {string} label
@@ -58,11 +58,11 @@ import '../polyfills/object_entries';
  */
 
 /**
- * @typedef FacetGroup
+ * @typedef Facet
  * @type {Object}
  * @property {string} param
  * @property {string} title
- * @property {Facet[]} items
+ * @property {Filter[]} items
  */
 
  /**
@@ -92,7 +92,7 @@ import '../polyfills/object_entries';
  * The purpose of this conversion is to make future lookups cheaper by using a hashmap instead of filtering an array.
  * However we will have to convert the facets back into an array for rendering passes, so this would be a questionable tradeoff
  * if it wasn't such a small dataset.
- * @param {FacetGroup[]} rawFacets
+ * @param {Facet[]} rawFacets
  * @return {Object}
  */
 export const formatRawResourcesFacets = rawFacets => {
@@ -257,8 +257,8 @@ export const renderDocsString = (doCs = []) => {
  * that are currently selected.
  * Returns an empty array when provided invalid input (this functioning is for rendering only);
  * 
- * @param {FacetGroup[]} facets 
- * @return {Facet[]}
+ * @param {Facet[]} facets 
+ * @return {Filter[]}
  */
 export const getCurrentlySelectedFiltersFromFacets = facets => {
     if(typeof facets !== 'object' || facets === null) {

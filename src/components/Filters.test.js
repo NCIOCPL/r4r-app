@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Home } from './index';
+import Filters from './Filters';
 
 it('renders without crashing', () => {
-  shallow(<Home loadFacets={() => {}} />);
+  shallow(<Filters />);
 });

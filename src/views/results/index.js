@@ -31,7 +31,7 @@ import {
 } from '../../interfaces';
 import './index.css';
 
-class Results extends React.PureComponent {
+export class Results extends React.PureComponent {
     constructor(props){
         super(props);
         this.state = {

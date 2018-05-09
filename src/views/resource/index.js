@@ -35,7 +35,7 @@ const resourceAccessTitles = {
     'cost': 'Payment Required'
 }
 
-class Resource extends React.PureComponent {
+export class Resource extends React.PureComponent {
     static propTypes = {
         newSearch: PropTypes.func.isRequired,
         searchBarOnChange: PropTypes.func.isRequired,

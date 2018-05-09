@@ -42,7 +42,7 @@
  */
 
 /**
- * @typedef Facet
+ * @typedef Filter
  * @type {Object}
  * @property {string} key
  * @property {string} label
@@ -53,11 +53,11 @@
  */
 
 /**
- * @typedef FacetGroup
+ * @typedef Facet
  * @type {Object}
  * @property {string} param
  * @property {string} title
- * @property {Facet[]} items
+ * @property {Filter[]} items
  */
 
 /**
@@ -86,7 +86,7 @@
 /**
  * @typedef SearchResultsBody
  * @type {Object}
- * @property {FacetGroup[]} facets
+ * @property {Facet[]} facets
  * @property {Resource[]} results
  * @property {Metadata} meta
  */

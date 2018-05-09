@@ -20,7 +20,7 @@ import {
 import './index.css';
 import SVG from '../../components/SVG';
 
-class Home extends React.PureComponent {
+export class Home extends React.PureComponent {
     static propTypes = {
         searchBarValue: PropTypes.string,
         newSearch: PropTypes.func.isRequired,

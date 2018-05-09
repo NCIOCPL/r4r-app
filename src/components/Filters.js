@@ -10,6 +10,11 @@ class Filters extends React.PureComponent {
         onChange: PropTypes.func.isRequired,
     }
 
+    static defaultProps = {
+        facets: {},
+        onChange: () => {},
+    }
+
     render(){
         const toolTypesTypeFilters = (this.props.facets['toolTypes'] && this.props.facets['toolTypes'].items) || [];
         const isToolTypeSelected = Object.entries(toolTypesTypeFilters).some(([key, obj]) => obj.selected);
