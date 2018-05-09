@@ -60,6 +60,6 @@ export const timedFetch = (url, timeout = 15000, fetchOptions) => {
  * @param {*} dispatch The dispatch method from the redux store needs to be injected
  */
 export const constructErrorMessage = (err, dispatch) => {
-    const message = err.timeoutError ? err.timeoutError : err.response.statusText ? err.response.statusText : err.message;
+    const message = err.timeoutError ? err.timeoutError : (err.response && err.response.statusText) ? err.response.statusText : err.message;
     dispatch(registerError(message));
 }
