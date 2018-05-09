@@ -7,14 +7,17 @@ import {
 import Home from './views/home';
 import Results from './views/results';
 import Resource from './views/resource';
+import ScrollReset from './ScrollReset';
 
 const AppRouter = ({ history }) => (
     <Router history={ history }>
-        <Switch>
-            <Route path="/search" component={ Results } />
-            <Route path="/resource/:id" component={ Resource } />
-            <Route path="*" component={ Home } />
-        </Switch>
+        <ScrollReset>
+            <Switch>
+                <Route path="/search" component={ Results } />
+                <Route path="/resource/:id" component={ Resource } />
+                <Route path="*" component={ Home } />
+            </Switch>
+        </ScrollReset>
     </Router>
 )
 
