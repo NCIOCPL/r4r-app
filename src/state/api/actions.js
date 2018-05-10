@@ -114,9 +114,9 @@ export const loadFacets = () => (dispatch, getState) => {
     const queryEndpoint = API_resourcesEndpoint + queryString;
     
     const store = getState();
-    const isCached = store.api.referenceFacets;
-    if(isCached){
-        console.log('Facets are cached already.')
+    const isAlreadyLoaded = store.api.referenceFacets;
+    if(isAlreadyLoaded){
+        console.log('Facets are loaded already.')
         return;
     }
     

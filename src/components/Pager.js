@@ -16,13 +16,11 @@ class Pager extends React.PureComponent {
         pageSize: PropTypes.number.isRequired,
         resultsSize: PropTypes.number.isRequired,
         onClick: PropTypes.func,
-        withCounter: PropTypes.bool,
     }
 
     static defaultProps = {
         pageSize: 20,
         onClick: () => {},
-        withCounter: false,
         total: 0,
         resultsSize: 0,
         startFrom: 1,
@@ -82,16 +80,7 @@ class Pager extends React.PureComponent {
         const totalPages = Math.ceil(total / pageSize);
         const currentPage = Math.ceil((startFrom + 1) / pageSize);
         return (
-            <Theme element="nav" className="r4r-pager">
-                {
-                    /* Allow an optional results counter */
-                    this.props.withCounter &&
-                        <PagerCounter
-                            from={ startFrom + 1 }
-                            to={ startFrom + resultsSize }
-                            total={ total }
-                        />
-                }
+            <React.Fragment>
                 {
                     !isSinglePageOnly &&
                         <Theme element="div" className='r4r-pager__nav'>
@@ -133,7 +122,7 @@ class Pager extends React.PureComponent {
                         </Theme>
 
                 }
-            </Theme>
+            </React.Fragment>
         )
     }
 }

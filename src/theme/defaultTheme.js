@@ -61,5 +61,7 @@ export const defaultThemeHooks = [
     'resource__home',
     'r4r-svg-container',
     'home-tile__icon',
+    'results__search-container',
+    'results__filter-button',
 
 ]

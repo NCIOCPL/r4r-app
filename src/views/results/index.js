@@ -22,6 +22,7 @@ import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/ScienceSpinner';
 import SearchBar from '../../components/SearchBar';
 import Pager from '../../components/Pager';
+import PagerCounter from '../../components/PagerCounter';
 import NoResults from '../../components/NoResults';
 import NoTouch from '../../components/NoTouch';
 import queryString from 'query-string';
@@ -186,21 +187,14 @@ export class Results extends React.PureComponent {
                         <Theme element="header" className="results__header">
                             <h1>Resources for Researchers Search Results</h1>
                             <Link to="/">Resources for Researchers Home</Link>
+                        </Theme>
+                        <Theme element="section" className="results__search-container">
                             <SearchBar 
                                 value={ this.props.searchBarValue }
                                 onChange={ this.props.searchBarOnChange }
                                 onSubmit={ this.newTextSearch }
                                 page='results'                            
                             />
-                        </Theme>
-                        <div className="results__selections-container">
-                            {
-                                <SelectedFiltersBox
-                                    selected={ this.state.selectedFilters }
-                                    clearFilters={this.props.clearFilters}
-                                    toggleFilter={this.toggleFilter}
-                                />
-                            }
                             {
                                 /* Don't show the filter button when there are no results to filter */
                                 !!this.props.results.length &&
@@ -218,17 +212,33 @@ export class Results extends React.PureComponent {
                                         }
                                     </Theme>
                             }
+                        </Theme>
+                        <div className="results__selections-container">
+                            <SelectedFiltersBox
+                                selected={ this.state.selectedFilters }
+                                clearFilters={this.props.clearFilters}
+                                toggleFilter={this.toggleFilter}
+                            />
                         </div>
-                        {
-                            !this.state.isMobileMenuOpen &&
-                                <Pager
-                                    total={ this.props.totalResults }
-                                    resultsSize={ this.props.results && this.props.results.length }
-                                    startFrom={ this.props.startFrom }
-                                    onClick={ this.pagerSearch }
-                                    withCounter={ true }
-                                />
-                        }
+                        <Theme element="nav" className="r4r-pager">
+                            {
+                                this.props.results &&
+                                    <PagerCounter
+                                        from={ this.props.startFrom + 1 }
+                                        to={ this.props.startFrom + this.props.results.length }
+                                        total={ this.props.totalResults }
+                                    />
+                            }
+                            {
+                                !this.state.isMobileMenuOpen &&
+                                    <Pager
+                                        total={ this.props.totalResults }
+                                        resultsSize={ this.props.results && this.props.results.length }
+                                        startFrom={ this.props.startFrom }
+                                        onClick={ this.pagerSearch }
+                                    />
+                            }
+                        </Theme>
                         {
                             !this.state.isMobileMenuOpen &&
                                 <Theme element="div" className="results__main">
@@ -262,17 +272,18 @@ export class Results extends React.PureComponent {
                                 }
                                 </Theme>
                         }
-                        {
-                            !this.state.isMobileMenuOpen &&
-                                <Pager
-                                    total={ this.props.totalResults }
-                                    resultsSize={ this.props.results && this.props.results.length }
-                                    startFrom={ this.props.startFrom }
-                                    onClick={ this.pagerSearch }
-                                    withCounter={ false }
-                                />
-
-                        }
+                        <Theme element="nav" className="r4r-pager">
+                            {
+                                !this.state.isMobileMenuOpen &&
+                                    <Pager
+                                        total={ this.props.totalResults }
+                                        resultsSize={ this.props.results && this.props.results.length }
+                                        startFrom={ this.props.startFrom }
+                                        onClick={ this.pagerSearch }
+                                        withCounter={ false }
+                                    />
+                            }
+                        </Theme>
                         {
                             this.state.isMobileMenuOpen &&
                                 <Filters

@@ -47,12 +47,12 @@
     border-radius: 3px 3px 0 0;
 }
 
-.facet__box.r4r-DEFAULT .facet__filter.r4r-DEFAULT {
-    padding: 8px 10px;
-    width: 100%;
+.facet__box .facet__filter.r4r-DEFAULT{
+    margin: 3px 0;
 }
 
 .facet__filter.r4r-DEFAULT {
+    padding: 8px 10px;
     cursor: pointer;
 }
 
@@ -114,25 +114,35 @@
         margin-bottom: 10px;
     }
 
+    .results__search-container.r4r-DEFAULT{
+        display: flex;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .results__filter-button.r4r-DEFAULT {
+        display: block;
+        width: 130px;
+        height: auto;
+        font-size: 16px;
+        background: #620788;
+        color: white;
+        cursor: pointer;
+    }
+
+    .results__search-container.r4r-DEFAULT .results__filter-button.r4r-DEFAULT {
+        margin-left: 30px;
+    }
+
     .r4r-results  .searchbar__container {
-        margin-bottom: 0;
         width: auto;
+        flex: 1;
+        margin: 0;
     }
 
     .results__selections-container{
         display: flex;
         justify-content: flex-end;
-    }
-
-
-    .results__filter-button {
-        display: block;
-        width: 130px;
-        height: 40px;
-        font-size: 16px;
-        margin: 10px 0 10px auto;
-        background: #620788;
-        color: white;
     }
 
     .results__main .results__facets.r4r-DEFAULT {
@@ -173,17 +183,29 @@
 }
 
 @media only screen and (max-width: 640px){
+
+    .results__search-container.r4r-DEFAULT{
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .results__filter-button.r4r-DEFAULT{
+        width: 100%;
+        margin: 0;
+        height: 40px;
+    }
+
+    .results__search-container.r4r-DEFAULT .results__filter-button.r4r-DEFAULT{
+        margin-left: 0;
+        margin-top: 15px;
+    }
+
     .results__selections-container{
         flex-direction: column-reverse;
     }
 
     .results__selected-filters.r4r-DEFAULT{
         flex-direction: column;
-    }
-
-    .results__filter-button{
-        width: 100%;
-        margin: 10px auto;
     }
 
     .r4r-pager.r4r-DEFAULT {
