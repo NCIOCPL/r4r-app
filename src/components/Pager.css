@@ -1,15 +1,13 @@
 .r4r-pager.r4r-DEFAULT {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-top: 0.6em;
     margin-bottom: 0.6em;
 }
 
 .r4r-pager__count.r4r-DEFAULT {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    margin-right: auto;
 }
 
 .r4r-pager__nav.r4r-DEFAULT {

@@ -4,6 +4,7 @@
 }
 
 .facet__filter.r4r-DEFAULT .filter__label::before {
+    display: block;
     content: '';
     margin-right: 5px;
     width: 15px;
@@ -15,10 +16,8 @@
 input.filter__checkbox:checked + .filter__label.r4r-DEFAULT::before {
     content: '✓';
     font-size: 1.1em;
-    padding-left: 3px;
-    padding-top: 2px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 

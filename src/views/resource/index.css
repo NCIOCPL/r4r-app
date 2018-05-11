@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.r4r-resource .resource__main {
+.r4r-resource .resource__main.r4r-DEFAULT {
     flex: 1;
     padding: 10px;
 }
@@ -139,6 +139,10 @@
     .resource__home.r4r-DEFAULT {
         flex-direction: column;
         margin: 0;
+    }
+
+    .r4r-resource .resource__main.r4r-DEFAULT{
+        flex: none;
     }
 
     .resource__back::after{

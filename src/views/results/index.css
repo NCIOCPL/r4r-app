@@ -140,11 +140,6 @@
         margin: 0;
     }
 
-    .results__selections-container{
-        display: flex;
-        justify-content: flex-end;
-    }
-
     .results__main .results__facets.r4r-DEFAULT {
         display: none;
     }
@@ -165,13 +160,7 @@
         height: auto;
     }
 
-    /* .results__facets .facet__box.r4r-DEFAULT:not(:last-child):nth-child(odd){
-        margin-right: 5px;
-    } */
-
     .results__selected-filters.r4r-DEFAULT {
-        flex: 1;
-        justify-content: flex-start;
         margin: 0;
         margin-bottom: 10px;
     }
@@ -189,6 +178,10 @@
         margin-bottom: 10px;
     }
 
+    .r4r-results  .searchbar__container{
+        flex: none;
+    }
+
     .results__filter-button.r4r-DEFAULT{
         width: 100%;
         margin: 0;
@@ -200,12 +193,13 @@
         margin-top: 15px;
     }
 
-    .results__selections-container{
-        flex-direction: column-reverse;
-    }
+    /* .results__selections-container{
+        flex-direction: column;
+    } */
 
     .results__selected-filters.r4r-DEFAULT{
         flex-direction: column;
+        margin-bottom: 0;
     }
 
     .r4r-pager.r4r-DEFAULT {

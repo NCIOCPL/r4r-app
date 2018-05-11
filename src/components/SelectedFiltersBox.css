@@ -7,7 +7,6 @@
 }
 
 .selected-filters__filters-container.r4r-DEFAULT {
-    flex: 1;
     display: flex;
     flex-flow: row wrap;
     align-items: baseline;
