@@ -116,14 +116,13 @@ export class Resource extends React.PureComponent {
                     <Theme element="div" className="resource__home">
                         {
                             this.props.currentResults && (this.props.currentResults.indexOf(this.props.resource) !== -1) &&
-                                <Theme element="div"
+                                <Theme element="a"
                                     className="resource__back" 
                                     onClick={ this.props.history.goBack }
                                     onKeyPress={ keyHandler({
                                         fn: this.props.history.goBack,
                                     })}
                                     tabIndex="0"
-                                    role="link"
                                 >
                                     <p>&lt; Back to results</p>
                                 </Theme>
