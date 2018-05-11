@@ -115,7 +115,7 @@ export class Resource extends React.PureComponent {
                 <Theme element="div" className="resource__main">
                     <Theme element="div" className="resource__home">
                         {
-                            this.props.currentResults && this.props.currentResults.includes(this.props.resource) &&
+                            this.props.currentResults && (this.props.currentResults.indexOf(this.props.resource) !== -1) &&
                                 <Theme element="div"
                                     className="resource__back" 
                                     onClick={ this.props.history.goBack }

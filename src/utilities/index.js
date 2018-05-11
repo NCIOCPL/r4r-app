@@ -341,7 +341,7 @@ export const keyHandler = (options = {}) => e => {
         prevDef = true
     } = options;
 
-    if (keys.includes(e.key)) {
+    if (keys.indexOf(e.key) !== -1) {
         stopProp && e.stopPropagation();
         prevDef && e.preventDefault();
         return fn();
