@@ -1,10 +1,15 @@
+.r4r-results.r4r-DEFAULT{
+    position: relative;
+}
+
 .r4r-results .notouch-overlay {
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     z-index: 999;
     user-select: none;
     background: rgba(0,0,0,0.2);
+    left: 0;
 }
 
 .results__selected-filters.r4r-DEFAULT {
