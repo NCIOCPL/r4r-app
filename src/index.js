@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
 import { createBrowserHistory } from 'history';
+import createEventReporterMiddleware from './state/middleware/eventReporter';
 
 
 // Remove this block after CGOV custom theme development is complete
@@ -63,6 +64,8 @@ const initialize = ({
         })
     }
 
+    const eventReporter = createEventReporterMiddleware(eventHandler);
+
     const store = createStore(
         combineReducers(reducers),
         cachedState,
@@ -70,7 +73,8 @@ const initialize = ({
             thunk.withExtraArgument({
                 history,
                 apiEndpoint,
-            })
+            }),
+            eventReporter
         ))
     );
 
@@ -112,6 +116,10 @@ const initialize = ({
     ReactDOM.render(<App />, appRootDOMNode);
     return appRootDOMNode;
 }
+
+// #########################################################################################
+// #######¯\_(ツ)_/¯##### INTEGRATION / SHIM / PROXY / MIDDLEWARE ######¯\_(ツ)_/¯###########
+// #########################################################################################
 
 const apiEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1';
 
