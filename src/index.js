@@ -35,6 +35,7 @@ const initialize = ({
     appId = 'DEFAULT_APP_ID',
     rootId = 'r4r-root',
     historyProps = {},
+    eventHandler,
 } = {}) => {
 
     if(typeof customTheme !== 'object' || customTheme === null) {
@@ -54,6 +55,12 @@ const initialize = ({
      * In this case we are passing it as a third argument in our thunks (dispatch, getState, history)
      */
     const history = createBrowserHistory(historyProps);
+
+    if(eventHandler){
+        history.listen((location, action) => {
+            eventHandler(location, action);
+        })
+    }
 
     const store = createStore(
         combineReducers(reducers),
@@ -111,13 +118,19 @@ const customTheme = {
     'similar-resource__tile': 'arrow-link',
 };
 
+// TODO: Finish the rest of the owl
+const eventHandler = (...args) => {
+    console.log('Event!', args);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initialize({
         appId: 'r4r-browser-cache',
         customTheme,
         historyProps: {
             basename: '/research/r4r',
-        }
+        },
+        eventHandler,
     });
 })
 
