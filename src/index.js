@@ -36,6 +36,7 @@ const initialize = ({
     rootId = 'r4r-root',
     historyProps = {},
     eventHandler,
+    apiEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1',
 } = {}) => {
 
     if(typeof customTheme !== 'object' || customTheme === null) {
@@ -66,7 +67,10 @@ const initialize = ({
         combineReducers(reducers),
         cachedState,
         composeWithDevTools(applyMiddleware(
-            thunk.withExtraArgument(history)
+            thunk.withExtraArgument({
+                history,
+                apiEndpoint,
+            })
         ))
     );
 
@@ -109,6 +113,8 @@ const initialize = ({
     return appRootDOMNode;
 }
 
+const apiEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1';
+
 // CancerGov config object
 const customTheme = {
     'r4r-container': 'row',
@@ -131,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             basename: '/research/r4r',
         },
         eventHandler,
+        apiEndpoint,
     });
 })
 

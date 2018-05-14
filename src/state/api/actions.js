@@ -15,9 +15,6 @@ import {
     validateSearchRequest,
 } from '../../utilities/validation';
 
-const API_resourcesEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resources';
-const API_resourceEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1/resource/';
-
 export const CLEAR_FILTERS = "CLEAR FILTERS";
 export const UPDATE_FILTER = "UPDATE FILTER";
 export const LOAD_RESOURCE = "LOAD RESOURCE";
@@ -109,9 +106,9 @@ export const clearFilters = () => ({
     type: CLEAR_FILTERS,
 })
 
-export const loadFacets = () => (dispatch, getState) => {
+export const loadFacets = () => (dispatch, getState, { apiEndpoint }) => {
     const queryString = '?size=0&includeFacets=toolTypes&includeFacets=researchAreas';
-    const queryEndpoint = API_resourcesEndpoint + queryString;
+    const queryEndpoint = apiEndpoint + '/resources' + queryString;
     
     const store = getState();
     const isAlreadyLoaded = store.api.referenceFacets;
@@ -136,7 +133,7 @@ export const loadFacets = () => (dispatch, getState) => {
  * 
  * @param {Object} searchParams
  */
-export const newSearch = searchParams => (dispatch, getState, history) => {
+export const newSearch = searchParams => (dispatch, getState, { history, apiEndpoint }) => {
     const store = getState();
 
     // Error Prevention: Do not allow multiple fetchs to be executed in parallel.
@@ -193,7 +190,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
     console.log('Search not cached. Fetching from API');
     dispatch(setFetchingStatus(true));
 
-    timedFetch(API_resourcesEndpoint + newQueryString)
+    timedFetch(apiEndpoint + '/resources' + newQueryString)
         .catch(handleNetworkFailure)
         .then(handleResponse)
         .then(validateSearchResponse)
@@ -225,7 +222,7 @@ export const newSearch = searchParams => (dispatch, getState, history) => {
 
 }
 
-export const fetchResource = resourceId => (dispatch, getState) => {
+export const fetchResource = resourceId => (dispatch, getState, { apiEndpoint }) => {
     const store = getState();
     const cache = store.cache.cachedResources;
     const cachedResource = cache[resourceId];
@@ -236,7 +233,7 @@ export const fetchResource = resourceId => (dispatch, getState) => {
     }
 
     console.log('Resource not cached, fetching from db')
-    timedFetch(API_resourceEndpoint + resourceId)
+    timedFetch(apiEndpoint + '/resource/' + resourceId)
         .catch(handleNetworkFailure)
         .then(handleResponse)
         .then(res => {
