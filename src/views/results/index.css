@@ -8,7 +8,7 @@
     width: 100%;
     z-index: 999;
     user-select: none;
-    background: rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.5);
     left: 0;
 }
 
