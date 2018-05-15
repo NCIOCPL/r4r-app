@@ -132,10 +132,73 @@ const customTheme = {
     'similar-resource__tile': 'arrow-link',
 };
 
-// TODO: Finish the rest of the owl
-const eventHandler = (...args) => {
-    console.log('Event!', args);
+// We need an eventHandler that is available before the analytics library and will
+// queue events until then.
+const createEventHandler = () => {
+    let isCaching = true;
+    let eventQueue = [];
+    let listeners = [];
+
+    const onEvent = (...args) => {
+        if(isCaching){
+            eventQueue = [...eventQueue, args];
+        }
+        publish(args);
+    }
+
+    const publishCache = listener => {
+        isCaching = false;
+        const queue = [ ...eventQueue ];
+        eventQueue = [];
+        queue.forEach(event => {
+            listener(event);
+        });
+        isCaching = true;
+    }
+
+    const publish = (event) => {
+        listeners.forEach(listener => listener(event));
+    }
+
+    const subscribe = listener => {
+        let isSubscribed = true;
+        listeners = [...listeners, listener]
+
+        const unsubscribe = () => {
+            if(!isSubscribed){
+                return;
+            }
+
+            isSubscribed = false;
+            listeners = listeners.filter(list => list !== listener);
+        }
+    }
+
+    return {
+        onEvent,
+        publish,
+        publishCache,
+        subscribe,
+    }
 }
+
+const createCancerGovAnalyticsHandler = analytics => (event) => {
+    // Here is where we do the heavy lifting of processing events and passing them to
+    // the analytics library
+    analytics(event);
+}
+
+const subscribeToAnalyticsEvents = (analytics, eventHandler) => {
+    const cancerGovAnalyticsHandler = createCancerGovAnalyticsHandler(analytics);
+    eventHandler.publishCache(cancerGovAnalyticsHandler);
+    const unsubscribe = eventHandler.subscribe(cancerGovAnalyticsHandler);
+    window.addEventListener('unload', unsubscribe);
+}
+
+///////// STUFF HAPPENS HERE WHEN THE PAGE LOADS
+
+// This is the generic pub/sub intermediary. It should be built to be extensible
+const eventHandler = createEventHandler();
 
 document.addEventListener('DOMContentLoaded', () => {
     initialize({
@@ -144,8 +207,26 @@ document.addEventListener('DOMContentLoaded', () => {
         historyProps: {
             basename: '/research/r4r',
         },
-        eventHandler,
+        eventHandler: eventHandler.onEvent,
         apiEndpoint,
     });
 })
+
+window.addEventListener('load', () => {
+    if(window.s){
+        subscribeToAnalyticsEvents(window.s, eventHandler);
+    }
+    else{
+        window.addEventListener('analytics_ready', () => {
+            console.log('S Code detected')
+            subscribeToAnalyticsEvents(window.s, eventHandler);
+        })
+    }
+})
+
+// This is to mimic s_code loading late
+setTimeout(()=> {
+    window.s = (e) => console.log('S CODE', e);
+    window.dispatchEvent(new CustomEvent('analytics_ready'))
+}, 2500)
 
