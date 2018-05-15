@@ -11,6 +11,7 @@
 }
 
 .r4r-pager__nav.r4r-DEFAULT {
+    margin-left: auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
