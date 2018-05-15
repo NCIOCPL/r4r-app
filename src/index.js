@@ -156,7 +156,7 @@ const createEventHandler = () => {
         isCaching = true;
     }
 
-    const publish = (event) => {
+    const publish = event => {
         listeners.forEach(listener => listener(event));
     }
 
@@ -197,10 +197,10 @@ const subscribeToAnalyticsEvents = (analytics, eventHandler) => {
 
 ///////// STUFF HAPPENS HERE WHEN THE PAGE LOADS
 
-// This is the generic pub/sub intermediary. It should be built to be extensible
-const eventHandler = createEventHandler();
-
 document.addEventListener('DOMContentLoaded', () => {
+    // This is the generic pub/sub intermediary. It should be built to be extensible
+    const eventHandler = createEventHandler();
+
     initialize({
         appId: 'r4r-browser-cache',
         customTheme,
@@ -210,17 +210,17 @@ document.addEventListener('DOMContentLoaded', () => {
         eventHandler: eventHandler.onEvent,
         apiEndpoint,
     });
-})
 
-window.addEventListener('load', () => {
-    if(window.s){
+    const listener = () => {
+        console.log('S Code detected')
         subscribeToAnalyticsEvents(window.s, eventHandler);
     }
-    else{
-        window.addEventListener('analytics_ready', () => {
-            console.log('S Code detected')
-            subscribeToAnalyticsEvents(window.s, eventHandler);
-        })
+
+    window.addEventListener('analytics_ready', listener)
+    
+    if(window.s){
+        window.removeEventListener('analytics_ready', listener)
+        subscribeToAnalyticsEvents(window.s, eventHandler);
     }
 })
 
