@@ -15,6 +15,7 @@ import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache'
 import { createTheme, ThemeProvider, Theme } from './theme';
 import { createBrowserHistory } from 'history';
 import createEventReporterMiddleware from './state/middleware/eventReporter';
+import timestampMiddleware from './state/middleware/timestamp';
 
 
 // Remove this block after CGOV custom theme development is complete
@@ -64,7 +65,7 @@ const initialize = ({
         })
     }
 
-    const eventReporter = createEventReporterMiddleware(eventHandler);
+    const eventReporterMiddleware = createEventReporterMiddleware(eventHandler);
 
     const store = createStore(
         combineReducers(reducers),
@@ -74,7 +75,8 @@ const initialize = ({
                 history,
                 apiEndpoint,
             }),
-            eventReporter
+            eventReporterMiddleware,
+            timestampMiddleware,
         ))
     );
 
