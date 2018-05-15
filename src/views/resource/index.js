@@ -9,7 +9,7 @@ import SVG from '../../components/SVG';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
 import ContactInformation from '../../components/ContactInformation';
-import Spinner from '../../components/ScienceSpinner';
+import Spinner from '../../components/CTS_Spinner';
 import { 
     updateSearchBar,
 } from '../../state/searchForm/actions';

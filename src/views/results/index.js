@@ -19,7 +19,7 @@ import {
 import SelectedFiltersBox from '../../components/SelectedFiltersBox';
 import Filters from '../../components/Filters';
 import ResultTile from '../../components/ResultTile';
-import Spinner from '../../components/ScienceSpinner';
+import Spinner from '../../components/CTS_Spinner';
 import SearchBar from '../../components/SearchBar';
 import Pager from '../../components/Pager';
 import PagerCounter from '../../components/PagerCounter';

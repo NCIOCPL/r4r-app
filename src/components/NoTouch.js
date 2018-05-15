@@ -8,7 +8,6 @@ class NoTouch extends React.PureComponent {
     }
 
     render(){
-        console.log('No-Touch')
         return(
             <Theme
                 element="div"

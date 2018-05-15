@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Theme } from '../theme';
 import BrowseTile from './BrowseTile';
-import { default as Spinner } from './ScienceSpinner';
+import Spinner from './CTS_Spinner';
 import { keyHandler } from '../utilities';
 import '../polyfills/object_entries';
 import './BrowseBox.css';

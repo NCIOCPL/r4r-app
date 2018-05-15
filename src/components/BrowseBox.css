@@ -1,15 +1,11 @@
-.browse-tiles__container.r4r-DEFAULT {
-    /* display: flex;
-    flex-direction: column;
-    flex: 1; */
-}
+
 
 .browse-tiles__container.r4r-DEFAULT .browse__tile.r4r-DEFAULT {
     margin: 5px 0;
 }
 
-.browse-tiles__container.r4r-DEFAULT .r4r-spinner {
+.browse-tiles__container.r4r-DEFAULT .r4r-cts-spinner {
     display: block;
-    margin: 40px;
+    margin: 80px;
     width: auto;
 }
