@@ -206,7 +206,7 @@ export class Results extends React.Component {
                                         { 
                                             !this.state.isMobileMenuOpen 
                                             ? 
-                                                `Filter (${ this.state.selectedFilters.length })` 
+                                                `Filter${ this.state.selectedFilters.length ? ` (${ this.state.selectedFilters.length })` : '' }` 
                                             : 
                                                 'Done' 
                                         }
