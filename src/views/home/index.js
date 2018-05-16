@@ -132,7 +132,7 @@ export class Home extends React.Component {
                             {
                                 <BrowseBox
                                     facets={ this.props.referenceFacets }
-                                    filterType={ 'researchAreas'}
+                                    filterType={ 'researchAreas' }
                                     searchFunction={ this.newFilterSearch }
                                     isFetching={ this.props.isFetchingFacets }
                                     displayCount={ true }

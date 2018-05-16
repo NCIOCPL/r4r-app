@@ -1,4 +1,3 @@
-import { updateSearchBar } from '../searchForm/actions';
 import {
     formatRawResourcesFacets,
     composeQueryString,

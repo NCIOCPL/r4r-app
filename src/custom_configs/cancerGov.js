@@ -54,6 +54,8 @@ export const createEventHandler = () => {
             isSubscribed = false;
             listeners = listeners.filter(list => list !== listener);
         }
+
+        return unsubscribe;
     }
 
     return {
