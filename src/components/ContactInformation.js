@@ -39,7 +39,7 @@ class ContactInformation extends React.PureComponent {
                 { firstName || lastName ? <p>{[prefix, firstName, middleName, lastName, suffix].join(' ')}</p> : null }
                 { title ? <p>{ title }</p> : null }
                 { phone ? <p>{ phone }</p> : null }
-                { email ? <p>{ email }</p> : null }
+                { email ? <a href={`mailto:${ email }`}>{ email }</a> : null }
             </Theme>
         )
     }
