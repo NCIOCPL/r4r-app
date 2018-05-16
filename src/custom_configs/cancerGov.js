@@ -70,7 +70,7 @@ export const createEventHandler = () => {
 // the analytics library
 export const createCancerGovAnalyticsHandler = analytics => (event) => {
     // TODO:
-    analytics(event);
+    // analytics(event); // this won't work as is since window.s is not actually a function on the site
 }
 
 // Once the analytics library is available, we want to first curry the analytics event listener (which does the heavy lifting

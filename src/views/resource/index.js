@@ -138,17 +138,24 @@ export class Resource extends React.Component {
                     </article>
                     <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
                     <Theme element="a" className="resource__link--external" href={ website }>Visit Resource</Theme>
-                    <article>
-                        <h2>Contact Information</h2>
-                        { 
-                            poCs.map((poc, idx) => (
-                                <ContactInformation contact={ poc } key={ idx } />
-                            ))
-                        }
-                    </article>
-                    <Theme element="article" className="resource__docs" aria-label="DOCs information">
-                        { renderDocsString(doCs) }
-                    </Theme>
+                    {
+                        (poCs.length > 0) &&
+                            <article>
+                                    <h2>Contact Information</h2>
+                                { 
+                                    poCs.map((poc, idx) => (
+                                        <ContactInformation contact={ poc } key={ idx } />
+                                    ))
+                                }
+                            </article>
+                    }
+                    {
+                        (doCs.length > 0) &&
+                            <Theme element="article" className="resource__docs" aria-label="DOCs information">
+                                <h2>NCI Affiliation</h2>
+                                { renderDocsString(doCs) }
+                            </Theme>
+                    }
                 </Theme>
                 <Theme element="div" className="resource__nav">
                     <section role="search">
