@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider, Theme } from './theme';
 import { createBrowserHistory } from 'history';
 import createEventReporterMiddleware from './state/middleware/eventReporter';
 import timestampMiddleware from './state/middleware/timestamp';
-
+import initializeCancerGovTheme from './custom_configs/cancerGov';
 
 // Remove this block after CGOV custom theme development is complete
 if(process.env.NODE_ENV !== 'production') {
@@ -32,7 +32,7 @@ if(process.env.NODE_ENV !== 'production') {
  * @param {object} [config.theme = {}] a hashmap where key = r4r default classname and custom classname to inject alongside it (or else default)
  * @returns {Node} The DOM node to which the app is hooked
  */
-const initialize = ({
+const initializeR4R = ({
     customTheme = {},
     appId = 'DEFAULT_APP_ID',
     rootId = 'r4r-root',
@@ -119,112 +119,10 @@ const initialize = ({
     return appRootDOMNode;
 }
 
-// #########################################################################################
-// #######¯\_(ツ)_/¯##### INTEGRATION / SHIM / PROXY / MIDDLEWARE ######¯\_(ツ)_/¯###########
-// #########################################################################################
-
-const apiEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1';
-
-// CancerGov config object
-const customTheme = {
-    'r4r-container': 'row',
-    'searchbar__container': 'cancer-gov',
-    'searchbar__button--submit': 'button',
-    'browse__tile': 'arrow-link',
-    'similar-resource__tile': 'arrow-link',
-};
-
-// We need an eventHandler that is available before the analytics library and will
-// queue events until then.
-const createEventHandler = () => {
-    let isCaching = true;
-    let eventQueue = [];
-    let listeners = [];
-
-    const onEvent = (...args) => {
-        if(isCaching){
-            eventQueue = [...eventQueue, args];
-        }
-        publish(args);
-    }
-
-    const publishCache = listener => {
-        isCaching = false;
-        const queue = [ ...eventQueue ];
-        eventQueue = [];
-        queue.forEach(event => {
-            listener(event);
-        });
-        isCaching = true;
-    }
-
-    const publish = event => {
-        listeners.forEach(listener => listener(event));
-    }
-
-    const subscribe = listener => {
-        let isSubscribed = true;
-        listeners = [...listeners, listener]
-
-        const unsubscribe = () => {
-            if(!isSubscribed){
-                return;
-            }
-
-            isSubscribed = false;
-            listeners = listeners.filter(list => list !== listener);
-        }
-    }
-
-    return {
-        onEvent,
-        publish,
-        publishCache,
-        subscribe,
-    }
-}
-
-const createCancerGovAnalyticsHandler = analytics => (event) => {
-    // Here is where we do the heavy lifting of processing events and passing them to
-    // the analytics library
-    analytics(event);
-}
-
-const subscribeToAnalyticsEvents = (analytics, eventHandler) => {
-    const cancerGovAnalyticsHandler = createCancerGovAnalyticsHandler(analytics);
-    eventHandler.publishCache(cancerGovAnalyticsHandler);
-    const unsubscribe = eventHandler.subscribe(cancerGovAnalyticsHandler);
-    window.addEventListener('unload', unsubscribe);
-}
-
-///////// STUFF HAPPENS HERE WHEN THE PAGE LOADS
-
-document.addEventListener('DOMContentLoaded', () => {
-    // This is the generic pub/sub intermediary. It should be built to be extensible
-    const eventHandler = createEventHandler();
-
-    initialize({
-        appId: 'r4r-browser-cache',
-        customTheme,
-        historyProps: {
-            basename: '/research/r4r',
-        },
-        eventHandler: eventHandler.onEvent,
-        apiEndpoint,
-    });
-
-    const listener = () => {
-        console.log('S Code detected')
-        subscribeToAnalyticsEvents(window.s, eventHandler);
-    }
-
-    window.addEventListener('analytics_ready', listener)
-    
-    if(window.s){
-        window.removeEventListener('analytics_ready', listener)
-        subscribeToAnalyticsEvents(window.s, eventHandler);
-    }
-})
+// ######## INITIALIZE APP ############
+// This is the line to change when you want custom settings to deploy this as a widget on
+// other sites. (Or you call initializeR4R directly to get the generic app)
+document.addEventListener('DOMContentLoaded', () => { initializeCancerGovTheme(initializeR4R) })
 
 // This is to mimic s_code loading late
 setTimeout(()=> {
