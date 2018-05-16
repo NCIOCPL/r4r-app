@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Error from './components/Error';
 import { connect } from 'react-redux';
 
-export class ErrorBoundary extends React.PureComponent {
+export class ErrorBoundary extends React.Component {
     static propTypes = {
         error: PropTypes.string,
         children: PropTypes.oneOfType([

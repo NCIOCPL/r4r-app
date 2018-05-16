@@ -4,7 +4,7 @@
 
 const apiEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1';
 
-// CancerGov config object
+// Explicit CSS overrides from CGOV styles
 const customTheme = {
     'r4r-container': 'row',
     'searchbar__container': 'cancer-gov',
@@ -28,17 +28,14 @@ export const createEventHandler = () => {
         publish(args);
     }
 
-    // If the cache isn't periodically emptied, it could fill up.
-    // It might not be necessary to continue caching after the initial dump anyway. (Which would mean just never
-    // never setting the isCaching flag back to true).
-    const publishCache = listener => {
+    // This is a one time use. Once the cache is dumped it stops receiving new events.
+    const dumpCache = listener => {
         isCaching = false;
         const queue = [ ...eventQueue ];
         eventQueue = [];
         queue.forEach(event => {
             listener(event);
         });
-        isCaching = true;
     }
 
     const publish = event => {
@@ -62,23 +59,26 @@ export const createEventHandler = () => {
     return {
         onEvent,
         publish,
-        publishCache,
+        dumpCache,
         subscribe,
     }
 }
 
+// Here is where we do the heavy lifting of processing events and passing them to
+// the analytics library
 export const createCancerGovAnalyticsHandler = analytics => (event) => {
-    // Here is where we do the heavy lifting of processing events and passing them to
-    // the analytics library
     // TODO:
     analytics(event);
 }
 
+// Once the analytics library is available, we want to first curry the analytics event listener (which does the heavy lifting
+// of processing r4r events in a way that the analytics library like) with access to the analytics library. Henceforth it just
+// receives new events, processes them, and passes them on.
+// Once the analytics event listener is bound to the analytics library, it first recieves all the cached events in the
+// proxy and then begins listening to future events in real time. 
 export const subscribeToAnalyticsEvents = (analytics, eventHandler) => {
     const cancerGovAnalyticsHandler = createCancerGovAnalyticsHandler(analytics);
-    // Pull the backlog of events
-    eventHandler.publishCache(cancerGovAnalyticsHandler);
-    // Going forward receive events in real-time
+    eventHandler.dumpCache(cancerGovAnalyticsHandler);
     const unsubscribe = eventHandler.subscribe(cancerGovAnalyticsHandler);
     window.addEventListener('unload', unsubscribe);
 }
@@ -98,10 +98,15 @@ export const awaitAnalyticsLibraryAvailability = (eventHandler) => {
     }
 }
 
+/**
+ * A wrapper around the r4r library that creates a custom proxy and injects custom settings.
+ * Finally a custom analytics event handler is created and subscribed to the proxy.
+ * 
+ * @param {function} initializeR4R 
+ */
 const initializeCancerGovTheme = initializeR4R => {
     const eventHandler = createEventHandler();
 
-    // Start up r4r with custom settings
     initializeR4R({
         appId: 'r4r-browser-cache',
         customTheme,

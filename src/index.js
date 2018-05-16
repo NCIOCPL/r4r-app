@@ -124,9 +124,13 @@ const initializeR4R = ({
 // other sites. (Or you call initializeR4R directly to get the generic app)
 document.addEventListener('DOMContentLoaded', () => { initializeCancerGovTheme(initializeR4R) })
 
+// ######## TESTING ONLY #########
+// Remove altogether later.
 // This is to mimic s_code loading late
-setTimeout(()=> {
-    window.s = (e) => console.log('S CODE', e);
-    window.dispatchEvent(new CustomEvent('analytics_ready'))
-}, 2500)
+if(process.env.NODE_ENV !== 'production'){
+    setTimeout(()=> {
+        window.s = (e) => console.log('S CODE', e);
+        window.dispatchEvent(new CustomEvent('analytics_ready'))
+    }, 5000)
+}
 
