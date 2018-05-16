@@ -56,7 +56,6 @@ export class Home extends React.Component {
     viewAllOnClick = () => {
         this.props.newSearch({
             from: 0,
-            size: 20,
         });
     }
 
