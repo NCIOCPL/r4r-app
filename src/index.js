@@ -60,7 +60,7 @@ const initializeR4R = ({
      */
     const history = createBrowserHistory(historyProps);
 
-    if(eventHandler){
+    if(typeof eventHandler === 'function'){
         history.listen((location, action) => {
             eventHandler(location, action);
         })
