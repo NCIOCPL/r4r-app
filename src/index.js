@@ -34,7 +34,8 @@ if(process.env.NODE_ENV !== 'production') {
  */
 const initializeR4R = ({
     customTheme = {},
-    appId = 'DEFAULT_APP_ID',
+    appId = '@@/DEFAULT_APP_ID',
+    useSessionStorage = true,
     rootId = 'r4r-root',
     historyProps = {},
     eventHandler,
@@ -47,7 +48,7 @@ const initializeR4R = ({
     const theme = createTheme(customTheme);
 
     let cachedState;
-    if(process.env.NODE_ENV !== 'development') {
+    if(process.env.NODE_ENV !== 'development' && useSessionStorage === true) {
         cachedState = loadStateFromSessionStorage(appId);
     }
 
@@ -80,7 +81,7 @@ const initializeR4R = ({
         ))
     );
 
-    if(process.env.NODE_ENV !== 'development') {
+    if(process.env.NODE_ENV !== 'development' && useSessionStorage === true) {
         const saveDesiredStateToSessionStorage = () => {
             const allState = store.getState();
             // No need to store ARIA-LIVE info or error to session storage
@@ -127,10 +128,10 @@ document.addEventListener('DOMContentLoaded', () => { initializeCancerGovTheme(i
 // ######## TESTING ONLY #########
 // Remove altogether later.
 // This is to mimic s_code loading late
-if(process.env.NODE_ENV !== 'production'){
-    setTimeout(()=> {
-        window.s = (e) => console.log('S CODE', e);
-        window.dispatchEvent(new CustomEvent('analytics_ready'))
-    }, 5000)
-}
+// if(process.env.NODE_ENV !== 'production'){
+//     setTimeout(()=> {
+//         window.s = (e) => console.log('S CODE', e);
+//         window.dispatchEvent(new CustomEvent('analytics_ready'))
+//     }, 5000)
+// }
 
