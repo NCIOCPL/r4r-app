@@ -58,6 +58,11 @@
     color: white;
 }
 
+.r4r-resource .contact-information.r4r-DEFAULT {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
 .r4r-resource .searchbar__container {
     width: 100%;
     height: auto;
