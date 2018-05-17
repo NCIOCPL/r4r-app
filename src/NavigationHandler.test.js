@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ScrollReset from './ScrollReset';
+import NavigationHandler from './NavigationHandler';
 
 it('renders without crashing', () => {
-  shallow(<ScrollReset />);
+  shallow(<NavigationHandler />);
 });

@@ -72,9 +72,9 @@ Views represent the top level containers that connect their various components t
 
 This component sits at the top of the app and listens for messages passed to the announcements reducer. This should be used for broadcasting events to a screenreader that would go unnoticed otherwise.
 
-### ScrollReset
+### NavigationHandler
 
-ScrollReset wraps the app and listens for changes to the location prop provided by withRouter. On location changes, the scrollto will be reset to 0.
+We want certain actions to happen when the url changes/the user navigates. This component watches the location object and handles those. This includes reseting the window scrollto, and clearing errors. (Canceling fetch requests should be handled here too)
 
 ### FatalErrorBoundary
 

@@ -7,3 +7,7 @@ export const registerError = error => ({
         message: error,
     }
 })
+
+export const clearError = () => ({
+    type: CLEAR_ERROR,
+})

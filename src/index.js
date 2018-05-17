@@ -7,7 +7,6 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as reducers from './state';
 import Router from './Router';
-import ErrorBoundary from './ErrorBoundary';
 import FatalErrorBoundary from './FatalErrorBoundary';
 import LiveRegion from './LiveRegion';
 import { Helmet } from 'react-helmet';
@@ -100,7 +99,6 @@ const initializeR4R = ({
             <Provider store={ store }>
                     <ThemeProvider theme={ theme }>
                         <Theme element='main' className="r4r-container">
-                            <ErrorBoundary>
                                 <Helmet 
                                     defaultTitle="Resources for Researchers - National Cancer Institute"
                                 >
@@ -109,7 +107,6 @@ const initializeR4R = ({
                                 </Helmet>
                                 <LiveRegion />
                                 <Router history={ history }/>
-                            </ErrorBoundary>
                         </Theme>
                     </ThemeProvider>
             </Provider>
