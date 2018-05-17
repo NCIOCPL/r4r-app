@@ -43,6 +43,7 @@
 }
 
 .resource__link--external.r4r-DEFAULT {
+    position: relative;
     display: block;
     margin: 20px auto;
     background-color: #2fc799;
@@ -51,6 +52,10 @@
     color: white;
     border-radius: 3px;
     text-align: center;
+}
+
+.resource__link--external.r4r-DEFAULT a {
+    color: white;
 }
 
 .r4r-resource .searchbar__container {

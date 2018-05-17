@@ -137,7 +137,9 @@ export class Resource extends React.Component {
                         </Theme>
                     </article>
                     <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
-                    <Theme element="a" className="resource__link--external" href={ website }>Visit Resource</Theme>
+                    <Theme element="div" className="resource__link--external">
+                        <a href={ website }>Visit Resource</a>
+                    </Theme>
                     {
                         (poCs.length > 0) &&
                             <article>
