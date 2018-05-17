@@ -67,9 +67,9 @@ export const createEventHandler = () => {
 }
 
 /**
- * The exitDisclaimer script in CongtentPage on CGov will only run on the initial page load. That means
+ * The exitDisclaimer script in ContentPage on CGov will only run on the initial page load. That means
  * once the user starts navigating r4r, none of the typical injection scripts will rerun. Certain functionality may need ]
- * to be manually retriggered, or replicated. In this particular case, for simplicities sake, I have replicated the
+ * to be manually retriggered, or replicated. In this particular case, for simplicity's sake, I have replicated the
  * exitDisclaimer script (with more limited functionality since there are less edge cases) and will subscribe it to location
  * changes in the eventHandler.
  */
@@ -112,7 +112,8 @@ export const exitDisclaimerEventHandler = (event) => {
     // once the analytics middleware has been fleshed out.
     if(event.length === 2 && typeof event[1] === 'string'){
         console.log('Location change detected by exitDisclaimer listener')
-        // The location change action event publishes before the dom is rerendered by React. We need a bit of a delay
+        // The location change action event publishes before the dom is rerendered by React. We need a bit of a delay.
+        // 100ms should be excessive.
         setTimeout(() => {
             exitDisclaimerInjector();
         }, 100)
