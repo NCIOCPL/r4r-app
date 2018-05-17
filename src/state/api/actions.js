@@ -26,9 +26,12 @@ export const FETCHING_FACETS_STATUS = "FETCHING FACETS STATUS";
 export const SET_CURRENT_SEARCH_TEXT = "SET CURRENT SEARCH TEXT";
 export const CACHE_NEW_SEARCH_RESULTS = "CACHE NEW SEARCH RESULTS";
 
-const setFetchingStatus = status => ({
+export const setFetchingStatus = (isFetching, fetchId = null) => ({
     type: FETCHING_STATUS,
-    payload: status,
+    payload: {
+        isFetching,
+        fetchId,
+    }
 })
 
 const setFacetsFetchingStatus = status => ({
@@ -187,35 +190,38 @@ export const newSearch = searchParams => (dispatch, getState, { history, apiEndp
 
     // 3) Search is not cached - API Request
     console.log('Search not cached. Fetching from API');
-    dispatch(setFetchingStatus(true));
+    const fetchId = Date.now();
+    dispatch(setFetchingStatus(true, fetchId));
 
     timedFetch(apiEndpoint + '/resources' + newQueryString)
         .catch(handleNetworkFailure)
         .then(handleResponse)
         .then(validateSearchResponse)
         .then(res => {
-            dispatch(cacheResources(res.results));
-
-            // Search results will be processed to
-            // a) convert facets into a map for easy lookups
-            const processedResults = {
-                ...res,
-                facets: formatRawResourcesFacets(res.facets),
-            };
-            dispatch(loadNewSearchResults({ results: processedResults, newQueryString }));
-            // b) replace full resources with just id of resources
-            const strippedResults = {
-                ...processedResults,
-                results: processedResults.results.map(resource => resource.id),
+            if(getState().api.fetchId === fetchId){
+                dispatch(cacheResources(res.results));
+    
+                // Search results will be processed to
+                // a) convert facets into a map for easy lookups
+                const processedResults = {
+                    ...res,
+                    facets: formatRawResourcesFacets(res.facets),
+                };
+                dispatch(loadNewSearchResults({ results: processedResults, newQueryString }));
+                // b) replace full resources with just id of resources
+                const strippedResults = {
+                    ...processedResults,
+                    results: processedResults.results.map(resource => resource.id),
+                }
+                dispatch(cacheNewSearchResults({ [newQueryString]: strippedResults }));
+                // When a searchresult is loaded, the resources will be repopulated from the resource cache.
+                // This avoids a lot of duplication in the results cache.
+    
+                if(!isAlreadyAtCorrectURL) {
+                    console.log('navigating to search page')
+                    history.push(`/search${ newQueryString }`)
+                }            
             }
-            dispatch(cacheNewSearchResults({ [newQueryString]: strippedResults }));
-            // When a searchresult is loaded, the resources will be repopulated from the resource cache.
-            // This avoids a lot of duplication in the results cache.
-
-            if(!isAlreadyAtCorrectURL) {
-                console.log('navigating to search page')
-                history.push(`/search${ newQueryString }`)
-            }            
         })
         .catch(err => constructErrorMessage(err, dispatch))
 
@@ -232,12 +238,17 @@ export const fetchResource = resourceId => (dispatch, getState, { apiEndpoint })
     }
 
     console.log('Resource not cached, fetching from db')
+    const fetchId = Date.now();
+    dispatch(setFetchingStatus(true, fetchId));
+
     timedFetch(apiEndpoint + '/resource/' + resourceId)
         .catch(handleNetworkFailure)
         .then(handleResponse)
         .then(res => {
-            dispatch(cacheResources([res]));
-            dispatch(loadResource(res));
+            if(getState().api.fetchId === fetchId){
+                dispatch(cacheResources([res]));
+                dispatch(loadResource(res));
+            }
         })
         .catch(err => constructErrorMessage(err, dispatch))
 }

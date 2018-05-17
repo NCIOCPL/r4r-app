@@ -15,6 +15,7 @@ import {
 
 const initialState = {
     isFetching: false,
+    fetchId: null,
     isFetchingFacets: false,
     searchParams: '',
     referenceFacets: null,
@@ -111,11 +112,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentResource: action.payload,
+                isFetching: false,
+                fetchId: null,
             }
         case FETCHING_STATUS:
             return {
                 ...state,
-                isFetching: action.payload,
+                isFetching: action.payload.isFetching,
+                fetchId: action.payload.fetchId,
             }
         case FETCHING_FACETS_STATUS:
             return {
@@ -138,6 +142,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 currentSearchQueryString: action.payload.newQueryString,
                 isFetching: false,
+                fetchId: null,
                 currentResults,
                 currentFacets,
                 currentMetaData,
@@ -151,6 +156,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
+                fetchId: null,
                 isFetchingFacets: false
             }
         default:

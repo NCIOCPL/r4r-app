@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Error from './components/Error';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 export class ErrorBoundary extends React.Component {
@@ -24,4 +25,4 @@ const mapStateToProps = store => ({
     error: store.error,
 })
 
-export default connect(mapStateToProps)(ErrorBoundary);
+export default withRouter(connect(mapStateToProps)(ErrorBoundary));
