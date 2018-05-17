@@ -39,13 +39,14 @@ class SearchBar extends React.PureComponent {
                     type="text" 
                     value={ this.props.value }
                     onChange={ this.onChange }
-                    aria-label="search"
+                    aria-label="Input search text here to search for a resource"
                     placeholder={ this.props.placeholder }
                 />
                 <Theme
                     element="button" 
                     type="submit" 
                     className="searchbar__button--submit"
+                    aria-label="submit search"
                 >
                     <SVG iconType="magnify" />
                 </Theme>

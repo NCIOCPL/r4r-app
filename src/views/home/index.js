@@ -115,7 +115,7 @@ export class Home extends React.Component {
                         </Theme>
                     </Theme>
                     <Theme element="div" className="home-nav__main">
-                        <Theme element="div" className="home-nav__section">
+                        <Theme element="div" className="home-nav__section" aria-label="Browse by Tool Type">
                             <Theme element="h4" className="home-nav__title">Tool Type</Theme>
                             {
                                 <BrowseBox
@@ -127,7 +127,7 @@ export class Home extends React.Component {
                                 />
                             }
                         </Theme>
-                        <Theme element="div" className="home-nav__section">
+                        <Theme element="div" className="home-nav__section" aria-label="Browse by Research Area">
                             <Theme element="h4" className="home-nav__title">Research Area</Theme>
                             {
                                 <BrowseBox

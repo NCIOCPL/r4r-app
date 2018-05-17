@@ -123,11 +123,12 @@ export class Resource extends React.Component {
                                         fn: this.props.history.goBack,
                                     })}
                                     tabIndex="0"
+                                    aria-label="Back to search results link"
                                 >
                                     <p>&lt; Back to results</p>
                                 </Theme>
                         }
-                        <Link to="/">Resources for Researchers Home</Link>
+                        <Link to="/" aria-label="Back to home link">Resources for Researchers Home</Link>
                     </Theme>
                     <article aria-label="Resource Access Information">
                         <Theme element="div" className='resource__access'>
@@ -153,7 +154,7 @@ export class Resource extends React.Component {
                     }
                     {
                         (doCs.length > 0) &&
-                            <Theme element="article" className="resource__docs" aria-label="DOCs information">
+                            <Theme element="article" className="resource__docs" aria-label="NCI Affiliation Information">
                                 <h2>NCI Affiliation</h2>
                                 { renderDocsString(doCs) }
                             </Theme>
