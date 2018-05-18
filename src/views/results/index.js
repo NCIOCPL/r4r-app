@@ -13,9 +13,11 @@ import {
     updateSearchBar,
 } from '../../state/searchForm/actions'
 import {
-    getCurrentlySelectedFiltersFromFacets,
     transformFacetFiltersIntoParamsObject,
 } from '../../utilities';
+import {
+    memoizeSelectedFilters,
+} from '../../utilities/reselectHelpers';
 import SelectedFiltersBox from '../../components/SelectedFiltersBox';
 import Filters from '../../components/Filters';
 import ResultTile from '../../components/ResultTile';
@@ -40,7 +42,6 @@ export class Results extends React.Component {
              * FYI, This is the only instance of local state in the app. 
              */
             isMobileMenuOpen: false,
-            selectedFilters: [],
             isMobile: false,
         }
         this.mediaQueryListener = window.matchMedia('(max-width: 1024px)');
@@ -128,22 +129,6 @@ export class Results extends React.Component {
         this.mediaQueryListener.addListener(this.mediaQueryEvent);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState){
-        /**
-         * getCurrentlySelectedFiltersFromFacets:
-         * This method is an expensive nested reduce over nested arrays representing objects.
-         * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
-         * (being a light app, we will defer these optimizations for now). Good use case for reselect or vanilla memoization.
-         */
-        if(nextProps.facets !== prevState.facets){
-            return {
-                ...prevState,
-                selectedFilters: getCurrentlySelectedFiltersFromFacets(nextProps.facets),
-            }
-        }
-        return null;
-    }
-
     componentDidUpdate(prevProps, prevState) {
         // Watch only for changes to the filters...
         if(prevProps && this.props.facets !== prevProps.facets) {
@@ -206,7 +191,7 @@ export class Results extends React.Component {
                                         { 
                                             !this.state.isMobileMenuOpen 
                                             ? 
-                                                `Filter${ this.state.selectedFilters.length ? ` (${ this.state.selectedFilters.length })` : '' }` 
+                                                `Filter${ this.props.selectedFilters.length ? ` (${ this.props.selectedFilters.length })` : '' }` 
                                             : 
                                                 'Done' 
                                         }
@@ -215,9 +200,9 @@ export class Results extends React.Component {
                         </Theme>
                         <div className="results__selections-container">
                             <SelectedFiltersBox
-                                selected={ this.state.selectedFilters }
-                                clearFilters={this.props.clearFilters}
-                                toggleFilter={this.toggleFilter}
+                                selected={ this.props.selectedFilters }
+                                clearFilters={ this.props.clearFilters }
+                                toggleFilter={ this.toggleFilter }
                             />
                         </div>
                         <Theme element="nav" className="r4r-pager">
@@ -303,6 +288,7 @@ export class Results extends React.Component {
 const mapStateToProps = ({ api, searchForm }) => ({
     results: api.currentResults,
     facets: api.currentFacets,
+    selectedFilters: memoizeSelectedFilters(api),
     currentSearchText: api.currentSearchText,
     searchBarValue: searchForm.searchBarValues.results,
     totalResults: api.currentMetaData && api.currentMetaData.totalResults,
