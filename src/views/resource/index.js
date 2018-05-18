@@ -18,10 +18,12 @@ import {
     fetchResource,
 } from '../../state/api/actions';
 import {
-    formatFilters,
     keyHandler,
     renderDocsString,
 } from '../../utilities';
+import {
+    memoizeFilters,
+} from '../../utilities/reselectHelpers';
 import {
     resourceInterface
 } from '../../interfaces';
@@ -63,9 +65,7 @@ export class Resource extends React.Component {
     }
 
     renderSimilarResources = () => {
-        const filters = formatFilters(this.props.resource);
-
-        return filters.map(({
+        return this.props.filters.map(({
             filter,
             filterType,
             label,
@@ -192,6 +192,7 @@ export class Resource extends React.Component {
 
 const mapStateToProps = ({ api, searchForm }) => ({
     resource: api.currentResource,
+    filters: memoizeFilters(api),
     currentResults: api.currentResults,
     searchBarValue: searchForm.searchBarValues.resource,
 })

@@ -133,7 +133,7 @@ export class Results extends React.Component {
          * getCurrentlySelectedFiltersFromFacets:
          * This method is an expensive nested reduce over nested arrays representing objects.
          * This note serves as a reminder of where overhead gains can be made in the event of slowdown 
-         * (being a light app, we will defer these optimizations for now).
+         * (being a light app, we will defer these optimizations for now). Good use case for reselect or vanilla memoization.
          */
         if(nextProps.facets !== prevState.facets){
             return {
