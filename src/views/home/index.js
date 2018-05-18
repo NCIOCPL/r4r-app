@@ -161,4 +161,4 @@ const mapDispatchToProps = {
     searchBarOnChange: updateSearchBar,
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
