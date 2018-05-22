@@ -258,19 +258,21 @@ export const fetchResource = (resourceId) => ({
     payload: {
         resourceId,
     },
-    meta: {
-        cache: {
-            cacheType: 'RESOURCE',
-            cacheKey: resourceId,
-            onCached: dispatch => resource => dispatch(loadResource(resource)),
+    cache: {
+        cacheType: 'RESOURCE',
+        cacheKey: resourceId,
+        onCached: dispatch => resource => dispatch(loadResource(resource)),
+    },
+    fetch: {
+        url: '/resource/' + resourceId,
+        onSuccess: dispatch => res => {
+            dispatch(cacheResources([res]));
+            dispatch(loadResource(res));
         },
-        fetch: {
-            url: '/resource/' + resourceId,
-            onSuccess: dispatch => res => {
-                dispatch(cacheResources([res]));
-                dispatch(loadResource(res));
-            },
-        }
+    },
+    meta: {
+        eventType: 'PAGE_LOAD',
+        currentView: 'RESOURCE'
     }
 })
 

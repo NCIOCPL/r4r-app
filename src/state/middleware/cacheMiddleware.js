@@ -1,11 +1,4 @@
-import {
-    loadResource,
-    cacheResources,
-} from '../api/actions';
-
-
 const getCachedState = (state, { cacheType, cacheKey }) => {
-    console.log(cacheType)
     switch(cacheType) {
         case 'RESOURCE':
             return state.cache.cachedResources[cacheKey];            
@@ -29,12 +22,12 @@ const cacheMiddleware =  ({ dispatch, getState }) => next => action => {
     if(action.type !== '@@cache/RETRIEVE'){
         return
     }
-    
-    const cachedElement = getCachedState(getState(), action.meta.cache)
+
+    const cachedElement = getCachedState(getState(), action.cache)
 
     if(cachedElement) {
         console.log('Resource already cached, loading from local cache')
-        action.meta.cache.onCached(dispatch)(cachedElement)
+        action.cache.onCached(dispatch)(cachedElement)
         return;
     }
 

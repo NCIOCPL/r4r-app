@@ -78,10 +78,10 @@ const initializeR4R = ({
                 history,
                 apiEndpoint,
             }),
-            eventReporterMiddleware,
+            timestampMiddleware,
             fetchMiddleware,
             cacheMiddleware,
-            timestampMiddleware,
+            eventReporterMiddleware,
         ))
     );
 

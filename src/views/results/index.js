@@ -118,6 +118,7 @@ export class Results extends React.Component {
         this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen });
     }
 
+    // Execute search with filters based only on 
     newFullSearch = () => {
         const unparsedQueryString = this.props.location.search;
         const parsedQueryParams = queryString.parse(unparsedQueryString);

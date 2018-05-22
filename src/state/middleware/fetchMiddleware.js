@@ -22,7 +22,7 @@ const createFetchMiddleware = apiEndpoint => ({ dispatch, getState }) => next =>
         onSuccess,
         options,
         timeout,
-    } = action.meta.fetch;
+    } = action.fetch;
 
     if(url){
         console.log('Resource not cached, fetching from db')
