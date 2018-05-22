@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider, Theme } from './theme';
 import { createBrowserHistory } from 'history';
 import createEventReporterMiddleware from './state/middleware/eventReporter';
 import timestampMiddleware from './state/middleware/timestamp';
+import createFetchMiddleware from './state/middleware/fetchMiddleware';
+import cacheMiddleware from './state/middleware/cacheMiddleware';
 import initializeCancerGovTheme from './custom_configs/cancerGov';
 
 // Remove this block after CGOV custom theme development is complete
@@ -66,6 +68,7 @@ const initializeR4R = ({
     }
 
     const eventReporterMiddleware = createEventReporterMiddleware(eventHandler);
+    const fetchMiddleware = createFetchMiddleware(apiEndpoint);
 
     const store = createStore(
         combineReducers(reducers),
@@ -76,6 +79,8 @@ const initializeR4R = ({
                 apiEndpoint,
             }),
             eventReporterMiddleware,
+            fetchMiddleware,
+            cacheMiddleware,
             timestampMiddleware,
         ))
     );

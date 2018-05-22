@@ -34,12 +34,12 @@ export const setFetchingStatus = (isFetching, fetchId = null) => ({
     }
 })
 
-const setFacetsFetchingStatus = status => ({
+export const setFacetsFetchingStatus = status => ({
     type: FETCHING_FACETS_STATUS,
     payload: status,
 })
 
-const cacheResources = resources => {
+export const cacheResources = resources => {
     const processedResources = resources.reduce((acc, resource) => {
         acc[resource.id] = resource;
         return acc
@@ -56,7 +56,7 @@ export const loadResource = resource => ({
     payload: resource,
 })
 
-const loadNewSearchResults = ({ results, newQueryString }) => ({
+export const loadNewSearchResults = ({ results, newQueryString }) => ({
     type: LOAD_NEW_SEARCH_RESULTS,
     payload: {
         results,
@@ -64,17 +64,17 @@ const loadNewSearchResults = ({ results, newQueryString }) => ({
     }
 })
 
-const cacheNewSearchResults = results => ({
+export const cacheNewSearchResults = results => ({
     type: CACHE_NEW_SEARCH_RESULTS,
     payload: results,
 })
 
-const loadNewFacetResults = results => ({
+export const loadNewFacetResults = results => ({
     type: LOAD_NEW_FACET_RESULTS,
     payload: results,
 })
 
-const setCurrentSearchText = searchText => ({
+export const setCurrentSearchText = searchText => ({
     type: SET_CURRENT_SEARCH_TEXT,
     payload: searchText,
 })
@@ -93,7 +93,6 @@ export const updateFilter = (filterType, filter) => {
                 filter,
             },
         }
-
     :
         {
             type: UPDATE_FILTER,
@@ -149,6 +148,7 @@ export const newSearch = searchParams => (dispatch, getState, { history, apiEndp
 
     const newQueryString = composeQueryString(searchParams);
     
+    // TODO: Does this line still work??
     const isAlreadyAtCorrectURL = history.location.search === newQueryString;
     
     // We only want to retain search text on the results page (otherwise stale text will be visible on page changes)
@@ -220,35 +220,70 @@ export const newSearch = searchParams => (dispatch, getState, { history, apiEndp
                 if(!isAlreadyAtCorrectURL) {
                     console.log('navigating to search page')
                     history.push(`/search${ newQueryString }`)
-                }            
+                }
             }
         })
         .catch(err => constructErrorMessage(err, dispatch))
-
 }
 
-export const fetchResource = resourceId => (dispatch, getState, { apiEndpoint }) => {
-    const store = getState();
-    const cache = store.cache.cachedResources;
-    const cachedResource = cache[resourceId];
-    if(cachedResource) {
-        console.log('Resource already cached, loading from local cache')
-        dispatch(loadResource(cachedResource));
-        return;
-    }
+// DEPRECATED THUNK
+// export const fetchResource = resourceId => (dispatch, getState, { apiEndpoint }) => {
+//     const store = getState();
+//     const cache = store.cache.cachedResources;
+//     const cachedResource = cache[resourceId];
+//     if(cachedResource) {
+//         console.log('Resource already cached, loading from local cache')
+//         dispatch(loadResource(cachedResource));
+//         return;
+//     }
 
-    console.log('Resource not cached, fetching from db')
-    const fetchId = Date.now();
-    dispatch(setFetchingStatus(true, fetchId));
+//     console.log('Resource not cached, fetching from db')
+//     const fetchId = Date.now();
+//     dispatch(setFetchingStatus(true, fetchId));
 
-    timedFetch(apiEndpoint + '/resource/' + resourceId)
-        .catch(handleNetworkFailure)
-        .then(handleResponse)
-        .then(res => {
-            if(getState().api.fetchId === fetchId){
+//     timedFetch(apiEndpoint + '/resource/' + resourceId)
+//         .catch(handleNetworkFailure)
+//         .then(handleResponse)
+//         .then(res => {
+//             if(getState().api.fetchId === fetchId){
+//                 dispatch(cacheResources([res]));
+//                 dispatch(loadResource(res));
+//             }
+//         })
+//         .catch(err => constructErrorMessage(err, dispatch))
+// }
+
+export const fetchResource = (resourceId) => ({
+    type: '@@cache/RETRIEVE',
+    payload: {
+        resourceId,
+    },
+    meta: {
+        cache: {
+            cacheType: 'RESOURCE',
+            cacheKey: resourceId,
+            onCached: dispatch => resource => dispatch(loadResource(resource)),
+        },
+        fetch: {
+            url: '/resource/' + resourceId,
+            onSuccess: dispatch => res => {
                 dispatch(cacheResources([res]));
                 dispatch(loadResource(res));
-            }
-        })
-        .catch(err => constructErrorMessage(err, dispatch))
-}
+            },
+        }
+    }
+})
+
+// TODO: Need to build load from cache success generic
+export const fetchFacets = () => ({
+    type: '@@cache/RETRIEVE',
+    meta: {
+        cache: {
+            cacheType: 'FACETS',
+        },
+        fetch: {
+            url: '/resources?size=0&includeFacets=toolTypes&includeFacets=researchAreas',
+
+        }
+    }
+})
