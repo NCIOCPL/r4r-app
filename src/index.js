@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import * as reducers from './state';
+import * as myReducers from './state';
 import Router from './Router';
 import FatalErrorBoundary from './FatalErrorBoundary';
 import LiveRegion from './LiveRegion';
@@ -13,6 +13,7 @@ import { Helmet } from 'react-helmet';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
 import { createBrowserHistory } from 'history';
+import { routerMiddleware as createRouterMiddleware, routerReducer } from 'react-router-redux';
 import createEventReporterMiddleware from './state/middleware/eventReporter';
 import timestampMiddleware from './state/middleware/timestamp';
 import createFetchMiddleware from './state/middleware/fetchMiddleware';
@@ -61,14 +62,14 @@ const initializeR4R = ({
      */
     const history = createBrowserHistory(historyProps);
 
-    if(typeof eventHandler === 'function'){
-        history.listen((location, action) => {
-            eventHandler(location, action);
-        })
-    }
-
     const eventReporterMiddleware = createEventReporterMiddleware(eventHandler);
     const fetchMiddleware = createFetchMiddleware(apiEndpoint);
+    const routerMiddleware = createRouterMiddleware(history);
+
+    const reducers = {
+        ...myReducers,
+        router: routerReducer,
+    }
 
     const store = createStore(
         combineReducers(reducers),
@@ -79,6 +80,7 @@ const initializeR4R = ({
                 apiEndpoint,
             }),
             timestampMiddleware,
+            routerMiddleware,
             fetchMiddleware,
             cacheMiddleware,
             eventReporterMiddleware,
