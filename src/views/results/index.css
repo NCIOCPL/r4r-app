@@ -3,13 +3,14 @@
 }
 
 .r4r-results .notouch-overlay {
-    position: fixed;
+    position: absolute;
     height: 100%;
     width: 100%;
     z-index: 999;
     user-select: none;
     background: rgba(255,255,255,0.5);
     left: 0;
+    top: 0;
 }
 
 .results__selected-filters.r4r-DEFAULT {
