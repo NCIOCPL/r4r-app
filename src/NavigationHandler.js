@@ -8,7 +8,9 @@ class NavigationHandler extends React.Component{
     componentDidUpdate(prevProps){
         if(this.props.location !== prevProps.location){
             window.scrollTo(0,0);
-            this.props.clearError();
+            if(this.props.error){
+                this.props.clearError();
+            }
         }
     }
 
@@ -16,10 +18,13 @@ class NavigationHandler extends React.Component{
         return this.props.children;
     }
 }
+const mapStateToProps = ({ error }) => ({
+    error,
+})
 
 const mapDispatchToProps = {
     clearError,
     setFetchingStatus,
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(NavigationHandler));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavigationHandler));
