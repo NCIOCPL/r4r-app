@@ -3,9 +3,12 @@
 // middleware, which would no longer have to listen to all events, just events broadcast by this middleware.
 
 const timestampMiddleware = store => next => action => {
-    action.meta = {
-        ...action.meta,
-        timestamp: Date.now(),
+    // Don't timestamp thunks
+    if(typeof action === 'object'){
+        action.meta = {
+            ...action.meta,
+            timestamp: Date.now(),
+        }
     }
     next(action);
 }
