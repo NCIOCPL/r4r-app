@@ -11,7 +11,8 @@ import {
 } from '../../state/searchForm/actions';
 import { 
     loadFacets,
-    newSearch,
+    searchRedirect as newSearch,
+    setFetchingStatus,
 } from '../../state/api/actions';
 import {
     keyHandler,
@@ -60,6 +61,11 @@ export class Home extends React.Component {
 
     componentDidMount() {
         this.props.loadFacets();
+    }
+
+    componentWillUnmount(){
+        //TODO: custom unmount action (UI actions) more declarative
+        this.props.setFetchingStatus(false);
     }
 
     render() {
@@ -121,7 +127,7 @@ export class Home extends React.Component {
                                     facets={ this.props.referenceFacets }
                                     filterType={ 'toolTypes' }
                                     searchFunction={ this.newFilterSearch }
-                                    isFetching={ this.props.isFetchingFacets }
+                                    isFetching={ this.props.isFetching }
                                     displayCount={ true }
                                 />
                             }
@@ -133,7 +139,7 @@ export class Home extends React.Component {
                                     facets={ this.props.referenceFacets }
                                     filterType={ 'researchAreas' }
                                     searchFunction={ this.newFilterSearch }
-                                    isFetching={ this.props.isFetchingFacets }
+                                    isFetching={ this.props.isFetching }
                                     displayCount={ true }
                                 />
                             }
@@ -151,13 +157,14 @@ const mapStateToProps = ({
 }) => ({
     searchBarValue: searchForm.searchBarValues.home,
     referenceFacets: api.referenceFacets,
-    isFetchingFacets: api.isFetchingFacets,
+    isFetching: api.isFetching,
 })
 
 const mapDispatchToProps = {
     newSearch,
     loadFacets,
     searchBarOnChange: updateSearchBar,
+    setFetchingStatus,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

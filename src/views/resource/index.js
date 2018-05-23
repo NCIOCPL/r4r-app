@@ -14,8 +14,9 @@ import {
     updateSearchBar,
 } from '../../state/searchForm/actions';
 import { 
-    newSearch,
+    searchRedirect as newSearch,
     fetchResource,
+    setFetchingStatus,
 } from '../../state/api/actions';
 import {
     keyHandler,
@@ -88,6 +89,11 @@ export class Resource extends React.Component {
     componentDidMount() {
         const resourceId = this.props.match.params.id;
         this.props.fetchResource(resourceId);
+    }
+
+    componentWillUnmount(){
+        //TODO: custom unmount action (UI actions)
+        this.props.setFetchingStatus(false);
     }
 
     renderResource = ({
@@ -201,6 +207,7 @@ const mapDispatchToProps = {
     newSearch,
     searchBarOnChange: updateSearchBar,
     fetchResource,
+    setFetchingStatus,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Resource));

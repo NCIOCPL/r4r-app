@@ -13,16 +13,19 @@ import {
     validateSearchResponse,
     validateSearchRequest,
 } from '../../utilities/validation';
+import {
+    push,
+} from 'react-router-redux';
 
 export const CLEAR_FILTERS = "CLEAR FILTERS";
 export const UPDATE_FILTER = "UPDATE FILTER";
 export const LOAD_RESOURCE = "LOAD RESOURCE";
 export const CACHE_RESOURCES = "CACHE RESOURCES";
 export const FETCHING_STATUS = "FETCHING STATUS";
+export const UNMOUNT_RESULTS_VIEW = "UNMOUNT_RESULTS_VIEW";
 export const UPDATE_TOOLTYPE_FILTER = "UPDATE TOOLTYPE FILTER";
 export const LOAD_NEW_FACET_RESULTS = "LOAD NEW FACET RESULTS";
 export const LOAD_NEW_SEARCH_RESULTS = "LOAD NEW SEARCH RESULTS";
-export const FETCHING_FACETS_STATUS = "FETCHING FACETS STATUS";
 export const SET_CURRENT_SEARCH_TEXT = "SET CURRENT SEARCH TEXT";
 export const CACHE_NEW_SEARCH_RESULTS = "CACHE NEW SEARCH RESULTS";
 
@@ -32,11 +35,6 @@ export const setFetchingStatus = (isFetching, fetchId = null) => ({
         isFetching,
         fetchId,
     }
-})
-
-export const setFacetsFetchingStatus = status => ({
-    type: FETCHING_FACETS_STATUS,
-    payload: status,
 })
 
 export const cacheResources = resources => {
@@ -79,6 +77,13 @@ export const setCurrentSearchText = searchText => ({
     payload: searchText,
 })
 
+// This is a wrapper around the push action creator from the react-router-redux library
+export const searchRedirect = searchParams => {
+    searchParams = validateSearchRequest(searchParams);
+    const queryString = composeQueryString(searchParams);
+    return push(`/search${ queryString }`);
+}
+
 // Tooltypes are a special case because when we clear a selected tooltype
 // we want to also clear all currently checked toolsubtypes. We can clear all toolsubtypes
 // regardless of what state the tooltype is switching to because if it's being unchecked
@@ -107,6 +112,10 @@ export const clearFilters = () => ({
     type: CLEAR_FILTERS,
 })
 
+export const unmountResultsView = () => ({
+    type: UNMOUNT_RESULTS_VIEW,
+})
+
 export const loadFacets = () => (dispatch, getState, { apiEndpoint }) => {
     const queryString = '?size=0&includeFacets=toolTypes&includeFacets=researchAreas';
     const queryEndpoint = apiEndpoint + '/resources' + queryString;
@@ -119,7 +128,8 @@ export const loadFacets = () => (dispatch, getState, { apiEndpoint }) => {
     }
     
     console.log('Fetching facets')
-    dispatch(setFacetsFetchingStatus(true));
+    const fetchId = Date.now();
+    dispatch(setFetchingStatus(true, fetchId));
     timedFetch(queryEndpoint)
         .catch(handleNetworkFailure)
         .then(handleResponse)
