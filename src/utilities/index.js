@@ -138,6 +138,47 @@ export const composeQueryString = params => {
 }
 
 /**
+ * 
+ * @param {Object} currentFacets 
+ * @param {string} filterType 
+ * @param {string} filter
+ * @return {Object}
+ */
+export const updateFacetFilters = (currentFacets, filterType, filter) => {
+    // Tooltypes are a special case because when we clear a selected tooltype
+    // we want to also clear all currently checked toolsubtypes.
+    if(filterType === 'toolTypes'){
+        const { toolSubtypes, ...facets} = currentFacets;
+        return {
+            ...facets,
+            'toolTypes': {
+                ...facets['toolTypes'],
+                items: {
+                    ...facets['toolTypes'].items,
+                    [filter]: {
+                        ...facets['toolTypes'].items[filter],
+                        selected: !facets['toolTypes'].items[filter].selected,
+                    }
+                }
+            },
+        }
+    }
+    return {
+        ...currentFacets,
+        [filterType]: {
+            ...currentFacets[filterType],
+            items: {
+                ...currentFacets[filterType].items,
+                [filter]: {
+                    ...currentFacets[filterType].items[filter],
+                    selected: !currentFacets[filterType].items[filter].selected,
+                }
+            }
+        }
+    }
+}
+
+/**
  * We want to generate a query params object from the current state of the facets in the store.
  * The facets had been converted into a map by formatRawResourcesFacets(), but are otherwise the original data
  * returned from the API.
@@ -173,15 +214,11 @@ export const transformFacetFiltersIntoParamsObject = facets => {
 /**
  * Cached searches are previously stripped of full resource body. They only retain the reesource ID. Here we
  * use those ID to reconstitute the original full body of the search results.
- * @param {number|string} key 
- * @param {Object} cache
- * @param {Object} cache.cachedSearches
- * @param {Object} cache.cachedResources
+ * @param {Object} cachedResult
+ * @param {Object} cachedResources
  * @return {Object}
  */
-export const reconstituteSearchResultsFromCache = (key, cache) => {
-    const cachedResult = cache.cachedSearches[key];
-    const cachedResources = cache.cachedResources;
+export const reconstituteSearchResultsFromCache = (cachedResult, cachedResources) => {
     const reconstitutedResults = {
         ...cachedResult,
         results: cachedResult.results.map(id => cachedResources[id]),

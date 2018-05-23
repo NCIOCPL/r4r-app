@@ -1,11 +1,10 @@
-// TODO: This can also be a dependency injected function on the cache object of the original action
+// TODO: This should be a dependency injected function on the cache object of the original action
 const getCachedState = (state, { cacheType, cacheKey }) => {
     switch(cacheType) {
         case 'RESOURCE':
             return state.cache.cachedResources[cacheKey];            
-        // Currently not handling resources searches (process isn't generic yet)
-        // case 'RESOURCES':
-        //     return state.cache.cachedSearches[cacheKey];
+        case 'RESOURCES':
+            return state.cache.cachedSearches[cacheKey];
         case 'FACETS':
             return state.api.currentFacets;
         default:
@@ -25,10 +24,9 @@ const cacheMiddleware =  ({ dispatch, getState }) => next => action => {
     }
 
     const cachedElement = getCachedState(getState(), action.cache);
-
     if(cachedElement) {
         console.log('Resource already cached, loading from local cache');
-        action.cache.onCached(dispatch)(cachedElement);
+        action.cache.onCached(dispatch, getState)(cachedElement);
         return;
     }
 

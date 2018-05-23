@@ -1,3 +1,6 @@
+import queryString from 'query-string';
+import { composeQueryString } from './index';
+
 /**
  * @typedef KeyLabel
  * @type {Object}
@@ -145,4 +148,18 @@ export const addFromParamIfNoneFound = req => {
 export const validateSearchRequest = req => {
     req = addFromParamIfNoneFound(req);
     return req;
+}
+
+/**
+ * Converts a querystring to object format to run through extant validators.
+ * Reconverts the result to return in original string format.
+ * 
+ * @param {string} query
+ * @return {string}
+ */
+export const validateQueryStringSearchRequest = query => {
+    const requestAsParamsObject = queryString.parse(query);
+    const validatedParams = validateSearchRequest(requestAsParamsObject);
+    const restringifiedRequest = composeQueryString(validatedParams);
+    return restringifiedRequest;
 }

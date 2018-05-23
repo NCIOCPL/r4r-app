@@ -6,14 +6,16 @@ import { Helmet } from 'react-helmet';
 import { Theme } from '../../theme';
 import { 
     newSearch,
-    updateFilter,
-    clearFilters,
+    validatedNewSearch,
+    setCurrentSearchText,
+    searchRedirect,
     unmountResultsView,
 } from '../../state/api/actions';
 import {
     updateSearchBar,
 } from '../../state/searchForm/actions'
 import {
+    updateFacetFilters,
     transformFacetFiltersIntoParamsObject,
 } from '../../utilities';
 import {
@@ -28,8 +30,8 @@ import Pager from '../../components/Pager';
 import PagerCounter from '../../components/PagerCounter';
 import NoResults from '../../components/NoResults';
 import NoTouch from '../../components/NoTouch';
-import queryString from 'query-string';
 import '../../polyfills/object_entries';
+import queryString from 'query-string';
 import {
     resourceInterface
 } from '../../interfaces';
@@ -50,9 +52,8 @@ export class Results extends React.Component {
 
     static propTypes = {
         newSearch: PropTypes.func.isRequired,
-        updateFilter: PropTypes.func.isRequired,
-        clearFilters: PropTypes.func.isRequired,
-        searchBarOnChange: PropTypes.func.isRequired,
+        searchRedirect: PropTypes.func.isRequired,
+        updateSearchBar: PropTypes.func.isRequired,
         totalResults: PropTypes.number,
         startFrom: PropTypes.number,
         searchBarValue: PropTypes.string,
@@ -80,7 +81,7 @@ export class Results extends React.Component {
     newTextSearch = () => {
         // Do not execute on empty search fields
         if(this.props.searchBarValue) {
-            this.props.newSearch({
+            this.props.searchRedirect({
                 q: this.props.searchBarValue
             });
         }
@@ -89,12 +90,12 @@ export class Results extends React.Component {
 
     clearFilters = () => {
         if(this.props.searchBarValue) {
-            this.props.newSearch({
+            this.props.searchRedirect({
                 q: this.props.searchBarValue
             });
         }
         else {
-            this.props.newSearch({
+            this.props.searchRedirect({
                 from: 0,
                 size: 20,
             })
@@ -108,11 +109,18 @@ export class Results extends React.Component {
             ...from,
             q: this.props.currentSearchText,
         };
-        this.props.newSearch(paramsObjectFinal);        
+        this.props.searchRedirect(paramsObjectFinal);        
     }
 
-    toggleFilter = (filterType) => (filterKey) => () => {
-        this.props.updateFilter(filterType, filterKey);
+    toggleFilter = filterType => filter => () => {
+        const updatedFilters = updateFacetFilters(this.props.facets, filterType, filter);
+        const paramsObject = transformFacetFiltersIntoParamsObject(updatedFilters);
+        const paramsObjectFinal = {
+            ...paramsObject,
+            from: 0,
+            q: this.props.currentSearchText,
+        };
+        this.props.searchRedirect(paramsObjectFinal);   
     }
 
     toggleMobileMenu = () => {
@@ -120,33 +128,22 @@ export class Results extends React.Component {
     }
 
     // Execute search with filters based only on 
-    newFullSearch = () => {
-        const unparsedQueryString = this.props.location.search;
-        const parsedQueryParams = queryString.parse(unparsedQueryString);
-        this.props.newSearch(parsedQueryParams);
+    newSearchBasedOnURL = unvalidatedQueryString => {
+        const searchText = queryString.parse(unvalidatedQueryString).q || '';
+        this.props.setCurrentSearchText(searchText);
+        this.props.validatedNewSearch(unvalidatedQueryString);
     }
     
     componentDidMount() {
-        this.newFullSearch();
+        this.newSearchBasedOnURL(this.props.location.search);
         this.mediaQueryListener.addListener(this.mediaQueryEvent);
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // Watch only for changes to the filters...
-        if(prevProps && this.props.facets !== prevProps.facets) {
-            // 2) Generate new search based on current filters state
-            const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
-            paramsObject.q = this.props.currentSearchText;
-            if(this.props.startFrom){
-                paramsObject.from = this.props.startFrom;
-            }
-            this.props.newSearch(paramsObject);
-        }
-
-        // ...and to the URL querystring
+        // Watch only for changes to the URL querystring
         if(prevProps.location.search && prevProps.location.search !== this.props.location.search) {
-            console.log('User navigation triggered results page refresh')
-            this.newFullSearch();      
+            console.log('Results view updated')
+            this.newSearchBasedOnURL(this.props.location.search);      
         }
     }
 
@@ -179,7 +176,7 @@ export class Results extends React.Component {
                         <Theme element="section" className="results__search-container">
                             <SearchBar 
                                 value={ this.props.searchBarValue }
-                                onChange={ this.props.searchBarOnChange }
+                                onChange={ this.props.updateSearchBar }
                                 onSubmit={ this.newTextSearch }
                                 page='results'                            
                             />
@@ -204,7 +201,7 @@ export class Results extends React.Component {
                         <div className="results__selections-container">
                             <SelectedFiltersBox
                                 selected={ this.props.selectedFilters }
-                                clearFilters={ this.props.clearFilters }
+                                clearFilters={ this.clearFilters }
                                 toggleFilter={ this.toggleFilter }
                             />
                         </div>
@@ -301,10 +298,11 @@ const mapStateToProps = ({ api, searchForm }) => ({
 
 const mapDispatchToProps = {
     newSearch,
-    updateFilter,
-    clearFilters,
-    searchBarOnChange: updateSearchBar,
+    validatedNewSearch,
+    searchRedirect,
+    updateSearchBar,
     unmountResultsView,
+    setCurrentSearchText,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Results));
