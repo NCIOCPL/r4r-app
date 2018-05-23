@@ -8,6 +8,7 @@ import {
     newSearch,
     updateFilter,
     clearFilters,
+    unmountResultsView,
 } from '../../state/api/actions';
 import {
     updateSearchBar,
@@ -144,13 +145,14 @@ export class Results extends React.Component {
 
         // ...and to the URL querystring
         if(prevProps.location.search && prevProps.location.search !== this.props.location.search) {
-            console.log('User navigation triggered refresh')
+            console.log('User navigation triggered results page refresh')
             this.newFullSearch();      
         }
     }
 
     componentWillUnmount() {
         this.mediaQueryListener.removeListener(this.mediaQueryEvent);
+        this.props.unmountResultsView();
     }
 
     render() {
@@ -302,6 +304,7 @@ const mapDispatchToProps = {
     updateFilter,
     clearFilters,
     searchBarOnChange: updateSearchBar,
+    unmountResultsView,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Results));

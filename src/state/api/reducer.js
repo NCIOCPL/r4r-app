@@ -3,7 +3,7 @@ import {
     LOAD_NEW_SEARCH_RESULTS,
     UPDATE_TOOLTYPE_FILTER,
     LOAD_NEW_FACET_RESULTS,
-    FETCHING_FACETS_STATUS,
+    UNMOUNT_RESULTS_VIEW,
     FETCHING_STATUS,
     LOAD_RESOURCE,
     UPDATE_FILTER,
@@ -121,16 +121,11 @@ const reducer = (state = initialState, action) => {
                 isFetching: action.payload.isFetching,
                 fetchId: action.payload.fetchId,
             }
-        case FETCHING_FACETS_STATUS:
-            return {
-                ...state,
-                isFetchingFacets: action.payload,
-            }
         case LOAD_NEW_FACET_RESULTS:
             return {
                 ...state,
                 referenceFacets: action.payload,
-                isFetchingFacets: false,
+                isFetching: false,
             }
         case LOAD_NEW_SEARCH_RESULTS:
             const {
@@ -147,6 +142,16 @@ const reducer = (state = initialState, action) => {
                 currentFacets,
                 currentMetaData,
             };
+        case UNMOUNT_RESULTS_VIEW:
+            return {
+                ...state,
+                currentSearchQueryString: '',
+                isFetching: false,
+                fetchId: null,
+                currentResults: null,
+                currentFacets: null,
+                currentMetaData: null,
+            }
         case SET_CURRENT_SEARCH_TEXT:
             return {
                 ...state,
