@@ -17,6 +17,14 @@ const createFetchMiddleware = apiEndpoint => ({ dispatch, getState }) => next =>
         return;
     }
 
+    const store = getState();
+
+    // Error Prevention: Do not allow multiple fetchs to be executed in parallel.
+    if(store.api.isFetching){
+        console.log('Already fetching. Aborting.');
+        return;
+    }
+
     const {
         url,
         onSuccess,
