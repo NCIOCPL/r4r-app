@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Error from './components/Error';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 export class ErrorBoundary extends React.Component {
     static propTypes = {
         error: PropTypes.string,
+        url: PropTypes.string.isRequired,
         children: PropTypes.oneOfType([
             PropTypes.arrayOf(PropTypes.node),
             PropTypes.node
-        ])
+        ]),
+        location: PropTypes.shape({
+            search: PropTypes.string.isRequired,
+        })
     }
     
     render(){
@@ -21,8 +24,9 @@ export class ErrorBoundary extends React.Component {
     }
 }
 
-const mapStateToProps = store => ({
-    error: store.error,
+const mapStateToProps = ({ error, router }) => ({
+    error,
+    location: router.location,
 })
 
-export default withRouter(connect(mapStateToProps)(ErrorBoundary));
+export default connect(mapStateToProps)(ErrorBoundary);

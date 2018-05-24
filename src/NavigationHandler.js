@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearError } from './state/error/actions';
 import { setFetchingStatus } from './state/api/actions';
@@ -18,8 +17,9 @@ class NavigationHandler extends React.Component{
         return this.props.children;
     }
 }
-const mapStateToProps = ({ error }) => ({
+const mapStateToProps = ({ error, router }) => ({
     error,
+    location: router.location,
 })
 
 const mapDispatchToProps = {
@@ -27,4 +27,4 @@ const mapDispatchToProps = {
     setFetchingStatus,
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavigationHandler));
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationHandler);

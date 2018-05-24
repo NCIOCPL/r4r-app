@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Theme } from '../../theme';
 import { 
@@ -43,7 +43,7 @@ export class Results extends React.Component {
         super(props);
         this.state = {
             /**
-             * FYI, This is the only instance of local state in the app. 
+             * FYI, This is the only instance of local state in the app. (And the FatalErrorBoundary, I lied)
              */
             isMobileMenuOpen: false,
             isMobile: false,
@@ -69,6 +69,9 @@ export class Results extends React.Component {
             }))
         })),
         results: PropTypes.arrayOf(resourceInterface),
+        location: PropTypes.shape({
+            search: PropTypes.string.isRequired,
+        })
     }
 
     // We want to make sure that the mobile filter menu closes automatically if the window resizes above the mobile
@@ -286,7 +289,7 @@ export class Results extends React.Component {
     }
 }
 
-const mapStateToProps = ({ api, searchForm }) => ({
+const mapStateToProps = ({ api, searchForm, router }) => ({
     results: api.currentResults,
     facets: memoizeFacetFilters(api),
     selectedFilters: memoizeSelectedFilters(api),
@@ -295,6 +298,7 @@ const mapStateToProps = ({ api, searchForm }) => ({
     totalResults: api.currentMetaData && api.currentMetaData.totalResults,
     startFrom: api.currentMetaData && api.currentMetaData.from,
     isFetching: api.isFetching,
+    location: router.location,
 })
 
 const mapDispatchToProps = {
@@ -306,4 +310,4 @@ const mapDispatchToProps = {
     setCurrentSearchText,
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Results));
+export default connect(mapStateToProps, mapDispatchToProps)(Results);

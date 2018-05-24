@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Theme } from '../../theme';
@@ -46,6 +45,9 @@ export class Resource extends React.Component {
         searchBarValue: PropTypes.string,
         resource: resourceInterface,
         currentResults: PropTypes.arrayOf(resourceInterface),
+        location: PropTypes.shape({
+            search: PropTypes.string.isRequired,
+        })
     }
 
     newTextSearch = () => {
@@ -196,11 +198,12 @@ export class Resource extends React.Component {
     }
 }
 
-const mapStateToProps = ({ api, searchForm }) => ({
+const mapStateToProps = ({ api, searchForm, router }) => ({
     resource: api.currentResource,
     filters: memoizeFilters(api),
     currentResults: api.currentResults,
     searchBarValue: searchForm.searchBarValues.resource,
+    location: router.location,
 })
 
 const mapDispatchToProps = {
@@ -210,4 +213,4 @@ const mapDispatchToProps = {
     setFetchingStatus,
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Resource));
+export default connect(mapStateToProps, mapDispatchToProps)(Resource);

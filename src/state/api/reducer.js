@@ -13,7 +13,6 @@ import {
 const initialState = {
     isFetching: false,
     fetchId: null,
-    isFetchingFacets: false,
     searchParams: '',
     referenceFacets: null,
     currentSearchQueryString: '',
@@ -82,7 +81,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 fetchId: null,
-                isFetchingFacets: false
             }
         default:
             return state;

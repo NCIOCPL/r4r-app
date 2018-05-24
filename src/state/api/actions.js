@@ -1,5 +1,4 @@
 import {
-    formatRawResourcesFacets,
     composeQueryString,
     reconstituteSearchResultsFromCache,
 } from '../../utilities';
