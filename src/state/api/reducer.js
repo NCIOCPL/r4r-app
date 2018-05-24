@@ -45,6 +45,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 referenceFacets: action.payload,
                 isFetching: false,
+                fetchId: null,
             }
         case LOAD_NEW_SEARCH_RESULTS:
             const {
