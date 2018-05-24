@@ -45,7 +45,7 @@ export const loadResource = resource => ({
     payload: resource,
 });
 
-export const loadNewSearchResults = ({ results, newQueryString }) => ({
+export const loadNewSearchResults = (results, newQueryString) => ({
     type: LOAD_NEW_SEARCH_RESULTS,
     payload: {
         results,
@@ -53,9 +53,15 @@ export const loadNewSearchResults = ({ results, newQueryString }) => ({
     }
 });
 
-export const cacheNewSearchResults = results => ({
+// Replace full resources with just ids of resources before caching to save memory
+export const cacheNewSearchResults = (res, queryString) => ({
     type: CACHE_NEW_SEARCH_RESULTS,
-    payload: results,
+    payload: {
+        [queryString]: {
+            ...res,
+            results: res.results.map(resource => resource.id),
+        }
+    }
 });
 
 export const loadNewFacetResults = results => ({
@@ -110,8 +116,7 @@ export const loadFacets = () => ({
     fetch: {
         url: '/resources?size=0&includeFacets=toolTypes&includeFacets=researchAreas',
         onSuccess: dispatch => res => {
-            const formattedFacets = formatRawResourcesFacets(res.facets);
-            dispatch(loadNewFacetResults(formattedFacets));
+            dispatch(loadNewFacetResults(res.facets));
         }
     },
 });
@@ -133,7 +138,6 @@ export const newSearch = queryString => ({
         cacheType: 'RESOURCES',
         cacheKey: queryString,
         onCached: (dispatch, getState) => cachedSearch => {
-            console.log('Current search is already cached, loading from cache')
             const cachedResources = getState().cache.cachedResources;
             const reconstitutedResults = reconstituteSearchResultsFromCache(cachedSearch, cachedResources);
             dispatch(loadNewSearchResults({ results: reconstitutedResults, queryString }));        
@@ -143,22 +147,8 @@ export const newSearch = queryString => ({
         url: `/resources${ queryString }`,
         onSuccess: dispatch => res => {
             dispatch(cacheResources(res.results));
-    
-            // Search results will be processed to
-            // a) convert facets into a map for easy lookups
-            const processedResults = {
-                ...res,
-                facets: formatRawResourcesFacets(res.facets),
-            };
-            dispatch(loadNewSearchResults({ results: processedResults, queryString }));
-            // b) replace full resources with just id of resources
-            const strippedResults = {
-                ...processedResults,
-                results: processedResults.results.map(resource => resource.id),
-            };
-            dispatch(cacheNewSearchResults({ [queryString]: strippedResults }));
-            // When a searchresult is loaded, the resources will be repopulated from the resource cache.
-            // This avoids a lot of duplication in the results cache.
+            dispatch(cacheNewSearchResults(res, queryString));
+            dispatch(loadNewSearchResults(res, queryString));
         }
     }
 })

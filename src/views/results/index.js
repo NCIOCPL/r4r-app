@@ -20,6 +20,7 @@ import {
 } from '../../utilities';
 import {
     memoizeSelectedFilters,
+    memoizeFacetFilters,
 } from '../../utilities/reselectHelpers';
 import SelectedFiltersBox from '../../components/SelectedFiltersBox';
 import Filters from '../../components/Filters';
@@ -287,7 +288,7 @@ export class Results extends React.Component {
 
 const mapStateToProps = ({ api, searchForm }) => ({
     results: api.currentResults,
-    facets: api.currentFacets,
+    facets: memoizeFacetFilters(api),
     selectedFilters: memoizeSelectedFilters(api),
     currentSearchText: api.currentSearchText,
     searchBarValue: searchForm.searchBarValues.results,

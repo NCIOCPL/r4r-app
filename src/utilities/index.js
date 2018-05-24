@@ -96,6 +96,10 @@ import '../polyfills/object_entries';
  * @return {Object}
  */
 export const formatRawResourcesFacets = rawFacets => {
+    if(typeof rawFacets !== 'object' || rawFacets === null) {
+        return null;
+    }
+
     const formattedFacets = rawFacets.reduce((acc, facetType) => {
         const facetTypeFilters = facetType.items.reduce((acc, { key, ...filter}) => {
             acc[key] = filter;
@@ -145,6 +149,7 @@ export const composeQueryString = params => {
  * @return {Object}
  */
 export const updateFacetFilters = (currentFacets, filterType, filter) => {
+    console.log({currentFacets, filterType, filter})
     // Tooltypes are a special case because when we clear a selected tooltype
     // we want to also clear all currently checked toolsubtypes.
     if(filterType === 'toolTypes'){

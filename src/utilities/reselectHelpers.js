@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { 
     formatFilters,
+    formatRawResourcesFacets,
     getCurrentlySelectedFiltersFromFacets,
 } from './index';
 
@@ -10,8 +11,20 @@ export const memoizeFilters = createSelector(
     resource => formatFilters(resource)
 )
 
-// Retrieve selected filters for Results view.
+// Retrieve selected filters in Results view.
 export const memoizeSelectedFilters = createSelector(
     state => state.currentFacets,
-    facets => getCurrentlySelectedFiltersFromFacets(facets)
+    facets => getCurrentlySelectedFiltersFromFacets(formatRawResourcesFacets(facets))
+)
+
+// Format facet filters for display in Results view.
+export const memoizeFacetFilters = createSelector(
+    state => state.currentFacets,
+    facets => formatRawResourcesFacets(facets)
+)
+
+// Format facet types used in Home view.
+export const memoizeReferenceFacets = createSelector(
+    state => state.referenceFacets,
+    facets => formatRawResourcesFacets(facets)
 )

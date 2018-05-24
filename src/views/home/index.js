@@ -15,6 +15,9 @@ import {
     setFetchingStatus,
 } from '../../state/api/actions';
 import {
+    memoizeReferenceFacets
+} from '../../utilities/reselectHelpers';
+import {
     keyHandler,
 } from '../../utilities';
 import './index.css';
@@ -155,8 +158,8 @@ const mapStateToProps = ({
     searchForm,
     api,
 }) => ({
+    referenceFacets: memoizeReferenceFacets(api),
     searchBarValue: searchForm.searchBarValues.home,
-    referenceFacets: api.referenceFacets,
     isFetching: api.isFetching,
 })
 

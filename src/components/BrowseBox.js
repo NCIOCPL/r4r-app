@@ -10,7 +10,6 @@ import './BrowseBox.css';
 class BrowseBox extends React.PureComponent {
     static propTypes = {
         facets: PropTypes.object,
-        // facetFilters: PropTypes.object.isRequired,
         className: PropTypes.string,
         searchFunction: PropTypes.func.isRequired,
         filterType: PropTypes.string.isRequired,
@@ -20,7 +19,6 @@ class BrowseBox extends React.PureComponent {
 
     static defaultProps = {
         facets: {},
-        // facetFilters: {},
         searchFunction: () => {},
         filterType: '',
         displayCount: false,
