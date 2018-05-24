@@ -1,7 +1,6 @@
 .selected-filters__header.r4r-DEFAULT {
-    width: 120px;
+    min-width: 120px;
     font-size: 16px;
-    color: #777;
     align-self: flex-start;
     margin: 6px 0;
 }
@@ -9,16 +8,16 @@
 .selected-filters__filters-container.r4r-DEFAULT {
     display: flex;
     flex-flow: row wrap;
-    align-items: baseline;
+    align-items: center;
 }
 
 .selected-filters__filter.r4r-DEFAULT {
     color: white;
     background: #2a71a5;
-    font-size: 14px;
-    padding: 3px 12px;
+    font-size: 12px;
+    padding: 1px 7px;
     margin: 3px 5px;
-    border-radius: 10px;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     justify-content: space-around;
@@ -27,8 +26,10 @@
 .selected-filters__filter.selected-filters__clear.r4r-DEFAULT {
     background: none;
     color: #169bd5;
-    font-size: 1.1em;
+    font-size: 16px;
     width: auto;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .selected-filters__filter.r4r-DEFAULT > p:nth-child(2) {
@@ -36,6 +37,4 @@
     margin-left: 10px;
     text-align: center;
     font-weight: bold;
-    font-size: 16px;
-    margin-bottom: -5px;
 }

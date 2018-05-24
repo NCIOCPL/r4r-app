@@ -5,7 +5,9 @@
 }
 
 .browse-tiles__container.r4r-DEFAULT .r4r-cts-spinner {
-    display: block;
-    margin: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
     width: auto;
 }

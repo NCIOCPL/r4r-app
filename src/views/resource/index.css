@@ -10,6 +10,7 @@
 .r4r-resource .resource__main.r4r-DEFAULT {
     flex: 1;
     padding: 10px;
+    padding-left: 0;
 }
 
 .r4r-resource .resource__nav {

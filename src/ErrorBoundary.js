@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 export class ErrorBoundary extends React.Component {
     static propTypes = {
         error: PropTypes.string,
-        url: PropTypes.string.isRequired,
         children: PropTypes.oneOfType([
             PropTypes.arrayOf(PropTypes.node),
             PropTypes.node

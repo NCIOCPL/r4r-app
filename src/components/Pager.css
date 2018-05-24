@@ -10,6 +10,10 @@
     align-items: center;
 }
 
+.r4r-pager__count.r4r-DEFAULT p {
+    font-weight: bold;
+}
+
 .r4r-pager__nav.r4r-DEFAULT {
     margin-left: auto;
     display: flex;
