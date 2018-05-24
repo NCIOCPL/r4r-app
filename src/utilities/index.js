@@ -88,33 +88,6 @@ import '../polyfills/object_entries';
   * @property {string} label
   */
 
-/**
- * The purpose of this conversion is to make future lookups cheaper by using a hashmap instead of filtering an array.
- * However we will have to convert the facets back into an array for rendering passes, so this would be a questionable tradeoff
- * if it wasn't such a small dataset.
- * @param {Facet[]} rawFacets
- * @return {Object}
- */
-export const formatRawResourcesFacets = rawFacets => {
-    if(typeof rawFacets !== 'object' || rawFacets === null) {
-        return null;
-    }
-
-    const formattedFacets = rawFacets.reduce((acc, facetType) => {
-        const facetTypeFilters = facetType.items.reduce((acc, { key, ...filter}) => {
-            acc[key] = filter;
-            return acc;
-        }, {})
-
-        acc[facetType.param] = {
-            title: facetType.title,
-            items: facetTypeFilters,
-        };
-        return acc;
-    }, {});
-
-    return formattedFacets;
-}
 
 /**
  * Given an object representing all valid search params, returns a stringified(URIEncoded) version.
@@ -142,7 +115,11 @@ export const composeQueryString = params => {
 }
 
 /**
- * 
+ * Given the current facets object returned from the most recent search and update the state
+ * of a given filter before returning the new copy. (Acts in the same way a redux reducer would)
+ *
+ * NOTE: Remember, the facets are no longer in their original state (as provided by the API), 
+ * they have already been transformed by a selector using formatRawResourcesFacets() by the time this operation is performed.
  * @param {Object} currentFacets 
  * @param {string} filterType 
  * @param {string} filter
@@ -184,14 +161,13 @@ export const updateFacetFilters = (currentFacets, filterType, filter) => {
 }
 
 /**
- * We want to generate a query params object from the current state of the facets in the store.
- * The facets had been converted into a map by formatRawResourcesFacets(), but are otherwise the original data
- * returned from the API.
- * When a user selects a filter the map in the store is directly mutated to update the filter selection status.
- * This function then grabs the current (new) state of the mutated results and generates
- * an object of any selected filters. The app fires off the request immediately afterwards and overwrites
- * the mutated results with the new clean results which should match (this is how we avoid getting out of sync).
- * @param {Object} facets 
+ * We want to generate a query params object from the current state of provided facets 
+ * (either directly from the store or after alteration). 
+ * 
+ * NOTE: Remember, the facets are no longer in their original state (as provided by the API), 
+ * they have already been transformed by a selector using formatRawResourcesFacets() by the time this operation is performed.
+ * @param {Object} facets
+ * @return {Object}
  */
 export const transformFacetFiltersIntoParamsObject = facets => {
     if(typeof facets !== 'object' || facets === null) {
@@ -229,6 +205,35 @@ export const reconstituteSearchResultsFromCache = (cachedResult, cachedResources
         results: cachedResult.results.map(id => cachedResources[id]),
     }
     return reconstitutedResults;
+}
+
+/**
+ * RENDER HELPER
+ * The purpose of this conversion is to make future lookups cheaper by using a hashmap instead of filtering an array.
+ * However we will have to convert the facets back into an array for rendering passes, so this would be a questionable tradeoff
+ * if it wasn't such a small dataset.
+ * @param {Facet[]} rawFacets
+ * @return {Object}
+ */
+export const formatRawResourcesFacets = rawFacets => {
+    if(typeof rawFacets !== 'object' || rawFacets === null) {
+        return null;
+    }
+
+    const formattedFacets = rawFacets.reduce((acc, facetType) => {
+        const facetTypeFilters = facetType.items.reduce((acc, { key, ...filter}) => {
+            acc[key] = filter;
+            return acc;
+        }, {})
+
+        acc[facetType.param] = {
+            title: facetType.title,
+            items: facetTypeFilters,
+        };
+        return acc;
+    }, {});
+
+    return formattedFacets;
 }
 
 /**
