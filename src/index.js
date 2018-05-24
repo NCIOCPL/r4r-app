@@ -70,8 +70,8 @@ const initializeR4R = ({
         composeWithDevTools(applyMiddleware(
             timestampMiddleware,
             routerMiddleware,
-            fetchMiddleware,
             cacheMiddleware,
+            fetchMiddleware,
             eventReporterMiddleware,
         ))
     );

@@ -87,9 +87,8 @@ export const searchRedirect = searchParams => {
 export const fetchResource = (resourceId) => ({
     type: '@@cache/RETRIEVE',
     cache: {
-        cacheType: 'RESOURCE',
-        cacheKey: resourceId,
-        onCached: (dispatch, getState) => resource => dispatch(loadResource(resource)),
+        getCached: getState => getState().cache.cachedResources[resourceId],
+        onCached: dispatch => resource => dispatch(loadResource(resource)),
     },
     fetch: {
         url: '/resource/' + resourceId,
@@ -109,7 +108,7 @@ export const fetchResource = (resourceId) => ({
 export const loadFacets = () => ({
     type: '@@cache/RETRIEVE',
     cache: {
-        cacheType: 'FACETS',
+        getCached: getState => getState().api.currentFacets,
         onCached: () => () => {},
     },
     fetch: {
@@ -134,8 +133,7 @@ export const validatedNewSearch = queryString => {
 export const newSearch = queryString => ({
     type: '@@cache/RETRIEVE',
     cache: {
-        cacheType: 'RESOURCES',
-        cacheKey: queryString,
+        getCached: getState => getState().cache.cachedSearches[queryString],
         onCached: (dispatch, getState) => cachedSearch => {
             const cachedResources = getState().cache.cachedResources;
             const reconstitutedResults = reconstituteSearchResultsFromCache(cachedSearch, cachedResources);
