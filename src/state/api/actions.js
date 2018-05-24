@@ -140,7 +140,7 @@ export const newSearch = queryString => ({
         onCached: (dispatch, getState) => cachedSearch => {
             const cachedResources = getState().cache.cachedResources;
             const reconstitutedResults = reconstituteSearchResultsFromCache(cachedSearch, cachedResources);
-            dispatch(loadNewSearchResults({ results: reconstitutedResults, queryString }));        
+            dispatch(loadNewSearchResults(reconstitutedResults, queryString));        
         },
     },
     fetch: {

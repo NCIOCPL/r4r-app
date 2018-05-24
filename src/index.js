@@ -5,19 +5,19 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as myReducers from './state';
-import Router from './Router';
-import FatalErrorBoundary from './FatalErrorBoundary';
-import LiveRegion from './LiveRegion';
-import { Helmet } from 'react-helmet';
-import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
-import { createTheme, ThemeProvider, Theme } from './theme';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware as createRouterMiddleware, routerReducer } from 'react-router-redux';
 import createEventReporterMiddleware from './state/middleware/eventReporter';
-import timestampMiddleware from './state/middleware/timestamp';
-import createFetchMiddleware from './state/middleware/fetchMiddleware';
-import cacheMiddleware from './state/middleware/cacheMiddleware';
 import initializeCancerGovTheme from './custom_configs/cancerGov';
+import createFetchMiddleware from './state/middleware/fetchMiddleware';
+import timestampMiddleware from './state/middleware/timestamp';
+import cacheMiddleware from './state/middleware/cacheMiddleware';
+import { Helmet } from 'react-helmet';
+import Router from './Router';
+import FatalErrorBoundary from './FatalErrorBoundary';
+import LiveRegion from './LiveRegion';
+import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
+import { createTheme, ThemeProvider, Theme } from './theme';
 
 // Remove this block after CGOV custom theme development is complete
 if(process.env.NODE_ENV !== 'production') {
@@ -53,12 +53,6 @@ const initializeR4R = ({
         cachedState = loadStateFromSessionStorage(appId);
     }
 
-    /**
-     * By instantiating our history object here, instead of using BrowserRouter which is a wrapper around Router 
-     * and the history API setup, we can have access to it outside of the component
-     * tree (especially in our thunks to allow redirecting after searches (this would otherwise be impossible)).
-     * In this case we are passing it as a third argument in our thunks (dispatch, getState, history)
-     */
     const history = createBrowserHistory(historyProps);
 
     const eventReporterMiddleware = createEventReporterMiddleware(eventHandler);
