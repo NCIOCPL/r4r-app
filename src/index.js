@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as myReducers from './state';
 import Router from './Router';
@@ -75,10 +74,6 @@ const initializeR4R = ({
         combineReducers(reducers),
         cachedState,
         composeWithDevTools(applyMiddleware(
-            thunk.withExtraArgument({
-                history,
-                apiEndpoint,
-            }),
             timestampMiddleware,
             routerMiddleware,
             fetchMiddleware,
