@@ -15,6 +15,8 @@ import cacheMiddleware from './state/middleware/cacheMiddleware';
 import { Helmet } from 'react-helmet';
 import Router from './Router';
 import FatalErrorBoundary from './FatalErrorBoundary';
+import NavigationHandler from './NavigationHandler';
+import ErrorBoundary from './ErrorBoundary';
 import LiveRegion from './LiveRegion';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
@@ -102,7 +104,11 @@ const initializeR4R = ({
                                     <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
                                 </Helmet>
                                 <LiveRegion />
-                                <Router history={ history }/>
+                                <NavigationHandler>
+                                    <ErrorBoundary>
+                                        <Router history={ history }/>
+                                    </ErrorBoundary>
+                                </NavigationHandler>
                         </Theme>
                     </ThemeProvider>
             </Provider>
