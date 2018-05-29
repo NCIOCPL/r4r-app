@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import { Theme } from '../../theme';
 import SearchBar from '../../components/SearchBar';
 import BrowseBox from '../../components/BrowseBox';
-import MultiLineText from '../../components/MultiLineText';
 import { 
     updateSearchBar,
 } from '../../state/searchForm/actions';
@@ -81,10 +80,10 @@ export class Home extends React.Component {
                 <h1>Resources for Researchers</h1>
                 <Theme element="main" className="home__main">
                     <Theme element="article" className="home__desc">
-                        <MultiLineText
-                            text={ "Resources for Researchers is a directory of tools and services developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone." }
-                            />
-                        <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">About Resources for Researchers</Theme>
+                        <p>
+                            Resources for Researchers is a directory of tools and services developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone.&nbsp;
+                            <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">Learn more about Resources for Researchers ></Theme>
+                        </p>
                     </Theme>
                 </Theme>
                 <Theme element="nav" className="home-nav">

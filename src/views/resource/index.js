@@ -138,17 +138,19 @@ export class Resource extends React.Component {
                         }
                         <Link to="/" aria-label="Back to home link">Resources for Researchers Home</Link>
                     </Theme>
-                    <article aria-label="Resource Access Information">
-                        <Theme element="div" className='resource__access'>
-                            <SVG iconType={ resourceAccess.type }/>
-                            <h4>{ resourceAccessTitles[resourceAccess.type] }</h4>
-                            <p>{ resourceAccess.notes }</p>
-                        </Theme>
-                    </article>
                     <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
                     <Theme element="div" className="resource__link--external">
                         <a href={ website }>Visit Resource</a>
                     </Theme>
+                    <article aria-label="Resource Access Information">
+                        <Theme element="div" className='resource__access'>
+                            <SVG iconType={ resourceAccess.type }/>
+                            <h4>{ resourceAccessTitles[resourceAccess.type] }</h4>
+                            {
+                                resourceAccess.notes ? <p>{ resourceAccess.notes }</p> : null
+                            }
+                        </Theme>
+                    </article>
                     {
                         (poCs.length > 0) &&
                             <article>

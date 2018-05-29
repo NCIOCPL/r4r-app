@@ -4,8 +4,7 @@
 }
 
 .r4r-home.r4r-DEFAULT .r4r__link--about.r4r-DEFAULT {
-    margin: 10px 0;
-    font-size: 0.9em;
+    margin: 0;
     margin-left: auto;
 }
 
@@ -39,6 +38,10 @@
 
 .home-nav__tile.r4r-DEFAULT > * {
     flex: 1;
+}
+
+.home-nav__tile.r4r-DEFAULT h2 {
+    font-weight: 400;
 }
 
 .home-tile__icon.r4r-DEFAULT {
