@@ -91,6 +91,13 @@ const initializeR4R = ({
     
         store.subscribe(saveDesiredStateToSessionStorage);
     }
+    
+    store.dispatch({
+        type: '@@event/APP_INITIALIZATION',
+        meta: {
+            location: window.location,
+        }
+    });
 
     const App = () => (
         <FatalErrorBoundary>
