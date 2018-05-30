@@ -123,7 +123,7 @@ export class Resource extends React.Component {
                 <Theme element="div" className="resource__main">
                     <Theme element="div" className="resource__home">
                         {
-                            this.props.currentResults && (this.props.currentResults.indexOf(this.props.resource) !== -1) &&
+                            this.props.currentResults && (this.props.currentResults.indexOf(this.props.resource.id) !== -1) &&
                                 <Theme element="a"
                                     className="resource__back" 
                                     onClick={ this.props.history.goBack }
