@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import { goBack } from 'react-router-redux';
 import { Theme } from '../../theme';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
@@ -39,7 +40,14 @@ export class Resource extends React.Component {
         currentResults: PropTypes.arrayOf(resourceInterface),
         location: PropTypes.shape({
             search: PropTypes.string.isRequired,
-        })
+        }),
+        history: PropTypes.arrayOf(PropTypes.shape({
+            pathname: PropTypes.string,
+            search: PropTypes.string,
+            hash: PropTypes.string,
+            key: PropTypes.string,
+        })),
+        goBack: PropTypes.func.isRequired,
     }
 
     newTextSearch = () => {
@@ -115,12 +123,12 @@ export class Resource extends React.Component {
                 <Theme element="div" className="resource__main">
                     <Theme element="div" className="resource__home">
                         {
-                            this.props.currentResults && (this.props.currentResults.indexOf(this.props.resource.id) !== -1) &&
+                            this.props.history.length > 1 && (this.props.history[this.props.history.length - 2].pathname === '/search') &&
                                 <Theme element="a"
                                     className="resource__back" 
-                                    onClick={ this.props.history.goBack }
+                                    onClick={ this.props.goBack }
                                     onKeyPress={ keyHandler({
-                                        fn: this.props.history.goBack,
+                                        fn: this.props.goBack,
                                     })}
                                     tabIndex="0"
                                     aria-label="Back to search results link"
@@ -187,12 +195,13 @@ export class Resource extends React.Component {
     }
 }
 
-const mapStateToProps = ({ api, searchForm, router }) => ({
+const mapStateToProps = ({ api, searchForm, router, history }) => ({
     resource: api.currentResource,
     filters: memoizeFilters(api),
     currentResults: api.currentResults,
     searchBarValue: searchForm.searchBarValues.resource,
     location: router.location,
+    history,
 })
 
 const mapDispatchToProps = {
@@ -200,6 +209,7 @@ const mapDispatchToProps = {
     searchBarOnChange: updateSearchBar,
     fetchResource,
     setFetchingStatus,
+    goBack,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Resource);
