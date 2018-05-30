@@ -142,6 +142,7 @@
 
     .r4r-resource .resource__nav {
         width: 100%;
+        padding: 0;
     }
 }
 

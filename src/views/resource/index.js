@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Theme } from '../../theme';
-import SVG from '../../components/SVG';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
 import ContactInformation from '../../components/ContactInformation';
@@ -28,14 +27,7 @@ import {
     resourceInterface
 } from '../../interfaces';
 import './index.css';
-
-// The API returns resources with one of three types of resourceAccess.type keys. This 
-// let's us create the corresponding title client-side.
-const resourceAccessTitles = {
-    'open': 'Free to use',
-    'register': 'This resource requires registration',
-    'cost': 'Payment Required'
-}
+import ResourceAccess from '../../components/ResourceAccess';
 
 export class Resource extends React.Component {
     static propTypes = {
@@ -142,15 +134,10 @@ export class Resource extends React.Component {
                     <Theme element="div" className="resource__link--external">
                         <a href={ website }>Visit Resource</a>
                     </Theme>
-                    <article aria-label="Resource Access Information">
-                        <Theme element="div" className='resource__access'>
-                            <SVG iconType={ resourceAccess.type }/>
-                            <h4>{ resourceAccessTitles[resourceAccess.type] }</h4>
-                            {
-                                resourceAccess.notes ? <p>{ resourceAccess.notes }</p> : null
-                            }
-                        </Theme>
-                    </article>
+                    <ResourceAccess 
+                        type={ resourceAccess.type }
+                        notes={ resourceAccess.notes }
+                    />
                     {
                         (poCs.length > 0) &&
                             <article>
