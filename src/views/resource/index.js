@@ -123,6 +123,7 @@ export class Resource extends React.Component {
                 <Theme element="div" className="resource__main">
                     <Theme element="div" className="resource__home">
                         {
+                            // NOTE: For simplicity, this assumes that a person didn't manually navigate from the results to a resource page
                             this.props.history.length > 1 && (this.props.history[this.props.history.length - 2].pathname === '/search') &&
                                 <Theme element="a"
                                     className="resource__back" 
@@ -149,7 +150,7 @@ export class Resource extends React.Component {
                     {
                         (poCs.length > 0) &&
                             <article>
-                                    <h2>Contact Information</h2>
+                                <h2>Contact Information</h2>
                                 { 
                                     poCs.map((poc, idx) => (
                                         <ContactInformation contact={ poc } key={ idx } />

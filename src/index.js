@@ -10,7 +10,7 @@ import { routerMiddleware as createRouterMiddleware, routerReducer } from 'react
 import createEventReporterMiddleware from './state/middleware/eventReporter';
 import initializeCancerGovTheme from './custom_configs/cancerGov';
 import createFetchMiddleware from './state/middleware/fetchMiddleware';
-import timestampMiddleware from './state/middleware/timestamp';
+import metadataMiddleware from './state/middleware/metadata';
 import cacheMiddleware from './state/middleware/cacheMiddleware';
 import { Helmet } from 'react-helmet';
 import Router from './Router';
@@ -70,7 +70,7 @@ const initializeR4R = ({
         combineReducers(reducers),
         cachedState,
         composeWithDevTools(applyMiddleware(
-            timestampMiddleware,
+            metadataMiddleware,
             routerMiddleware,
             cacheMiddleware,
             fetchMiddleware,
