@@ -97,7 +97,7 @@
     font-weight: bolder;
 }
 
-.resource__back .resource__el--pipe {
+.r4r-resource .resource__el--pipe {
     margin: 0 10px 2px 10px;
 }
 
@@ -155,7 +155,7 @@
         flex: none;
     }
 
-    .resource__back .resource__el--pipe {
+    .r4r-resource .resource__el--pipe {
         display: none;
     }
 }
