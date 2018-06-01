@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Theme } from '../theme';
+import SVG from './SVG';
 import {
     keyHandler,
 } from '../utilities';
@@ -46,7 +47,7 @@ class SelectedFiltersBox extends React.PureComponent {
                                         })}
                                     >
                                         <p>{filter.label}</p>
-                                        <p>✖</p>
+                                        <SVG iconType="xmark" className="selected-filters__close"/>
                                     </Theme>
                                 ))
                             }

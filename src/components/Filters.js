@@ -24,6 +24,7 @@ class Filters extends React.PureComponent {
                     className="tool-types"
                     facet={ this.props.facets['toolTypes'] }
                     onChange={ this.props.onChange('toolTypes') }
+                    isCloseable={ true }
                 />
                 <FilterBox
                     className="tool-subtypes"

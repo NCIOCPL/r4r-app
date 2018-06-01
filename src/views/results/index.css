@@ -67,19 +67,8 @@
     display: none;
 }
 
-/* TODO: Checkmark */
-.facet__box.facet__box--tool-types input.filter__checkbox:checked + .filter__label.r4r-DEFAULT::after {
-    content: '\2716';
-    font-size: 11px;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    margin: 0 10px;
+.facet__box.facet__box--tool-types input.filter__checkbox:checked + .filter__label .filter__close {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #169bd5;
-    color: white;
 }
 
 .facet__box.facet__box--tool-types .filter__label.r4r-DEFAULT {

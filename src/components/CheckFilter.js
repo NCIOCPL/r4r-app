@@ -12,6 +12,7 @@ class CheckFilter extends React.PureComponent {
         count: PropTypes.number.isRequired,
         className: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
+        isCloseable: PropTypes.bool.isRequired,
     }
 
     static defaultProps = {
@@ -19,7 +20,7 @@ class CheckFilter extends React.PureComponent {
         onChange: () => {},
         checked: false,
         label: '',
-        count: ''
+        count: '',
     }
 
     onChange = () => {
@@ -55,6 +56,10 @@ class CheckFilter extends React.PureComponent {
                         }
                     </div>
                     {`${this.props.label} (${this.props.count})`}
+                    {
+                        this.props.isCloseable &&
+                            <SVG iconType="xmark" className="filter__close"/>
+                    }
                 </Theme>
             </Theme>
         )

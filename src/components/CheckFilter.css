@@ -26,3 +26,15 @@
    position: absolute;
    z-index: -1;
 }
+
+.filter__close {
+    display: none;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    background: #169bd5;
+}
+
+.filter__label .filter__close {
+    margin: 0 10px;
+}

@@ -17,10 +17,12 @@ class FilterBox extends React.PureComponent {
         }),
         onChange: PropTypes.func.isRequired,
         isVisible: PropTypes.bool.isRequired,
+        isCloseable: PropTypes.bool,
     }
 
     static defaultProps = {
         isVisible: true,
+        isCloseable: false,
     }
 
     render() {
@@ -48,6 +50,7 @@ class FilterBox extends React.PureComponent {
                                     count={ count }
                                     onChange={ this.props.onChange(key) }
                                     className={ 'facet__filter'}
+                                    isCloseable={ this.props.isCloseable }
                                 />
                             ))
                         }

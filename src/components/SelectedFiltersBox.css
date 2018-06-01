@@ -38,3 +38,13 @@
     text-align: center;
     font-weight: bold;
 }
+
+.selected-filters__close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected-filters__filter .selected-filters__close {
+    margin-left: 5px;
+}
