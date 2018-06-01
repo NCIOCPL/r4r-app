@@ -3,9 +3,9 @@
     display: flex;
 }
 
-.facet__filter.r4r-DEFAULT .filter__label::before {
-    display: block;
-    content: '';
+.checkbox__outline {
+    display: inline-block;
+    position: relative;
     margin-right: 5px;
     width: 15px;
     height: 15px;
@@ -13,12 +13,12 @@
     color: #186d89;
 }
 
-input.filter__checkbox:checked + .filter__label.r4r-DEFAULT::before {
-    content: '✓';
-    font-size: 1.1em;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+.checkbox__outline .checkbox__checkmark {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: -1px;
+    left: -1px;
 }
 
 .filter__checkbox.r4r-DEFAULT {

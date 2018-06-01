@@ -62,15 +62,12 @@
     cursor: pointer;
 }
 
-.facet__filter.r4r-DEFAULT .filter__checkbox.r4r-DEFAULT {
-    margin-right: 10px;
-}
-
 /* Tooltypes aren't really a checkbox, we disguise that with styling */
-.facet__box.facet__box--tool-types input.filter__checkbox + .filter__label.r4r-DEFAULT::before {
+.facet__box.facet__box--tool-types input.filter__checkbox + .filter__label.r4r-DEFAULT .checkbox__outline {
     display: none;
 }
 
+/* TODO: Checkmark */
 .facet__box.facet__box--tool-types input.filter__checkbox:checked + .filter__label.r4r-DEFAULT::after {
     content: '\2716';
     font-size: 11px;

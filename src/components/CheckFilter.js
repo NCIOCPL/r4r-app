@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Theme } from '../theme';
 import { keyHandler } from '../utilities';
+import SVG from '../components/SVG';
 import './CheckFilter.css';
 
 class CheckFilter extends React.PureComponent {
@@ -47,6 +48,12 @@ class CheckFilter extends React.PureComponent {
                     tabIndex="-1"
                 />
                 <Theme element="span" className='filter__label'>
+                    <div className="checkbox__outline">
+                        {
+                            this.props.checked &&
+                                <SVG iconType="checkmark" className="checkbox__checkmark"/>
+                        }
+                    </div>
                     {`${this.props.label} (${this.props.count})`}
                 </Theme>
             </Theme>
