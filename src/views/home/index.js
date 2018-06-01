@@ -82,7 +82,7 @@ export class Home extends React.Component {
                     <Theme element="article" className="home__desc">
                         <p>
                             Resources for Researchers is a directory of tools and services developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone.&nbsp;
-                            <Theme element="a" className="r4r__link--about" href="#i-am-a-dummyuurl">Learn more about Resources for Researchers ></Theme>
+                            <Theme element="a" className="r4r__link--about" href="https://www-blue-dev.cancer.gov/research/about-r4r">Learn more about Resources for Researchers ></Theme>
                         </p>
                     </Theme>
                 </Theme>
