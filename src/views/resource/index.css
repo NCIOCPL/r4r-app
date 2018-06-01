@@ -97,9 +97,8 @@
     font-weight: bolder;
 }
 
-.resource__back::after {
-    content: '|';
-    margin: 0 10px;
+.resource__back .resource__el--pipe {
+    margin: 0 10px 2px 10px;
 }
 
 .r4r-resource.r4r-DEFAULT .resource__docs.r4r-DEFAULT {
@@ -156,7 +155,7 @@
         flex: none;
     }
 
-    .resource__back::after{
-        content: '';
-    }  
+    .resource__back .resource__el--pipe {
+        display: none;
+    }
 }
