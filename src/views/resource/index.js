@@ -16,6 +16,7 @@ import {
     searchRedirect as newSearch,
     fetchResource,
     setFetchingStatus,
+    clickEvent,
 } from '../../state/api/actions';
 import {
     keyHandler,
@@ -75,6 +76,9 @@ export class Resource extends React.Component {
     newTextSearch = () => {
         // Don't execute on empty search bar
         if(this.props.searchBarValue) {
+            this.props.clickEvent('Search BTN', {
+                keyword: this.props.searchBarValue,
+            })
             this.props.newSearch({
                 q: this.props.searchBarValue,
                 from: 0,
@@ -83,6 +87,7 @@ export class Resource extends React.Component {
     }
 
     newFilterSearch = ({filterType, filter}) => () => {
+        this.props.clickEvent('Related Resource');
         this.props.newSearch({ 
             [filterType]: filter,
             from: 0,
@@ -231,6 +236,7 @@ const mapStateToProps = ({ api, searchForm, router, history }) => ({
 })
 
 const mapDispatchToProps = {
+    clickEvent,
     newSearch,
     searchBarOnChange: updateSearchBar,
     fetchResource,

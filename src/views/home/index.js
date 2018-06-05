@@ -53,6 +53,10 @@ export class Home extends React.Component {
     }
 
     newFilterSearch = ({filterType, filter}) => () => {
+        this.props.clickEvent('Browse Resource', {
+            filterType,
+            filter
+        })
         this.props.newSearch({ 
             [filterType]: filter,
             from: 0,

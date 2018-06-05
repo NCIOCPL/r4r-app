@@ -47,6 +47,18 @@ const clickEvent = event => {
                 prop49: event.meta.clickInfo.totalResults,
                 prop67: event.meta.location.href,
             }
+        case 'Related Resource':
+            return {
+                prop1: event.meta.clickType,
+                prop67: event.meta.location.href,                
+            }
+        case 'Browse Resource':
+            return {
+                prop1: event.meta.clickType,
+                prop67: event.meta.location.href,                
+                prop69: event.meta.clickInfo.filterType,
+                prop1000: event.meta.clickInfo.filter,
+            }
         default:
             return {};
     }

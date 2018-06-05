@@ -87,6 +87,9 @@ export class Results extends React.Component {
     newTextSearch = () => {
         // Do not execute on empty search fields
         if(this.props.searchBarValue) {
+            this.props.clickEvent('Search BTN', {
+                keyword: this.props.searchBarValue,
+            })
             this.props.searchRedirect({
                 q: this.props.searchBarValue
             });
