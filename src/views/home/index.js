@@ -75,7 +75,6 @@ export class Home extends React.Component {
     }
 
     componentWillUnmount(){
-        //TODO: custom unmount action (UI actions) more declarative
         this.props.setFetchingStatus(false);
     }
 
@@ -90,44 +89,47 @@ export class Home extends React.Component {
                 <Theme element="main" className="home__main">
                     <Theme element="article" className="home__desc">
                         <p>
-                            Resources for Researchers is a directory of tools and services developed by NCI to support investigators and expedite cancer research. Most resources are free of cost and available to anyone.&nbsp;
-                            <Theme element="a" className="r4r__link--about" href="https://www-blue-dev.cancer.gov/research/about-r4r">Learn more about Resources for Researchers ></Theme>
+                            Resources for Researchers is a directory of NCI-supported tools and services for cancer researchers. Most resources are free of cost and available to anyone.&nbsp;
+                            <Theme element="a" className="r4r__link--about" href="https://www-blue-dev.cancer.gov/research/about-r4r">Learn more about Resources for Researchers.</Theme>
                         </p>
                     </Theme>
                 </Theme>
                 <Theme element="nav" className="home-nav">
                     <Theme element="div" className="home-nav__tiles">
                         <Theme element="div" className="home-nav__tile">
-                            <SVG iconType="viewAllIcon" className="home-tile__icon" />
-                            <Theme element="div" className='home__view-all'>
-                                <a
-                                    /* This is used instead of a pseudo element because of cgov outline styles being disabled */
-                                    onClick={ this.viewAllOnClick }
-                                    onKeyPress={ keyHandler({
-                                        fn: this.viewAllOnClick,
-                                    })}
-                                    tabIndex="0"
-                                >
-                                    <h2> { `View All Resources${ this.props.totalResources ? ` (${ this.props.totalResources })` : '' }` }</h2>
-                                </a>
-                            </Theme>
+                            <SVG iconType="searchIcon" className="home-tile__icon" />
+                            <div className="home-tile__text">
+                                <h2>Search For Resources</h2>
+                                <p>Search for resources by keyword or phrase.</p>
+                            </div>
                         </Theme>
                         <Theme element="div" className="home-nav__tile">
-                            <SVG iconType="searchIcon" className="home-tile__icon" />
-                            <Theme element="div" className='home__search'>
-                                <h2>Search Resources</h2>
-                                <SearchBar
-                                    value={ this.props.searchBarValue }
-                                    onChange={ this.props.searchBarOnChange }
-                                    onSubmit={ this.newTextSearch }
-                                    placeholder="Find NCI-supported resources"
-                                    page='home'
-                                />
-                            </Theme>
+                            <SearchBar
+                                value={ this.props.searchBarValue }
+                                onChange={ this.props.searchBarOnChange }
+                                onSubmit={ this.newTextSearch }
+                                placeholder="Find NCI-supported resources"
+                                page='home'
+                            />
                         </Theme>
                         <Theme element="div" className="home-nav__tile">
                             <SVG iconType="browseIcon" className="home-tile__icon"/>
-                            <h2>Browse Resources</h2>
+                            <div className="home-tile__text">
+                                <h2>Browse Resources</h2>
+                                <p>Browse resources by tool type or research area or view all resources.</p>
+                            </div>
+                        </Theme>
+                        <Theme element="div" className="home-nav__tile">
+                            <Theme element="a" className="view-all__link"
+                                /* This is used instead of a pseudo element because of cgov outline styles being disabled */
+                                onClick={ this.viewAllOnClick }
+                                onKeyPress={ keyHandler({
+                                    fn: this.viewAllOnClick,
+                                })}
+                                tabIndex="0"
+                            >
+                                { `View All Resources${ this.props.totalResources ? ` (${ this.props.totalResources })` : '' }` }
+                            </Theme>
                         </Theme>
                     </Theme>
                     <Theme element="div" className="home-nav__main">

@@ -16,19 +16,6 @@ const searchIcon =
         S40,69.9,46.4,69.9s11.6-5.2,11.6-11.6S52.7,46.8,46.3,46.8z"/>
 </svg>
 
-const viewAllIcon =
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 100 100.6" style={{ enableBackground:'new 0 0 100 100.6' }} xmlSpace="preserve">
-    <g>
-        <path d="M95,3.8H5v92.5h90V3.8z M89,9.8v16H11v-16H89z M11,90.3V31.8h78v58.5H11z"/>
-        <circle cx="30" cy="17.7" r="4.1"/>
-        <circle cx="40.6" cy="17.7" r="4.1"/>
-        <circle cx="19.4" cy="17.7" r="4.1"/>
-    </g>
-    <path d="M84,58.1c-8.8-8.8-20.6-13.6-33-13.6s-24.2,4.8-33,13.6l3.9,3.9c5.4-5.4,12-9.1,19.3-10.9c-2.8,2.6-4.4,6.3-4.4,10.4
-	c0,7.9,6.4,14.2,14.2,14.2s14.2-6.4,14.2-14.2c0-4-1.7-7.7-4.4-10.4c7.3,1.7,13.9,5.5,19.3,10.9L84,58.1z"/>
-</svg>
-
 const browseIcon =
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 100 100.6" style={{ enableBackground:'new 0 0 100 100.6' }} xmlSpace="preserve">
@@ -98,7 +85,6 @@ const images = {
     "cost": moneyIcon,
     "magnify": magnifyIcon,
     browseIcon,
-    viewAllIcon,
     searchIcon,
     checkmark,
     xmark,

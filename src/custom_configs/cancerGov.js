@@ -15,6 +15,7 @@ const customTheme = {
     'searchbar__button--submit': 'button',
     'browse__tile': 'arrow-link',
     'similar-resource__tile': 'arrow-link',
+    'view-all__link': 'arrow-link',
 };
 
 /**
