@@ -39,10 +39,6 @@
     flex: 1;
 }
 
-.home-nav__tile.r4r-DEFAULT h2 {
-    font-weight: 400;
-}
-
 .home-tile__icon.r4r-DEFAULT {
     width: 80px;
     margin-right: 20px;

@@ -284,7 +284,11 @@ export const renderDocsString = (doCs = []) => {
         return base + '.';
     }
     if(doCs.length === 1) {
-        return `${ base } and ${ doCs[0].label }.`;
+        return `${ base } ${ doCs[0].label }.`;
+    }
+    
+    if(doCs.length === 2) {
+        return `${ base } ${ doCs[0].label } and ${ doCs[1].label }.`;
     }
     
     const grammarfiedDocs = doCs.reduce((acc, doc, idx, arr) => {
@@ -295,7 +299,7 @@ export const renderDocsString = (doCs = []) => {
         acc = acc + ', ' + doc.label;
         return acc;
     })
-    return `${ base }, ${ grammarfiedDocs }.`;
+    return `${ base } ${ grammarfiedDocs }.`;
 }
 
 /**
