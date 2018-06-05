@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { push } from 'react-router-redux';
 import { Theme } from '../../theme';
 import { 
     newSearch,
@@ -10,6 +11,7 @@ import {
     setCurrentSearchText,
     searchRedirect,
     unmountResultsView,
+    clickEvent,
 } from '../../state/api/actions';
 import {
     updateSearchBar,
@@ -90,6 +92,15 @@ export class Results extends React.Component {
             });
         }
         this.setState({ isMobileMenuOpen: false });
+    }
+
+    // This is exclusively being used for custom event reporting, passed as a callback to results tiles
+    resultsTileOnClick = index => () => {
+        this.props.clickEvent('Resource Result', {
+            localIndex: index,
+            totalResults: this.props.totalResults,
+            resultsFrom: this.props.startFrom,
+        });
     }
 
     clearFilters = () => {
@@ -249,6 +260,7 @@ export class Results extends React.Component {
                                                         <ResultTile
                                                             key={ idx }
                                                             title={ title }
+                                                            onClick={ this.resultsTileOnClick(idx) }
                                                             description={ description }
                                                             id={ id }
                                                         />
@@ -302,6 +314,8 @@ const mapStateToProps = ({ api, searchForm, router }) => ({
 })
 
 const mapDispatchToProps = {
+    push,
+    clickEvent,
     newSearch,
     validatedNewSearch,
     searchRedirect,

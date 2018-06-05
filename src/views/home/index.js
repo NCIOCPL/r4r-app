@@ -12,6 +12,7 @@ import {
     loadFacets,
     searchRedirect as newSearch,
     setFetchingStatus,
+    clickEvent,
 } from '../../state/api/actions';
 import {
     memoizeReferenceFacets
@@ -41,6 +42,9 @@ export class Home extends React.Component {
     newTextSearch = () => {
         // We don't want to execute a search on an empty string
         if(this.props.searchBarValue) {
+            this.props.clickEvent('Search BTN', {
+                keyword: this.props.searchBarValue,
+            })
             this.props.newSearch({
                 q: this.props.searchBarValue,
                 from: 0,
@@ -56,6 +60,7 @@ export class Home extends React.Component {
     }
 
     viewAllOnClick = () => {
+        this.props.clickEvent('View All');
         this.props.newSearch({
             from: 0,
         });
@@ -163,6 +168,7 @@ const mapStateToProps = ({
 })
 
 const mapDispatchToProps = {
+    clickEvent,
     newSearch,
     loadFacets,
     searchBarOnChange: updateSearchBar,

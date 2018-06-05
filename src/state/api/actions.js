@@ -84,6 +84,14 @@ export const searchRedirect = searchParams => {
     return push(`/search${ queryString }`);
 };
 
+export const clickEvent = (clickType, clickInfo) => ({
+    type: '@@event/CLICK',
+    meta: {
+        clickType,
+        clickInfo,
+    }
+})
+
 export const fetchResource = (resourceId) => ({
     type: '@@cache/RETRIEVE',
     cache: {
