@@ -277,18 +277,14 @@ export const renderDocsString = (doCs = []) => {
     if(!Array.isArray(doCs) || !doCs.length) {
         return '';
     }
-    
-    const base = 'This resource is managed by the National Cancer Institute';
-    
+
+    const base = 'This resource is managed by the';
+        
     if(!doCs.length) {
-        return base + '.';
+        return 'This resource is managed by the National Cancer Institute.';
     }
     if(doCs.length === 1) {
         return `${ base } ${ doCs[0].label }.`;
-    }
-    
-    if(doCs.length === 2) {
-        return `${ base } ${ doCs[0].label } and ${ doCs[1].label }.`;
     }
     
     const grammarfiedDocs = doCs.reduce((acc, doc, idx, arr) => {
