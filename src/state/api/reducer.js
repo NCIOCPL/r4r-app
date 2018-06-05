@@ -15,6 +15,7 @@ const initialState = {
     fetchId: null,
     searchParams: '',
     referenceFacets: null,
+    referenceTotalResources: null,
     currentSearchQueryString: '',
     currentSearchText: '',
     currentResults: null, 
@@ -42,7 +43,8 @@ const reducer = (state = initialState, action) => {
         case LOAD_NEW_FACET_RESULTS:
             return {
                 ...state,
-                referenceFacets: action.payload,
+                referenceFacets: action.payload.facets,
+                referenceTotalResources: action.payload.meta.totalResults,
                 isFetching: false,
                 fetchId: null,
             }

@@ -122,7 +122,7 @@ export const loadFacets = () => ({
     fetch: {
         url: '/resources?size=0&includeFacets=toolTypes&includeFacets=researchAreas',
         onSuccess: dispatch => res => {
-            dispatch(loadNewFacetResults(res.facets));
+            dispatch(loadNewFacetResults(res));
         }
     },
 });

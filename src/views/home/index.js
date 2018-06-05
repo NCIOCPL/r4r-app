@@ -108,7 +108,7 @@ export class Home extends React.Component {
                                     })}
                                     tabIndex="0"
                                 >
-                                    <h2>View All Resources</h2>
+                                    <h2> { `View All Resources${ this.props.totalResources ? ` (${ this.props.totalResources })` : '' }` }</h2>
                                 </a>
                             </Theme>
                         </Theme>
@@ -167,6 +167,7 @@ const mapStateToProps = ({
     api,
 }) => ({
     referenceFacets: memoizeReferenceFacets(api),
+    totalResources: api.referenceTotalResources,
     searchBarValue: searchForm.searchBarValues.home,
     isFetching: api.isFetching,
 })
