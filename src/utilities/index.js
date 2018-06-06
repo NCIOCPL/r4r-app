@@ -126,7 +126,6 @@ export const composeQueryString = params => {
  * @return {Object}
  */
 export const updateFacetFilters = (currentFacets, filterType, filter) => {
-    console.log({currentFacets, filterType, filter})
     // Tooltypes are a special case because when we clear a selected tooltype
     // we want to also clear all currently checked toolsubtypes.
     if(filterType === 'toolTypes'){

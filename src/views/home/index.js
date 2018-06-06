@@ -42,7 +42,7 @@ export class Home extends React.Component {
     newTextSearch = () => {
         // We don't want to execute a search on an empty string
         if(this.props.searchBarValue) {
-            this.props.clickEvent('Search BTN', {
+            this.props.clickEvent('r4r_home_searchbar', {
                 keyword: this.props.searchBarValue,
             })
             this.props.newSearch({
@@ -53,7 +53,7 @@ export class Home extends React.Component {
     }
 
     newFilterSearch = ({filterType, filter}) => () => {
-        this.props.clickEvent('Browse Resource', {
+        this.props.clickEvent('r4r_home_filteredsearch', {
             filterType,
             filter
         })
@@ -64,7 +64,7 @@ export class Home extends React.Component {
     }
 
     viewAllOnClick = () => {
-        this.props.clickEvent('View All');
+        this.props.clickEvent('r4r_home_viewall');
         this.props.newSearch({
             from: 0,
         });

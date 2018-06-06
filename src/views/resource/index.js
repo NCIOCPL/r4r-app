@@ -76,7 +76,7 @@ export class Resource extends React.Component {
     newTextSearch = () => {
         // Don't execute on empty search bar
         if(this.props.searchBarValue) {
-            this.props.clickEvent('Search BTN', {
+            this.props.clickEvent('r4r_resource_searchbar', {
                 keyword: this.props.searchBarValue,
             })
             this.props.newSearch({
@@ -87,7 +87,10 @@ export class Resource extends React.Component {
     }
 
     newFilterSearch = ({filterType, filter}) => () => {
-        this.props.clickEvent('Related Resource');
+        this.props.clickEvent('r4r_resource_relatedresourcesearch', {
+            title: this.props.resource.title,
+            filter,
+        });
         this.props.newSearch({ 
             [filterType]: filter,
             from: 0,

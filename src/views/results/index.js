@@ -98,11 +98,14 @@ export class Results extends React.Component {
     }
 
     // This is exclusively being used for custom event reporting, passed as a callback to results tiles
-    resultsTileOnClick = index => () => {
-        this.props.clickEvent('Resource Result', {
+    resultsTileOnClick = (index, title) => () => {
+        this.props.clickEvent('r4r_results|result_click', {
             localIndex: index,
             totalResults: this.props.totalResults,
-            resultsFrom: this.props.startFrom,
+            startFrom: this.props.startFrom,
+            pageSize: 20,
+            filters: this.props.selectedFilters,
+            title,
         });
     }
 
@@ -263,7 +266,7 @@ export class Results extends React.Component {
                                                         <ResultTile
                                                             key={ idx }
                                                             title={ title }
-                                                            onClick={ this.resultsTileOnClick(idx) }
+                                                            onClick={ this.resultsTileOnClick(idx, title) }
                                                             description={ description }
                                                             id={ id }
                                                         />
