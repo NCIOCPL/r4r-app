@@ -170,7 +170,7 @@ const clickEvent = event => {
                 Props: {
                     11: event.meta.clickType,
                     14: event.meta.clickInfo.keyword,
-                    39: 'resource_view|search',
+                    39: 'r4r_resource|search',
                     40: extractProp40(event.meta.location.pathname),                    
                 },
                 Events: [2, 39]
@@ -198,7 +198,7 @@ const clickEvent = event => {
                 Props: {
                     11: event.meta.clickType,
                     14: `Related Resources:${ event.meta.clickInfo.filter }`,
-                    39: 'resource_view|related_resource',
+                    39: 'r4r_resource|related_resource_search',
                     40: event.meta.clickInfo.title,
                 },
                 Events: [2, 39],               
