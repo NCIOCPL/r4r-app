@@ -46,10 +46,10 @@ const extractFilterSummary = params => {
 }
 
 const extractProp40 = pathname => {
-    if(pathname.match(/resource/)){
+    if(pathname.match(/resource/i)){
         return 'Resource View';
     }
-    if(pathname.match(/search$/)){
+    if(pathname.match(/search$/i)){
         return 'Search View';
     }
     return 'Home View';
@@ -212,6 +212,7 @@ const clickEvent = event => {
                     40: event.meta.clickInfo.title,
                 },
                 Events: [67],
+                config_delay: true,
             }
         default:
             return {};
@@ -220,10 +221,11 @@ const clickEvent = event => {
 
 
 const analyticsEvents = {
+    // The app initialization is not being used at the moment.
+    // '@@event/APP_INITIALIZATION': () => ({}),
     'LOAD NEW SEARCH RESULTS': loadSearchPage,
     'LOAD NEW FACET RESULTS': loadHomePage,
     'LOAD RESOURCE': loadResourcePage,
-    '@@event/APP_INITIALIZATION': () => ({}),
     '@@event/CLICK': clickEvent,
 }
 
@@ -235,9 +237,27 @@ export const createCancerGovAnalyticsHandler = analytics => events => {
     // TODO: FINISH THE REST OF THE FUCKING OWL
     events.map(event => {
         if(analyticsEventsMap.has(event.type)){
-            const process = analyticsEventsMap.get(event.type);
-            const report = process(event)
-            analytics(report); // This could be an event broadcaster or the analytics library itself
+            try{
+                // This assumes that this exists!
+                const NCIAnalytics = window.NCIAnalytics || {};
+                
+                // Determine what type of processor to run on the event
+                const process = analyticsEventsMap.get(event.type);
+                const report = process(event);
+                
+                // S code integration
+                const shouldDelay = report.config_delay || window;
+                const clickParams = new NCIAnalytics.ClickParams(shouldDelay, 'nciglobal', 'o', event.type)
+                clickParams.Props = report.Props;
+                clickParams.Events = report.Events;
+                clickParams.LogToOmniture();
+            }
+            catch(err){
+                console.log(err)
+            }
+
+            // One way of doing it if an analytics handler gets directly passed
+            // analytics(report); // This could be an event broadcaster or the analytics library itself
         }
         return event;
     })
@@ -276,7 +296,11 @@ export const awaitAnalyticsLibraryAvailability = (eventHandler) => {
     // else {
     //     subscribeToAnalyticsEvents((report) => { console.log('Analytics', report)}, eventHandler);
     // }
+
+    setTimeout(()=> {
+        subscribeToAnalyticsEvents({}, eventHandler)
+    }, 1000)
     
     //This is only for dev
-    subscribeToAnalyticsEvents((report) => { console.log('Analytics', report)}, eventHandler);
+    // subscribeToAnalyticsEvents((report) => { console.log('Analytics', report)}, eventHandler);
 }

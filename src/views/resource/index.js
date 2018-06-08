@@ -73,6 +73,12 @@ export class Resource extends React.Component {
         goBack: PropTypes.func.isRequired,
     }
 
+    onClickExternalLink = () => {
+        this.props.clickEvent('r4r_resource|resource_click', {
+            title: this.props.resource.title,
+        })
+    }
+
     newTextSearch = () => {
         // Don't execute on empty search bar
         if(this.props.searchBarValue) {
@@ -174,7 +180,7 @@ export class Resource extends React.Component {
                     </Theme>
                     <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
                     <Theme element="div" className="resource__link--external">
-                        <a href={ website }>Visit Resource</a>
+                        <a href={ website } onClick={ this.onClickExternalLink }>Visit Resource</a>
                     </Theme>
                     <ResourceAccess 
                         type={ resourceAccess.type }
