@@ -1,4 +1,4 @@
-[Demo](https://gifted-rosalind-be8dbe.netlify.com/)
+[Demo](https://gifted-rosalind-be8dbe.netlify.com/) (Requires access to development server until release. Styles will be partially inherited from Cancer.gov)
 
 # Resources for Researchers (A NCI Joint)
 

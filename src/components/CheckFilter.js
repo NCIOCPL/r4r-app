@@ -12,7 +12,7 @@ class CheckFilter extends React.PureComponent {
         count: PropTypes.number.isRequired,
         className: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
-        isCloseable: PropTypes.bool.isRequired,
+        isCloseable: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -20,7 +20,7 @@ class CheckFilter extends React.PureComponent {
         onChange: () => {},
         checked: false,
         label: '',
-        count: '',
+        count: 0,
     }
 
     onChange = () => {

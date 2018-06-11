@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { clearError } from './state/error/actions';
 import { setFetchingStatus } from './state/api/actions';
 
-class NavigationHandler extends React.Component{
+export class NavigationHandler extends React.Component{
     componentDidUpdate(prevProps){
         if(this.props.location !== prevProps.location){
             window.scrollTo(0,0);
