@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CTS_Spinner Component renders correctly 1`] = `
+<div
+  className="r4r-cts-spinner"
+>
+  <div
+    className="spinkit spinner"
+  >
+    <div
+      className="dot1"
+    />
+    <div
+      className="dot2"
+    />
+  </div>
+</div>
+`;

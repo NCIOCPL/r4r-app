@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BrowseBox Component renders correctly 1`] = `
+<Theme
+  className="browse-tiles__container"
+  element="div"
+/>
+`;

@@ -13,7 +13,7 @@ class BrowseBox extends React.PureComponent {
         className: PropTypes.string,
         searchFunction: PropTypes.func.isRequired,
         filterType: PropTypes.string.isRequired,
-        isFetching: PropTypes.bool.isRequired,
+        isFetching: PropTypes.bool,
         showCount: PropTypes.bool,
     }
 
@@ -27,6 +27,7 @@ class BrowseBox extends React.PureComponent {
     renderFacets = () => {
         if(!this.props.facets || !this.props.facets.hasOwnProperty(this.props.filterType)) return null;
 
+        // We want to make sure the filters are displayed in descending order
         return Object.entries(this.props.facets[this.props.filterType].items)
             .sort((a, b) => b[1].count - a[1].count)
             .map(([key, { label, count }], idx) => {

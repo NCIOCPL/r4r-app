@@ -5,11 +5,14 @@
 const metadataMiddleware = store => next => action => {
     // Ignore thunks
     if(typeof action === 'object'){
+        const state = store.getState();
+        const history = !Array.isArray(state.history) ? [] : state.history.map(({pathname, search}) => `${pathname}${search}`);
+        
         action.meta = {
             ...action.meta,
             timestamp: Date.now(),
             location: window.location,
-            history: store.getState().history.map(({pathname, search}) => `${pathname}${search}`)
+            history
         }
     }
     next(action);

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BrowseTile Component renders correctly 1`] = `
+<Theme
+  className="browse__tile"
+  element="a"
+  onClick={[Function]}
+  onKeyPress={[Function]}
+  role="link"
+  tabIndex="0"
+/>
+`;

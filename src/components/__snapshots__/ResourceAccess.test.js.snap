@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceAccess Component renders correctly 1`] = `
+<article
+  aria-label="Resource Access Information"
+>
+  <Theme
+    className="resource__access"
+    element="div"
+  >
+    <SVG
+      className="r4r-svg-container"
+      iconType="open"
+    />
+    <h4>
+      This resource is free
+    </h4>
+  </Theme>
+</article>
+`;

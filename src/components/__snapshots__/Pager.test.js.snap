@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pager Component renders correctly 1`] = `
+<React.Fragment>
+  <Theme
+    className="r4r-pager__nav"
+    element="div"
+  >
+    <Theme
+      aria-label="previous results page"
+      className="pager__arrow"
+      element="div"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      &lt;
+    </Theme>
+    <Theme
+      aria-label="Results Page 1"
+      className="pager__num pager__num--active"
+      element="div"
+      key="0"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      1
+    </Theme>
+    <Theme
+      aria-label="Results Page 2"
+      className="pager__num "
+      element="div"
+      key="1"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      2
+    </Theme>
+    <Theme
+      aria-label="Results Page 3"
+      className="pager__num "
+      element="div"
+      key="2"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      3
+    </Theme>
+    <Theme
+      aria-label="Results Page 4"
+      className="pager__num "
+      element="div"
+      key="3"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      4
+    </Theme>
+    <Theme
+      aria-label="Results Page 5"
+      className="pager__num "
+      element="div"
+      key="4"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      5
+    </Theme>
+    <Theme
+      aria-label="next results page"
+      className="pager__arrow"
+      element="div"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      &gt;
+    </Theme>
+  </Theme>
+</React.Fragment>
+`;

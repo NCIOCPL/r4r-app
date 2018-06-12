@@ -79,7 +79,7 @@ const xmark =
     <polygon id="Rectangle-7" fill="#FFFFFF" points="5.38235931 3.25735931 11.7573593 9.63235931 9.63235931 11.7573593 3.25735931 5.38235931"></polygon>
 </svg>
 
-const images = {
+export const images = {
     "open": freeIcon,
     "register": contractIcon,
     "cost": moneyIcon,
@@ -92,12 +92,13 @@ const images = {
 
 class SVG extends React.PureComponent{
     static propTypes = {
-        iconType: PropTypes.oneOf(Object.keys(images)).isRequired,
+        iconType: PropTypes.string,
         className: PropTypes.string,
     }
 
     static defaultProps = {
         className: 'r4r-svg-container',
+        iconType: '__NON-EXISTENT-IMAGE__',
     }
 
     render(){

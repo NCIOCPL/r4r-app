@@ -10,7 +10,7 @@ import {
     REGISTER_ERROR,
 } from '../error/actions';
 
-const initialState = {
+export const initialState = {
     isFetching: false,
     fetchId: null,
     searchParams: '',

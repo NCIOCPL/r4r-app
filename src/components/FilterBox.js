@@ -23,6 +23,7 @@ class FilterBox extends React.PureComponent {
     static defaultProps = {
         isVisible: true,
         isCloseable: false,
+        onChange: () => {},
     }
 
     render() {

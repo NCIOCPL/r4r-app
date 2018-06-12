@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoTouch Component renders correctly 1`] = `
+<Theme
+  className="notouch-overlay"
+  element="div"
+/>
+`;

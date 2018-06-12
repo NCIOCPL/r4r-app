@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoResults Component renders correctly 1`] = `
+<Theme
+  className="results__noresults"
+  element="div"
+>
+  No results were found for your search.
+</Theme>
+`;

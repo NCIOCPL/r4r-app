@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home View renders correctly 1`] = `
+<Theme
+  className="r4r-home"
+  element="div"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <meta
+      content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them."
+      property="og:description"
+    />
+    <meta
+      content="https://www.cancer.gov/research/r4r"
+      property="og:url"
+    />
+  </HelmetWrapper>
+  <h1>
+    Resources for Researchers
+  </h1>
+  <Theme
+    className="home__main"
+    element="main"
+  >
+    <Theme
+      className="home__desc"
+      element="article"
+    >
+      <p>
+        Resources for Researchers is a directory of NCI-supported tools and services for cancer researchers. Most resources are free of cost and available to anyone. 
+        <Theme
+          className="r4r__link--about"
+          element="a"
+          href="https://www-blue-dev.cancer.gov/research/about-r4r"
+        >
+          Learn more about Resources for Researchers.
+        </Theme>
+      </p>
+    </Theme>
+  </Theme>
+  <Theme
+    className="home-nav"
+    element="nav"
+  >
+    <Theme
+      className="home-nav__tiles"
+      element="div"
+    >
+      <Theme
+        className="home-nav__tile"
+        element="div"
+      >
+        <SVG
+          className="home-tile__icon"
+          iconType="searchIcon"
+        />
+        <div
+          className="home-tile__text"
+        >
+          <h2>
+            Search For Resources
+          </h2>
+          <p>
+            Search for resources by keyword or phrase.
+          </p>
+        </div>
+      </Theme>
+      <Theme
+        className="home-nav__tile"
+        element="div"
+      >
+        <SearchBar
+          onChange={[Function]}
+          onSubmit={[Function]}
+          page="home"
+          placeholder="Find NCI-supported resources"
+        />
+      </Theme>
+      <Theme
+        className="home-nav__tile"
+        element="div"
+      >
+        <SVG
+          className="home-tile__icon"
+          iconType="browseIcon"
+        />
+        <div
+          className="home-tile__text"
+        >
+          <h2>
+            Browse Resources
+          </h2>
+          <p>
+            Browse resources by tool type or research area or view all resources.
+          </p>
+        </div>
+      </Theme>
+      <Theme
+        className="home-nav__tile"
+        element="div"
+      >
+        <Theme
+          className="view-all__link"
+          element="a"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          tabIndex="0"
+        >
+          View All Resources
+        </Theme>
+      </Theme>
+    </Theme>
+    <Theme
+      className="home-nav__main"
+      element="div"
+    >
+      <Theme
+        aria-label="Browse by Tool Type"
+        className="home-nav__section"
+        element="div"
+      >
+        <Theme
+          className="home-nav__title"
+          element="h4"
+        >
+          Tool Type
+        </Theme>
+        <BrowseBox
+          displayCount={true}
+          facets={Object {}}
+          filterType="toolTypes"
+          searchFunction={[Function]}
+        />
+      </Theme>
+      <Theme
+        aria-label="Browse by Research Area"
+        className="home-nav__section"
+        element="div"
+      >
+        <Theme
+          className="home-nav__title"
+          element="h4"
+        >
+          Research Area
+        </Theme>
+        <BrowseBox
+          displayCount={true}
+          facets={Object {}}
+          filterType="researchAreas"
+          searchFunction={[Function]}
+        />
+      </Theme>
+    </Theme>
+  </Theme>
+</Theme>
+`;

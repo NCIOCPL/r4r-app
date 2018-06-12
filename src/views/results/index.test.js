@@ -11,7 +11,11 @@ describe('Results view', () => {
   });
 
   it('renders without crashing', () => {
-    const wrapper = shallow(<Results location setCurrentSearchText={() => {}} validatedNewSearch={()=>{}}/>);
-    expect(wrapper).toHaveLength(1);
+    shallow(<Results location={{}} setCurrentSearchText={() => {}} validatedNewSearch={()=>{}}/>);
   });
+
+  it('renders correctly', () => {
+    const wrapper = shallow(<Results location={{search: ''}} setCurrentSearchText={() => {}} validatedNewSearch={()=>{}}/>);
+    expect(wrapper).toMatchSnapshot();
+  })
 })

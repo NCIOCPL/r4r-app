@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters Component renders correctly 1`] = `
+<Theme
+  aria-label="Search Filters"
+  className="results__facets"
+  element="section"
+>
+  <FilterBox
+    className="tool-types"
+    isCloseable={true}
+    isVisible={true}
+    onChange={[Function]}
+  />
+  <FilterBox
+    className="tool-subtypes"
+    isCloseable={false}
+    isVisible={false}
+    onChange={[Function]}
+  />
+  <FilterBox
+    isCloseable={false}
+    isVisible={true}
+    onChange={[Function]}
+  />
+  <FilterBox
+    isCloseable={false}
+    isVisible={true}
+    onChange={[Function]}
+  />
+</Theme>
+`;

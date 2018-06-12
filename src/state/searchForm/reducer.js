@@ -5,7 +5,7 @@ import {
     SET_CURRENT_SEARCH_TEXT,
 } from '../api/actions';
 
-const initialState = {
+export const initialState = {
     searchBarValues: {
         home: '',
         results: '',

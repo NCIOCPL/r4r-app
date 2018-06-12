@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar Component renders correctly 1`] = `
+<Theme
+  className="searchbar__container"
+  element="form"
+  onSubmit={[Function]}
+>
+  <input
+    aria-label="Input search text here to search for a resource"
+    onChange={[Function]}
+    placeholder=""
+    type="text"
+  />
+  <Theme
+    aria-label="submit search"
+    className="searchbar__button--submit"
+    element="button"
+    type="submit"
+  >
+    <SVG
+      className="r4r-svg-container"
+      iconType="magnify"
+    />
+  </Theme>
+</Theme>
+`;

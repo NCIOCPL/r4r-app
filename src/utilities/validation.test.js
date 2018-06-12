@@ -28,3 +28,14 @@ describe('addFromParamIfNoneFound()', () => {
         expect(fn(incomplete)).toEqual(params);
     })
 });
+
+describe('validateSearchRequest()', () => {
+    it('should pass the object through all valid search utilities', () => {
+        const params = {
+            poop: 'Rainbow'
+        }
+        const expectedResult = Object.assign(params, { from: ''})
+        const result = utils.validateSearchRequest(params)
+        expect(result).toEqual(expectedResult);
+    })
+});

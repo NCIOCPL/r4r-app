@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FatalErrorBoundary HOC renders correctly with no error 1`] = `""`;

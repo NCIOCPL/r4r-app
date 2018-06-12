@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiveRegion Component renders correctly with a message prop 1`] = `
+<Theme
+  aria-atomic="true"
+  aria-live="polite"
+  className="r4r-hidden"
+  element="div"
+  role="status"
+  tabIndex="-1"
+>
+  Hello!
+</Theme>
+`;

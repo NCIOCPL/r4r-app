@@ -2,7 +2,7 @@ import {
     NEW_MESSAGE
 } from './actions';
 
-const initialState = {
+export const initialState = {
     liveMessage: '',
 }
 

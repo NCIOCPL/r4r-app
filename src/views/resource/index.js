@@ -130,7 +130,6 @@ export class Resource extends React.Component {
     }
 
     componentWillUnmount(){
-        //TODO: custom unmount action (UI actions)
         this.props.setFetchingStatus(false);
     }
 

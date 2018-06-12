@@ -2,6 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import NoResults from './NoResults';
 
-it('renders without crashing', () => {
-  shallow(<NoResults />);
-});
+describe('NoResults Component', () => {
+  it('renders without crashing', () => {
+    shallow(<NoResults />);
+  });
+
+  it('renders correctly', () => {
+    const wrapper = shallow(<NoResults/>);
+    expect(wrapper).toMatchSnapshot();
+  })
+})

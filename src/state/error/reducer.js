@@ -3,7 +3,7 @@ import {
     CLEAR_ERROR,
 } from './actions';
 
-const initialState = null;
+export const initialState = null;
 
 const reducer = (state = initialState, action) => {
     switch(action.type){

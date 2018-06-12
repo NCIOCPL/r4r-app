@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckFilter Component renders correctly 1`] = `
+<Theme
+  aria-checked={false}
+  className="filter-box__filter"
+  element="label"
+  onKeyPress={[Function]}
+  role="checkbox"
+  tabIndex="0"
+>
+  <Theme
+    checked={false}
+    className="filter__checkbox"
+    element="input"
+    onChange={[Function]}
+    tabIndex="-1"
+    type="checkbox"
+    value=""
+  />
+  <Theme
+    className="filter__label"
+    element="span"
+  >
+    <div
+      className="checkbox__outline"
+    />
+     (0)
+  </Theme>
+</Theme>
+`;

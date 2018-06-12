@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Results view renders correctly 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Resources for Researchers: Search Results - National Cancer Institute
+    </title>
+    <meta
+      content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them."
+      property="og:description"
+    />
+    <meta
+      content="https://www.cancer.gov/research/r4r/search"
+      property="og:url"
+    />
+    <meta
+      content="Resources for Researchers: Search Results - National Cancer Institute"
+      property="twitter:title"
+    />
+  </HelmetWrapper>
+  <CTS_Spinner />
+</React.Fragment>
+`;

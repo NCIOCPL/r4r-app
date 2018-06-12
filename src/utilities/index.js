@@ -98,7 +98,7 @@ import '../polyfills/object_entries';
  * @return {string}
  */
 export const composeQueryString = params => {
-    if(typeof params !== 'object' || params === null) {
+    if(typeof params !== 'object' || params === null || Array.isArray(params)) {
         return;
     }
 
@@ -307,7 +307,7 @@ export const renderDocsString = (doCs = []) => {
  * @return {Filter[]}
  */
 export const getCurrentlySelectedFiltersFromFacets = facets => {
-    if(typeof facets !== 'object' || facets === null) {
+    if(typeof facets !== 'object' || facets === null || Array.isArray(facets)) {
         return [];
     }
 

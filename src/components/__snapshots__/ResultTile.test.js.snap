@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultTile Component renders correctly 1`] = `
+<Theme
+  aria-label="search result"
+  className="result-tile"
+  element="article"
+>
+  <h2>
+    <Link
+      onClick={[Function]}
+      replace={false}
+      to="/resource/1"
+    />
+  </h2>
+  <p
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "",
+      }
+    }
+  />
+</Theme>
+`;

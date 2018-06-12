@@ -4,7 +4,7 @@ import {
 } from '../api/actions';
 
 
-const initialState = {
+export const initialState = {
     cachedSearches: {},
     cachedResources: {},    
 }
