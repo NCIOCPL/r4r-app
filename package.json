@@ -29,5 +29,15 @@
   },
   "devDependencies": {
     "redux-mock-store": "^1.5.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/src/**/*.js",
+      "!**/node_modules/**",
+      "!**/src/polyfills/**",
+      "!**/src/state/index.js",
+      "!**/src/utilities/reselectHelpers.js"
+    ],
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   }
 }
