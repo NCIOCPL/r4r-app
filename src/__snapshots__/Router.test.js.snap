@@ -7,6 +7,11 @@ exports[`Router Container renders correctly 1`] = `
   <Switch>
     <Route
       component={[Function]}
+      exact={true}
+      path="/"
+    />
+    <Route
+      component={[Function]}
       path="/search"
     />
     <Route
@@ -14,8 +19,8 @@ exports[`Router Container renders correctly 1`] = `
       path="/resource/:id"
     />
     <Route
-      component={[Function]}
       path="*"
+      render={[Function]}
     />
   </Switch>
 </ConnectedRouter>

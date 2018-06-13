@@ -210,7 +210,7 @@ export class Resource extends React.Component {
                             value={ this.props.searchBarValue }
                             onChange={ this.props.searchBarOnChange }
                             onSubmit={ this.newTextSearch }
-                            placeholder="Find NCI-supported resources"
+                            placeholder="Search resources"
                             page='resource'
                         />
                     </section>

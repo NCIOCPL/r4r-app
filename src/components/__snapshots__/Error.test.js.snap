@@ -6,13 +6,10 @@ exports[`Error Component renders correctly 1`] = `
   element="div"
 >
   <h1>
-    Error:
+    Error
   </h1>
-  <h3>
-    Unknown Error: please try refreshing
-  </h3>
   <p>
-    Please try refreshing the page
+    A system error occured or your request timed out. Please try refreshing the page
   </p>
 </Theme>
 `;

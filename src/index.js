@@ -122,6 +122,7 @@ const initializeR4R = ({
             </Provider>
         </FatalErrorBoundary>
     );
+    
     const appRootDOMNode = document.getElementById(rootId);
     ReactDOM.render(<App />, appRootDOMNode);
     return appRootDOMNode;

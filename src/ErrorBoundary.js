@@ -14,10 +14,10 @@ export class ErrorBoundary extends React.Component {
             search: PropTypes.string.isRequired,
         })
     }
-    
+    //TODO: Conditionally rendering different types of errors using this same component
     render(){
         if(this.props.error){
-            return <Error message={ this.props.error }/>
+            return <Error message={ this.props.error } showRedirect={ true } />
         }
         return this.props.children;
     }

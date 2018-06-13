@@ -108,7 +108,7 @@ export class Home extends React.Component {
                                 value={ this.props.searchBarValue }
                                 onChange={ this.props.searchBarOnChange }
                                 onSubmit={ this.newTextSearch }
-                                placeholder="Find NCI-supported resources"
+                                placeholder="Search Resources for Researchers"
                                 page='home'
                             />
                         </Theme>

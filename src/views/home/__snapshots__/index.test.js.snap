@@ -76,7 +76,7 @@ exports[`Home View renders correctly 1`] = `
           onChange={[Function]}
           onSubmit={[Function]}
           page="home"
-          placeholder="Find NCI-supported resources"
+          placeholder="Search Resources for Researchers"
         />
       </Theme>
       <Theme
