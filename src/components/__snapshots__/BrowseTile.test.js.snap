@@ -8,5 +8,8 @@ exports[`BrowseTile Component renders correctly 1`] = `
   onKeyPress={[Function]}
   role="link"
   tabIndex="0"
-/>
+>
+  Test
+   (4)
+</Theme>
 `;

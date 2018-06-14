@@ -10,9 +10,17 @@ describe('SearchBar Component', () => {
 
   it('executes searches on submit', () => {
     const mockFn = jest.fn()
-    const wrapper = shallow(<SearchBar onSubmit={mockFn} />);
-    wrapper.find('.searchbar__container').simulate('submit', { preventDefault() {} });
+    const wrapper = mountWithTheme(<SearchBar onSubmit={mockFn} />);
+    wrapper.find('form').simulate('submit', { preventDefault() {} });
     expect(mockFn.mock.calls.length).toBe(1);
+  })
+
+  it('should update on change with relevant props', () => {
+    const mockFn = jest.fn()
+    const wrapper = mountWithTheme(<SearchBar onChange={mockFn} page="home"/>);
+    wrapper.find('input').simulate('change', { preventDefault() {}, target: {value: 'test' }});
+    expect(mockFn.mock.calls.length).toBe(1);
+    expect(mockFn.mock.calls[0][0]).toEqual({ page: 'home', value: 'test'})
   })
 
   //TODO: When the issue with finding 'input is resolved, test onChange function

@@ -4,7 +4,7 @@ import BrowseBox from './BrowseBox';
 
 describe('BrowseBox Component', () => {
   it('renders correctly', () => {
-    const wrapper = shallow(<BrowseBox />);
+    const wrapper = mountWithTheme(<BrowseBox />);
     expect(wrapper).toMatchSnapshot();
   })
 
