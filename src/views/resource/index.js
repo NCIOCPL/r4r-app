@@ -21,6 +21,7 @@ import {
 import {
     keyHandler,
     renderDocsString,
+    hasNavigatedHereFromResultsPage,
 } from '../../utilities';
 import {
     memoizeFilters,
@@ -31,28 +32,6 @@ import {
 import './index.css';
 import ResourceAccess from '../../components/ResourceAccess';
 
-/**
- * In order to determine if the user navigated to this page from a results page we need
- * to look as far back in the history as the last time the user was at a results page. We look up the unique key
- * of the current view and see if the previous route was a results page.
- * (NOTE: This doesn't work in the very rare event a user manually navigates to a resource by typing in a url from
- * the search results route. That could be fixed by checking the previous results route search key against the cache
- * but this seems excessive.)
- * 
- * @param {Array} history
- * @param {string} currentLocationKey
- * @return {boolean}
- */
-const hasNavigatedHereFromResultsPage = (history, currentLocationKey) => {
-    const historyKeys = history.map(el => el.key);
-    const currentViewIndexInHistory = historyKeys.indexOf(currentLocationKey);
-    const previousViewInHistory = history[currentViewIndexInHistory - 1];
-    if(!previousViewInHistory){
-        return false;
-    }
-    const isImmediatelyFollowingResultsPage = previousViewInHistory.pathname === '/search';
-    return isImmediatelyFollowingResultsPage;
-}
 export class Resource extends React.Component {
     static propTypes = {
         newSearch: PropTypes.func.isRequired,
