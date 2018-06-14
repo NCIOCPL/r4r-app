@@ -16,7 +16,6 @@ import { Helmet } from 'react-helmet';
 import Router from './Router';
 import FatalErrorBoundary from './FatalErrorBoundary';
 import NavigationHandler from './NavigationHandler';
-import ErrorBoundary from './ErrorBoundary';
 import LiveRegion from './LiveRegion';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
@@ -113,9 +112,7 @@ const initializeR4R = ({
                                 </Helmet>
                                 <LiveRegion />
                                 <NavigationHandler>
-                                    <ErrorBoundary>
-                                        <Router history={ history }/>
-                                    </ErrorBoundary>
+                                    <Router history={ history }/>
                                 </NavigationHandler>
                         </Theme>
                     </ThemeProvider>
