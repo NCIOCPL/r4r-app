@@ -3,10 +3,6 @@ import { shallow } from 'enzyme';
 import SearchBar from './SearchBar';
 
 describe('SearchBar Component', () => {
-  it('renders without crashing', () => {
-    shallow(<SearchBar />);
-  });
-
   it('renders correctly', () => {
     const wrapper = shallow(<SearchBar />);
     expect(wrapper).toMatchSnapshot();

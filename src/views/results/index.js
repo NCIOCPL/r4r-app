@@ -307,7 +307,7 @@ export class Results extends React.Component {
     }
 }
 
-const mapStateToProps = ({ api, searchForm, router }) => ({
+export const mapStateToProps = ({ api, searchForm, router }) => ({
     results: api.currentResults,
     facets: memoizeFacetFilters(api),
     selectedFilters: memoizeSelectedFilters(api),

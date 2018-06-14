@@ -3,10 +3,6 @@ import { shallow } from 'enzyme';
 import ResultTile from './ResultTile';
 
 describe('ResultTile Component', () => {
-  it('renders without crashing', () => {
-    shallow(<ResultTile id={1} />);
-  });
-
   it('renders correctly', () => {
     const wrapper = shallow(<ResultTile id={1} />);
     expect(wrapper).toMatchSnapshot();

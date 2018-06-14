@@ -3,9 +3,6 @@ import { shallow } from 'enzyme';
 import { NavigationHandler } from './NavigationHandler';
 
 describe('NavigationHandler HOC', () => {
-  it('renders without crashing', () => {
-    shallow(<NavigationHandler />);
-  });
 
   it('renders correctly', () => {
     const wrapper = shallow(<NavigationHandler />);
