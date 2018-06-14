@@ -38,7 +38,8 @@
       "!**/node_modules/**",
       "!**/src/polyfills/**",
       "!**/src/state/index.js",
-      "!**/src/utilities/reselectHelpers.js"
+      "!**/src/utilities/reselectHelpers.js",
+      "!**/src/custom_configs/**"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
