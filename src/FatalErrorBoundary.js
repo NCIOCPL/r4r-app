@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Error from './components/Error';
+import { registerError } from './state/error/actions';
 import './FatalErrorBoundary.css';
 
 class FatalErrorBoundary extends React.Component {
@@ -7,10 +9,15 @@ class FatalErrorBoundary extends React.Component {
         hasError: false,
     }
 
+    static propTypes = {
+        dispatch: PropTypes.func.isRequired,
+    }
+
     componentDidCatch(error, info){
         this.setState({
             hasError: true,
         })
+        this.dispatch(registerError('FATAL'));
     }
 
     render() {

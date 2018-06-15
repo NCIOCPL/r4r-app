@@ -100,24 +100,24 @@ const initializeR4R = ({
 
     //TODO: Move to separate container file
     const App = () => (
-        <FatalErrorBoundary>
-            <Provider store={ store }>
-                    <ThemeProvider theme={ theme }>
-                        <Theme element='main' className="r4r-container">
-                                <Helmet 
-                                    defaultTitle="Resources for Researchers - National Cancer Institute"
-                                >
-                                    <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                                    <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
-                                </Helmet>
-                                <LiveRegion />
-                                <NavigationHandler>
-                                    <Router history={ history }/>
-                                </NavigationHandler>
-                        </Theme>
-                    </ThemeProvider>
-            </Provider>
-        </FatalErrorBoundary>
+        <Provider store={ store }>
+            <FatalErrorBoundary dispatch={ store.dispatch }>
+                <ThemeProvider theme={ theme }>
+                    <Theme element='main' className="r4r-container">
+                            <Helmet 
+                                defaultTitle="Resources for Researchers - National Cancer Institute"
+                            >
+                                <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                                <meta property="twitter:title" content="Resources for Researchers - National Cancer Institute" />
+                            </Helmet>
+                            <LiveRegion />
+                            <NavigationHandler>
+                                <Router history={ history }/>
+                            </NavigationHandler>
+                    </Theme>
+                </ThemeProvider>
+            </FatalErrorBoundary>
+        </Provider>
     );
     
     const appRootDOMNode = document.getElementById(rootId);

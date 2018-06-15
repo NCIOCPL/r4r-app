@@ -101,35 +101,37 @@ const extractProp40ForResultsLoad = event => {
 
 // #####
 
-const loadHomePage = event => {
-    return {
-        Props: {
-            39: 'r4r_home|view',
-            40: extractProp40(event.meta.location.href),
-        },
-        Events: [37],
-    }
-}
+const loadHomePage = event => ({
+    Props: {
+        39: 'r4r_home|view',
+        40: extractProp40(event.meta.location.href),
+    },
+    Events: [37],
+})
 
-const loadSearchPage = event => {
-    return {
-        Props: {
-            39: extractProp39ForResultsLoad(event),
-            40: extractProp40ForResultsLoad(event),
-        },
-        Events: [65],
-    }
-}
+const loadSearchPage = event => ({
+    Props: {
+        39: extractProp39ForResultsLoad(event),
+        40: extractProp40ForResultsLoad(event),
+    },
+    Events: [65],
+})
 
-const loadResourcePage = event => {
-    return {
-        Props: {
-            39: 'r4r_resource|view',
-            40: event.payload.title,
-        },
-        Events: [66],
-    }
-}
+const loadResourcePage = event => ({
+    Props: {
+        39: 'r4r_resource|view',
+        40: event.payload.title,
+    },
+    Events: [66],
+})
+
+const loadErrorPage = event => ({
+    Props: {
+        39: "r4r_error|view",
+        40: `Error Page: ${ event.payload.message || 'UNKNOWN' }`,
+    },
+    Events: [41]
+})
 
 const clickEvent = event => {
     switch(event.meta.clickType){
@@ -223,10 +225,26 @@ const clickEvent = event => {
 const analyticsEvents = {
     // The app initialization is not being used at the moment.
     // '@@event/APP_INITIALIZATION': () => ({}),
-    'LOAD NEW SEARCH RESULTS': loadSearchPage,
-    'LOAD NEW FACET RESULTS': loadHomePage,
-    'LOAD RESOURCE': loadResourcePage,
-    '@@event/CLICK': clickEvent,
+    'LOAD NEW SEARCH RESULTS': {
+        processor: loadSearchPage,
+        linkName: "R4R Data Load"
+    },
+    'LOAD NEW FACET RESULTS': {
+        processor: loadHomePage,
+        linkName: "R4R Data Load"
+    },
+    'LOAD RESOURCE': {
+        processor: loadResourcePage,
+        linkName: "R4R Data Load"
+    },
+    'REGISTER ERROR': {
+        processor: loadErrorPage,
+        linkName: "R4R Error"
+    },
+    '@@event/CLICK': {
+        processor: clickEvent,
+        linkName: "R4R Click Event"
+    },
 }
 
 const analyticsEventsMap = new Map(Object.entries(analyticsEvents));
@@ -242,12 +260,12 @@ export const createCancerGovAnalyticsHandler = analytics => events => {
                 const NCIAnalytics = window.NCIAnalytics || {};
                 
                 // Determine what type of processor to run on the event
-                const process = analyticsEventsMap.get(event.type);
-                const report = process(event);
+                const { processor, linkName } = analyticsEventsMap.get(event.type);
+                const report = processor(event);
                 
                 // S code integration
                 const shouldDelay = report.config_delay || window;
-                const clickParams = new NCIAnalytics.ClickParams(shouldDelay, 'nciglobal', 'o', event.type)
+                const clickParams = new NCIAnalytics.ClickParams(shouldDelay, 'nciglobal', 'o', linkName);
                 clickParams.Props = report.Props;
                 clickParams.Events = report.Events;
                 clickParams.LogToOmniture();
