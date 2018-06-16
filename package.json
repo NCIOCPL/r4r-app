@@ -2,6 +2,7 @@
   "name": "r4r-app",
   "version": "0.1.0",
   "private": true,
+  "main": "build/static/js/main.js",
   "dependencies": {
     "core-js": "^2.5.4",
     "enzyme": "^3.3.0",
@@ -22,6 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "postinstall": "react-app-rewired build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -30,6 +32,8 @@
   "devDependencies": {
     "enzyme-context-patch": "0.0.8",
     "enzyme-to-json": "^3.3.4",
+    "mini-css-extract-plugin": "^0.4.0",
+    "react-app-rewired": "^1.5.2",
     "redux-mock-store": "^1.5.1"
   },
   "jest": {
