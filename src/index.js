@@ -125,8 +125,10 @@ const initializeR4R = ({
     return appRootDOMNode;
 }
 
+export default initializeR4R;
+
 // ######## INITIALIZE APP ############
 // This is the line to change when you want custom settings to deploy this as a widget on
 // other sites. (Or you call initializeR4R directly to get the generic app)
-document.addEventListener('DOMContentLoaded', () => { initializeCancerGovTheme(initializeR4R) })
+// document.addEventListener('DOMContentLoaded', () => { initializeCancerGovTheme(initializeR4R) })
 
