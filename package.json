@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "postinstall": "react-app-rewired build",
+    "install": "npm install . && react-app-rewired build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
