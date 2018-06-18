@@ -1,5 +1,9 @@
 
-import { registerError } from '../state/error/actions';
+// Error codes:
+// "GENERAL": Timeout/Network Failure
+// "RESOURCE404": Resource Not Available
+export const ERROR_GENERAL = "ERROR_GENERAL";
+export const ERROR_RESOURCE404 = "ERROR_RESOURCE404";
 
 /**
  * We don't need to verify the type of success code as the API only returns 200 (no other 2-300 codes)
@@ -8,31 +12,15 @@ import { registerError } from '../state/error/actions';
  * @return {Object|Promise<Object>} Returns either the JSON parsed reponse body or a Promise rejection
  */
 export const handleResponse = (response) => {
-    if(response.ok){
+    if(response.ok && response.status >= 200 && response.status < 400){
         return response.json();
     }
-    const body = response.json();
-    const rejection = {
-        ...response,
-        body,
+    else if(response.status){
+        return Promise.reject(ERROR_RESOURCE404)
     }
-    return Promise.reject(rejection);
-}
 
-/**
- * We catch network errors to add formatting necessary for the final error catching process to dispatch the appropriate message
- * 
- * @param {Object} error
- * @throws {Object} Will throw the response if their is a network error
- */
-export const handleNetworkFailure = error => {
-    error.response = {
-        status: 0,
-        statusText: 'Error connecting to server. Please check your internet connection and try again.',
-    };
-    throw error;
+    return Promise.reject(ERROR_GENERAL);
 }
-
 
 /**
  * Fetches don't support timeouts natively. In order to achieve that we race our fetch against a Promise.reject that resolves after a given
@@ -48,18 +36,7 @@ export const timedFetch = (url, timeout = 15000, fetchOptions) => {
     return Promise.race([
         fetch(url, fetchOptions), 
         new Promise((_, reject) => {
-            setTimeout(() => reject({ timeoutError: `Request timed out after ${ timeout / 1000}s.`}), timeout)
+            setTimeout(() => reject(ERROR_GENERAL), timeout)
         })
     ])
-}
-
-/**
- * Determine the appropriate type of error message and dispatch it.
- * 
- * @param {Object} err 
- * @param {*} dispatch The dispatch method from the redux store needs to be injected
- */
-export const constructErrorMessage = (err, dispatch) => {
-    const message = err.timeoutError ? err.timeoutError : (err.response && err.response.statusText) ? err.response.statusText : err.message;
-    dispatch(registerError(message));
 }

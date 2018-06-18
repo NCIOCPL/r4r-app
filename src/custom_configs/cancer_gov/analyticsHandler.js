@@ -133,6 +133,14 @@ const loadErrorPage = event => ({
     Events: [41]
 })
 
+const load404Page = event => ({
+    Props: {
+        39: "r4r_error|view",
+        40: "Error Page: ERROR_PAGE404",
+    },
+    Events: [41]
+})
+
 const clickEvent = event => {
     switch(event.meta.clickType){
         case 'r4r_home_viewall':
@@ -236,6 +244,10 @@ const analyticsEvents = {
     'LOAD RESOURCE': {
         processor: loadResourcePage,
         linkName: "R4R Data Load"
+    },
+    'PAGE NOT FOUND': {
+        processor: load404Page,
+        linkName: "R4R Error",
     },
     'REGISTER ERROR': {
         processor: loadErrorPage,

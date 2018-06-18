@@ -105,12 +105,6 @@ export const fetchResource = (resourceId) => ({
             dispatch(loadResource(res));
         },
     },
-    // TODO: This meta is redundant now with location reporting through react-router-redux
-    // But I'm leaving it as a placeholder for more useful meta data we might want to add
-    meta: {
-        eventType: 'PAGE_LOAD',
-        currentView: 'RESOURCE'
-    }
 });
 
 export const loadFacets = () => ({
@@ -157,3 +151,19 @@ export const newSearch = queryString => ({
         }
     }
 })
+
+// export const factoryTemplate = {
+//     type: '',
+//     cache: {
+//         getCached: () => {},
+//         onCached: () => () => {}
+//     },
+//     fetch: {
+//         url: '',
+//         onSuccess: () => () => {},
+//     }
+// }
+
+// export const apiServiceFactory = settings => {
+//     return {}
+// }

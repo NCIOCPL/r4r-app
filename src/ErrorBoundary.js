@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Error from './components/Error';
 import { connect } from 'react-redux';
+import { 
+    ERROR_RESOURCE404
+} from './utilities/fetchHelpers';
 
 export class ErrorBoundary extends React.Component {
     static propTypes = {
@@ -14,12 +17,20 @@ export class ErrorBoundary extends React.Component {
             search: PropTypes.string.isRequired,
         })
     }
-    //TODO: Conditionally rendering different types of errors using this same component
+
     render(){
-        if(this.props.error){
-            return <Error message={ this.props.error } showRedirect={ true } />
+        if(this.props.error && this.props.error === ERROR_RESOURCE404){
+            return <Error title="Resource Not Found" body="We can't find the resource you're looking for." showRedirect={ true } />
         }
-        return this.props.children;
+        else if(this.props.error && this.props.error === 'ERROR_PAGE404'){
+            return <Error title="Page not found" body="We can't find the page you're looking for." showRedirect={true} />
+        }
+        else if(this.props.error){
+            return <Error showRedirect={ true } />
+        }
+        else {
+            return this.props.children;
+        }
     }
 }
 

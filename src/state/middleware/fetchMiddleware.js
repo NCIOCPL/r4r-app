@@ -1,12 +1,13 @@
 import {
     timedFetch,
     handleResponse,
-    handleNetworkFailure,
-    constructErrorMessage,
 } from '../../utilities/fetchHelpers';
 import {
     setFetchingStatus,
 } from '../api/actions';
+import {
+    registerError,
+} from '../error/actions';
 
 const createFetchMiddleware = apiEndpoint => ({ dispatch, getState }) => next => action => {
     // This is an async call, so we want the passed action to resolve immediately (for things like the
@@ -43,11 +44,10 @@ const createFetchMiddleware = apiEndpoint => ({ dispatch, getState }) => next =>
             }
         })();
     
-        timedFetch( apiEndpoint + url, timeout, options)
-            .catch(handleNetworkFailure)
+        timedFetch(apiEndpoint + url, timeout, options)
             .then(handleResponse)
             .then(wrappedSuccess)
-            .catch(err => constructErrorMessage(err, dispatch))
+            .catch(err => { dispatch(registerError(err))})
     }
 }
 

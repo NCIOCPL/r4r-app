@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageNotFound Component renders correctly 1`] = `
+<Error
+  body="We can't find the page you're looking for."
+  showRedirect={true}
+  title="Page not found"
+/>
+`;

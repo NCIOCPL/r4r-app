@@ -7,7 +7,7 @@ import {
 import Home from './views/home';
 import Results from './views/results';
 import Resource from './views/resource';
-import Error from './components/Error';
+import PageNotFound from './components/PageNotFound';
 import ErrorBoundary from './ErrorBoundary';
 
 const AppRouter = ({ history }) => (
@@ -17,7 +17,7 @@ const AppRouter = ({ history }) => (
                 <Route exact path="/" component={ Home } />
                 <Route path="/search" component={ Results } />
                 <Route path="/resource/:id" component={ Resource } />
-                <Route path="*" render={() => <Error title="Page not found" body="We can't find the page you're looking for." showRedirect={true} />} />
+                <Route path="*" component={ PageNotFound } />
             </Switch>
         </ErrorBoundary>
     </Router>

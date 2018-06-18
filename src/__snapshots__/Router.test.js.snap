@@ -4,24 +4,26 @@ exports[`Router Container renders correctly 1`] = `
 <ConnectedRouter
   history={Object {}}
 >
-  <Switch>
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/"
-    />
-    <Route
-      component={[Function]}
-      path="/search"
-    />
-    <Route
-      component={[Function]}
-      path="/resource/:id"
-    />
-    <Route
-      path="*"
-      render={[Function]}
-    />
-  </Switch>
+  <Connect(ErrorBoundary)>
+    <Switch>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        path="/search"
+      />
+      <Route
+        component={[Function]}
+        path="/resource/:id"
+      />
+      <Route
+        component={[Function]}
+        path="*"
+      />
+    </Switch>
+  </Connect(ErrorBoundary)>
 </ConnectedRouter>
 `;
