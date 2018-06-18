@@ -123,6 +123,13 @@ export class Results extends React.Component {
         }
     }
 
+    viewAll = () => {
+        this.props.searchRedirect({
+            from: 0,
+            size: 20,
+        })
+    }
+
     pagerSearch = from => {
         const paramsObject = transformFacetFiltersIntoParamsObject(this.props.facets);
         const paramsObjectFinal = {
@@ -275,7 +282,7 @@ export class Results extends React.Component {
                                             </Theme>
                                         </React.Fragment>
                                     :
-                                        <NoResults />
+                                        <NoResults viewAll={ this.viewAll }/>
                                 }
                                 </Theme>
                         }
