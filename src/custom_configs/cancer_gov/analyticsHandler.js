@@ -214,7 +214,6 @@ const clickEvent = event => {
                 Events: [2, 39],               
             }
         // TODO: Possibly need to delay page transition explicitly here by passing true as the sender
-        // TODO: TODO: Create pattern for explicating sender value
         case 'r4r_resource|resource_click':
             return {
                 Props: {
@@ -223,6 +222,16 @@ const clickEvent = event => {
                 },
                 Events: [67],
                 config_delay: true,
+            }
+        case 'r4r_results_viewall':
+            return {
+                Props: {
+                    11: event.meta.clickType,
+                    14: 'View All Resources',
+                    39: 'r4r_results|viewall',
+                    40: 'Results View',
+                },
+                Events: [2, 39],
             }
         default:
             return {};

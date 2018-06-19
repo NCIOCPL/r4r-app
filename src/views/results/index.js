@@ -44,9 +44,6 @@ export class Results extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            /**
-             * FYI, This is the only instance of local state in the app. (And the FatalErrorBoundary, I lied)
-             */
             isMobileMenuOpen: false,
             isMobile: false,
         }
@@ -87,7 +84,7 @@ export class Results extends React.Component {
     newTextSearch = () => {
         // Do not execute on empty search fields
         if(this.props.searchBarValue) {
-            this.props.clickEvent('Search BTN', {
+            this.props.clickEvent('r4r_results_searchbar', {
                 keyword: this.props.searchBarValue,
             })
             this.props.searchRedirect({
@@ -124,6 +121,7 @@ export class Results extends React.Component {
     }
 
     viewAll = () => {
+        this.props.clickEvent('r4r_results_viewall');
         this.props.searchRedirect({
             from: 0,
             size: 20,
