@@ -273,7 +273,6 @@ const analyticsEventsMap = new Map(Object.entries(analyticsEvents));
 // Here is where we do the heavy lifting of processing events and passing them to
 // the analytics library
 export const createCancerGovAnalyticsHandler = analytics => events => {
-    // TODO: FINISH THE REST OF THE FUCKING OWL
     events.map(event => {
         if(analyticsEventsMap.has(event.type)){
             try{
@@ -294,15 +293,9 @@ export const createCancerGovAnalyticsHandler = analytics => events => {
             catch(err){
                 console.log(err)
             }
-
-            // One way of doing it if an analytics handler gets directly passed
-            // analytics(report); // This could be an event broadcaster or the analytics library itself
         }
         return event;
     })
-    // analytics(event); // this won't work as is since window.s is not actually a function on the site
-
-
 }
 
 // Once the analytics library is available, we want to first curry the analytics event listener (which does the heavy lifting
@@ -320,26 +313,21 @@ export const subscribeToAnalyticsEvents = (analytics, eventHandler) => {
 // We want to make sure the analytics library is available before we subscribe it
 // to the event handler proxy.
 export const awaitAnalyticsLibraryAvailability = (eventHandler) => {
-    const listener = () => {
-        subscribeToAnalyticsEvents(window.s, eventHandler);
+    if(process.env.NODE_ENV !== 'development'){
+        // window.addEventListener('analytics_ready', listener);
+
+        // if(window.NCIAnalytics){
+        //     window.removeEventListener('analytics_ready', listener);
+        //     subscribeToAnalyticsEvents(window.NCIAnalytics, eventHandler);
+        // }
+        setTimeout(()=> {
+            subscribeToAnalyticsEvents({}, eventHandler)
+        }, 1000)
+    }
+    else {
+        setTimeout(()=> {
+            subscribeToAnalyticsEvents({}, eventHandler)
+        }, 1000)
     }
 
-    // if(process.env.NODE_ENV !== 'development'){
-    //     window.addEventListener('analytics_ready', listener);
-
-    //     if(window.s){
-    //         window.removeEventListener('analytics_ready', listener);
-    //         subscribeToAnalyticsEvents(window.s, eventHandler);
-    //     }
-    // }
-    // else {
-    //     subscribeToAnalyticsEvents((report) => { console.log('Analytics', report)}, eventHandler);
-    // }
-
-    setTimeout(()=> {
-        subscribeToAnalyticsEvents({}, eventHandler)
-    }, 1000)
-    
-    //This is only for dev
-    // subscribeToAnalyticsEvents((report) => { console.log('Analytics', report)}, eventHandler);
 }
