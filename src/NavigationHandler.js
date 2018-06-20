@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { clearError } from './state/error/actions';
-import { setFetchingStatus } from './state/api/actions';
 
 export class NavigationHandler extends React.Component{
     componentDidUpdate(prevProps){
@@ -24,7 +23,6 @@ const mapStateToProps = ({ error, router }) => ({
 
 const mapDispatchToProps = {
     clearError,
-    setFetchingStatus,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationHandler);
