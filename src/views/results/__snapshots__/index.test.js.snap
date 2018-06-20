@@ -340,125 +340,127 @@ exports[`Results view renders correctly with results 1`] = `
                     </form>
                   </Theme>
                 </SearchBar>
-                <Theme
-                  className="results__filter-button"
-                  element="button"
-                  onClick={[Function]}
+                <FilterButton
+                  filtersCount={1}
+                  isMobileMenuOpen={false}
+                  toggleMobileMenu={[Function]}
                 >
-                  <button
-                    className="results__filter-button  "
+                  <Theme
+                    className="results__filter-button"
+                    element="button"
                     onClick={[Function]}
                   >
-                    Filter (1)
-                  </button>
-                </Theme>
+                    <button
+                      className="results__filter-button  "
+                      onClick={[Function]}
+                    >
+                      Filter (1)
+                    </button>
+                  </Theme>
+                </FilterButton>
               </section>
             </Theme>
-            <div
-              className="results__selections-container"
+            <SelectedFiltersBox
+              clearFilters={[Function]}
+              selected={
+                Array [
+                  Object {
+                    "count": 1,
+                    "key": "community_research_tools",
+                    "label": "Community Research Tools",
+                    "param": "toolTypes",
+                    "selected": true,
+                    "title": "Tool Types",
+                  },
+                ]
+              }
+              toggleFilter={[Function]}
             >
-              <SelectedFiltersBox
-                clearFilters={[Function]}
-                selected={
-                  Array [
-                    Object {
-                      "count": 1,
-                      "key": "community_research_tools",
-                      "label": "Community Research Tools",
-                      "param": "toolTypes",
-                      "selected": true,
-                      "title": "Tool Types",
-                    },
-                  ]
-                }
-                toggleFilter={[Function]}
+              <Theme
+                aria-label="Selected Search Filters"
+                className="results__selected-filters"
+                element="section"
               >
-                <Theme
+                <section
                   aria-label="Selected Search Filters"
-                  className="results__selected-filters"
-                  element="section"
+                  className="results__selected-filters  "
                 >
-                  <section
-                    aria-label="Selected Search Filters"
-                    className="results__selected-filters  "
+                  <Theme
+                    aria-hidden={true}
+                    className="selected-filters__header"
+                    element="p"
                   >
-                    <Theme
+                    <p
                       aria-hidden={true}
-                      className="selected-filters__header"
-                      element="p"
+                      className="selected-filters__header  "
                     >
-                      <p
-                        aria-hidden={true}
-                        className="selected-filters__header  "
-                      >
-                        Your Selections:
-                      </p>
-                    </Theme>
-                    <Theme
-                      className="selected-filters__filters-container"
-                      element="div"
+                      Your Selections:
+                    </p>
+                  </Theme>
+                  <Theme
+                    className="selected-filters__filters-container"
+                    element="div"
+                  >
+                    <div
+                      className="selected-filters__filters-container  "
                     >
-                      <div
-                        className="selected-filters__filters-container  "
+                      <Theme
+                        className="selected-filters__filter"
+                        element="div"
+                        key="0"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        tabIndex="0"
                       >
-                        <Theme
-                          className="selected-filters__filter"
-                          element="div"
-                          key="0"
+                        <div
+                          className="selected-filters__filter  "
                           onClick={[Function]}
                           onKeyPress={[Function]}
                           tabIndex="0"
                         >
-                          <div
-                            className="selected-filters__filter  "
-                            onClick={[Function]}
-                            onKeyPress={[Function]}
-                            tabIndex="0"
+                          <p>
+                            Community Research Tools
+                          </p>
+                          <SVG
+                            className="selected-filters__close"
+                            iconType="xmark"
                           >
-                            <p>
-                              Community Research Tools
-                            </p>
-                            <SVG
+                            <Theme
                               className="selected-filters__close"
-                              iconType="xmark"
+                              element="div"
                             >
-                              <Theme
-                                className="selected-filters__close"
-                                element="div"
+                              <div
+                                className="selected-filters__close  "
                               >
-                                <div
-                                  className="selected-filters__close  "
+                                <svg
+                                  height="15px"
+                                  version="1.1"
+                                  viewBox="0 0 15 15"
+                                  width="15px"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  xmlnsXlink="http://www.w3.org/1999/xlink"
                                 >
-                                  <svg
-                                    height="15px"
-                                    version="1.1"
-                                    viewBox="0 0 15 15"
-                                    width="15px"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                                  >
-                                    <polygon
-                                      fill="#FFFFFF"
-                                      id="Rectangle-6"
-                                      points="9.63235931 3.25735931 11.7573593 5.38235931 5.38235931 11.7573593 3.25735931 9.63235931"
-                                    />
-                                    <polygon
-                                      fill="#FFFFFF"
-                                      id="Rectangle-7"
-                                      points="5.38235931 3.25735931 11.7573593 9.63235931 9.63235931 11.7573593 3.25735931 5.38235931"
-                                    />
-                                  </svg>
-                                </div>
-                              </Theme>
-                            </SVG>
-                          </div>
-                        </Theme>
-                      </div>
-                    </Theme>
-                  </section>
-                </Theme>
-              </SelectedFiltersBox>
-            </div>
+                                  <polygon
+                                    fill="#FFFFFF"
+                                    id="Rectangle-6"
+                                    points="9.63235931 3.25735931 11.7573593 5.38235931 5.38235931 11.7573593 3.25735931 9.63235931"
+                                  />
+                                  <polygon
+                                    fill="#FFFFFF"
+                                    id="Rectangle-7"
+                                    points="5.38235931 3.25735931 11.7573593 9.63235931 9.63235931 11.7573593 3.25735931 5.38235931"
+                                  />
+                                </svg>
+                              </div>
+                            </Theme>
+                          </SVG>
+                        </div>
+                      </Theme>
+                    </div>
+                  </Theme>
+                </section>
+              </Theme>
+            </SelectedFiltersBox>
             <Theme
               className="r4r-pager"
               element="nav"

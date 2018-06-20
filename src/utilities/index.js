@@ -1,7 +1,8 @@
 import queryString from 'query-string';
 import '../polyfills/object_entries';
-// All API parsing and formatting will be centralized so that future changes to the API only
-// need to be handled here. The app will always expect a certain structure.
+
+// This file contains utility functions that reformat data, provide data
+// checks for components, and handle standard DOM events.
 
 /**
  * @typedef KeyLabel

@@ -29,6 +29,7 @@ import Filters from '../../components/Filters';
 import ResultTile from '../../components/ResultTile';
 import Spinner from '../../components/CTS_Spinner';
 import SearchBar from '../../components/SearchBar';
+import FilterButton from '../../components/FilterButton';
 import Pager from '../../components/Pager';
 import PagerCounter from '../../components/PagerCounter';
 import NoResults from '../../components/NoResults';
@@ -209,28 +210,18 @@ export class Results extends React.Component {
                             {
                                 /* Don't show the filter button when there are no results to filter */
                                 !!this.props.results.length &&
-                                    <Theme
-                                        element="button"
-                                        className="results__filter-button"
-                                        onClick={ this.toggleMobileMenu }
-                                    >
-                                        { 
-                                            !this.state.isMobileMenuOpen 
-                                            ? 
-                                                `Filter${ this.props.selectedFilters.length ? ` (${ this.props.selectedFilters.length })` : '' }` 
-                                            : 
-                                                'Done' 
-                                        }
-                                    </Theme>
+                                <FilterButton
+                                    isMobileMenuOpen={ this.state.isMobileMenuOpen }
+                                    toggleMobileMenu={ this.toggleMobileMenu }
+                                    filtersCount={ this.props.selectedFilters.length }
+                                />
                             }
                         </Theme>
-                        <div className="results__selections-container">
-                            <SelectedFiltersBox
-                                selected={ this.props.selectedFilters }
-                                clearFilters={ this.clearFilters }
-                                toggleFilter={ this.toggleFilter }
-                            />
-                        </div>
+                        <SelectedFiltersBox
+                            selected={ this.props.selectedFilters }
+                            clearFilters={ this.clearFilters }
+                            toggleFilter={ this.toggleFilter }
+                        />
                         <Theme element="nav" className="r4r-pager">
                             {
                                 this.props.results &&

@@ -7,7 +7,6 @@ import { goBack } from 'react-router-redux';
 import { Theme } from '../../theme';
 import SearchBar from '../../components/SearchBar';
 import BrowseTile from '../../components/BrowseTile';
-import ContactInformation from '../../components/ContactInformation';
 import Spinner from '../../components/CTS_Spinner';
 import { 
     updateSearchBar,
@@ -20,7 +19,6 @@ import {
 } from '../../state/api/actions';
 import {
     keyHandler,
-    renderDocsString,
     hasNavigatedHereFromResultsPage,
 } from '../../utilities';
 import {
@@ -31,6 +29,8 @@ import {
 } from '../../interfaces';
 import './index.css';
 import ResourceAccess from '../../components/ResourceAccess';
+import POCs from '../../components/POCs';
+import DOCs from '../../components/DOCs';
 
 export class Resource extends React.Component {
     static propTypes = {
@@ -164,24 +164,8 @@ export class Resource extends React.Component {
                         type={ resourceAccess.type }
                         notes={ resourceAccess.notes }
                     />
-                    {
-                        (poCs.length > 0) &&
-                            <article>
-                                <h2>Contact Information</h2>
-                                { 
-                                    poCs.map((poc, idx) => (
-                                        <ContactInformation contact={ poc } key={ idx } />
-                                    ))
-                                }
-                            </article>
-                    }
-                    {
-                        (doCs.length > 0) &&
-                            <Theme element="article" className="resource__docs" aria-label="NCI Affiliation Information">
-                                <h2>NCI Affiliation</h2>
-                                { renderDocsString(doCs) }
-                            </Theme>
-                    }
+                    <POCs poCs={ poCs } />
+                    <DOCs doCs={ doCs }/>
                 </Theme>
                 <Theme element="div" className="resource__nav">
                     <section role="search">

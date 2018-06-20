@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterButton Component renders correctly 1`] = `
+<Theme
+  className="results__filter-button"
+  element="button"
+  onClick={[Function]}
+>
+  Filter (2)
+</Theme>
+`;

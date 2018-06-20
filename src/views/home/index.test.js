@@ -13,6 +13,37 @@ describe('Home View', () => {
     const wrapper = mountWithThemeAndRouter(<Home facets={ mockFacets } loadFacets={() => {} }/>)
     expect(wrapper).toMatchSnapshot();
   })
+
+  it('calls componentDidMount once', () => {
+    const componentDidMountSpy = jest.spyOn(Home.prototype, 'componentDidMount');
+    const wrapper = shallow(<Home loadFacets={() => {}} />);
+    expect(Home.prototype.componentDidMount).toHaveBeenCalledTimes(1);
+    componentDidMountSpy.mockClear();
+  })
+
+  it('calls loadFacets on load', () => {
+    const mockFn = jest.fn();
+    const wrapper = shallow(<Home loadFacets={ mockFn } />);
+    expect(mockFn).toHaveBeenCalledTimes(1);
+  })
+  
+  it('calls new search for view all', () => {
+    const mockSearch = jest.fn();
+    const mockEvent = jest.fn();
+    const wrapper = shallow(<Home loadFacets={ ()=> {} } newSearch={ mockSearch } clickEvent={ mockEvent}/>);
+    const viewAll = wrapper.find('.view-all__link').simulate('click', { preventDefault(){}})
+    expect(mockSearch).toHaveBeenCalledTimes(1);
+    expect(mockEvent).toHaveBeenCalledTimes(1);
+  })
+
+  it('calls new search for text search', () => {
+    const mockSearch = jest.fn();
+    const mockEvent = jest.fn();
+    const wrapper = shallow(<Home loadFacets={ ()=> {} } newSearch={ mockSearch } clickEvent={ mockEvent} searchBarValue="Test"/>);
+    const searchBar = wrapper.find('SearchBar').simulate('submit', { preventDefault(){}})
+    expect(mockSearch).toHaveBeenCalledTimes(1);
+    expect(mockEvent).toHaveBeenCalledTimes(1);
+  })
 })
 
 const mockFacets = memoizeReferenceFacets({ api: { facets: [

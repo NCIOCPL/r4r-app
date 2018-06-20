@@ -311,12 +311,9 @@ exports[`Resource View renders correctly with a resource loaded 1`] = `
                     </Theme>
                   </article>
                 </ResourceAccess>
-                <article>
-                  <h2>
-                    Contact Information
-                  </h2>
-                  <ContactInformation
-                    contact={
+                <POCs
+                  poCs={
+                    Array [
                       Object {
                         "email": "scotts2@mail.nih.gov",
                         "name": Object {
@@ -328,36 +325,7 @@ exports[`Resource View renders correctly with a resource loaded 1`] = `
                         },
                         "phone": "240-276-6951",
                         "title": "Public Health Advisor, Surveillance Research Program",
-                      }
-                    }
-                    key="0"
-                  >
-                    <Theme
-                      className="contact-information"
-                      element="address"
-                    >
-                      <address
-                        className="contact-information  "
-                      >
-                        <p>
-                           Susan  Scott 
-                        </p>
-                        <p>
-                          Public Health Advisor, Surveillance Research Program
-                        </p>
-                        <p>
-                          240-276-6951
-                        </p>
-                        <a
-                          href="mailto:scotts2@mail.nih.gov"
-                        >
-                          scotts2@mail.nih.gov
-                        </a>
-                      </address>
-                    </Theme>
-                  </ContactInformation>
-                  <ContactInformation
-                    contact={
+                      },
                       Object {
                         "email": "feuerr@mail.nih.gov",
                         "name": Object {
@@ -369,50 +337,124 @@ exports[`Resource View renders correctly with a resource loaded 1`] = `
                         },
                         "phone": "240-276-6772",
                         "title": "Chief, Statistical Research and Applications Branch, Surveillance Research Program",
-                      }
-                    }
-                    key="1"
-                  >
-                    <Theme
-                      className="contact-information"
-                      element="address"
-                    >
-                      <address
-                        className="contact-information  "
-                      >
-                        <p>
-                           Eric (Rocky)  Feuer 
-                        </p>
-                        <p>
-                          Chief, Statistical Research and Applications Branch, Surveillance Research Program
-                        </p>
-                        <p>
-                          240-276-6772
-                        </p>
-                        <a
-                          href="mailto:feuerr@mail.nih.gov"
-                        >
-                          feuerr@mail.nih.gov
-                        </a>
-                      </address>
-                    </Theme>
-                  </ContactInformation>
-                </article>
-                <Theme
-                  aria-label="NCI Affiliation Information"
-                  className="resource__docs"
-                  element="article"
+                      },
+                    ]
+                  }
                 >
-                  <article
-                    aria-label="NCI Affiliation Information"
-                    className="resource__docs  "
-                  >
+                  <article>
                     <h2>
-                      NCI Affiliation
+                      Contact Information
                     </h2>
-                    This resource is managed by the Center for Biomedical Informatics and Informatics Technology (CBIIT).
+                    <ContactInformation
+                      contact={
+                        Object {
+                          "email": "scotts2@mail.nih.gov",
+                          "name": Object {
+                            "firstName": "Susan",
+                            "lastName": "Scott",
+                            "middleName": null,
+                            "prefix": null,
+                            "suffix": null,
+                          },
+                          "phone": "240-276-6951",
+                          "title": "Public Health Advisor, Surveillance Research Program",
+                        }
+                      }
+                      key="0"
+                    >
+                      <Theme
+                        className="contact-information"
+                        element="address"
+                      >
+                        <address
+                          className="contact-information  "
+                        >
+                          <p>
+                             Susan  Scott 
+                          </p>
+                          <p>
+                            Public Health Advisor, Surveillance Research Program
+                          </p>
+                          <p>
+                            240-276-6951
+                          </p>
+                          <a
+                            href="mailto:scotts2@mail.nih.gov"
+                          >
+                            scotts2@mail.nih.gov
+                          </a>
+                        </address>
+                      </Theme>
+                    </ContactInformation>
+                    <ContactInformation
+                      contact={
+                        Object {
+                          "email": "feuerr@mail.nih.gov",
+                          "name": Object {
+                            "firstName": "Eric (Rocky)",
+                            "lastName": "Feuer",
+                            "middleName": null,
+                            "prefix": null,
+                            "suffix": null,
+                          },
+                          "phone": "240-276-6772",
+                          "title": "Chief, Statistical Research and Applications Branch, Surveillance Research Program",
+                        }
+                      }
+                      key="1"
+                    >
+                      <Theme
+                        className="contact-information"
+                        element="address"
+                      >
+                        <address
+                          className="contact-information  "
+                        >
+                          <p>
+                             Eric (Rocky)  Feuer 
+                          </p>
+                          <p>
+                            Chief, Statistical Research and Applications Branch, Surveillance Research Program
+                          </p>
+                          <p>
+                            240-276-6772
+                          </p>
+                          <a
+                            href="mailto:feuerr@mail.nih.gov"
+                          >
+                            feuerr@mail.nih.gov
+                          </a>
+                        </address>
+                      </Theme>
+                    </ContactInformation>
                   </article>
-                </Theme>
+                </POCs>
+                <DOCs
+                  doCs={
+                    Array [
+                      Object {
+                        "key": "cbiit",
+                        "label": "Center for Biomedical Informatics and Informatics Technology (CBIIT)",
+                      },
+                    ]
+                  }
+                >
+                  <Theme
+                    aria-label="NCI Affiliation Information"
+                    className="resource__docs"
+                    element="article"
+                  >
+                    <article
+                      aria-label="NCI Affiliation Information"
+                      className="resource__docs  "
+                    >
+                      <h2>
+                        NCI Affiliation
+                      </h2>
+                      This resource is managed by the Center for Biomedical Informatics and Informatics Technology (CBIIT).
+                    </article>
+                  </Theme>
+                </DOCs>
               </div>
             </Theme>
             <Theme

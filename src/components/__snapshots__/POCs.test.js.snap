@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`POCs Component renders correctly with poC 1`] = `
+<article>
+  <h2>
+    Contact Information
+  </h2>
+  <ContactInformation
+    contact={
+      Object {
+        "email": "waitingforgodot@gmail.com",
+        "name": Object {
+          "firstName": "Franklin",
+          "lastName": "Roosevelt",
+          "middleName": "Delano",
+          "prefix": "Mr",
+          "suffix": "III",
+        },
+        "phone": "123-555-5555",
+        "title": "Senor",
+      }
+    }
+    key="0"
+  />
+</article>
+`;
+
+exports[`POCs Component renders correctly without poC 1`] = `""`;

@@ -185,10 +185,6 @@
         margin-top: 15px;
     }
 
-    /* .results__selections-container{
-        flex-direction: column;
-    } */
-
     .results__selected-filters.r4r-DEFAULT{
         flex-direction: column;
         margin-bottom: 0;
