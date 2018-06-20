@@ -92,6 +92,31 @@ export const clickEvent = (clickType, clickInfo) => ({
     }
 })
 
+// ########## API SERVICES ###########
+/**
+ * For an api service to correctly navigate the middleware chain with caching and fetching,
+ * it should have the following structure:
+ * 
+ *    {
+ *      type: '@@cache/RETRIEVE',
+ *      cache: {
+ *          getCached: getState => cachedElement || null,
+ *          onCached: (dispatch, getState) => cachedElement => { // handle copying element from cache to active}
+ *      },
+ *      fetch: {
+ *          url: String,
+ *          onSuccess: dispatch => (responseBody: JSON from API) => { // handle calling cache and load actions for response },
+ *          timeout: Number(optional),
+ *          options: Object(optional)
+ *      }
+ *    }
+ * 
+ * If you don't want to access the cache, change the type to '@@api/FETCH' and remove the cache property.
+ * 
+ * Note: The cache and fetch middleware and these services only work with the r4r api. Any other potential AJAX
+ * services to other sources in the future should be handled with thunks.
+ */
+
 export const fetchResource = (resourceId) => ({
     type: '@@cache/RETRIEVE',
     cache: {
@@ -151,19 +176,3 @@ export const newSearch = queryString => ({
         }
     }
 })
-
-// export const factoryTemplate = {
-//     type: '',
-//     cache: {
-//         getCached: () => {},
-//         onCached: () => () => {}
-//     },
-//     fetch: {
-//         url: '',
-//         onSuccess: () => () => {},
-//     }
-// }
-
-// export const apiServiceFactory = settings => {
-//     return {}
-// }
