@@ -35,6 +35,11 @@ const createFetchMiddleware = apiEndpoint => ({ dispatch, getState }) => next =>
 
     if(url){
         console.log('Resource not cached, fetching from db')
+
+        //The fetch middleware generates a unique key to allow stale 
+        // requests to be ignored when they resolve. This determination 
+        // is performed by the wrappedSuccess function that only executes 
+        // the onSuccess method in the event that the request is still fresh.
         const fetchId = Date.now();
         dispatch(setFetchingStatus(true, fetchId));
     

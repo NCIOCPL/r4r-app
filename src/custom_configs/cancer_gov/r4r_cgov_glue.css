@@ -65,7 +65,7 @@ a.arrow-link-white:before, a.arrow-link:before {
     padding-bottom: 2px;
 }
 
-.r4r-container .resource__link--external{
+.r4r-container .resource__link--external.r4r-DEFAULT{
     font-family: "Montserrat";
     font-weight: bold;
     width: 150px;

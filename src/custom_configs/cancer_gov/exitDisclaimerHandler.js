@@ -38,14 +38,17 @@ export const exitDisclaimerInjector = () => {
     return externalLinks;
 }
 
+const triggerActions = new Set([
+    'LOAD NEW SEARCH RESULTS',
+    'LOAD NEW FACET RESULTS',
+    'LOAD RESOURCE',
+    'PAGE NOT FOUND',
+    'REGISTER ERROR',
+])
+
 // Listen for changes to the location and rerun the exitDisclaimerInjector
-export const exitDisclaimerEventHandler = (events) => {
-    // TODO: This method of detecting location changes is temporary and will need to be rewritten
-    // once the analytics middleware has been fleshed out.
-    if(events.some(({ type }) => type === '@@router/LOCATION_CHANGE')){
-        console.log('Location change detected by exitDisclaimer listener')
-        // The location change action event publishes before the dom is rerendered by React. We need a bit of a delay.
-        // 100ms should be excessive.
+export const exitDisclaimerEventHandler = (events) => {    
+    if(events.some(({ type }) => triggerActions.has(type))){
         setTimeout(() => {
             exitDisclaimerInjector();
         }, 100)
