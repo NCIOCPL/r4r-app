@@ -20,12 +20,11 @@ import LiveRegion from './LiveRegion';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
 
-// Remove this block after CGOV custom theme development is complete
-if(process.env.NODE_ENV !== 'production') {
-    import('./cancergov_styles/nvcg.css');
-    import('./cancergov_styles/InnerPage.css');
-    import('./cancergov_styles/r4r_cgov_theme.css');
-}
+// // TODO: Remove this block after CGOV custom theme development is complete
+// if(process.env.NODE_ENV !== 'production') {
+//     import('./cancergov_styles/nvcg.css');
+//     import('./cancergov_styles/InnerPage.css');
+// }
 
 /**
  * @param {object} [config]
@@ -44,11 +43,13 @@ const initializeR4R = ({
     apiEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1',
 } = {}) => {
 
+    // 1) Set up theme
     if(typeof customTheme !== 'object' || customTheme === null) {
-        throw new Error('customTheme must be a non-null object')
+        throw new Error('customTheme must be an object')
     }
     const theme = createTheme(customTheme);
 
+    // 2) Set up Redux (session storage caching in production only)
     let cachedState;
     if(process.env.NODE_ENV !== 'development' && useSessionStorage === true) {
         cachedState = loadStateFromSessionStorage(appId);
@@ -98,7 +99,7 @@ const initializeR4R = ({
         }
     });
 
-    //TODO: Move to separate container file
+    // 3) Set up component tree
     const App = () => (
         <Provider store={ store }>
             <FatalErrorBoundary dispatch={ store.dispatch }>
@@ -127,6 +128,7 @@ const initializeR4R = ({
 
 export default initializeR4R;
 
+// TODO: Remove this before release
 // ######## INITIALIZE APP ############
 // This is the line to change when you want custom settings to deploy this as a widget on
 // other sites. (Or you call initializeR4R directly to get the generic app)
