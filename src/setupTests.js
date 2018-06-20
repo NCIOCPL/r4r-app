@@ -19,3 +19,32 @@ global.mountWithTheme = node => mount(<ThemeProvider theme={{}}>{ node }</ThemeP
 global.mountWithRouter = node => mount(<StaticRouter>{ node }</StaticRouter>);
 
 global.mountWithThemeAndRouter = node => mount(<StaticRouter><ThemeProvider theme={{}}>{ node }</ThemeProvider></StaticRouter>);
+
+class MockSessionStorage {
+    constructor(){
+        this.store = {};
+    }
+
+    clear(){
+        this.store = {}
+    }
+
+    getItem(key){
+        return this.store[key] || null;
+    }
+
+    setItem(key, value){
+        this.store[key] = value + '';
+    }
+
+    removeItem(key){
+        delete this.store[key];
+    }
+
+    // The following functions are not typical methods of session storage and are implemented for tesxting purposes.
+    getState(){
+        return this.store;
+    }
+}
+
+global.sessionStorage = new MockSessionStorage;
