@@ -185,7 +185,7 @@ export class Results extends React.Component {
                 <Helmet>
                     <title>Resources for Researchers: Search Results - National Cancer Institute</title>
                     <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                    <meta property="og:url" content="https://www.cancer.gov/research/r4r/search" />
+                    <meta property="og:url" content={`${ this.props.baseUrl }/search`} />
                     <meta property="twitter:title" content="Resources for Researchers: Search Results - National Cancer Institute" />
                 </Helmet>
             {
@@ -303,7 +303,7 @@ export class Results extends React.Component {
     }
 }
 
-export const mapStateToProps = ({ api, searchForm, router }) => ({
+export const mapStateToProps = ({ api, searchForm, router, settings }) => ({
     results: api.currentResults,
     facets: memoizeFacetFilters(api),
     selectedFilters: memoizeSelectedFilters(api),
@@ -313,6 +313,7 @@ export const mapStateToProps = ({ api, searchForm, router }) => ({
     startFrom: api.currentMetaData && api.currentMetaData.from,
     isFetching: api.isFetching,
     location: router.location,
+    baseUrl: settings.baseUrl,
 })
 
 const mapDispatchToProps = {

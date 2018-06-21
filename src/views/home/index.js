@@ -83,7 +83,7 @@ export class Home extends React.Component {
             <Theme element="div" className="r4r-home">
                 <Helmet>
                     <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                    <meta property="og:url" content="https://www.cancer.gov/research/r4r" />
+                    <meta property="og:url" content={ this.props.baseUrl } />
                 </Helmet>
                 <h1>Resources for Researchers</h1>
                 <Theme element="main" className="home__main">
@@ -167,11 +167,13 @@ export class Home extends React.Component {
 const mapStateToProps = ({
     searchForm,
     api,
+    settings,
 }) => ({
     referenceFacets: memoizeReferenceFacets(api),
     totalResources: api.referenceTotalResources,
     searchBarValue: searchForm.searchBarValues.home,
     isFetching: api.isFetching,
+    baseUrl: settings.baseUrl,
 })
 
 const mapDispatchToProps = {

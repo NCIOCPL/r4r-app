@@ -13,7 +13,7 @@ You can import the library using:
 import initializeR4R from 'r4r-app'
 ```
 
-If you want to include the output stylesheet you need to specify the path, like so:
+If you want to include the R4R stylesheet you need to specify the path, like so:
 ```
 import 'r4r-app/build/static/css/main.css'
 ```
@@ -177,6 +177,6 @@ When writing tests, it may be necessary to mount the component instead of simply
 
 ## NOTES:
 
-1) Requests are primarily sanitized using the querystring library which uses strint-uri-encode by default (https://github.com/kevva/strict-uri-encode)
+1) Requests are primarily sanitized using the querystring library which uses strict-uri-encode by default (https://github.com/kevva/strict-uri-encode)
 2) Complex propTypes interfaces intended for reuse should be defined in interfaces/index.js and exported.
 3) Further customizations to the 'install' script can be done in config-overrides.js which is used by react-app-rewired to customize CRA. Some changes aren't possible without the additional step of forking react-scripts, but that was not necessary in this case.

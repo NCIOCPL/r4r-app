@@ -126,10 +126,10 @@ export class Resource extends React.Component {
             <Theme element="div" className='r4r-resource'>
                 <Helmet>
                     <title>Resources for Researchers: { title } - National Cancer Institute</title>
-                    <meta property="og:description" content={ description.substr(0, 300) } />
-                    <meta name="description" content={ description.substr(0, 300) } />
+                    <meta property="og:description" content={ description } />
+                    <meta name="description" content={ description } />
                     <meta property="twitter:title" content={`Resources for Researchers: ${ title } - National Cancer Institute`} />
-                    <meta property="og:url" content={`https://www.cancer.gov/research/r4r/resource/${ id }`} />
+                    <meta property="og:url" content={`${ this.props.baseUrl }/resource/${ id }`} />
                 </Helmet>
                 <Theme element="header" className='r4r-resource__header'>
                     <h1>{ title }</h1>
@@ -197,12 +197,13 @@ export class Resource extends React.Component {
     }
 }
 
-const mapStateToProps = ({ api, searchForm, router, history }) => ({
+const mapStateToProps = ({ api, searchForm, router, history, settings }) => ({
     resource: api.currentResource,
     filters: memoizeFilters(api),
     currentResults: api.currentResults,
     searchBarValue: searchForm.searchBarValues.resource,
     location: router.location,
+    baseUrl: settings.baseUrl,
     history,
 })
 

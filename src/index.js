@@ -20,11 +20,11 @@ import LiveRegion from './LiveRegion';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
 
-// // TODO: Remove this block after CGOV custom theme development is complete
-// if(process.env.NODE_ENV !== 'production') {
-//     import('./cancergov_styles/nvcg.css');
-//     import('./cancergov_styles/InnerPage.css');
-// }
+// TODO: Remove this block after CGOV custom theme development is complete
+if(process.env.NODE_ENV !== 'production') {
+    import('./cancergov_styles/nvcg.css');
+    import('./cancergov_styles/InnerPage.css');
+}
 
 /**
  * @param {object} [config]
@@ -92,12 +92,22 @@ const initializeR4R = ({
         store.subscribe(saveDesiredStateToSessionStorage);
     }
     
+    // This event is not urrently being used by analytics but will be retained in the event that it becomes useful.
     store.dispatch({
         type: '@@event/APP_INITIALIZATION',
         meta: {
             location: window.location,
         }
     });
+
+    // Set up the baseUrl to use for react-helmet
+    const baseUrl = `${window.location.origin}${ historyProps.basename || '' }`
+    store.dispatch({
+        type: 'LOAD SETTINGS',
+        payload: {
+            baseUrl
+        }
+    })
 
     // 3) Set up component tree
     const App = () => (
