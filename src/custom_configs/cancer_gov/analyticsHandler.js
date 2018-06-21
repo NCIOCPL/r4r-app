@@ -314,20 +314,21 @@ export const subscribeToAnalyticsEvents = (analytics, eventHandler) => {
 // to the event handler proxy.
 export const awaitAnalyticsLibraryAvailability = (eventHandler) => {
     if(process.env.NODE_ENV !== 'development'){
-        // window.addEventListener('analytics_ready', listener);
-
-        // if(window.NCIAnalytics){
-        //     window.removeEventListener('analytics_ready', listener);
-        //     subscribeToAnalyticsEvents(window.NCIAnalytics, eventHandler);
-        // }
-        setTimeout(()=> {
-            subscribeToAnalyticsEvents({}, eventHandler)
-        }, 1000)
+        if(window.NCIAnalytics){
+            subscribeToAnalyticsEvents({}, eventHandler);
+        }
+        else{
+            const interval = setInterval(() => {
+                if(window.NCIAnalytics){
+                    subscribeToAnalyticsEvents({}, eventHandler);
+                    clearInterval(interval);
+                }
+            }, 250)
+        }
     }
     else {
         setTimeout(()=> {
             subscribeToAnalyticsEvents({}, eventHandler)
         }, 1000)
     }
-
 }
