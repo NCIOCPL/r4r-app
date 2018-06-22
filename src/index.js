@@ -8,7 +8,6 @@ import * as myReducers from './state';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware as createRouterMiddleware, routerReducer } from 'react-router-redux';
 import createEventReporterMiddleware from './state/middleware/eventReporter';
-import initializeCancerGovTheme from './custom_configs/cancerGov';
 import createFetchMiddleware from './state/middleware/fetchMiddleware';
 import metadataMiddleware from './state/middleware/metadata';
 import cacheMiddleware from './state/middleware/cacheMiddleware';
@@ -138,9 +137,4 @@ const initializeR4R = ({
 
 export default initializeR4R;
 
-// TODO: Remove this before release
-// ######## INITIALIZE APP ############
-// This is the line to change when you want custom settings to deploy this as a widget on
-// other sites. (Or you call initializeR4R directly to get the generic app)
-document.addEventListener('DOMContentLoaded', () => { initializeCancerGovTheme(initializeR4R) })
 
