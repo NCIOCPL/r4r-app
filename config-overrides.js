@@ -20,7 +20,7 @@ const NoHashes = {
 
 module.exports = function override(config, env){
     config.output = Object.assign(config.output, {
-        libraryTarget: 'commonjs',
+        libraryTarget: 'umd',
         library: 'r4r',
         umdNamedDefine: true
     })
