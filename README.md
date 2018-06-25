@@ -137,7 +137,7 @@ This is a true error boundary that will render <Error /> in the event that an er
 
 ### ErrorBoundary
 
-This is not a true error boundary (it doesn't use the componentDidCatch lifecycle method). It listens for errors passed to the error reducer and will render <Error/> in the event one is detected. Used for timeouts, server errors, 404s, etc.
+This is not a true error boundary (it doesn't use the componentDidCatch lifecycle method). It listens for errors passed to the error reducer and will render <Error/> in the event one is detected. Used for timeouts, server errors, 404s, etc. The various error message's content and the overarching decision tree is located here. 
 
 ### SVG
 

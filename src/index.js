@@ -19,7 +19,7 @@ import LiveRegion from './LiveRegion';
 import { loadStateFromSessionStorage, saveStatetoSessionStorage } from './cache';
 import { createTheme, ThemeProvider, Theme } from './theme';
 
-// TODO: Remove this block after CGOV custom theme development is complete
+// This block is for CGOV custom theming development only. Comment out for widgetizing.
 if(process.env.NODE_ENV !== 'production') {
     import('./cancergov_styles/nvcg.css');
     import('./cancergov_styles/InnerPage.css');
@@ -30,6 +30,9 @@ if(process.env.NODE_ENV !== 'production') {
  * @param {string} [config.appId = 'DEFAULT_APP_ID'] the id used by the app for sessionStorage
  * @param {string} [config.rootId = 'r4r-root] the id of the dom node for the app to attach to
  * @param {object} [config.theme = {}] a hashmap where key = r4r default classname and custom classname to inject alongside it (or else default)
+ * @param {object} [config.historyProps = {}] valid options for the History library initialization
+ * @param {function} [eventHandler] If you want R4R to broadcast events, give it something to broadcast to
+ * @param {string} [apiEndpoint = 'https://r4rapi.cancer.gov/v1'] The location of the API you want R4R to talk to
  * @returns {Node} The DOM node to which the app is hooked
  */
 const initializeR4R = ({
@@ -39,7 +42,7 @@ const initializeR4R = ({
     rootId = 'r4r-root',
     historyProps = {},
     eventHandler,
-    apiEndpoint = 'https://r4rapi-blue-dev.cancer.gov/v1',
+    apiEndpoint = 'https://r4rapi.cancer.gov/v1',
 } = {}) => {
 
     // 1) Set up theme
