@@ -148,7 +148,7 @@ exports[`Resource View renders correctly with a resource loaded 1`] = `
                       "property": "twitter:title",
                     },
                     Object {
-                      "content": "https://www.cancer.gov/research/r4r/resource/1",
+                      "content": "undefined/resource/1",
                       "property": "og:url",
                     },
                   ]
@@ -180,7 +180,7 @@ exports[`Resource View renders correctly with a resource loaded 1`] = `
                         "property": "twitter:title",
                       },
                       Object {
-                        "content": "https://www.cancer.gov/research/r4r/resource/1",
+                        "content": "undefined/resource/1",
                         "property": "og:url",
                       },
                     ]

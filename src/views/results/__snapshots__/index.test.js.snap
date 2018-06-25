@@ -29,6 +29,7 @@ exports[`Results view renders correctly with results 1`] = `
       theme={Object {}}
     >
       <Results
+        baseUrl=""
         currentSearchText=""
         facets={
           Object {
@@ -187,7 +188,7 @@ exports[`Results view renders correctly with results 1`] = `
                   "property": "og:description",
                 },
                 Object {
-                  "content": "https://www.cancer.gov/research/r4r/search",
+                  "content": "/search",
                   "property": "og:url",
                 },
                 Object {
@@ -209,7 +210,7 @@ exports[`Results view renders correctly with results 1`] = `
                     "property": "og:description",
                   },
                   Object {
-                    "content": "https://www.cancer.gov/research/r4r/search",
+                    "content": "/search",
                     "property": "og:url",
                   },
                   Object {
@@ -1240,7 +1241,7 @@ exports[`Results view renders correctly without results 1`] = `
       property="og:description"
     />
     <meta
-      content="https://www.cancer.gov/research/r4r/search"
+      content="undefined/search"
       property="og:url"
     />
     <meta

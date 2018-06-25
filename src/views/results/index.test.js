@@ -818,5 +818,8 @@ const mockState = {
       hash: '',
       key: '2j890i'
     }
+  },
+  settings: {
+    baseUrl: ''
   }
 }

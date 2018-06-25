@@ -53,7 +53,7 @@ exports[`Home View renders correctly with facets 1`] = `
                       "property": "og:description",
                     },
                     Object {
-                      "content": "https://www.cancer.gov/research/r4r",
+                      "content": undefined,
                       "property": "og:url",
                     },
                   ]
@@ -69,7 +69,7 @@ exports[`Home View renders correctly with facets 1`] = `
                         "property": "og:description",
                       },
                       Object {
-                        "content": "https://www.cancer.gov/research/r4r",
+                        "content": undefined,
                         "property": "og:url",
                       },
                     ]
@@ -99,11 +99,11 @@ exports[`Home View renders correctly with facets 1`] = `
                       <Theme
                         className="r4r__link--about"
                         element="a"
-                        href="https://www-blue-dev.cancer.gov/research/about-r4r"
+                        href="https://www.cancer.gov/research/about-r4r"
                       >
                         <a
                           className="r4r__link--about  "
-                          href="https://www-blue-dev.cancer.gov/research/about-r4r"
+                          href="https://www.cancer.gov/research/about-r4r"
                         >
                           Learn more about Resources for Researchers.
                         </a>
@@ -505,7 +505,6 @@ exports[`Home View renders correctly without facets 1`] = `
       property="og:description"
     />
     <meta
-      content="https://www.cancer.gov/research/r4r"
       property="og:url"
     />
   </HelmetWrapper>
@@ -525,7 +524,7 @@ exports[`Home View renders correctly without facets 1`] = `
         <Theme
           className="r4r__link--about"
           element="a"
-          href="https://www-blue-dev.cancer.gov/research/about-r4r"
+          href="https://www.cancer.gov/research/about-r4r"
         >
           Learn more about Resources for Researchers.
         </Theme>
