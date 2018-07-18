@@ -41,15 +41,13 @@ export class Home extends React.Component {
 
     newTextSearch = () => {
         // We don't want to execute a search on an empty string
-        if(this.props.searchBarValue) {
-            this.props.clickEvent('r4r_home_searchbar', {
-                keyword: this.props.searchBarValue,
-            })
-            this.props.newSearch({
-                q: this.props.searchBarValue,
-                from: 0,
-            });
-        }
+        this.props.clickEvent('r4r_home_searchbar', {
+            keyword: this.props.searchBarValue,
+        })
+        this.props.newSearch({
+            q: this.props.searchBarValue,
+            from: 0,
+        });
     }
 
     newFilterSearch = ({filterType, filter}) => () => {

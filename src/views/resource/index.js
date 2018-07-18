@@ -60,15 +60,13 @@ export class Resource extends React.Component {
 
     newTextSearch = () => {
         // Don't execute on empty search bar
-        if(this.props.searchBarValue) {
-            this.props.clickEvent('r4r_resource_searchbar', {
-                keyword: this.props.searchBarValue,
-            })
-            this.props.newSearch({
-                q: this.props.searchBarValue,
-                from: 0,
-            });
-        }
+        this.props.clickEvent('r4r_resource_searchbar', {
+            keyword: this.props.searchBarValue,
+        })
+        this.props.newSearch({
+            q: this.props.searchBarValue,
+            from: 0,
+        });
     }
 
     newFilterSearch = ({filterType, filter}) => () => {

@@ -84,14 +84,12 @@ export class Results extends React.Component {
 
     newTextSearch = () => {
         // Do not execute on empty search fields
-        if(this.props.searchBarValue) {
-            this.props.clickEvent('r4r_results_searchbar', {
-                keyword: this.props.searchBarValue,
-            })
-            this.props.searchRedirect({
-                q: this.props.searchBarValue
-            });
-        }
+        this.props.clickEvent('r4r_results_searchbar', {
+            keyword: this.props.searchBarValue,
+        })
+        this.props.searchRedirect({
+            q: this.props.searchBarValue
+        });
         this.setState({ isMobileMenuOpen: false });
     }
 
