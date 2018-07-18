@@ -288,13 +288,19 @@ export const renderDocsString = (doCs = []) => {
     }
     
     const grammarfiedDocs = doCs.reduce((acc, doc, idx, arr) => {
+        if(idx === 0) {
+            acc = acc + doc.label;
+            return acc;
+        }
+
         if(idx === arr.length - 1){
             acc = acc + ', and ' + doc.label;
             return acc;
         }
+
         acc = acc + ', ' + doc.label;
         return acc;
-    })
+    }, '')
     return `${ base } ${ grammarfiedDocs }.`;
 }
 
