@@ -1,10 +1,14 @@
 .r4r-resource {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .r4r-resource__header.r4r-DEFAULT {
     width: 100%;
+}
+
+.resource__main-container {
+    display: flex;
 }
 
 .r4r-resource .resource__main.r4r-DEFAULT {
@@ -14,6 +18,7 @@
 }
 
 .r4r-resource .resource__nav {
+    flex-shrink: 0;
     width: 300px;
     padding: 10px;
 }
@@ -135,6 +140,10 @@
 
 @media only screen and (max-width: 768px){
     .r4r-resource {
+        flex-direction: column;
+    }
+
+    .resource__main-container {
         flex-direction: column;
     }
 

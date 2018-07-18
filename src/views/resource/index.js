@@ -134,56 +134,58 @@ export class Resource extends React.Component {
                 <Theme element="header" className='r4r-resource__header'>
                     <h1>{ title }</h1>
                 </Theme>
-                <Theme element="div" className="resource__main">
-                    <Theme element="div" className="resource__home">
-                        {
-                            // NOTE: For simplicity, this assumes that a person didn't manually navigate from the results to a resource page
-                            hasNavigatedHereFromResultsPage(this.props.history, this.props.location.key) &&
-                                <React.Fragment>
-                                    <Theme element="a"
-                                        className="resource__back" 
-                                        onClick={ this.props.goBack }
-                                        onKeyPress={ keyHandler({
-                                            fn: this.props.goBack,
-                                        })}
-                                        tabIndex="0"
-                                        aria-label="Back to search results link"
-                                    >
-                                        <p>&lt; Back to results</p>
-                                    </Theme>
-                                    <span className="resource__el--pipe">|</span>
-                                </React.Fragment>
-                        }
-                        <Link to="/" aria-label="Back to home link">Resources for Researchers Home</Link>
-                    </Theme>
-                    <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
-                    <Theme element="div" className="resource__link--external">
-                        <a href={ website } onClick={ this.onClickExternalLink }>Visit Resource</a>
-                    </Theme>
-                    <ResourceAccess 
-                        type={ resourceAccess.type }
-                        notes={ resourceAccess.notes }
-                    />
-                    <POCs poCs={ poCs } />
-                    <DOCs doCs={ doCs }/>
-                </Theme>
-                <Theme element="div" className="resource__nav">
-                    <section role="search">
-                        <SearchBar 
-                            value={ this.props.searchBarValue }
-                            onChange={ this.props.searchBarOnChange }
-                            onSubmit={ this.newTextSearch }
-                            placeholder="Search resources"
-                            page='resource'
-                        />
-                    </section>
-                    <nav>
-                        <h2>Find Related Resources</h2>
-                        <Theme element="div" className='similar-resource__container'>
-                            { this.renderSimilarResources() }
+                <div className="resource__main-container">
+                    <Theme element="div" className="resource__main">
+                        <Theme element="div" className="resource__home">
+                            {
+                                // NOTE: For simplicity, this assumes that a person didn't manually navigate from the results to a resource page
+                                hasNavigatedHereFromResultsPage(this.props.history, this.props.location.key) &&
+                                    <React.Fragment>
+                                        <Theme element="a"
+                                            className="resource__back" 
+                                            onClick={ this.props.goBack }
+                                            onKeyPress={ keyHandler({
+                                                fn: this.props.goBack,
+                                            })}
+                                            tabIndex="0"
+                                            aria-label="Back to search results link"
+                                        >
+                                            <p>&lt; Back to results</p>
+                                        </Theme>
+                                        <span className="resource__el--pipe">|</span>
+                                    </React.Fragment>
+                            }
+                            <Link to="/" aria-label="Back to home link">Resources for Researchers Home</Link>
                         </Theme>
-                    </nav>
-                </Theme>
+                        <article aria-label="Resource description" dangerouslySetInnerHTML={{__html: body}} />
+                        <Theme element="div" className="resource__link--external">
+                            <a href={ website } onClick={ this.onClickExternalLink }>Visit Resource</a>
+                        </Theme>
+                        <ResourceAccess 
+                            type={ resourceAccess.type }
+                            notes={ resourceAccess.notes }
+                        />
+                        <POCs poCs={ poCs } />
+                        <DOCs doCs={ doCs }/>
+                    </Theme>
+                    <Theme element="div" className="resource__nav">
+                        <section role="search">
+                            <SearchBar 
+                                value={ this.props.searchBarValue }
+                                onChange={ this.props.searchBarOnChange }
+                                onSubmit={ this.newTextSearch }
+                                placeholder="Search resources"
+                                page='resource'
+                            />
+                        </section>
+                        <nav>
+                            <h2>Find Related Resources</h2>
+                            <Theme element="div" className='similar-resource__container'>
+                                { this.renderSimilarResources() }
+                            </Theme>
+                        </nav>
+                    </Theme>
+                </div>
             </Theme>
         )
     }
