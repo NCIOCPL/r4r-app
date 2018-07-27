@@ -126,7 +126,7 @@ export class Resource extends React.Component {
                     <title>Resources for Researchers: { title } - National Cancer Institute</title>
                     <meta property="og:description" content={ description } />
                     <meta name="description" content={ description } />
-                    <meta property="twitter:title" content={`Resources for Researchers: ${ title } - National Cancer Institute`} />
+                    <meta property="og:title" content={`Resources for Researchers: ${ title } - National Cancer Institute`} />
                     <meta property="og:url" content={`${ this.props.baseUrl }/resource/${ id }`} />
                 </Helmet>
                 <Theme element="header" className='r4r-resource__header'>
