@@ -122,6 +122,7 @@ const initializeR4R = ({
                             >
                                 <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
                                 <meta property="og:title" content="Resources for Researchers - National Cancer Institute" />
+                                <meta property="og:url" content={ baseUrl } />
                             </Helmet>
                             <LiveRegion />
                             <NavigationHandler>
