@@ -182,7 +182,6 @@ export class Results extends React.Component {
             <React.Fragment>
                 <Helmet>
                     <title>Resources for Researchers: Search Results - National Cancer Institute</title>
-                    <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
                     <meta property="og:url" content={`${ this.props.baseUrl }/search${ this.props.location.search }`} />
                     <meta property="og:title" content="Resources for Researchers: Search Results - National Cancer Institute" />
                 </Helmet>

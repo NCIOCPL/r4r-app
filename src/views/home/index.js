@@ -79,10 +79,6 @@ export class Home extends React.Component {
     render() {
         return (
             <Theme element="div" className="r4r-home">
-                <Helmet>
-                    <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                    <meta property="og:url" content={ this.props.baseUrl } />
-                </Helmet>
                 <h1>Resources for Researchers</h1>
                 <Theme element="main" className="home__main">
                     <Theme element="article" className="home__desc">
