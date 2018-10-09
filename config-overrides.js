@@ -5,7 +5,7 @@ const NoHashes = {
             const paths = {
               object: k => walk(obj[k]),
               string: k => {
-                obj[k] = obj[k].replace(/\[\w*?hash:\d+\]\./, '');
+                obj[k] = obj[k].replace(/\[\w*?hash:\d+\]\.chunk\./, '');
               },
             };
             if (obj != null) {
