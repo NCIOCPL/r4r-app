@@ -30,7 +30,7 @@ export class Theme extends React.Component {
             element: Element = 'div',
             className = '',
             children,
-            ...rest,
+            ...rest
         } = this.props;
         const classNames = className.split(' ');
         const [ primaryClassName, ...otherClassNames ] = classNames;
