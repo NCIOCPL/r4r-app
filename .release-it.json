@@ -1,0 +1,6 @@
+{
+    "buildCommand": "npm run build",
+    "dist": {
+        "repo": "git@github.com:NCIOCPL/r4r-app.git#release-branch"
+    }
+}
