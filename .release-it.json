@@ -1,10 +1,11 @@
 {
     "buildCommand": "npm run build",
     "dist": {
-        "repo": "https://github.com/NCIOCPL/r4r-app.git#release-branch"
-    },
-    "github": {
-        "release": true,
-        "assets": "build/*.*"
+        "repo": "https://github.com/NCIOCPL/r4r-app.git#release-branch",
+        "baseDir": "build",
+        "files": ["**/*"],
+        "github": {
+            "release": true
+        }
     }
 }
