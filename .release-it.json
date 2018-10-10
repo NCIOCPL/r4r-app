@@ -7,5 +7,9 @@
         "github": {
             "release": true
         }
+    },
+    "github": {
+        "release": true,
+        "assets": "build/**/*.*"
     }
 }
