@@ -10,7 +10,6 @@
     "query-string": "5",
     "react": "^16.3.1",
     "react-addons-css-transition-group": "^15.6.2",
-    "react-app-rewired": "^1.5.2",
     "react-dom": "^16.3.1",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
@@ -24,7 +23,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "install": "react-app-rewired build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
