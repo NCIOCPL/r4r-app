@@ -17,7 +17,7 @@ class FatalErrorBoundary extends React.Component {
         this.setState({
             hasError: true,
         })
-        this.dispatch(registerError('FATAL'));
+        this.props.dispatch(registerError('FATAL'));
     }
 
     render() {
