@@ -114,24 +114,24 @@ const initializeR4R = ({
     // 3) Set up component tree
     const App = () => (
         <Provider store={ store }>
-            <FatalErrorBoundary dispatch={ store.dispatch }>
-                <ThemeProvider theme={ theme }>
-                    <Theme element='main' className="r4r-container">
-                            <Helmet 
-                                defaultTitle="Resources for Researchers - National Cancer Institute"
-                            >
-                                <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                                <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
-                                <meta property="og:title" content="Resources for Researchers - National Cancer Institute" />
-                                <meta property="og:url" content={ baseUrl } />
-                            </Helmet>
-                            <LiveRegion />
-                            <NavigationHandler>
-                                <Router history={ history }/>
-                            </NavigationHandler>
-                    </Theme>
-                </ThemeProvider>
-            </FatalErrorBoundary>
+            <ThemeProvider theme={ theme }>
+                <Theme element='main' className="r4r-container">
+                    <FatalErrorBoundary dispatch={ store.dispatch }>
+                        <Helmet 
+                            defaultTitle="Resources for Researchers - National Cancer Institute"
+                        >
+                            <meta name="description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                            <meta property="og:description" content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them." />
+                            <meta property="og:title" content="Resources for Researchers - National Cancer Institute" />
+                            <meta property="og:url" content={ baseUrl } />
+                        </Helmet>
+                        <LiveRegion />
+                        <NavigationHandler>
+                            <Router history={ history }/>
+                        </NavigationHandler>
+                    </FatalErrorBoundary>
+                </Theme>
+            </ThemeProvider>
         </Provider>
     );
     
