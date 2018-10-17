@@ -5,7 +5,7 @@ describe('Error Reducer', () => {
         expect(reducer(initialState, { type: '@@init'})).toEqual(initialState);
     });
 
-    it('should handle CLEAR_ERROR');
+    // it('should handle CLEAR_ERROR');
 
-    it('should handle REGISTER_ERROR');
+    // it('should handle REGISTER_ERROR');
 })

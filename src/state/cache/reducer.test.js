@@ -5,7 +5,7 @@ describe('Cache Reducer', () => {
         expect(reducer(initialState, { type: '@@init'})).toEqual(initialState);
     });
 
-    it('should handle CACHE_RESOURCES');
+    // it('should handle CACHE_RESOURCES');
 
-    it('should handle CACHE_NEW_SEARCH_RESULTS');
+    // it('should handle CACHE_NEW_SEARCH_RESULTS');
 })
