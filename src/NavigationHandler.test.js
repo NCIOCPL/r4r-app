@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { NavigationHandler } from './NavigationHandler';
 
+window.scrollTo = () => {}
+
 describe('NavigationHandler HOC', () => {
 
   it('renders correctly', () => {
