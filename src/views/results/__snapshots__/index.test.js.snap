@@ -1237,16 +1237,12 @@ exports[`Results view renders correctly without results 1`] = `
       Resources for Researchers: Search Results - National Cancer Institute
     </title>
     <meta
-      content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them."
-      property="og:description"
-    />
-    <meta
       content="undefined/search"
       property="og:url"
     />
     <meta
       content="Resources for Researchers: Search Results - National Cancer Institute"
-      property="twitter:title"
+      property="og:title"
     />
   </HelmetWrapper>
   <CTS_Spinner />

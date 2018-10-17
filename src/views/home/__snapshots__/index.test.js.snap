@@ -496,18 +496,6 @@ exports[`Home View renders correctly without facets 1`] = `
   className="r4r-home"
   element="div"
 >
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <meta
-      content="Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them."
-      property="og:description"
-    />
-    <meta
-      property="og:url"
-    />
-  </HelmetWrapper>
   <h1>
     Resources for Researchers
   </h1>
@@ -524,7 +512,7 @@ exports[`Home View renders correctly without facets 1`] = `
         <Theme
           className="r4r__link--about"
           element="a"
-          href="https://www.cancer.gov/research/about-r4r"
+          href="https://www-qa.cancer.gov/research/resources/about"
         >
           Learn more about Resources for Researchers.
         </Theme>
