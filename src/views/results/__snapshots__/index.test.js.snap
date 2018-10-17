@@ -19,6 +19,7 @@ exports[`Results view renders correctly with results 1`] = `
           "hash": "",
           "pathname": "/",
           "search": "",
+          "state": undefined,
         },
         "push": [Function],
         "replace": [Function],
@@ -184,16 +185,12 @@ exports[`Results view renders correctly with results 1`] = `
             meta={
               Array [
                 Object {
-                  "content": "Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them.",
-                  "property": "og:description",
-                },
-                Object {
-                  "content": "/search",
+                  "content": "/search?from=0&toolTypes=community_research_tools",
                   "property": "og:url",
                 },
                 Object {
                   "content": "Resources for Researchers: Search Results - National Cancer Institute",
-                  "property": "twitter:title",
+                  "property": "og:title",
                 },
               ]
             }
@@ -206,16 +203,12 @@ exports[`Results view renders correctly with results 1`] = `
               meta={
                 Array [
                   Object {
-                    "content": "Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them.",
-                    "property": "og:description",
-                  },
-                  Object {
-                    "content": "/search",
+                    "content": "/search?from=0&toolTypes=community_research_tools",
                     "property": "og:url",
                   },
                   Object {
                     "content": "Resources for Researchers: Search Results - National Cancer Institute",
-                    "property": "twitter:title",
+                    "property": "og:title",
                   },
                 ]
               }
@@ -315,7 +308,7 @@ exports[`Results view renders correctly with results 1`] = `
                                   xmlnsXlink="http://www.w3.org/1999/xlink"
                                 >
                                   <title>
-                                    Magnifying Glass Icon
+                                    Search
                                   </title>
                                   <defs />
                                   <g
@@ -1228,7 +1221,7 @@ exports[`Results view renders correctly with results 1`] = `
 `;
 
 exports[`Results view renders correctly without results 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -1246,5 +1239,5 @@ exports[`Results view renders correctly without results 1`] = `
     />
   </HelmetWrapper>
   <CTS_Spinner />
-</React.Fragment>
+</Fragment>
 `;

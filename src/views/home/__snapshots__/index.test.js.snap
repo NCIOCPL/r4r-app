@@ -19,6 +19,7 @@ exports[`Home View renders correctly with facets 1`] = `
           "hash": "",
           "pathname": "/",
           "search": "",
+          "state": undefined,
         },
         "push": [Function],
         "replace": [Function],
@@ -39,44 +40,6 @@ exports[`Home View renders correctly with facets 1`] = `
           <div
             className="r4r-home  "
           >
-            <HelmetWrapper
-              defer={true}
-              encodeSpecialCharacters={true}
-            >
-              <SideEffect(NullComponent)
-                defer={true}
-                encodeSpecialCharacters={true}
-                meta={
-                  Array [
-                    Object {
-                      "content": "Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them.",
-                      "property": "og:description",
-                    },
-                    Object {
-                      "content": undefined,
-                      "property": "og:url",
-                    },
-                  ]
-                }
-              >
-                <NullComponent
-                  defer={true}
-                  encodeSpecialCharacters={true}
-                  meta={
-                    Array [
-                      Object {
-                        "content": "Resources for Researchers is a tool to give researchers a better understanding of the various tools available to them.",
-                        "property": "og:description",
-                      },
-                      Object {
-                        "content": undefined,
-                        "property": "og:url",
-                      },
-                    ]
-                  }
-                />
-              </SideEffect(NullComponent)>
-            </HelmetWrapper>
             <h1>
               Resources for Researchers
             </h1>
@@ -99,11 +62,11 @@ exports[`Home View renders correctly with facets 1`] = `
                       <Theme
                         className="r4r__link--about"
                         element="a"
-                        href="https://www.cancer.gov/research/about-r4r"
+                        href="https://www-qa.cancer.gov/research/resources/about"
                       >
                         <a
                           className="r4r__link--about  "
-                          href="https://www.cancer.gov/research/about-r4r"
+                          href="https://www-qa.cancer.gov/research/resources/about"
                         >
                           Learn more about Resources for Researchers.
                         </a>
@@ -258,7 +221,7 @@ exports[`Home View renders correctly with facets 1`] = `
                                           xmlnsXlink="http://www.w3.org/1999/xlink"
                                         >
                                           <title>
-                                            Magnifying Glass Icon
+                                            Search
                                           </title>
                                           <defs />
                                           <g
