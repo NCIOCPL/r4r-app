@@ -63,7 +63,6 @@ export class Resource extends React.Component {
         this.props.clickEvent('r4r_resource_searchbar', {
             title: this.props.resource.title,
             keyword: this.props.searchBarValue,
-            foo: 'not bar',
         })
         this.props.newSearch({
             q: this.props.searchBarValue,
