@@ -61,6 +61,7 @@ export class Resource extends React.Component {
     newTextSearch = () => {
         // Don't execute on empty search bar
         this.props.clickEvent('r4r_resource_searchbar', {
+            title: this.props.resource.title,
             keyword: this.props.searchBarValue,
         })
         this.props.newSearch({
