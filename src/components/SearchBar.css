@@ -23,6 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #2a71a5;
 }
 
 .searchbar__container .searchbar__button--submit.r4r-DEFAULT {
