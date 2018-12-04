@@ -117,11 +117,16 @@
         width: 130px;
         height: auto;
         font-size: 16px;
-        background: #620788;
+        background-color: #2a71a5;
         color: white;
         cursor: pointer;
+        transition: background-color .3s ease-out;
     }
 
+    .results__filter-button.r4r-DEFAULT:hover {
+        background-color: #266594;
+    }
+    
     .results__search-container.r4r-DEFAULT .results__filter-button.r4r-DEFAULT {
         margin-left: 30px;
     }

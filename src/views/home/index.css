@@ -22,15 +22,11 @@
 }
 
 .home-nav__tiles.r4r-DEFAULT {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
     margin-bottom: 10px;
 }
 
 .home-nav__tile.r4r-DEFAULT {
-    width: 48%;
+    width: 100%;
     display: flex;
     padding: 15px 0;
 }
@@ -44,8 +40,8 @@
     height: 80px;
     margin-right: 20px;
     flex: inherit;
-    stroke: #620788;
-    fill: #620788;
+    stroke: #2a71a5;
+    fill: #2a71a5;
 }
 
 .home-tile__text {
@@ -85,31 +81,21 @@
 
 @media only screen and (max-width: 768px){
 
-    .home-nav__tile.r4r-DEFAULT {
-        width: 100%;
+    .home-nav__tiles.r4r-DEFAULT {
+        margin: 0;
     }
 
-    .home-nav__tile.r4r-DEFAULT:nth-of-type(odd){
+    .home-nav__tile.r4r-DEFAULT{
         border-top: 1px solid #777;
-        padding-top: 25px;
-    }
-
-    .home-nav__tile.r4r-DEFAULT:nth-of-type(even){
-        padding: 0;
-        margin-bottom: 25px;
+        padding: 25px 0;
     }
 
     .r4r-home .home__main {
         flex-direction: column;
-
     }
     
     .r4r-home .searchbar__container{
         margin: 0 auto;
-    }
-
-    .home-nav__tiles.r4r-DEFAULT {
-        margin: 0;
     }
     
     .home-nav__main{

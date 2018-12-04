@@ -94,36 +94,32 @@ export class Home extends React.Component {
                             <SVG iconType="searchIcon" className="home-tile__icon" />
                             <div className="home-tile__text">
                                 <h2>Search For Resources</h2>
-                                <p>Search for resources by keyword or phrase.</p>
+                                <SearchBar
+                                    value={ this.props.searchBarValue }
+                                    onChange={ this.props.searchBarOnChange }
+                                    onSubmit={ this.newTextSearch }
+                                    placeholder="Search Resources for Researchers"
+                                    page='home'
+                                />
                             </div>
-                        </Theme>
-                        <Theme element="div" className="home-nav__tile">
-                            <SearchBar
-                                value={ this.props.searchBarValue }
-                                onChange={ this.props.searchBarOnChange }
-                                onSubmit={ this.newTextSearch }
-                                placeholder="Search Resources for Researchers"
-                                page='home'
-                            />
                         </Theme>
                         <Theme element="div" className="home-nav__tile">
                             <SVG iconType="browseIcon" className="home-tile__icon"/>
                             <div className="home-tile__text">
                                 <h2>Browse Resources</h2>
-                                <p>Browse resources by tool type or research area or view all resources.</p>
+                                <p>Browse resources by tool type or research area or 
+                                    <Theme element="a" className="view-all__link"
+                                        /* This is used instead of a pseudo element because of cgov outline styles being disabled */
+                                        onClick={ this.viewAllOnClick }
+                                        onKeyPress={ keyHandler({
+                                            fn: this.viewAllOnClick,
+                                        })}
+                                        tabIndex="0"
+                                    >
+                                        { ` view all ${ this.props.totalResources ? `(${ this.props.totalResources })` : '' } resources.` }
+                                    </Theme>
+                                </p>
                             </div>
-                        </Theme>
-                        <Theme element="div" className="home-nav__tile">
-                            <Theme element="a" className="view-all__link"
-                                /* This is used instead of a pseudo element because of cgov outline styles being disabled */
-                                onClick={ this.viewAllOnClick }
-                                onKeyPress={ keyHandler({
-                                    fn: this.viewAllOnClick,
-                                })}
-                                tabIndex="0"
-                            >
-                                { `View All Resources${ this.props.totalResources ? ` (${ this.props.totalResources })` : '' }` }
-                            </Theme>
                         </Theme>
                     </Theme>
                     <Theme element="div" className="home-nav__main">
