@@ -27,7 +27,6 @@
 
 .home-nav__tile.r4r-DEFAULT {
     width: 100%;
-    max-width: 700px;
     display: flex;
     padding: 15px 0;
 }
@@ -86,14 +85,9 @@
         margin: 0;
     }
 
-    .home-nav__tile.r4r-DEFAULT:first-of-type{
+    .home-nav__tile.r4r-DEFAULT{
         border-top: 1px solid #777;
-        padding-top: 25px;
-    }
-
-    .home-nav__tile.r4r-DEFAULT:last-of-type{
-        padding: 0;
-        margin-bottom: 25px;
+        padding: 25px 0;
     }
 
     .r4r-home .home__main {
