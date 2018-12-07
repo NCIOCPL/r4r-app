@@ -126,6 +126,11 @@
     .results__filter-button.r4r-DEFAULT:hover {
         background-color: #266594;
     }
+
+    .results__filter-button.r4r-DEFAULT:focus {
+        background-color: #266594;
+    }
+
     
     .results__search-container.r4r-DEFAULT .results__filter-button.r4r-DEFAULT {
         margin-left: 30px;
