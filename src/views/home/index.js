@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { Theme } from '../../theme';
 import SearchBar from '../../components/SearchBar';
 import BrowseBox from '../../components/BrowseBox';
