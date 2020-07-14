@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoResults Component renders correctly 1`] = `
+<Theme
+  className="results__noresults"
+  element="div"
+>
+  No results were found for your search. Please try another search or 
+  <a
+    href="#viewAll"
+    onClick={[Function]}
+  >
+    view all resources.
+  </a>
+</Theme>
+`;

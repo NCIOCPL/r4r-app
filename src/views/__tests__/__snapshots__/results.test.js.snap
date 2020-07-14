@@ -1,0 +1,1243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Results view renders correctly with results 1`] = `
+<StaticRouter
+  basename=""
+  location="/"
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <ThemeProvider
+      theme={Object {}}
+    >
+      <Results
+        baseUrl=""
+        currentSearchText=""
+        facets={
+          Object {
+            "researchAreas": Object {
+              "items": Object {
+                "cancer_prevention": Object {
+                  "count": 1,
+                  "label": "Cancer Prevention",
+                  "selected": false,
+                },
+                "cancer_public_health": Object {
+                  "count": 1,
+                  "label": "Cancer & Public Health",
+                  "selected": false,
+                },
+                "causes_of_cancer": Object {
+                  "count": 1,
+                  "label": "Causes of Cancer",
+                  "selected": false,
+                },
+              },
+              "title": "Research Areas",
+            },
+            "researchTypes": Object {
+              "items": Object {
+                "epidemiologic": Object {
+                  "count": 1,
+                  "label": "Epidemiologic",
+                  "selected": false,
+                },
+              },
+              "title": "Research Types",
+            },
+            "toolSubtypes": Object {
+              "items": Object {
+                "questionnaire": Object {
+                  "count": 1,
+                  "label": "Questionnaire",
+                  "selected": false,
+                },
+              },
+              "title": "Tool Sub-Types",
+            },
+            "toolTypes": Object {
+              "items": Object {
+                "community_research_tools": Object {
+                  "count": 1,
+                  "label": "Community Research Tools",
+                  "selected": true,
+                },
+              },
+              "title": "Tool Types",
+            },
+          }
+        }
+        isFetching={false}
+        location={
+          Object {
+            "hash": "",
+            "key": "2j890i",
+            "pathname": "/search",
+            "search": "?from=0&toolTypes=community_research_tools",
+          }
+        }
+        results={
+          Array [
+            Object {
+              "body": "<p>A collection of questionnaires and questionnaire segments for use in a wide variety of epidemiological studies. Listings of publications are given where available. Topics covered by the questionnaires include:  Alcohol, Tobacco, and Recreational Drug Use  Anthropometric Measurements (measurements of the human body)  Background Information  Breast Cancer Risk Factors  Family History of Cancer  EMF, Radon, and UVR Exposures  Ionizing Radiation Exposures  Household Exposures  Medical History  Non-alcoholic Beverage, Food, and Dietary Supplements  Occupational History and Exposures  Physical Activity  Prescriptions, Hormones, Immunizations  Reproductive History  Residential History</p>",
+              "description": "<p>A collection of questionnaires and questionnaire segments for use in a wide variety of epidemiological studies. </p>",
+              "doCs": Array [
+                Object {
+                  "key": "dceg",
+                  "label": "Division of Cancer Epidemiology and Genetics (DCEG)",
+                },
+              ],
+              "id": 127,
+              "poCs": Array [
+                Object {
+                  "email": "murphygw@mail.nih.gov",
+                  "name": Object {
+                    "firstName": "Gwen",
+                    "lastName": "Murphy",
+                    "middleName": null,
+                    "prefix": null,
+                    "suffix": null,
+                  },
+                  "phone": "240-276-7199",
+                  "title": "Ph.D., M.P.H. Staff Scientist, DCEG",
+                },
+              ],
+              "researchAreas": Array [
+                Object {
+                  "key": "cancer_public_health",
+                  "label": "Cancer & Public Health",
+                },
+                Object {
+                  "key": "causes_of_cancer",
+                  "label": "Causes of Cancer",
+                },
+                Object {
+                  "key": "cancer_prevention",
+                  "label": "Cancer Prevention",
+                },
+              ],
+              "researchTypes": Array [
+                Object {
+                  "key": "epidemiologic",
+                  "label": "Epidemiologic",
+                },
+              ],
+              "resourceAccess": Object {
+                "notes": null,
+                "type": "open",
+              },
+              "title": "Questionnaire Development Resources",
+              "toolSubtypes": null,
+              "toolTypes": Array [
+                Object {
+                  "key": "community_research_tools",
+                  "label": "Community Research Tools",
+                },
+              ],
+              "website": "https://dceg.cancer.gov/tools/design/questionnaires",
+            },
+          ]
+        }
+        searchBarValue=""
+        selectedFilters={
+          Array [
+            Object {
+              "count": 1,
+              "key": "community_research_tools",
+              "label": "Community Research Tools",
+              "param": "toolTypes",
+              "selected": true,
+              "title": "Tool Types",
+            },
+          ]
+        }
+        setCurrentSearchText={[Function]}
+        startFrom={0}
+        totalResults={1}
+        validatedNewSearch={[Function]}
+      >
+        <HelmetWrapper
+          defer={true}
+          encodeSpecialCharacters={true}
+        >
+          <SideEffect(NullComponent)
+            defer={true}
+            encodeSpecialCharacters={true}
+            meta={
+              Array [
+                Object {
+                  "content": "/search?from=0&toolTypes=community_research_tools",
+                  "property": "og:url",
+                },
+                Object {
+                  "content": "Resources for Researchers: Search Results - National Cancer Institute",
+                  "property": "og:title",
+                },
+              ]
+            }
+            title="Resources for Researchers: Search Results - National Cancer Institute"
+            titleAttributes={Object {}}
+          >
+            <NullComponent
+              defer={true}
+              encodeSpecialCharacters={true}
+              meta={
+                Array [
+                  Object {
+                    "content": "/search?from=0&toolTypes=community_research_tools",
+                    "property": "og:url",
+                  },
+                  Object {
+                    "content": "Resources for Researchers: Search Results - National Cancer Institute",
+                    "property": "og:title",
+                  },
+                ]
+              }
+              title="Resources for Researchers: Search Results - National Cancer Institute"
+              titleAttributes={Object {}}
+            />
+          </SideEffect(NullComponent)>
+        </HelmetWrapper>
+        <Theme
+          className="r4r-results"
+          element="div"
+        >
+          <div
+            className="r4r-results  "
+          >
+            <Theme
+              className="results__header"
+              element="header"
+            >
+              <header
+                className="results__header  "
+              >
+                <h1>
+                  Resources for Researchers Search Results
+                </h1>
+                <Link
+                  replace={false}
+                  to="/"
+                >
+                  <a
+                    href="/"
+                    onClick={[Function]}
+                  >
+                    Resources for Researchers Home
+                  </a>
+                </Link>
+              </header>
+            </Theme>
+            <Theme
+              className="results__search-container"
+              element="section"
+            >
+              <section
+                className="results__search-container  "
+              >
+                <SearchBar
+                  onChange={[Function]}
+                  onSubmit={[Function]}
+                  page="results"
+                  placeholder=""
+                  value=""
+                >
+                  <Theme
+                    className="searchbar__container"
+                    element="form"
+                    onSubmit={[Function]}
+                  >
+                    <form
+                      className="searchbar__container  "
+                      onSubmit={[Function]}
+                    >
+                      <input
+                        aria-label="Input search text here to search for a resource"
+                        onChange={[Function]}
+                        placeholder=""
+                        type="text"
+                        value=""
+                      />
+                      <Theme
+                        aria-label="submit search"
+                        className="searchbar__button--submit"
+                        element="button"
+                        type="submit"
+                      >
+                        <button
+                          aria-label="submit search"
+                          className="searchbar__button--submit  "
+                          type="submit"
+                        >
+                          <SVG
+                            className="r4r-svg-container"
+                            iconType="magnify"
+                          >
+                            <Theme
+                              className="r4r-svg-container"
+                              element="div"
+                            >
+                              <div
+                                className="r4r-svg-container  "
+                              >
+                                <svg
+                                  height="16px"
+                                  version="1.1"
+                                  viewBox="0 0 16 16"
+                                  width="16px"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                                >
+                                  <title>
+                                    Search
+                                  </title>
+                                  <defs />
+                                  <g
+                                    fill="none"
+                                    fillRule="evenodd"
+                                    id="r4r-magnify-icon"
+                                    stroke="none"
+                                    strokeWidth="1"
+                                  >
+                                    <path
+                                      d="M12.370756,11.6338533 L11.497863,11.1003191 L12.0511346,10.2398009 C12.6676075,9.28098399 13,8.16636264 13,7 C13,3.6862915 10.3137085,1 7,1 C3.6862915,1 1,3.6862915 1,7 C1,10.3137085 3.6862915,13 7,13 C8.18648905,13 9.31933446,12.6559913 10.2886875,12.0193666 L11.1435654,11.4579236 L11.685632,12.3252172 C11.7040473,12.3546813 11.7258067,12.3825474 11.7510134,12.4086496 L14.5296468,15.2860088 C14.7214715,15.484649 15.0380057,15.4901741 15.2366459,15.2983495 C15.4352861,15.1065249 15.4408113,14.7899906 15.2489866,14.5913504 L12.4703532,11.7139912 C12.4398346,11.6823883 12.4065292,11.6557187 12.370756,11.6338533 Z"
+                                      id="Combined-Shape"
+                                      stroke="#FFFFFF"
+                                      strokeWidth="2"
+                                    />
+                                  </g>
+                                </svg>
+                              </div>
+                            </Theme>
+                          </SVG>
+                        </button>
+                      </Theme>
+                    </form>
+                  </Theme>
+                </SearchBar>
+                <FilterButton
+                  filtersCount={1}
+                  isMobileMenuOpen={false}
+                  toggleMobileMenu={[Function]}
+                >
+                  <Theme
+                    className="results__filter-button"
+                    element="button"
+                    onClick={[Function]}
+                  >
+                    <button
+                      className="results__filter-button  "
+                      onClick={[Function]}
+                    >
+                      Filter (1)
+                    </button>
+                  </Theme>
+                </FilterButton>
+              </section>
+            </Theme>
+            <SelectedFiltersBox
+              clearFilters={[Function]}
+              selected={
+                Array [
+                  Object {
+                    "count": 1,
+                    "key": "community_research_tools",
+                    "label": "Community Research Tools",
+                    "param": "toolTypes",
+                    "selected": true,
+                    "title": "Tool Types",
+                  },
+                ]
+              }
+              toggleFilter={[Function]}
+            >
+              <Theme
+                aria-label="Selected Search Filters"
+                className="results__selected-filters"
+                element="section"
+              >
+                <section
+                  aria-label="Selected Search Filters"
+                  className="results__selected-filters  "
+                >
+                  <Theme
+                    aria-hidden={true}
+                    className="selected-filters__header"
+                    element="p"
+                  >
+                    <p
+                      aria-hidden={true}
+                      className="selected-filters__header  "
+                    >
+                      Your Selections:
+                    </p>
+                  </Theme>
+                  <Theme
+                    className="selected-filters__filters-container"
+                    element="div"
+                  >
+                    <div
+                      className="selected-filters__filters-container  "
+                    >
+                      <Theme
+                        className="selected-filters__filter"
+                        element="div"
+                        key="0"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        tabIndex="0"
+                      >
+                        <div
+                          className="selected-filters__filter  "
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          tabIndex="0"
+                        >
+                          <p>
+                            Community Research Tools
+                          </p>
+                          <SVG
+                            className="selected-filters__close"
+                            iconType="xmark"
+                          >
+                            <Theme
+                              className="selected-filters__close"
+                              element="div"
+                            >
+                              <div
+                                className="selected-filters__close  "
+                              >
+                                <svg
+                                  height="15px"
+                                  version="1.1"
+                                  viewBox="0 0 15 15"
+                                  width="15px"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                                >
+                                  <polygon
+                                    fill="#FFFFFF"
+                                    id="Rectangle-6"
+                                    points="9.63235931 3.25735931 11.7573593 5.38235931 5.38235931 11.7573593 3.25735931 9.63235931"
+                                  />
+                                  <polygon
+                                    fill="#FFFFFF"
+                                    id="Rectangle-7"
+                                    points="5.38235931 3.25735931 11.7573593 9.63235931 9.63235931 11.7573593 3.25735931 5.38235931"
+                                  />
+                                </svg>
+                              </div>
+                            </Theme>
+                          </SVG>
+                        </div>
+                      </Theme>
+                    </div>
+                  </Theme>
+                </section>
+              </Theme>
+            </SelectedFiltersBox>
+            <Theme
+              className="r4r-pager"
+              element="nav"
+            >
+              <nav
+                className="r4r-pager  "
+              >
+                <PagerCounter
+                  from={1}
+                  to={1}
+                  total={1}
+                >
+                  <Theme
+                    aria-label="Results count"
+                    className="r4r-pager__count"
+                    element="div"
+                  >
+                    <div
+                      aria-label="Results count"
+                      className="r4r-pager__count  "
+                    >
+                      <p>
+                        1 - 1 of 1
+                         results
+                      </p>
+                    </div>
+                  </Theme>
+                </PagerCounter>
+                <Pager
+                  onClick={[Function]}
+                  pageSize={20}
+                  resultsSize={1}
+                  startFrom={0}
+                  total={1}
+                />
+              </nav>
+            </Theme>
+            <Theme
+              className="results__main"
+              element="div"
+            >
+              <div
+                className="results__main  "
+              >
+                <Filters
+                  facets={
+                    Object {
+                      "researchAreas": Object {
+                        "items": Object {
+                          "cancer_prevention": Object {
+                            "count": 1,
+                            "label": "Cancer Prevention",
+                            "selected": false,
+                          },
+                          "cancer_public_health": Object {
+                            "count": 1,
+                            "label": "Cancer & Public Health",
+                            "selected": false,
+                          },
+                          "causes_of_cancer": Object {
+                            "count": 1,
+                            "label": "Causes of Cancer",
+                            "selected": false,
+                          },
+                        },
+                        "title": "Research Areas",
+                      },
+                      "researchTypes": Object {
+                        "items": Object {
+                          "epidemiologic": Object {
+                            "count": 1,
+                            "label": "Epidemiologic",
+                            "selected": false,
+                          },
+                        },
+                        "title": "Research Types",
+                      },
+                      "toolSubtypes": Object {
+                        "items": Object {
+                          "questionnaire": Object {
+                            "count": 1,
+                            "label": "Questionnaire",
+                            "selected": false,
+                          },
+                        },
+                        "title": "Tool Sub-Types",
+                      },
+                      "toolTypes": Object {
+                        "items": Object {
+                          "community_research_tools": Object {
+                            "count": 1,
+                            "label": "Community Research Tools",
+                            "selected": true,
+                          },
+                        },
+                        "title": "Tool Types",
+                      },
+                    }
+                  }
+                  onChange={[Function]}
+                >
+                  <Theme
+                    aria-label="Search Filters"
+                    className="results__facets"
+                    element="section"
+                  >
+                    <section
+                      aria-label="Search Filters"
+                      className="results__facets  "
+                    >
+                      <FilterBox
+                        className="tool-types"
+                        facet={
+                          Object {
+                            "items": Object {
+                              "community_research_tools": Object {
+                                "count": 1,
+                                "label": "Community Research Tools",
+                                "selected": true,
+                              },
+                            },
+                            "title": "Tool Types",
+                          }
+                        }
+                        isCloseable={true}
+                        isVisible={true}
+                        onChange={[Function]}
+                      >
+                        <Theme
+                          className="facet__box facet__box--tool-types"
+                          element="div"
+                        >
+                          <div
+                            className="facet__box facet__box--tool-types "
+                          >
+                            <Theme
+                              className="facet__title facet__title--tool-types"
+                              element="h4"
+                            >
+                              <h4
+                                className="facet__title facet__title--tool-types "
+                              >
+                                Tool Types
+                              </h4>
+                            </Theme>
+                            <CheckFilter
+                              checked={true}
+                              className="facet__filter"
+                              count={1}
+                              isCloseable={true}
+                              key="0"
+                              label="Community Research Tools"
+                              onChange={[Function]}
+                              value="community_research_tools"
+                            >
+                              <Theme
+                                aria-checked={true}
+                                className="facet__filter"
+                                element="label"
+                                onKeyPress={[Function]}
+                                role="checkbox"
+                                tabIndex="0"
+                              >
+                                <label
+                                  aria-checked={true}
+                                  className="facet__filter  "
+                                  onKeyPress={[Function]}
+                                  role="checkbox"
+                                  tabIndex="0"
+                                >
+                                  <Theme
+                                    checked={true}
+                                    className="filter__checkbox"
+                                    element="input"
+                                    onChange={[Function]}
+                                    tabIndex="-1"
+                                    type="checkbox"
+                                    value="Community Research Tools"
+                                  >
+                                    <input
+                                      checked={true}
+                                      className="filter__checkbox  "
+                                      onChange={[Function]}
+                                      tabIndex="-1"
+                                      type="checkbox"
+                                      value="Community Research Tools"
+                                    />
+                                  </Theme>
+                                  <Theme
+                                    className="filter__label"
+                                    element="span"
+                                  >
+                                    <span
+                                      className="filter__label  "
+                                    >
+                                      <div
+                                        className="checkbox__outline"
+                                      >
+                                        <SVG
+                                          className="checkbox__checkmark"
+                                          iconType="checkmark"
+                                        >
+                                          <Theme
+                                            className="checkbox__checkmark"
+                                            element="div"
+                                          >
+                                            <div
+                                              className="checkbox__checkmark  "
+                                            >
+                                              <svg
+                                                height="16"
+                                                viewBox="0 0 16 16"
+                                                width="16"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M 13.265 3.346 L 12.124 2.23 C 11.968 2.077 11.778 2 11.554 2 C 11.33 2 11.14 2.077 10.984 2.23 L 5.482 7.622 L 3.016 5.201 C 2.86 5.047 2.669 4.971 2.446 4.971 C 2.222 4.971 2.032 5.047 1.875 5.201 L 0.735 6.317 C 0.578 6.47 0.5 6.656 0.5 6.875 C 0.5 7.094 0.578 7.28 0.735 7.433 L 3.771 10.404 L 4.912 11.52 C 5.068 11.673 5.258 11.75 5.482 11.75 C 5.705 11.75 5.896 11.673 6.052 11.52 L 7.193 10.404 L 13.265 4.462 C 13.421 4.309 13.5 4.123 13.5 3.904 C 13.5 3.685 13.421 3.499 13.265 3.346 Z"
+                                                  fill="#2a72a5"
+                                                  transform="matrix(1, 0, 0, 1, 0, 0)"
+                                                />
+                                              </svg>
+                                            </div>
+                                          </Theme>
+                                        </SVG>
+                                      </div>
+                                      Community Research Tools (1)
+                                      <SVG
+                                        className="filter__close"
+                                        iconType="xmark"
+                                      >
+                                        <Theme
+                                          className="filter__close"
+                                          element="div"
+                                        >
+                                          <div
+                                            className="filter__close  "
+                                          >
+                                            <svg
+                                              height="15px"
+                                              version="1.1"
+                                              viewBox="0 0 15 15"
+                                              width="15px"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              xmlnsXlink="http://www.w3.org/1999/xlink"
+                                            >
+                                              <polygon
+                                                fill="#FFFFFF"
+                                                id="Rectangle-6"
+                                                points="9.63235931 3.25735931 11.7573593 5.38235931 5.38235931 11.7573593 3.25735931 9.63235931"
+                                              />
+                                              <polygon
+                                                fill="#FFFFFF"
+                                                id="Rectangle-7"
+                                                points="5.38235931 3.25735931 11.7573593 9.63235931 9.63235931 11.7573593 3.25735931 5.38235931"
+                                              />
+                                            </svg>
+                                          </div>
+                                        </Theme>
+                                      </SVG>
+                                    </span>
+                                  </Theme>
+                                </label>
+                              </Theme>
+                            </CheckFilter>
+                          </div>
+                        </Theme>
+                      </FilterBox>
+                      <FilterBox
+                        className="tool-subtypes"
+                        facet={
+                          Object {
+                            "items": Object {
+                              "questionnaire": Object {
+                                "count": 1,
+                                "label": "Questionnaire",
+                                "selected": false,
+                              },
+                            },
+                            "title": "Tool Sub-Types",
+                          }
+                        }
+                        isCloseable={false}
+                        isVisible={true}
+                        onChange={[Function]}
+                      >
+                        <Theme
+                          className="facet__box facet__box--tool-subtypes"
+                          element="div"
+                        >
+                          <div
+                            className="facet__box facet__box--tool-subtypes "
+                          >
+                            <Theme
+                              className="facet__title facet__title--tool-subtypes"
+                              element="h4"
+                            >
+                              <h4
+                                className="facet__title facet__title--tool-subtypes "
+                              >
+                                Tool Sub-Types
+                              </h4>
+                            </Theme>
+                            <CheckFilter
+                              checked={false}
+                              className="facet__filter"
+                              count={1}
+                              isCloseable={false}
+                              key="0"
+                              label="Questionnaire"
+                              onChange={[Function]}
+                              value="questionnaire"
+                            >
+                              <Theme
+                                aria-checked={false}
+                                className="facet__filter"
+                                element="label"
+                                onKeyPress={[Function]}
+                                role="checkbox"
+                                tabIndex="0"
+                              >
+                                <label
+                                  aria-checked={false}
+                                  className="facet__filter  "
+                                  onKeyPress={[Function]}
+                                  role="checkbox"
+                                  tabIndex="0"
+                                >
+                                  <Theme
+                                    checked={false}
+                                    className="filter__checkbox"
+                                    element="input"
+                                    onChange={[Function]}
+                                    tabIndex="-1"
+                                    type="checkbox"
+                                    value="Questionnaire"
+                                  >
+                                    <input
+                                      checked={false}
+                                      className="filter__checkbox  "
+                                      onChange={[Function]}
+                                      tabIndex="-1"
+                                      type="checkbox"
+                                      value="Questionnaire"
+                                    />
+                                  </Theme>
+                                  <Theme
+                                    className="filter__label"
+                                    element="span"
+                                  >
+                                    <span
+                                      className="filter__label  "
+                                    >
+                                      <div
+                                        className="checkbox__outline"
+                                      />
+                                      Questionnaire (1)
+                                    </span>
+                                  </Theme>
+                                </label>
+                              </Theme>
+                            </CheckFilter>
+                          </div>
+                        </Theme>
+                      </FilterBox>
+                      <FilterBox
+                        facet={
+                          Object {
+                            "items": Object {
+                              "cancer_prevention": Object {
+                                "count": 1,
+                                "label": "Cancer Prevention",
+                                "selected": false,
+                              },
+                              "cancer_public_health": Object {
+                                "count": 1,
+                                "label": "Cancer & Public Health",
+                                "selected": false,
+                              },
+                              "causes_of_cancer": Object {
+                                "count": 1,
+                                "label": "Causes of Cancer",
+                                "selected": false,
+                              },
+                            },
+                            "title": "Research Areas",
+                          }
+                        }
+                        isCloseable={false}
+                        isVisible={true}
+                        onChange={[Function]}
+                      >
+                        <Theme
+                          className="facet__box "
+                          element="div"
+                        >
+                          <div
+                            className="facet__box  "
+                          >
+                            <Theme
+                              className="facet__title "
+                              element="h4"
+                            >
+                              <h4
+                                className="facet__title  "
+                              >
+                                Research Areas
+                              </h4>
+                            </Theme>
+                            <CheckFilter
+                              checked={false}
+                              className="facet__filter"
+                              count={1}
+                              isCloseable={false}
+                              key="0"
+                              label="Cancer Prevention"
+                              onChange={[Function]}
+                              value="cancer_prevention"
+                            >
+                              <Theme
+                                aria-checked={false}
+                                className="facet__filter"
+                                element="label"
+                                onKeyPress={[Function]}
+                                role="checkbox"
+                                tabIndex="0"
+                              >
+                                <label
+                                  aria-checked={false}
+                                  className="facet__filter  "
+                                  onKeyPress={[Function]}
+                                  role="checkbox"
+                                  tabIndex="0"
+                                >
+                                  <Theme
+                                    checked={false}
+                                    className="filter__checkbox"
+                                    element="input"
+                                    onChange={[Function]}
+                                    tabIndex="-1"
+                                    type="checkbox"
+                                    value="Cancer Prevention"
+                                  >
+                                    <input
+                                      checked={false}
+                                      className="filter__checkbox  "
+                                      onChange={[Function]}
+                                      tabIndex="-1"
+                                      type="checkbox"
+                                      value="Cancer Prevention"
+                                    />
+                                  </Theme>
+                                  <Theme
+                                    className="filter__label"
+                                    element="span"
+                                  >
+                                    <span
+                                      className="filter__label  "
+                                    >
+                                      <div
+                                        className="checkbox__outline"
+                                      />
+                                      Cancer Prevention (1)
+                                    </span>
+                                  </Theme>
+                                </label>
+                              </Theme>
+                            </CheckFilter>
+                            <CheckFilter
+                              checked={false}
+                              className="facet__filter"
+                              count={1}
+                              isCloseable={false}
+                              key="1"
+                              label="Cancer & Public Health"
+                              onChange={[Function]}
+                              value="cancer_public_health"
+                            >
+                              <Theme
+                                aria-checked={false}
+                                className="facet__filter"
+                                element="label"
+                                onKeyPress={[Function]}
+                                role="checkbox"
+                                tabIndex="0"
+                              >
+                                <label
+                                  aria-checked={false}
+                                  className="facet__filter  "
+                                  onKeyPress={[Function]}
+                                  role="checkbox"
+                                  tabIndex="0"
+                                >
+                                  <Theme
+                                    checked={false}
+                                    className="filter__checkbox"
+                                    element="input"
+                                    onChange={[Function]}
+                                    tabIndex="-1"
+                                    type="checkbox"
+                                    value="Cancer & Public Health"
+                                  >
+                                    <input
+                                      checked={false}
+                                      className="filter__checkbox  "
+                                      onChange={[Function]}
+                                      tabIndex="-1"
+                                      type="checkbox"
+                                      value="Cancer & Public Health"
+                                    />
+                                  </Theme>
+                                  <Theme
+                                    className="filter__label"
+                                    element="span"
+                                  >
+                                    <span
+                                      className="filter__label  "
+                                    >
+                                      <div
+                                        className="checkbox__outline"
+                                      />
+                                      Cancer & Public Health (1)
+                                    </span>
+                                  </Theme>
+                                </label>
+                              </Theme>
+                            </CheckFilter>
+                            <CheckFilter
+                              checked={false}
+                              className="facet__filter"
+                              count={1}
+                              isCloseable={false}
+                              key="2"
+                              label="Causes of Cancer"
+                              onChange={[Function]}
+                              value="causes_of_cancer"
+                            >
+                              <Theme
+                                aria-checked={false}
+                                className="facet__filter"
+                                element="label"
+                                onKeyPress={[Function]}
+                                role="checkbox"
+                                tabIndex="0"
+                              >
+                                <label
+                                  aria-checked={false}
+                                  className="facet__filter  "
+                                  onKeyPress={[Function]}
+                                  role="checkbox"
+                                  tabIndex="0"
+                                >
+                                  <Theme
+                                    checked={false}
+                                    className="filter__checkbox"
+                                    element="input"
+                                    onChange={[Function]}
+                                    tabIndex="-1"
+                                    type="checkbox"
+                                    value="Causes of Cancer"
+                                  >
+                                    <input
+                                      checked={false}
+                                      className="filter__checkbox  "
+                                      onChange={[Function]}
+                                      tabIndex="-1"
+                                      type="checkbox"
+                                      value="Causes of Cancer"
+                                    />
+                                  </Theme>
+                                  <Theme
+                                    className="filter__label"
+                                    element="span"
+                                  >
+                                    <span
+                                      className="filter__label  "
+                                    >
+                                      <div
+                                        className="checkbox__outline"
+                                      />
+                                      Causes of Cancer (1)
+                                    </span>
+                                  </Theme>
+                                </label>
+                              </Theme>
+                            </CheckFilter>
+                          </div>
+                        </Theme>
+                      </FilterBox>
+                      <FilterBox
+                        facet={
+                          Object {
+                            "items": Object {
+                              "epidemiologic": Object {
+                                "count": 1,
+                                "label": "Epidemiologic",
+                                "selected": false,
+                              },
+                            },
+                            "title": "Research Types",
+                          }
+                        }
+                        isCloseable={false}
+                        isVisible={true}
+                        onChange={[Function]}
+                      >
+                        <Theme
+                          className="facet__box "
+                          element="div"
+                        >
+                          <div
+                            className="facet__box  "
+                          >
+                            <Theme
+                              className="facet__title "
+                              element="h4"
+                            >
+                              <h4
+                                className="facet__title  "
+                              >
+                                Research Types
+                              </h4>
+                            </Theme>
+                            <CheckFilter
+                              checked={false}
+                              className="facet__filter"
+                              count={1}
+                              isCloseable={false}
+                              key="0"
+                              label="Epidemiologic"
+                              onChange={[Function]}
+                              value="epidemiologic"
+                            >
+                              <Theme
+                                aria-checked={false}
+                                className="facet__filter"
+                                element="label"
+                                onKeyPress={[Function]}
+                                role="checkbox"
+                                tabIndex="0"
+                              >
+                                <label
+                                  aria-checked={false}
+                                  className="facet__filter  "
+                                  onKeyPress={[Function]}
+                                  role="checkbox"
+                                  tabIndex="0"
+                                >
+                                  <Theme
+                                    checked={false}
+                                    className="filter__checkbox"
+                                    element="input"
+                                    onChange={[Function]}
+                                    tabIndex="-1"
+                                    type="checkbox"
+                                    value="Epidemiologic"
+                                  >
+                                    <input
+                                      checked={false}
+                                      className="filter__checkbox  "
+                                      onChange={[Function]}
+                                      tabIndex="-1"
+                                      type="checkbox"
+                                      value="Epidemiologic"
+                                    />
+                                  </Theme>
+                                  <Theme
+                                    className="filter__label"
+                                    element="span"
+                                  >
+                                    <span
+                                      className="filter__label  "
+                                    >
+                                      <div
+                                        className="checkbox__outline"
+                                      />
+                                      Epidemiologic (1)
+                                    </span>
+                                  </Theme>
+                                </label>
+                              </Theme>
+                            </CheckFilter>
+                          </div>
+                        </Theme>
+                      </FilterBox>
+                    </section>
+                  </Theme>
+                </Filters>
+                <Theme
+                  aria-label="search results"
+                  className="results-container"
+                  element="section"
+                >
+                  <section
+                    aria-label="search results"
+                    className="results-container  "
+                  >
+                    <ResultTile
+                      description="<p>A collection of questionnaires and questionnaire segments for use in a wide variety of epidemiological studies. </p>"
+                      id={127}
+                      key="0"
+                      onClick={[Function]}
+                      title="Questionnaire Development Resources"
+                    >
+                      <Theme
+                        aria-label="search result"
+                        className="result-tile"
+                        element="article"
+                      >
+                        <article
+                          aria-label="search result"
+                          className="result-tile  "
+                        >
+                          <h2>
+                            <Link
+                              onClick={[Function]}
+                              replace={false}
+                              to="/resource/127"
+                            >
+                              <a
+                                href="/resource/127"
+                                onClick={[Function]}
+                              >
+                                Questionnaire Development Resources
+                              </a>
+                            </Link>
+                          </h2>
+                          <p
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<p>A collection of questionnaires and questionnaire segments for use in a wide variety of epidemiological studies. </p>",
+                              }
+                            }
+                          />
+                        </article>
+                      </Theme>
+                    </ResultTile>
+                  </section>
+                </Theme>
+              </div>
+            </Theme>
+            <Theme
+              className="r4r-pager"
+              element="nav"
+            >
+              <nav
+                className="r4r-pager  "
+              >
+                <Pager
+                  onClick={[Function]}
+                  pageSize={20}
+                  resultsSize={1}
+                  startFrom={0}
+                  total={1}
+                  withCounter={false}
+                />
+              </nav>
+            </Theme>
+          </div>
+        </Theme>
+      </Results>
+    </ThemeProvider>
+  </Router>
+</StaticRouter>
+`;
+
+exports[`Results view renders correctly without results 1`] = `
+<Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Resources for Researchers: Search Results - National Cancer Institute
+    </title>
+    <meta
+      content="undefined/search"
+      property="og:url"
+    />
+    <meta
+      content="Resources for Researchers: Search Results - National Cancer Institute"
+      property="og:title"
+    />
+  </HelmetWrapper>
+  <Spinner />
+</Fragment>
+`;

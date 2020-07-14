@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <title>Resource For Researchers</title>
+    <link rel="stylesheet" href="%PUBLIC_URL%/Common.css"></link>
+    <link rel="stylesheet" href="%PUBLIC_URL%/R4R.css"></link>
+    <script type="text/javascript">
+    window.publicUrl = "%PUBLIC_URL%";
+    const cfgs = [
+      {
+        "customTheme": {
+          "r4r-container": "row",
+          "searchbar__container": "cancer-gov",
+          "searchbar__button--submit": "button",
+          "browse__tile": "arrow-link",
+          "similar-resource__tile": "arrow-link"
+        }
+      }
+    ]
+
+      window.APP_PARAMS = cfgs[0];
+    </script>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="r4r-root"></div>
+      <div class="main-content">
+        <div class="contentzone">
+          <div id="NCI-app-root"></div>
+        </div>
+      </div>
   </body>
 </html>
