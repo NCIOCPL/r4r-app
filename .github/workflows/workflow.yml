@@ -111,11 +111,11 @@ jobs:
           REPO_OWNER=$(jq -r '.repo_owner' < ./build-artifact/build-info.json)
           REPO_NAME=$(jq -r '.repo_name' < ./build-artifact/build-info.json)
           ## Set Action Env
-          echo ::set-env name=BUILD_NAME::$(echo $BUILD_NAME)
-          echo ::set-env name=BRANCH_NAME::$(echo $BRANCH_NAME)
-          echo ::set-env name=COMMIT_HASH::$(echo $COMMIT_HASH)
-          echo ::set-env name=REPO_OWNER::$(echo $REPO_OWNER)
-          echo ::set-env name=REPO_NAME::$(echo $REPO_NAME)
+          echo "BUILD_NAME=${BUILD_NAME}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+          echo "COMMIT_HASH=${COMMIT_HASH}" >> $GITHUB_ENV
+          echo "REPO_OWNER=${REPO_OWNER}" >> $GITHUB_ENV
+          echo "REPO_NAME=${REPO_NAME}" >> $GITHUB_ENV
           ######## ERROR IF PR FROM FORK
           if [ "$REPO_OWNER" != "NCIOCPL" ]; then
             echo "YOU SHOULD NOT SEND PR FROM FORK!!!"
