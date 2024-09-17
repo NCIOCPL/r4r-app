@@ -20,7 +20,14 @@ const outputFileName = path.join(
 );
 
 try {
-	const inputCss = fs.readFileSync(inputFileName, 'utf8') + '\n' + fs.readFileSync(addlCSS, 'utf8');
+	const inputCss = fs.readFileSync(inputFileName, 'utf8') + '\n' + fs.readFileSync(addlCSS, 'utf8') + `
+		#NCI-R4R-root {
+			margin-bottom: 24px;
+			.searchbar__container input:focus {
+					outline: 0.25rem solid #2491ff;
+			}
+		}
+	`;
 
 	const outputCss = postcss()
 		.use(
