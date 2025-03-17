@@ -26,6 +26,7 @@ import {
 } from "./cache";
 import { createTheme, ThemeProvider, Theme } from "./theme";
 import { getProductTestBase } from "./utilities/getProductTestBase";
+import cgdpGenericAppModuleInit from "./cgdp-legacy/cgdp-generic-app-module-init";
 
 // This block is for CGOV custom theming development only. Comment out for widgetizing.
 // if(process.env.NODE_ENV !== 'production') {
@@ -159,6 +160,8 @@ const initializeR4R = ({
 };
 
 export default initializeR4R;
+
+window.R4RApp = cgdpGenericAppModuleInit(initializeR4R);
 
 /*************************************
  *  DEVELOPMENT CONFIG
