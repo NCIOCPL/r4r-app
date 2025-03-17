@@ -1,6 +1,6 @@
 {
   "name": "@nciocpl/r4r-app",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "main": "build/static/js/main.js",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -70,8 +70,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-		"build:cgdp-legacy": "node scripts/generate-cgdp-legacy.js",
-		"build:cra": "node scripts/build.js",
+    "build:cgdp-legacy": "node scripts/generate-cgdp-legacy.js",
+    "build:cra": "node scripts/build.js",
     "build": "npm run build:cra && npm run build:cgdp-legacy",
     "test": "node scripts/test.js --env=jsdom",
     "lint": "echo 'hahahahaha 😭'",
