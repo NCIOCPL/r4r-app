@@ -14,6 +14,7 @@ html, body, #r4r-root {
   height: 100%;
   width: 100%;
   position: relative;
+	margin-bottom: 24px;
 }
 
 .r4r-container.r4r-DEFAULT {
@@ -61,4 +62,8 @@ html, body, #r4r-root {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+.r4r-container .searchbar__container input:focus {
+	outline: 0.25rem solid #2491ff;
 }
